@@ -39,6 +39,14 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
             }
           }
         ]
+      },
+      {
+        name: 'Area',
+        path: 'area',
+        meta: {
+          title: '城市选择器'
+        },
+        component: () => import('@/views/components/area/index.vue')
       }
     ]
   }
