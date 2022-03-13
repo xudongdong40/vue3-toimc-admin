@@ -1,0 +1,18 @@
+// =================================
+// ==============custom==========
+// =================================
+
+:deep(.el-table th),
+:deep(.el-table td) {
+  padding: 16px 0;
+}
+
+:deep(.el-table th > .cell) {
+  font-size: 16px;
+}
+
+:deep(.el-table .cell) {
+  padding: 0 15px;
+  font-size: 14px;
+  color: #333;
+}
