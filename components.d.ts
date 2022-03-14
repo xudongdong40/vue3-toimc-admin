@@ -15,17 +15,18 @@ declare module 'vue' {
     ElIcon: typeof import('element-plus/es')['ElIcon']
     ElMenu: typeof import('element-plus/es')['ElMenu']
     ElMenuItem: typeof import('element-plus/es')['ElMenuItem']
+    ElOption: typeof import('element-plus/es')['ElOption']
     ElRow: typeof import('element-plus/es')['ElRow']
     ElSelect: typeof import('element-plus/es')['ElSelect']
     ElSubMenu: typeof import('element-plus/es')['ElSubMenu']
     ElSwitch: typeof import('element-plus/es')['ElSwitch']
-    Header: typeof import('./src/components/Header/index.vue')['default']
     Icon: typeof import('./src/components/Icon/index.vue')['default']
     IconList: typeof import('./src/components/Icon/IconList.vue')['default']
     IconPicker: typeof import('./src/components/Icon/IconPicker.vue')['default']
     Menu: typeof import('./src/components/Nav/Menu.vue')['default']
     MenuItem: typeof import('./src/components/Nav/MenuItem.vue')['default']
     SubMenu: typeof import('./src/components/Nav/SubMenu.vue')['default']
+    Trend: typeof import('./src/components/Trend/index.vue')['default']
   }
 }
 

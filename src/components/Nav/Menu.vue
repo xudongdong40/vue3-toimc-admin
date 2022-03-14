@@ -23,7 +23,7 @@ import type { AppRouteRecordRaw } from '@/router/types'
 import type { PropType } from 'vue';
 
 export default defineComponent({
-  name: 'NavMenu',
+  name: 'Menu',
   props: {
     mode: {
       type: String as PropType<'vertical' | 'horizanal'>,

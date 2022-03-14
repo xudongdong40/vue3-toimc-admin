@@ -15,6 +15,7 @@ import type { PropType } from 'vue'
 import { useNav } from './useNav';
 
 export default defineComponent({
+  name: 'MenuItem',
   props: {
     item: {
       type: Object as PropType<AppRouteRecordRaw>,

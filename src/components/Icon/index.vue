@@ -9,6 +9,7 @@ import { defineComponent, PropType } from 'vue'
 import type { IconTypes } from './types'
 
 export default defineComponent({
+  name: 'Icon',
   props: {
     color: {
       type: String,

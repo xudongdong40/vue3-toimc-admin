@@ -1,4 +1,6 @@
 import type { AppRouteRecordRaw } from '@/router/types'
+import type { App } from 'vue'
+
 import { sortBy } from 'lodash'
 
 // 菜单排序
@@ -17,8 +19,20 @@ export function toLine(name: string) {
 }
 
 // 导入插件
-export function setupPlugins(app, files) {
+export function setupPlugins(app: App, files) {
   Object.keys(files).forEach((file) => {
     app.use(files[file as keyof typeof files])
   })
+}
+
+// 注册组件
+export const withInstall = <T>(component: T, alias?: string) => {
+  const comp = component as any
+  comp.install = (app: App) => {
+    app.component(comp.name || comp.displayName, component)
+    if (alias) {
+      app.config.globalProperties[alias] = component
+    }
+  }
+  return component as T
 }

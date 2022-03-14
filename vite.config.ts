@@ -29,6 +29,9 @@ export default defineConfig({
       dts: true
     })
   ],
+  json: {
+    stringify: true
+  },
   resolve: {
     alias: {
       '@': path.resolve(__dirname, '/src'),

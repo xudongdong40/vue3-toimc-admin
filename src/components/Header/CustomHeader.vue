@@ -26,6 +26,7 @@
 
 <script lang="ts">
 export default defineComponent({
+  name: 'CustomHeader',
   props: {
     collapse: {
       type: Boolean,

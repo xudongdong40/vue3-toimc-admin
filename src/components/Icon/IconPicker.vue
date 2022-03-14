@@ -12,8 +12,8 @@
         :choose="choose"
         @click="handlePick"
       ></icon-list>
-      <template v-if="footer" #footer>
-        <span class="dialog-footer">
+      <template #footer>
+        <span v-if="footer" class="dialog-footer">
           <el-button @click="handleCancel">取消</el-button>
           <el-button type="primary" @click="handleConfirm">确定</el-button>
         </span>
@@ -28,6 +28,7 @@ import type { IconTypes } from '@/components/Icon/types';
 import { IconData } from '@/components/Icon/data';
 
 export default defineComponent({
+  name: 'IconPicker',
   props: {
     choose: {
       type: [String, Number],

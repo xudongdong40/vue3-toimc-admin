@@ -47,6 +47,22 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
           title: '城市选择器'
         },
         component: () => import('@/views/components/area/index.vue')
+      },
+      {
+        name: 'Trends',
+        path: 'trends',
+        meta: {
+          title: '趋势指示'
+        },
+        component: () => import('@/views/components/trends/index.vue')
+      },
+      {
+        name: 'NoticeMessage',
+        path: 'notice',
+        meta: {
+          title: '通知菜单'
+        },
+        component: () => import('@/views/components/notice-message/index.vue')
       }
     ]
   }
