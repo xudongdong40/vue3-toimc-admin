@@ -1,34 +1,36 @@
 <template>
-  <el-card>
-    <template #header>
-      <el-row justify="space-between">
-        <div>ElementPlus图标</div>
-        <el-row align="middle">
+  <div class="p-4 wrapper">
+    <el-card>
+      <template #header>
+        <el-row justify="space-between">
+          <div>ElementPlus图标</div>
           <el-row align="middle">
-            <div class="pr-1">只复制icon名</div>
-            <el-switch v-model="copyAll" />
-          </el-row>
-          <el-divider direction="vertical"></el-divider>
-          <el-row align="middle">
-            <div class="pr-1">显示文字</div>
-            <el-switch v-model="showText" />
-          </el-row>
-          <el-divider direction="vertical"></el-divider>
-          <el-row align="middle">
-            <div class="pr-1">显示图标</div>
-            <el-switch v-model="showIcon" />
+            <el-row align="middle">
+              <div class="pr-1">只复制icon名</div>
+              <el-switch v-model="copyAll" />
+            </el-row>
+            <el-divider direction="vertical"></el-divider>
+            <el-row align="middle">
+              <div class="pr-1">显示文字</div>
+              <el-switch v-model="showText" />
+            </el-row>
+            <el-divider direction="vertical"></el-divider>
+            <el-row align="middle">
+              <div class="pr-1">显示图标</div>
+              <el-switch v-model="showIcon" />
+            </el-row>
           </el-row>
         </el-row>
-      </el-row>
-    </template>
-    <icon-list
-      :items="items"
-      :show-icon="showIcon"
-      :show-text="showText"
-      :classes="classes"
-      @click="handleCopy"
-    ></icon-list>
-  </el-card>
+      </template>
+      <icon-list
+        :items="items"
+        :show-icon="showIcon"
+        :show-text="showText"
+        :classes="classes"
+        @click="handleCopy"
+      ></icon-list>
+    </el-card>
+  </div>
 </template>
 
 <script lang="ts">
@@ -68,5 +70,8 @@ export default defineComponent({
 })
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+.wrapper {
+  overflow-y: auto;
+}
 </style>

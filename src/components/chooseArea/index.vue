@@ -24,6 +24,7 @@ import type { AreaResult } from './types'
 import allAreas from './data/pca-code.json'
 
 export default defineComponent({
+  name: 'ChooseArea',
   props: {
     lists: {
       type: Array as PropType<typeof allAreas>,

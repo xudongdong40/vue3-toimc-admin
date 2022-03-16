@@ -24,8 +24,8 @@
 
 <script lang="ts">
 import type { PropType } from 'vue'
-import type { IconTypes } from '@/components/Icon/types';
-import { IconData } from '@/components/Icon/data';
+import type { IconTypes } from './types';
+import { IconData } from './data';
 
 export default defineComponent({
   name: 'IconPicker',
