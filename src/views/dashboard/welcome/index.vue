@@ -1,7 +1,7 @@
 <template>
   <div>
     123123
-    <hello></hello>
+    <!-- icon集成 -->
   </div>
 </template>
 

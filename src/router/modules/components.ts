@@ -31,6 +31,14 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
             }
           },
           {
+            name: 'IconifyIcons',
+            path: 'element',
+            component: () => import('@/views/components/icon/Iconify.vue'),
+            meta: {
+              title: 'Iconify图标集'
+            }
+          },
+          {
             name: 'IconPicker',
             path: 'element',
             component: () => import('@/views/components/icon/Picker.vue'),

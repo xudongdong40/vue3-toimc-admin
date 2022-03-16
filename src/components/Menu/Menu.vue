@@ -5,10 +5,11 @@
     class="el-menu-custom flex-1"
     :mode="mode"
     :collapse="collapse"
-    background-color="#000"
+    :background-color="backgroundColor"
     text-color="#ffffffb3"
     active-text-color="#fff"
     :style="{ '--menu-width': width }"
+    v-bind="$attrs"
   >
     <slot></slot>
     <template v-for="item in menusWithKeys" :key="item.path">
@@ -40,7 +41,11 @@ export default defineComponent({
     width: {
       type: String,
       default: '210px'
-    }
+    },
+    backgroundColor: {
+      type: String,
+      default: '#000'
+    },
   },
   emits: ['menuClick'],
   setup(props) {

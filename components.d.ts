@@ -4,7 +4,7 @@
 
 declare module 'vue' {
   export interface GlobalComponents {
-    ChooseArea: typeof import('./src/components/chooseArea/index.vue')['default']
+    ChooseArea: typeof import('./src/components/ChooseArea/index.vue')['default']
     CustomHeader: typeof import('./src/components/Header/CustomHeader.vue')['default']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']
     ElBadge: typeof import('element-plus/es')['ElBadge']
@@ -27,15 +27,16 @@ declare module 'vue' {
     ElTabPane: typeof import('element-plus/es')['ElTabPane']
     ElTabs: typeof import('element-plus/es')['ElTabs']
     ElTag: typeof import('element-plus/es')['ElTag']
+    ICarbonAccessibility: typeof import('~icons/carbon/accessibility')['default']
     Icon: typeof import('./src/components/Icon/index.vue')['default']
     IconList: typeof import('./src/components/Icon/IconList.vue')['default']
     IconPicker: typeof import('./src/components/Icon/IconPicker.vue')['default']
+    IMdiAccountBox: typeof import('~icons/mdi/account-box')['default']
     Menu: typeof import('./src/components/Menu/Menu.vue')['default']
     MenuItem: typeof import('./src/components/Menu/MenuItem.vue')['default']
     MessageList: typeof import('./src/components/List/MessageList.vue')['default']
     NoticePad: typeof import('./src/components/NoticePad/index.vue')['default']
     Notification: typeof import('./src/components/NoticePad/Notification.vue')['default']
-    Src: typeof import('./src/components/NoticePad/src/index.vue')['default']
     SubMenu: typeof import('./src/components/Menu/SubMenu.vue')['default']
     Trend: typeof import('./src/components/Trend/index.vue')['default']
   }

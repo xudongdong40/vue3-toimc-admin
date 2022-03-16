@@ -1,16 +1,25 @@
 <template>
   <el-icon :color="color" :size="size" :class="classes">
-    <component :is="type"></component>
+    <IconifyVueIcon :icon="iconName" v-bind="$attrs"></IconifyVueIcon>
   </el-icon>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue'
-import type { IconTypes } from './types'
+import { defineComponent } from 'vue'
+// import type { IconTypes } from './types'
+import { Icon as IconifyVueIcon } from '@iconify/vue'
+import { toLine } from '@/utils'
 
 export default defineComponent({
   name: 'Icon',
+  components: {
+    IconifyVueIcon
+  },
   props: {
+    collection: {
+      type: String,
+      default: 'ep'
+    },
     color: {
       type: String,
       default: 'auto'
@@ -20,18 +29,25 @@ export default defineComponent({
       default: ''
     },
     type: {
-      type: String as PropType<IconTypes>,
+      type: String,
       default: ''
     },
     classes: {
       type: String,
       default: ''
+    },
+    icon: {
+      type: String,
+      default: ''
     }
   },
-  setup() {
+  setup(props) {
+    const { collection, type, icon } = toRefs(props)
 
 
-    return {}
+    return {
+      iconName: computed(() => icon.value || `${collection.value}:${toLine(type.value)}`)
+    }
   }
 })
 </script>
