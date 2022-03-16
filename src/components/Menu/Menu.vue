@@ -3,7 +3,7 @@
   <el-menu
     :default-active="'1'"
     class="el-menu-custom flex-1"
-    :mode="mode && 'vertical'"
+    :mode="mode"
     :collapse="collapse"
     background-color="#000"
     text-color="#ffffffb3"
@@ -26,7 +26,7 @@ export default defineComponent({
   name: 'Menu',
   props: {
     mode: {
-      type: String as PropType<'vertical' | 'horizanal'>,
+      type: String as PropType<'vertical' | 'horizontal'>,
       default: 'vertical'
     },
     menus: {
