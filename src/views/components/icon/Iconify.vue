@@ -18,23 +18,20 @@
       <div>使用vite插件直接使用 i 标签</div>
       <el-row>
         <i-carbon-accessibility />
-        <i-mdi-account-box style="font-size: 2em; color: red; " />
+        <i-mdi-account-box style="font-size: 2em; color: red;" />
       </el-row>
     </el-card>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+  import { defineComponent } from 'vue'
 
-export default defineComponent({
-  setup() {
-
-
-    return {}
-  }
-})
+  export default defineComponent({
+    setup() {
+      return {}
+    }
+  })
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

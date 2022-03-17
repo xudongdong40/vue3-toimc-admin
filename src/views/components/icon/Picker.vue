@@ -10,28 +10,27 @@
 </template>
 
 <script lang="ts">
-import { ElMessage } from 'element-plus'
+  import { ElMessage } from 'element-plus'
 
-export default defineComponent({
-  setup() {
-    const choose = ref('')
-    const choose1 = ref('')
+  export default defineComponent({
+    setup() {
+      const choose = ref('')
+      const choose1 = ref('')
 
-    function pick(item) {
-      ElMessage({
-        type: 'success',
-        message: '回调pick：' + item
-      })
+      function pick(item) {
+        ElMessage({
+          type: 'success',
+          message: '回调pick：' + item
+        })
+      }
+
+      return {
+        choose,
+        choose1,
+        pick
+      }
     }
-
-    return {
-      choose,
-      choose1,
-      pick
-    }
-  }
-})
+  })
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

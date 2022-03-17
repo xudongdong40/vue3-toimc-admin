@@ -5,52 +5,50 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-// import type { IconTypes } from './types'
-import { Icon as IconifyVueIcon } from '@iconify/vue'
-import { toLine } from '@/utils'
+  import { defineComponent } from 'vue'
+  // import type { IconTypes } from './types'
+  import { Icon as IconifyVueIcon } from '@iconify/vue'
+  import { toLine } from '@/utils'
 
-export default defineComponent({
-  name: 'Icon',
-  components: {
-    IconifyVueIcon
-  },
-  props: {
-    collection: {
-      type: String,
-      default: 'ep'
+  export default defineComponent({
+    name: 'Icon',
+    components: {
+      IconifyVueIcon
     },
-    color: {
-      type: String,
-      default: 'auto'
+    props: {
+      collection: {
+        type: String,
+        default: 'ep'
+      },
+      color: {
+        type: String,
+        default: 'auto'
+      },
+      size: {
+        type: String,
+        default: ''
+      },
+      type: {
+        type: String,
+        default: ''
+      },
+      classes: {
+        type: String,
+        default: ''
+      },
+      icon: {
+        type: String,
+        default: ''
+      }
     },
-    size: {
-      type: String,
-      default: ''
-    },
-    type: {
-      type: String,
-      default: ''
-    },
-    classes: {
-      type: String,
-      default: ''
-    },
-    icon: {
-      type: String,
-      default: ''
+    setup(props) {
+      const { collection, type, icon } = toRefs(props)
+
+      return {
+        iconName: computed(() => icon.value || `${collection.value}:${toLine(type.value)}`)
+      }
     }
-  },
-  setup(props) {
-    const { collection, type, icon } = toRefs(props)
-
-
-    return {
-      iconName: computed(() => icon.value || `${collection.value}:${toLine(type.value)}`)
-    }
-  }
-})
+  })
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

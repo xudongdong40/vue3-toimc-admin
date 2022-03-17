@@ -18,27 +18,27 @@
 </template>
 
 <script lang="ts">
-import { asyncRoutes } from '@/router/index'
+  import { asyncRoutes } from '@/router/index'
 
-export default defineComponent({
-  setup() {
-    const isCollapse = ref(false)
-    return {
-      asyncRoutes,
-      isCollapse
+  export default defineComponent({
+    setup() {
+      const isCollapse = ref(false)
+      return {
+        asyncRoutes,
+        isCollapse
+      }
     }
-  }
-})
+  })
 </script>
 
 <style lang="scss" scoped>
-.el-menu {
-  border-right: none;
-}
-
-.el-menu-vertical {
-  .is-active {
-    background-color: #0960bd !important;
+  .el-menu {
+    border-right: none;
   }
-}
+
+  .el-menu-vertical {
+    .is-active {
+      background-color: #0960bd !important;
+    }
+  }
 </style>

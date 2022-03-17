@@ -2,39 +2,36 @@
   <el-menu-item :index="getIndex(item)" @click="(e) => handleMenuClick(e, item)">
     <icon v-if="item?.meta?.icon" :type="getIcons(item)" />
     <template #title>
-      {{
-        item.meta?.title
-      }}
+      {{ item.meta?.title }}
     </template>
   </el-menu-item>
 </template>
 
 <script lang="ts">
-import type { AppRouteRecordRaw } from '@/router/types';
-import type { PropType } from 'vue'
-import { useNav } from './useNav';
+  import type { AppRouteRecordRaw } from '@/router/types'
+  import type { PropType } from 'vue'
+  import { useNav } from './useNav'
 
-export default defineComponent({
-  name: 'MenuItem',
-  props: {
-    item: {
-      type: Object as PropType<AppRouteRecordRaw>,
-      default: () => ({})
-    }
-  },
-  emits: ['menuClick'],
-  setup(_props, { emit }) {
-    const { menuHasChildren, getIndex, handleMenuClick, getIcons } = useNav(emit)
+  export default defineComponent({
+    name: 'MenuItem',
+    props: {
+      item: {
+        type: Object as PropType<AppRouteRecordRaw>,
+        default: () => ({})
+      }
+    },
+    emits: ['menuClick'],
+    setup(_props, { emit }) {
+      const { menuHasChildren, getIndex, handleMenuClick, getIcons } = useNav(emit)
 
-    return {
-      menuHasChildren,
-      getIndex,
-      handleMenuClick,
-      getIcons
+      return {
+        menuHasChildren,
+        getIndex,
+        handleMenuClick,
+        getIcons
+      }
     }
-  }
-})
+  })
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

@@ -39,113 +39,112 @@
 </template>
 
 <script lang="ts">
-import { ActionOptions, MessageListItem, MessageListOptions } from '@/components/List/types'
+  import { ActionOptions, MessageListItem, MessageListOptions } from '@/components/List/types'
 
-export default defineComponent({
-  setup() {
-    const actions = ref([
-      {
-        title: '清空',
-        icon: 'Delete'
-      },
-      {
-        title: '更多',
-        icon: 'More'
+  export default defineComponent({
+    setup() {
+      const actions = ref([
+        {
+          title: '清空',
+          icon: 'Delete'
+        },
+        {
+          title: '更多',
+          icon: 'More'
+        }
+      ] as ActionOptions[])
+
+      const lists = ref([
+        {
+          title: '通知',
+          content: [
+            {
+              title: '消息1',
+              avatar: 'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png',
+              msg: '消息内容1',
+              time: '2022-01-01 14:55:33',
+              desc: '这里是描述信息..这里是描述信息..这里是描述信息..这里是描述信息..这里是描述信息..这里是描述信息..这里是描述信息..这里是描述信息..这里是描述信息..这里是描述信息..这里是描述信息..这里是描述信息..这里是描述信息..这里是描述信息..这里是描述信息..这里是描述信息..',
+              tag: '紧急',
+              tagType: 'danger'
+            },
+            {
+              title: '消息1',
+              avatar: 'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png',
+              msg: '消息内容1',
+              time: '2022-01-01 14:55:33'
+            },
+            {
+              title: '消息1',
+              avatar: 'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png',
+              msg: '消息内容1',
+              time: '2022-01-01 14:55:33'
+            }
+          ]
+        },
+        {
+          title: '关注',
+          content: [
+            {
+              title: '消息3',
+              avatar: 'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png',
+              msg: '消息内容1',
+              time: '2022-01-01 14:55:33'
+            },
+            {
+              title: '消息3',
+              avatar: 'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png',
+              msg: '消息内容3',
+              time: '2022-01-01 14:55:33',
+              tag: '通知',
+              tagType: 'info'
+            },
+            {
+              title: '消息3',
+              avatar: 'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png',
+              msg: '消息内容1',
+              time: '2022-01-01 14:55:33'
+            }
+          ]
+        },
+        {
+          title: '待办',
+          content: [
+            {
+              title: '消息2',
+              avatar: 'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png',
+              msg: '消息内容1',
+              time: '2022-01-01 14:55:33'
+            },
+            {
+              title: '消息2',
+              avatar: 'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png',
+              time: '2022-01-01 14:55:33',
+              tag: '通知',
+              tagType: 'info'
+            },
+            {
+              title: '消息2',
+              avatar: 'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png',
+              msg: '消息内容1',
+              time: '2022-01-01 14:55:33'
+            }
+          ]
+        }
+      ] as MessageListOptions[])
+
+      const clickItem = ref()
+      const handleClick = (item: MessageListItem, index) => {
+        console.log('🚀 ~ file: index.vue ~ line 137 ~ handleClick ~ index', index)
+        clickItem.value = item
       }
-    ] as ActionOptions[])
-
-    const lists = ref(
-      [{
-        title: '通知',
-        content: [
-          {
-            title: '消息1',
-            avatar: 'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png',
-            msg: '消息内容1',
-            time: '2022-01-01 14:55:33',
-            desc: '这里是描述信息..这里是描述信息..这里是描述信息..这里是描述信息..这里是描述信息..这里是描述信息..这里是描述信息..这里是描述信息..这里是描述信息..这里是描述信息..这里是描述信息..这里是描述信息..这里是描述信息..这里是描述信息..这里是描述信息..这里是描述信息..',
-            tag: '紧急',
-            tagType: 'danger'
-          },
-          {
-            title: '消息1',
-            avatar: 'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png',
-            msg: '消息内容1',
-            time: '2022-01-01 14:55:33'
-          },
-          {
-            title: '消息1',
-            avatar: 'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png',
-            msg: '消息内容1',
-            time: '2022-01-01 14:55:33'
-          }
-        ]
-      },
-      {
-        title: '关注',
-        content: [
-          {
-            title: '消息3',
-            avatar: 'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png',
-            msg: '消息内容1',
-            time: '2022-01-01 14:55:33'
-          },
-          {
-            title: '消息3',
-            avatar: 'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png',
-            msg: '消息内容3',
-            time: '2022-01-01 14:55:33',
-            tag: '通知',
-            tagType: 'info'
-          },
-          {
-            title: '消息3',
-            avatar: 'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png',
-            msg: '消息内容1',
-            time: '2022-01-01 14:55:33'
-          }
-        ]
-      },
-      {
-        title: '待办',
-        content: [
-          {
-            title: '消息2',
-            avatar: 'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png',
-            msg: '消息内容1',
-            time: '2022-01-01 14:55:33'
-          },
-          {
-            title: '消息2',
-            avatar: 'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png',
-            time: '2022-01-01 14:55:33',
-            tag: '通知',
-            tagType: 'info'
-          },
-          {
-            title: '消息2',
-            avatar: 'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png',
-            msg: '消息内容1',
-            time: '2022-01-01 14:55:33'
-          }
-        ]
-      }] as MessageListOptions[]
-    )
-
-    const clickItem = ref()
-    const handleClick = (item: MessageListItem, index) => {
-      console.log('🚀 ~ file: index.vue ~ line 137 ~ handleClick ~ index', index)
-      clickItem.value = item
+      return {
+        actions,
+        lists,
+        clickItem,
+        handleClick
+      }
     }
-    return {
-      actions,
-      lists,
-      clickItem,
-      handleClick
-    }
-  }
-})
+  })
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

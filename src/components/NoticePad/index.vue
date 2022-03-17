@@ -17,53 +17,50 @@
 </template>
 
 <script lang="ts">
-import { PropType } from 'vue'
-import { IconTypes } from '@/components/Icon/types'
-import { BadgeTypes } from '@/components/NoticePad/types'
+  import { PropType } from 'vue'
+  import { IconTypes } from '@/components/Icon/types'
+  import { BadgeTypes } from '@/components/NoticePad/types'
 
-export default defineComponent({
-  name: 'NoticePad',
-  props: {
-    size: {
-      type: String,
-      default: '28px'
+  export default defineComponent({
+    name: 'NoticePad',
+    props: {
+      size: {
+        type: String,
+        default: '28px'
+      },
+      icon: {
+        type: String as PropType<IconTypes>,
+        default: 'Bell'
+      },
+      value: {
+        type: [String, Number],
+        default: ''
+      },
+      max: {
+        type: Number,
+        default: Infinity
+      },
+      isDot: {
+        type: Boolean,
+        default: false
+      },
+      type: {
+        type: String as PropType<BadgeTypes>,
+        default: 'danger'
+      },
+      width: {
+        type: Number,
+        default: 300
+      },
+      trigger: {
+        type: String as PropType<'click' | 'hover'>,
+        default: 'click'
+      }
     },
-    icon: {
-      type: String as PropType<IconTypes>,
-      default: 'Bell'
-    },
-    value: {
-      type: [String, Number],
-      default: ''
-    },
-    max: {
-      type: Number,
-      default: Infinity
-    },
-    isDot: {
-      type: Boolean,
-      default: false
-    },
-    type: {
-      type: String as PropType<BadgeTypes>,
-      default: 'danger'
-    },
-    width: {
-      type: Number,
-      default: 300
-    },
-    trigger: {
-      type: String as PropType<'click' | 'hover'>,
-      default: 'click'
+    setup() {
+      return {}
     }
-  },
-  setup() {
-
-
-    return {}
-  }
-})
+  })
 </script>
 
-<style scoped lang="scss">
-</style>
+<style scoped lang="scss"></style>

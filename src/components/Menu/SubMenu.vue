@@ -13,31 +13,30 @@
 </template>
 
 <script lang="ts">
-import type { AppRouteRecordRaw } from '@/router/types';
-import type { PropType } from 'vue'
+  import type { AppRouteRecordRaw } from '@/router/types'
+  import type { PropType } from 'vue'
 
-import { useNav } from './useNav';
+  import { useNav } from './useNav'
 
-export default defineComponent({
-  name: 'SubMenu',
-  props: {
-    item: {
-      type: Object as PropType<AppRouteRecordRaw>,
-      default: () => ({})
+  export default defineComponent({
+    name: 'SubMenu',
+    props: {
+      item: {
+        type: Object as PropType<AppRouteRecordRaw>,
+        default: () => ({})
+      }
+    },
+    emits: ['menuClick'],
+    setup(_props, { emit }) {
+      const { menuHasChildren, getIndex, getIcons } = useNav(emit)
+
+      return {
+        menuHasChildren,
+        getIndex,
+        getIcons
+      }
     }
-  },
-  emits: ['menuClick'],
-  setup(_props, { emit }) {
-    const { menuHasChildren, getIndex, getIcons } = useNav(emit)
-
-    return {
-      menuHasChildren,
-      getIndex,
-      getIcons
-    }
-  }
-})
+  })
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

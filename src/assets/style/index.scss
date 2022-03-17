@@ -1,12 +1,13 @@
-
-@import "variables";
-@import "mixins";
-@import "custom";
+@import 'variables';
+@import 'mixins';
+@import 'custom';
 
 // =================================
 // ==============global==========
 // =================================
-html,body,#app {
+html,
+body,
+#app {
   height: 100%;
   width: 100%;
   overflow: visible !important;
@@ -25,7 +26,6 @@ html {
   overflow: hidden;
   text-size-adjust: 100%;
 }
-
 
 a:focus,
 a:active,

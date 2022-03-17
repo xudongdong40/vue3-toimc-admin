@@ -25,26 +25,25 @@
 </template>
 
 <script lang="ts">
-export default defineComponent({
-  name: 'CustomHeader',
-  props: {
-    collapse: {
-      type: Boolean,
-      default: false
-    }
-  },
-  emits: ['update:collapse'],
-  setup(_props, { emit }) {
-    function handleClick(flag: boolean) {
-      emit('update:collapse', !flag)
-    }
+  export default defineComponent({
+    name: 'CustomHeader',
+    props: {
+      collapse: {
+        type: Boolean,
+        default: false
+      }
+    },
+    emits: ['update:collapse'],
+    setup(_props, { emit }) {
+      function handleClick(flag: boolean) {
+        emit('update:collapse', !flag)
+      }
 
-    return {
-      handleClick
+      return {
+        handleClick
+      }
     }
-  }
-})
+  })
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

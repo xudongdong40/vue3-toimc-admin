@@ -23,100 +23,100 @@
 </template>
 
 <script lang="ts">
-import type { PropType } from 'vue'
-import type { IconTypes } from './types';
-import { IconData } from './data';
+  import type { PropType } from 'vue'
+  import type { IconTypes } from './types'
+  import { IconData } from './data'
 
-export default defineComponent({
-  name: 'IconPicker',
-  props: {
-    choose: {
-      type: [String, Number],
-      default: ''
-    },
-    title: {
-      type: String,
-      default: '选择图标'
-    },
-    items: {
-      type: Array as PropType<IconTypes[]>,
-      default: () => IconData
-    },
-    showIcon: {
-      type: Boolean,
-      default: true
-    },
-    showText: {
-      type: Boolean,
-      default: false
-    },
-    footer: {
-      type: Boolean,
-      default: false
-    },
-    classes: {
-      type: String,
-      default: 'p-1'
-    }
-  },
-  emits: ['update:choose', 'pick'],
-  setup(_props, { emit }) {
-    const { choose, footer } = toRefs(_props)
-    let tmp
-
-    onUpdated(() => {
-      if (!tmp) {
-        tmp = choose.value
+  export default defineComponent({
+    name: 'IconPicker',
+    props: {
+      choose: {
+        type: [String, Number],
+        default: ''
+      },
+      title: {
+        type: String,
+        default: '选择图标'
+      },
+      items: {
+        type: Array as PropType<IconTypes[]>,
+        default: () => IconData
+      },
+      showIcon: {
+        type: Boolean,
+        default: true
+      },
+      showText: {
+        type: Boolean,
+        default: false
+      },
+      footer: {
+        type: Boolean,
+        default: false
+      },
+      classes: {
+        type: String,
+        default: 'p-1'
       }
-    })
+    },
+    emits: ['update:choose', 'pick'],
+    setup(_props, { emit }) {
+      const { choose, footer } = toRefs(_props)
+      let tmp
 
-    const dialogVisible = ref(false)
-    function showDialog() {
-      dialogVisible.value = !dialogVisible.value
-    }
+      onUpdated(() => {
+        if (!tmp) {
+          tmp = choose.value
+        }
+      })
 
-    function handleClose() {
-      dialogVisible.value = false
-      tmp = null
-    }
+      const dialogVisible = ref(false)
+      function showDialog() {
+        dialogVisible.value = !dialogVisible.value
+      }
 
-    function handlePick(item) {
-      if (!footer.value) {
+      function handleClose() {
+        dialogVisible.value = false
+        tmp = null
+      }
+
+      function handlePick(item) {
+        if (!footer.value) {
+          handleClose()
+        }
+        choose !== item && emit('update:choose', item)
+      }
+
+      async function handleCancel() {
+        emit('update:choose', tmp)
         handleClose()
       }
-      choose !== item && emit('update:choose', item)
-    }
 
-    async function handleCancel() {
-      emit('update:choose', tmp)
-      handleClose()
-    }
+      function handleConfirm() {
+        emit('pick', choose.value)
+        handleClose()
+      }
 
-    function handleConfirm() {
-      emit('pick', choose.value)
-      handleClose()
+      return {
+        showDialog,
+        handleClose,
+        dialogVisible,
+        handlePick,
+        handleCancel,
+        handleConfirm
+      }
     }
-
-    return {
-      showDialog,
-      handleClose,
-      dialogVisible,
-      handlePick,
-      handleCancel,
-      handleConfirm
-    }
-  }
-})
+  })
 </script>
 
 <style scoped lang="scss">
-.icon-picker-dialog {
-  :deep(.el-dialog__body) {
-    height: auto;
-    max-height: 65vh;
-    overflow-y: auto;
-    padding-top: 0;
-    padding-bottom: 0;
+  .icon-picker-dialog {
+    :deep(.el-dialog__body) {
+      height: auto;
+      max-height: 65vh;
+      padding-top: 0;
+      padding-bottom: 0;
+      overflow-y: auto;
+    }
   }
-}
 </style>

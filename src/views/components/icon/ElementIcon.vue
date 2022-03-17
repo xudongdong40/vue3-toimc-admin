@@ -34,44 +34,43 @@
 </template>
 
 <script lang="ts">
-import { IconData } from '@/components/Icon/data';
-import type { IconTypes } from '@/components/Icon/types';
+  import { IconData } from '@/components/Icon/data'
+  import type { IconTypes } from '@/components/Icon/types'
 
-import { ElMessage } from 'element-plus'
+  import { ElMessage } from 'element-plus'
 
-import copy from 'copy-to-clipboard';
+  import copy from 'copy-to-clipboard'
 
-export default defineComponent({
-  setup() {
-    const showIcon = ref(true)
-    const showText = ref(false)
-    const copyAll = ref(true)
+  export default defineComponent({
+    setup() {
+      const showIcon = ref(true)
+      const showText = ref(false)
+      const copyAll = ref(true)
 
-    function handleCopy(item: string) {
-      copyAll.value ? copy(item) : copy(`<icon type="${item}"></icon>`)
-      ElMessage({
-        message: `复制 ${item} 成功！`,
-        type: 'success'
-      })
+      function handleCopy(item: string) {
+        copyAll.value ? copy(item) : copy(`<icon type="${item}"></icon>`)
+        ElMessage({
+          message: `复制 ${item} 成功！`,
+          type: 'success'
+        })
+      }
+
+      return {
+        items: IconData as IconTypes[],
+        handleCopy,
+        showIcon,
+        showText,
+        copyAll,
+        classes: computed(() => {
+          return showText.value ? 'w-1/8 py-6' : 'p-1'
+        })
+      }
     }
-
-
-    return {
-      items: IconData as IconTypes[],
-      handleCopy,
-      showIcon,
-      showText,
-      copyAll,
-      classes: computed(() => {
-        return showText.value ? 'w-1/8 py-6' : 'p-1'
-      })
-    }
-  }
-})
+  })
 </script>
 
 <style lang="scss" scoped>
-.wrapper {
-  overflow-y: auto;
-}
+  .wrapper {
+    overflow-y: auto;
+  }
 </style>

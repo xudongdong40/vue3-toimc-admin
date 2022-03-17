@@ -26,13 +26,13 @@
       </template>
       <template v-if="$props.autoComplete" #default>
         <el-tabs
+          ref="tabs"
           v-model="activeName"
           class="choose-city-tabs"
-          @tab-click="handleClick"
-          ref="tabs"
           width="300px"
+          @tab-click="handleClick"
         >
-          <el-tab-pane :label="gItem" :name="index" v-for="(gItem, index) in group" :key="index">
+          <el-tab-pane v-for="(gItem, index) in group" :key="index" :label="gItem" :name="index">
             <template v-if="index === 0">
               <city-list :lists="hot" @click="handleSelect"></city-list>
             </template>

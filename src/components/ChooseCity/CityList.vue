@@ -1,8 +1,8 @@
 <template>
   <div
-    class="inline-flex flex-wrap px-3 pb-2 hover:text-blue-400 cursor-pointer"
     v-for="(item, index) in lists"
     :key="index"
+    class="inline-flex flex-wrap px-3 pb-2 hover:text-blue-400 cursor-pointer"
     @click="handleSelect({ ...item, value: item.name })"
     >{{ item.name }}</div
   >

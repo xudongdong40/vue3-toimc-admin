@@ -22,9 +22,12 @@
                     size="small"
                     :type="msg.tagType"
                     class="ml-2"
-                  >{{ msg.tag }}</el-tag>
+                    >{{ msg.tag }}</el-tag
+                  >
                 </el-row>
-                <div v-if="msg.desc" class="text-sm text-gray-400 mb-2 line-clamp-2">{{ msg.desc }}</div>
+                <div v-if="msg.desc" class="text-sm text-gray-400 mb-2 line-clamp-2">{{
+                  msg.desc
+                }}</div>
                 <div class="text-sm text-gray-400">{{ msg.time }}</div>
               </el-col>
             </el-row>
@@ -47,61 +50,63 @@
 </template>
 
 <script lang="ts">
-import { PropType } from 'vue'
-import type { MessageListOptions, ActionOptions, MessageListItem } from './types'
+  import { PropType } from 'vue'
+  import type { MessageListOptions, ActionOptions, MessageListItem } from './types'
 
-
-export default defineComponent({
-  name: 'MessageList',
-  props: {
-    lists: {
-      type: Array as PropType<MessageListOptions[]>,
-      default: () => ([])
+  export default defineComponent({
+    name: 'MessageList',
+    props: {
+      lists: {
+        type: Array as PropType<MessageListOptions[]>,
+        default: () => []
+      },
+      actions: {
+        type: Array as PropType<ActionOptions[]>,
+        default: () => []
+      }
     },
-    actions: {
-      type: Array as PropType<ActionOptions[]>,
-      default: () => ([])
-    }
-  },
-  emits: ['change', 'clickItem', 'clickAction'],
-  setup(_props, { emit }) {
-    const activeName = ref('通知')
+    emits: ['change', 'clickItem', 'clickAction'],
+    setup(_props, { emit }) {
+      const activeName = ref('通知')
 
-    const handleClick = (tab, event: Event) => {
-      emit('change', { tab, event })
-    }
+      const handleClick = (tab, event: Event) => {
+        emit('change', { tab, event })
+      }
 
-    const handleClickItem = (item: MessageListItem, index: number) => {
-      // activeName.value = tab
-      emit('clickItem', { item, index })
-    }
+      const handleClickItem = (item: MessageListItem, index: number) => {
+        // activeName.value = tab
+        emit('clickItem', { item, index })
+      }
 
-    const handleClickAction = (item: ActionOptions, index: number) => {
-      // activeName.value = tab
-      emit('clickAction', { item, index })
-    }
+      const handleClickAction = (item: ActionOptions, index: number) => {
+        // activeName.value = tab
+        emit('clickAction', { item, index })
+      }
 
-    return {
-      activeName,
-      handleClick,
-      handleClickItem,
-      handleClickAction
+      return {
+        activeName,
+        handleClick,
+        handleClickItem,
+        handleClickAction
+      }
     }
-  }
-})
+  })
 </script>
 
 <style lang="scss" scoped>
-@import "@/assets/style/variables.scss";
-.actions {
-  border-top: 1px solid $border-color-gray;
-  .action-item {
-    height: 45px;
-    line-height: 45px;
-    border-right: 1px solid $border-color-gray;
-    &:last-child {
-      border-right: none;
+  @import "@/assets/style/variables.scss";
+
+  .actions {
+    border-top: 1px solid $border-color-gray;
+
+    .action-item {
+      height: 45px;
+      line-height: 45px;
+      border-right: 1px solid $border-color-gray;
+
+      &:last-child {
+        border-right: none;
+      }
     }
   }
-}
 </style>
