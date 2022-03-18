@@ -16,10 +16,15 @@
             v-bind="$attrs"
             :popper-class="(visible && 'hidden') || ''"
             @focus="handleFocus"
+            @blur="handleBlur"
             @select="handleSelect"
           >
             <template #suffix>
-              <icon icon="ep:arrow-down" :class="['icon', isFocus && 'active']" />
+              <icon
+                icon="ep:arrow-down"
+                :class="['icon', isFocus && 'active']"
+                @click="handleFocus"
+              />
             </template>
           </el-autocomplete>
         </div>
@@ -224,6 +229,11 @@
       const handleFocus = () => {
         visible.value = true
         activeName.value = '0'
+        isFocus.value = true
+      }
+
+      const handleBlur = () => {
+        isFocus.value = false
       }
 
       // 点击空白处隐藏
@@ -231,6 +241,7 @@
         const elem = e.target as HTMLInputElement
         if (elem && elem.contains(target.value)) {
           visible.value = false
+          isFocus.value = false
         }
       })
 
@@ -271,6 +282,7 @@
         state,
         activeName,
         handleFocus,
+        handleBlur,
         handleSelect,
         handleClick,
         querySearch,

@@ -15,6 +15,7 @@
         <li>2.汉字转拼音，会有多音字</li>
         <li>3.自动补全与el-tabs组合</li>
       </ul>
+      <choose-city online></choose-city>
     </el-card>
   </div>
 </template>

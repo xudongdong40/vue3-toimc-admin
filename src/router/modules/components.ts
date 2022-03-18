@@ -25,7 +25,7 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
           {
             name: 'ElementIcons',
             path: 'element',
-            component: () => import('@/views/components/icon/ElementIcon.vue'),
+            component: () => import('@/views/components/icon/element-icon.vue'),
             meta: {
               title: 'Element图标'
             }
@@ -44,6 +44,33 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
             component: () => import('@/views/components/icon/Picker.vue'),
             meta: {
               title: '图标选择器'
+            }
+          }
+        ]
+      },
+      {
+        name: 'Forms',
+        path: 'form',
+        meta: {
+          title: '表单'
+        },
+        component: () => import('@/views/components/forms/index.vue'),
+        redirect: '/comp/forms/basic',
+        children: [
+          {
+            name: 'BasicForms',
+            path: 'basic',
+            component: () => import('@/views/components/forms/basic.vue'),
+            meta: {
+              title: '基础表单'
+            }
+          },
+          {
+            name: 'UseForms',
+            path: 'use-form',
+            component: () => import('@/views/components/forms/use-form.vue'),
+            meta: {
+              title: 'useForm'
             }
           }
         ]
