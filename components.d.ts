@@ -13,9 +13,11 @@ declare module 'vue' {
     Descriptions: typeof import('./src/components/Descriptions/index.vue')['default']
     DProgress: typeof import('./src/components/DProgress/index.vue')['default']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']
+    ElButton: typeof import('element-plus/es')['ElButton']
     ElCard: typeof import('element-plus/es')['ElCard']
     ElDescriptions: typeof import('element-plus/es')['ElDescriptions']
     ElDescriptionsItem: typeof import('element-plus/es')['ElDescriptionsItem']
+    ElDialog: typeof import('element-plus/es')['ElDialog']
     ElDivider: typeof import('element-plus/es')['ElDivider']
     ElHeader: typeof import('element-plus/es')['ElHeader']
     ElIcon: typeof import('element-plus/es')['ElIcon']
@@ -23,12 +25,16 @@ declare module 'vue' {
     ElMenu: typeof import('element-plus/es')['ElMenu']
     ElMenuItem: typeof import('element-plus/es')['ElMenuItem']
     ElRow: typeof import('element-plus/es')['ElRow']
+    ElScrollbar: typeof import('element-plus/es')['ElScrollbar']
     ElSubMenu: typeof import('element-plus/es')['ElSubMenu']
+    ElSwitch: typeof import('element-plus/es')['ElSwitch']
     ElTag: typeof import('element-plus/es')['ElTag']
     FormItem: typeof import('./src/components/Form/FormItem.vue')['default']
+    ICarbonAccessibility: typeof import('~icons/carbon/accessibility')['default']
     Icon: typeof import('./src/components/Icon/index.vue')['default']
     IconList: typeof import('./src/components/Icon/IconList.vue')['default']
     IconPicker: typeof import('./src/components/Icon/IconPicker.vue')['default']
+    IMdiAccountBox: typeof import('~icons/mdi/account-box')['default']
     Menu: typeof import('./src/components/Menu/Menu.vue')['default']
     MenuItem: typeof import('./src/components/Menu/MenuItem.vue')['default']
     MessageList: typeof import('./src/components/List/MessageList.vue')['default']
@@ -39,4 +45,4 @@ declare module 'vue' {
   }
 }
 
-export { }
+export {}
