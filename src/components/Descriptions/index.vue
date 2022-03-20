@@ -1,35 +1,61 @@
 <template>
-  <el-descriptions
-    :title="title"
-    :direction="direction"
-    :size="size"
-    :extra="extra"
-    :border="border"
-    :column="column"
-    class="custom-descriptions"
-  >
-    <template v-if="!extra" #extra>
+  <div>
+    <el-row class="pt-3 pb-1" align="middle">
+      <el-col :span="8" class="overflow-ellipsis">
+        <span class="text-lg font-bold">{{ title }}</span>
+      </el-col>
+      <el-col :span="16" class="flex justify-end items-center">
+        <slot v-if="!extra" name="extra"></slot>
+        <template v-else>
+          <span class="pr-2">{{ extra }}</span>
+        </template>
+        <icon
+          v-if="collapse"
+          icon="ep:arrow-down"
+          :class="['rotate-icon', isCollapse && 'active']"
+          @click="toggle"
+        />
+      </el-col>
+    </el-row>
+    <collapse-container :collapse="isCollapse">
+      <el-descriptions
+        title
+        :direction="direction"
+        :size="size"
+        :border="border"
+        :column="column"
+        class="custom-descriptions"
+      >
+        <!-- <template v-if="!extra" #extra>
       <slot name="extra"></slot>
-    </template>
-    <el-descriptions-item v-for="(item, index) in items" :key="index" v-bind="item.attrs">
-      <template #label>
-        <icon v-if="item.icon" :type="item.icon" :size="item.iconSize" :color="item.iconColor" />
-        {{ item.label }}
-      </template>
-      <slot name="field">
-        <el-tag v-if="item.tag" v-bind="item.tag">{{ item.label }}</el-tag>
-        <el-link
-          v-else-if="typeof item.field !== 'string'"
-          target="_target"
-          :underline="false"
-          :href="item.field.link || '#'"
-          :type="item.field.type || 'primary'"
-          >{{ item.field.text }}</el-link
-        >
-        <template v-else>{{ item.field }}</template>
-      </slot>
-    </el-descriptions-item>
-  </el-descriptions>
+      <icon type="ArrowUp" @click="toggle" />
+        </template>-->
+        <el-descriptions-item v-for="(item, index) in items" :key="index" v-bind="item.attrs">
+          <template #label>
+            <icon
+              v-if="item.icon"
+              :type="item.icon"
+              :size="item.iconSize"
+              :color="item.iconColor"
+            />
+            {{ item.label }}
+          </template>
+          <slot name="field">
+            <el-tag v-if="item.tag" v-bind="item.tag">{{ item.field }}</el-tag>
+            <el-link
+              v-else-if="typeof item.field !== 'string'"
+              target="_target"
+              :underline="false"
+              :href="item.field.link || '#'"
+              :type="item.field.type || 'primary'"
+              >{{ item.field.text }}</el-link
+            >
+            <template v-else>{{ item.field }}</template>
+          </slot>
+        </el-descriptions-item>
+      </el-descriptions>
+    </collapse-container>
+  </div>
 </template>
 
 <script lang="ts">
@@ -57,6 +83,10 @@
         type: Boolean,
         default: true
       },
+      collapse: {
+        type: Boolean,
+        default: true
+      },
       items: {
         type: Array as PropType<DescItem[]>,
         default: () => []
@@ -67,7 +97,12 @@
       }
     },
     setup() {
-      return {}
+      const [isCollapse, toggle] = useToggle(false)
+
+      return {
+        isCollapse,
+        toggle
+      }
     }
   })
 </script>
