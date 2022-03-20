@@ -114,6 +114,14 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
           title: '动态进度条'
         },
         component: () => import('@/views/components/progress/index.vue')
+      },
+      {
+        name: 'Descriptions',
+        path: 'descriptions',
+        meta: {
+          title: '详情面板'
+        },
+        component: () => import('@/views/components/descriptions/index.vue')
       }
     ]
   }
