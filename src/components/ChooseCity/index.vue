@@ -22,7 +22,7 @@
             <template #suffix>
               <icon
                 icon="ep:arrow-down"
-                :class="['icon', isFocus && 'active']"
+                :class="['rotate-icon', isFocus && 'active']"
                 @click="handleFocus"
               />
             </template>
@@ -316,14 +316,6 @@
       padding: 0;
       text-align: center;
       flex: 1;
-    }
-  }
-
-  .icon {
-    transition: all 0.5s;
-
-    .active {
-      transform: rotate(180deg);
     }
   }
 </style>

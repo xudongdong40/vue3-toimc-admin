@@ -8,15 +8,12 @@ declare module 'vue' {
     ChooseArea: typeof import('./src/components/ChooseArea/index.vue')['default']
     ChooseCity: typeof import('./src/components/ChooseCity/index.vue')['default']
     CityList: typeof import('./src/components/ChooseCity/CityList.vue')['default']
+    CollapseContainer: typeof import('./src/components/CollapseContainer/index.vue')['default']
     CustomHeader: typeof import('./src/components/Header/CustomHeader.vue')['default']
-    Desc: typeof import('./src/components/Desc/index.vue')['default']
     Descriptions: typeof import('./src/components/Descriptions/index.vue')['default']
     DProgress: typeof import('./src/components/DProgress/index.vue')['default']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']
-    ElButton: typeof import('element-plus/es')['ElButton']
     ElCard: typeof import('element-plus/es')['ElCard']
-    ElCollapse: typeof import('element-plus/es')['ElCollapse']
-    ElCollapseItem: typeof import('element-plus/es')['ElCollapseItem']
     ElDescriptions: typeof import('element-plus/es')['ElDescriptions']
     ElDescriptionsItem: typeof import('element-plus/es')['ElDescriptionsItem']
     ElDivider: typeof import('element-plus/es')['ElDivider']
@@ -42,4 +39,4 @@ declare module 'vue' {
   }
 }
 
-export {}
+export { }
