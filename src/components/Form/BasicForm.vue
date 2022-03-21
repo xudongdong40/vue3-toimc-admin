@@ -90,9 +90,9 @@
         </template>
       </component>
     </el-form-item>
-    <el-form-item>
+    <el-form-item v-if="action">
       <slot name="action" :form="form" :model="model" :validate="form && form.validate">
-        <div v-if="action" :class="actionClass">
+        <div :class="actionClass">
           <el-button type="primary" @click="submitForm(form)">{{ submitText }}</el-button>
           <el-button @click="resetForm(form)">{{ cancelText }}</el-button>
         </div>

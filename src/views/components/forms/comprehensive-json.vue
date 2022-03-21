@@ -93,7 +93,7 @@
         },
         {
           component: 'checkbox-group',
-          value: '',
+          value: [],
           prop: 'type',
           label: '活动类型',
           children: [
