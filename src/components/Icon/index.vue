@@ -1,5 +1,5 @@
 <template>
-  <el-icon :color="color" :size="size" :class="classes">
+  <el-icon :color="color" :size="size" :class="classes" @click="handleClick">
     <IconifyVueIcon :icon="iconName" v-bind="$attrs"></IconifyVueIcon>
   </el-icon>
 </template>
@@ -41,11 +41,16 @@
         default: ''
       }
     },
-    setup(props) {
+    emits: ['click'],
+    setup(props, { emit }) {
       const { collection, type, icon } = toRefs(props)
+      const handleClick = () => {
+        emit('click')
+      }
 
       return {
-        iconName: computed(() => icon.value || `${collection.value}:${toLine(type.value)}`)
+        iconName: computed(() => icon.value || `${collection.value}:${toLine(type.value)}`),
+        handleClick
       }
     }
   })

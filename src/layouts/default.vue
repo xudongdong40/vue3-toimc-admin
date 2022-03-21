@@ -1,6 +1,6 @@
 <template>
-  <div class="w-full h-full flex bg-content-bg">
-    <div class="w-auto flex flex-col">
+  <div class="w-full h-screen flex bg-content-bg overflow-hidden">
+    <div class="w-auto h-full flex flex-col">
       <Menu :menus="asyncRoutes" :collapse="isCollapse">
         <div class="py-8 px-3 bg-black">
           <img class="inline-block" src="@/assets/images/logo.png" />
@@ -11,7 +11,9 @@
       <!-- header -->
       <custom-header v-model:collapse="isCollapse"></custom-header>
       <!-- content -->
-      <router-view></router-view>
+      <el-scrollbar>
+        <router-view></router-view>
+      </el-scrollbar>
       <!-- footer -->
     </div>
   </div>

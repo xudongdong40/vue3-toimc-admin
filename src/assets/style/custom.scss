@@ -34,3 +34,11 @@
 .hidden {
   display: none;
 }
+
+.rotate-icon {
+  transition: all 0.5s;
+
+  .active {
+    transform: rotate(180deg);
+  }
+}

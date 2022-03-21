@@ -92,7 +92,8 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
     resolve: {
       alias: {
         '@': path.resolve(__dirname, '/src'),
-        types: path.resolve(__dirname, '/types')
+        types: path.resolve(__dirname, '/types'),
+        dayjs: 'dayjs/esm'
       }
     }
   }

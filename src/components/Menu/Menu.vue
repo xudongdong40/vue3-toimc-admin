@@ -12,9 +12,11 @@
     v-bind="$attrs"
   >
     <slot></slot>
-    <template v-for="item in menusWithKeys" :key="item.path">
-      <sub-menu :item="item"></sub-menu>
-    </template>
+    <el-scrollbar :height="menuHeight">
+      <template v-for="item in menusWithKeys" :key="item.path">
+        <sub-menu :item="item"></sub-menu>
+      </template>
+    </el-scrollbar>
   </el-menu>
 </template>
 
@@ -48,8 +50,11 @@
       }
     },
     emits: ['menuClick'],
-    setup(props) {
+    setup(props, ctx) {
       const { menus } = toRefs(props)
+      // 设置menu的调试
+      const menuHeight = ref(0)
+
       // 给树形菜单添加key
       function genMenuKeys(menus: Array<AppRouteRecordRaw>, level = '0') {
         menus.forEach((item, index) => {
@@ -65,8 +70,21 @@
         return menus
       }
       const menusWithKeys = genMenuKeys(menus.value)
+      onMounted(() => {
+        // 获取slots的调试
+        const { slots } = ctx
+        if (slots.default) {
+          const defaults = slots.default()
+          if (defaults.length) {
+            const elRef = defaults[0]
+            const dom = elRef.el as HTMLElement
+            menuHeight.value = window.innerHeight - dom.offsetHeight
+          }
+        }
+      })
       return {
-        menusWithKeys
+        menusWithKeys,
+        menuHeight
       }
     }
   })
