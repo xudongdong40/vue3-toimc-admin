@@ -25,99 +25,93 @@
         </div>
       </template>
       <el-row :gutter="20">
-        <el-col :span="15" :offset="4">
-          <el-row>
-            <el-form
-              ref="ruleFormRef"
-              :model="ruleForm"
-              :rules="rules"
-              label-width="120px"
-              :label-position="labelPosition"
-              class="mt-6"
-              :size="size"
-            >
-              <el-form-item label="活动名称" prop="name">
-                <el-input v-model="ruleForm.name" placeholder="输入活动名称" />
-              </el-form-item>
-              <el-form-item label="活动区域" prop="region">
-                <el-select v-model="ruleForm.region" placeholder="选择活动区域">
-                  <el-option label="上海" value="shanghai" />
-                  <el-option label="北京" value="beijing" />
-                </el-select>
-              </el-form-item>
-              <!-- TODO：时间国际化处理 -->
-              <el-form-item label="活动时间" prop="date">
-                <el-date-picker
-                  v-model="ruleForm.date"
-                  type="datetime"
-                  placeholder="选择活动时间"
-                />
-              </el-form-item>
-              <el-form-item label="即时配送" prop="delivery">
-                <el-switch v-model="ruleForm.delivery" />
-              </el-form-item>
-              <el-form-item label="活动类型" prop="type">
-                <el-checkbox-group v-model="ruleForm.type">
-                  <el-checkbox label="线上活动" name="type" />
-                  <el-checkbox label="促销活动" name="type" />
-                  <el-checkbox label="线下活动" name="type" />
-                  <el-checkbox label="单纯品牌曝光" name="type" />
-                </el-checkbox-group>
-              </el-form-item>
-              <el-form-item label="活动资源" prop="resource">
-                <el-radio-group v-model="ruleForm.resource">
-                  <el-radio label="线上品牌赞助" />
-                  <el-radio label="线下免费场地" />
-                </el-radio-group>
-              </el-form-item>
-              <el-form-item label="活动形式" prop="desc">
-                <el-input v-model="ruleForm.desc" type="textarea" placeholder="简述活动形式" />
-              </el-form-item>
-              <el-form-item label="星评" prop="rate">
-                <el-rate
-                  v-model="ruleForm.rate"
-                  :texts="['oops', 'disappointed', 'normal', 'good', 'great']"
-                  show-text
-                />
-              </el-form-item>
+        <el-row>
+          <el-form
+            ref="ruleFormRef"
+            :model="ruleForm"
+            :rules="rules"
+            label-width="120px"
+            :label-position="labelPosition"
+            class="mt-6"
+            :size="size"
+          >
+            <el-form-item label="活动名称" prop="name">
+              <el-input v-model="ruleForm.name" placeholder="输入活动名称" />
+            </el-form-item>
+            <el-form-item label="活动区域" prop="region">
+              <el-select v-model="ruleForm.region" placeholder="选择活动区域">
+                <el-option label="上海" value="shanghai" />
+                <el-option label="北京" value="beijing" />
+              </el-select>
+            </el-form-item>
+            <!-- TODO：时间国际化处理 -->
+            <el-form-item label="活动时间" prop="date">
+              <el-date-picker v-model="ruleForm.date" type="datetime" placeholder="选择活动时间" />
+            </el-form-item>
+            <el-form-item label="即时配送" prop="delivery">
+              <el-switch v-model="ruleForm.delivery" />
+            </el-form-item>
+            <el-form-item label="活动类型" prop="type">
+              <el-checkbox-group v-model="ruleForm.type">
+                <el-checkbox label="线上活动" name="type" />
+                <el-checkbox label="促销活动" name="type" />
+                <el-checkbox label="线下活动" name="type" />
+                <el-checkbox label="单纯品牌曝光" name="type" />
+              </el-checkbox-group>
+            </el-form-item>
+            <el-form-item label="活动资源" prop="resource">
+              <el-radio-group v-model="ruleForm.resource">
+                <el-radio label="线上品牌赞助" />
+                <el-radio label="线下免费场地" />
+              </el-radio-group>
+            </el-form-item>
+            <el-form-item label="活动形式" prop="desc">
+              <el-input v-model="ruleForm.desc" type="textarea" placeholder="简述活动形式" />
+            </el-form-item>
+            <el-form-item label="星评" prop="rate">
+              <el-rate
+                v-model="ruleForm.rate"
+                :texts="['oops', 'disappointed', 'normal', 'good', 'great']"
+                show-text
+              />
+            </el-form-item>
 
-              <el-form-item label="行政区域" prop="administrative">
-                <el-cascader
-                  ref="cascader"
-                  v-model="ruleForm.administrative"
-                  :options="allAreas"
-                  placeholder="选择行政区域"
-                  clearable
-                  :props="{ children: 'children', label: 'name', value: 'code' }"
-                >
-                  <template #default="{ data }">
-                    <span>{{ data.name }}</span>
-                  </template>
-                </el-cascader>
-              </el-form-item>
-              <el-form-item label="穿梭框" prop="transfer">
-                <el-transfer
-                  v-model="ruleForm.transfer"
-                  style="display: inline-block; text-align: left;"
-                  filterable
-                  :render-content="renderContent"
-                  :titles="['Source', 'Target']"
-                  :props="{ key: 'id', label: 'username', disabled: 'disabled' }"
-                  :format="{
-                    noChecked: '${total}',
-                    hasChecked: '${checked}/${total}'
-                  }"
-                  :data="transferData"
-                  @change="handleChange"
-                />
-              </el-form-item>
-              <el-form-item>
-                <el-button type="primary" @click="submitForm(ruleFormRef)">立即创建</el-button>
-                <el-button @click="resetForm(ruleFormRef)">重置</el-button>
-              </el-form-item>
-            </el-form>
-          </el-row>
-        </el-col>
+            <el-form-item label="行政区域" prop="administrative">
+              <el-cascader
+                ref="cascader"
+                v-model="ruleForm.administrative"
+                :options="[]"
+                placeholder="选择行政区域"
+                clearable
+                :props="{ children: 'children', label: 'name', value: 'code' }"
+              >
+                <template #default="{ data }">
+                  <span>{{ data.name }}</span>
+                </template>
+              </el-cascader>
+            </el-form-item>
+            <el-form-item label="穿梭框" prop="transfer">
+              <el-transfer
+                v-model="ruleForm.transfer"
+                style="display: inline-block; text-align: left;"
+                filterable
+                :render-content="renderContent"
+                :titles="['Source', 'Target']"
+                :props="{ key: 'id', label: 'username', disabled: 'disabled' }"
+                :format="{
+                  noChecked: '${total}',
+                  hasChecked: '${checked}/${total}'
+                }"
+                :data="transferData"
+                @change="handleChange"
+              />
+            </el-form-item>
+            <el-form-item>
+              <el-button type="primary" @click="submitForm(ruleFormRef)">立即创建</el-button>
+              <el-button @click="resetForm(ruleFormRef)">重置</el-button>
+            </el-form-item>
+          </el-form>
+        </el-row>
       </el-row>
     </el-card>
   </div>

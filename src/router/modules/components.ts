@@ -74,11 +74,19 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
             }
           },
           {
-            name: 'ComprehensiveForm',
-            path: 'comprehensive-form',
-            component: () => import('@/views/components/forms/comprehensive-form.vue'),
+            name: 'ComprehensiveFormJson',
+            path: 'comprehensive-json',
+            component: () => import('@/views/components/forms/comprehensive-json.vue'),
             meta: {
-              title: '综合表单'
+              title: '表单Schema写法'
+            }
+          },
+          {
+            name: 'ComprehensiveFormDom',
+            path: 'comprehensive-dom',
+            component: () => import('@/views/components/forms/comprehensive-dom.vue'),
+            meta: {
+              title: '表单DOM写法'
             }
           }
         ]
