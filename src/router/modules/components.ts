@@ -72,6 +72,14 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
             meta: {
               title: 'useForm'
             }
+          },
+          {
+            name: 'ComprehensiveForm',
+            path: 'comprehensive-form',
+            component: () => import('@/views/components/forms/comprehensive-form.vue'),
+            meta: {
+              title: '综合表单'
+            }
           }
         ]
       },
