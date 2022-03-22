@@ -7,7 +7,7 @@ const pagesRoutes: Array<AppRouteRecordRaw> = [
     meta: {
       title: '页面',
       order: 40,
-      icon: 'House'
+      icon: 'CopyDocument'
     },
     path: '/page',
     component: LayoutsDefault,
