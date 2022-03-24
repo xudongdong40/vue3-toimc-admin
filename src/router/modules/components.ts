@@ -92,6 +92,25 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
         ]
       },
       {
+        name: 'Tables',
+        path: 'table',
+        meta: {
+          title: '表格'
+        },
+        component: () => import('@/views/components/table/index.vue'),
+        redirect: '/comp/table/basic',
+        children: [
+          {
+            name: 'BasicTable',
+            path: 'basic',
+            component: () => import('@/views/components/table/basic.vue'),
+            meta: {
+              title: '基础表格'
+            }
+          }
+        ]
+      },
+      {
         name: 'Area',
         path: 'area',
         meta: {
