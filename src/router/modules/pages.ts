@@ -66,10 +66,20 @@ const pagesRoutes: Array<AppRouteRecordRaw> = [
       {
         name: 'ErrorsPages',
         path: 'errors',
-        component: () => import('@/views/pages/form/index.vue'),
+        component: () => import('@/views/pages/errors/index.vue'),
         meta: {
           title: '异常页'
-        }
+        },
+        children: [
+          {
+            name: 'Default404',
+            path: 'default',
+            component: () => import('@/views/pages/errors/default.vue'),
+            meta: {
+              title: '默认异常页'
+            }
+          }
+        ]
       },
       {
         name: 'ListsPages',
