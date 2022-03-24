@@ -2,6 +2,7 @@ export interface ColumnOptions {
   label: string
   prop?: string
   width?: string | number
+  height?: string | number
   align?: 'left' | 'right' | 'center'
   slot?: string
   fixed?: boolean | 'left' | 'right'
@@ -11,7 +12,7 @@ export interface ColumnOptions {
   attrs?: any
 }
 
-export type ColumnTypes = '' | 'tag' | 'progress' | 'avatar' | 'rate' | 'link' | 'image'
+export type ColumnTypes = '' | 'index' | 'tag' | 'progress' | 'avatar' | 'rate' | 'link' | 'image'
 
 export interface ActionType {
   type?: 'button' | 'icon'

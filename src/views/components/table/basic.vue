@@ -1,9 +1,7 @@
 <template>
-  <div>
-    <basic-table :data="tableData" :columns="columns" :pagination="pagination">
-      <template #address="{ row }">{{ row }}</template>
-    </basic-table>
-  </div>
+  <basic-table :data="tableData" :columns="columns" :pagination="pagination" height="100%">
+    <template #address="{ row }">{{ row }}</template>
+  </basic-table>
 </template>
 
 <script lang="ts">
@@ -58,13 +56,13 @@
 
       const columns = [
         {
-          label: '头像',
-          prop: 'avatar',
-          align: 'center',
-          type: 'avatar',
-          attrs: {
-            icon: true
-          }
+          label: '索引',
+          type: 'index',
+          align: 'center'
+        },
+        {
+          type: 'selection',
+          align: 'center'
         },
         {
           label: '日期',
@@ -100,11 +98,12 @@
           prop: 'progress',
           align: 'center',
           type: 'progress',
+          width: 200,
           attrs: {
             // status与format互斥
             color: 'green'
           },
-          format: (value, row) => {
+          format: (value) => {
             return `${value}%`
           }
         },
@@ -112,18 +111,22 @@
           label: '地址',
           prop: 'address',
           align: 'center',
-          slot: 'address'
+          slot: 'address',
+          width: 300
         },
         {
           label: '链接',
           prop: 'link',
           align: 'center',
-          type: 'link'
+          type: 'link',
+          width: 120
         },
         {
           label: '操作',
           align: 'center',
           action: true,
+          fixed: 'right',
+          width: 200,
           actionItems: [
             {
               type: 'button',
@@ -150,10 +153,31 @@
         total: 100
       }
 
+      // const testHanlder = (myprops) => {
+      //   console.log('🚀 ~ file: basic.vue ~ line 157 ~ testHanlder ~ myprops', myprops)
+      //   setInterval(() => {
+      //     myprops.clearSelection()
+      //   }, 5000)
+      // }
+
+      const handleCurrentChange = (val) => {
+        console.log('🚀 ~ file: basic.vue ~ line 151 ~ handleCurrentChange ~ val', val)
+      }
+
+      // const table = ref()
+      // onMounted(() => {
+      //   setInterval(() => {
+      //     table.value.tableRef.clearSelection()
+      //   }, 3000)
+      // })
+
       return {
         tableData,
         columns,
-        pagination
+        pagination,
+        handleCurrentChange
+        // table
+        // testHanlder
       }
     }
   })
