@@ -32,6 +32,16 @@
           >{{ radio.label }}</component
         >
       </component>
+      <t-input
+        :is="'el-' + item.component"
+        v-else-if="item.component === 'input'"
+        v-model="model[item.prop]"
+        v-bind="item.attrs"
+      >
+        <template v-if="item?.itemSlot" #[getSlotName(item)]>
+          <slot v-if="item.slot" :name="item.slot"></slot>
+        </template>
+      </t-input>
 
       <el-upload v-else-if="item.component === 'upload'" v-bind="item.upload">
         <slot :name="item.slot ? item.slot + 'trigger' : 'trigger'"></slot>
@@ -86,7 +96,7 @@
         <!-- <template v-else-if="scoped" #default="scoped">
           <slot :name="item.slot" :scope="scoped"></slot>
         </template>-->
-        <template v-else-if="item.itemSlot" #[item.itemSlot]>
+        <template v-else-if="item.itemSlot" #[getSlotName(item)]>
           <slot v-if="item.slot" :name="item.slot"></slot>
         </template>
         <template v-else #default>
@@ -238,13 +248,18 @@
         return !!item && typeof item !== 'string' && !!item.length && item.length > 0
       }
 
+      const getSlotName = (item: FormSchema): string => {
+        return item?.itemSlot || 'defalut'
+      }
+
       return {
         model,
         rules,
         form,
         submitForm,
         resetForm,
-        showSlot
+        showSlot,
+        getSlotName
       }
     }
   })

@@ -27,7 +27,7 @@ export type FormSchema = {
   label?: string
   prop: string
   slot?: string | string[]
-  itemSlot?: string | string[]
+  itemSlot?: string
   rules?: RuleItem[]
   attrs?: any
   children?: Partial<FormSchema>[]
