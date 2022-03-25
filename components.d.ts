@@ -6,11 +6,13 @@ declare module 'vue' {
   export interface GlobalComponents {
     BasicForm: typeof import('./src/components/Form/BasicForm.vue')['default']
     BasicTable: typeof import('./src/components/Table/BasicTable.vue')['default']
+    BasicTransition: typeof import('./src/components/Transition/BasicTransition.vue')['default']
     ChooseArea: typeof import('./src/components/ChooseArea/index.vue')['default']
     ChooseCity: typeof import('./src/components/ChooseCity/index.vue')['default']
     CityList: typeof import('./src/components/ChooseCity/CityList.vue')['default']
     CollapseContainer: typeof import('./src/components/CollapseContainer/index.vue')['default']
     CollapseTransition: typeof import('./src/components/Transition/CollapseTransition.vue')['default']
+    'CollapseTransition copy': typeof import('./src/components/Transition/CollapseTransition copy.vue')['default']
     ColumnComps: typeof import('./src/components/Table/ColumnComps.vue')['default']
     CustomHeader: typeof import('./src/components/Header/CustomHeader.vue')['default']
     Descriptions: typeof import('./src/components/Descriptions/index.vue')['default']
@@ -54,6 +56,7 @@ declare module 'vue' {
     ElTag: typeof import('element-plus/es')['ElTag']
     ElTransfer: typeof import('element-plus/es')['ElTransfer']
     ElUpload: typeof import('element-plus/es')['ElUpload']
+    ExpandTransition: typeof import('./src/components/Transition/ExpandTransition.vue')['default']
     ICarbonAccessibility: typeof import('~icons/carbon/accessibility')['default']
     Icon: typeof import('./src/components/Icon/index.vue')['default']
     IconList: typeof import('./src/components/Icon/IconList.vue')['default']
@@ -65,9 +68,11 @@ declare module 'vue' {
     MessageList: typeof import('./src/components/List/MessageList.vue')['default']
     NoticePad: typeof import('./src/components/NoticePad/index.vue')['default']
     Notification: typeof import('./src/components/NoticePad/Notification.vue')['default']
+    SimpleTransition: typeof import('./src/components/Transition/SimpleTransition.vue')['default']
     SubMenu: typeof import('./src/components/Menu/SubMenu.vue')['default']
     SvgIcon: typeof import('./src/components/Icon/SvgIcon.vue')['default']
     TInput: typeof import('./src/components/Input/TInput.vue')['default']
+    TransitionList: typeof import('./src/components/Transition/TransitionList.vue')['default']
     Trend: typeof import('./src/components/Trend/index.vue')['default']
   }
 }
