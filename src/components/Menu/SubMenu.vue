@@ -1,0 +1,42 @@
+<template>
+  <menu-item v-if="!menuHasChildren(item)" :item="item"></menu-item>
+  <el-sub-menu v-if="menuHasChildren(item)" :index="getIndex(item)">
+    <template #title>
+      <icon v-if="item.meta.icon" :type="getIcons(item)" />
+      <span>{{ item.meta.title }}</span>
+    </template>
+
+    <template v-for="child in item.children" :key="child.path">
+      <sub-menu :item="child"></sub-menu>
+    </template>
+  </el-sub-menu>
+</template>
+
+<script lang="ts">
+  import type { AppRouteRecordRaw } from '@/router/types'
+  import type { PropType } from 'vue'
+
+  import { useNav } from './useNav'
+
+  export default defineComponent({
+    name: 'SubMenu',
+    props: {
+      item: {
+        type: Object as PropType<AppRouteRecordRaw>,
+        default: () => ({})
+      }
+    },
+    emits: ['menuClick'],
+    setup(_props, { emit }) {
+      const { menuHasChildren, getIndex, getIcons } = useNav(emit)
+
+      return {
+        menuHasChildren,
+        getIndex,
+        getIcons
+      }
+    }
+  })
+</script>
+
+<style scoped></style>
