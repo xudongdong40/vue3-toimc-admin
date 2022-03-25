@@ -13,6 +13,7 @@
       :key="index"
       :prop="item.prop"
       :label="item.label"
+      :class="item.class"
     >
       <!-- https://element-plus.gitee.io/zh-CN/component/radio.html#%E5%8D%95%E9%80%89%E6%A1%86%E7%BB%84 -->
       <!-- radio, checkbox -->
@@ -39,7 +40,7 @@
         <template v-if="item.upload && item.upload.type" #trigger>
           <!-- 按钮 -->
           <el-button
-            v-if="item.upload.type === 'button'"
+            v-if="item.upload?.type === 'button'"
             :type="item.upload.btnType || 'primary'"
             :class="item.upload.class"
           >
@@ -48,7 +49,7 @@
             <slot :name="item.slot ? item.slot + 'suffix' : 'suffix'"></slot>
           </el-button>
           <!-- 图标 -->
-          <icon v-else :icon="item.upload.icon || 'ep:upload'" :class="item.upload.class" />
+          <icon v-else :icon="item.upload?.icon || 'ep:upload'" :class="item.upload?.class" />
         </template>
       </el-upload>
       <el-cascader
@@ -57,8 +58,8 @@
         v-model="model[item.prop]"
         :label="item.label"
       >
-        <template #default="{ data }">
-          <slot v-if="showSlot(item.slot)" :name="item.slot[0]" v-bind="data"></slot>
+        <template v-if="item.slot" #default="{ data }">
+          <slot v-if="showSlot(item.slot)" :name="item.slot && item?.slot[0]" v-bind="data"></slot>
           <slot v-else :name="item.slot" v-bind="data"></slot>
         </template>
       </el-cascader>
@@ -85,6 +86,9 @@
         <!-- <template v-else-if="scoped" #default="scoped">
           <slot :name="item.slot" :scope="scoped"></slot>
         </template>-->
+        <template v-else-if="item.itemSlot" #[item.itemSlot]>
+          <slot v-if="item.slot" :name="item.slot"></slot>
+        </template>
         <template v-else #default>
           <slot v-if="item.slot" :name="item.slot"></slot>
         </template>
@@ -93,8 +97,8 @@
     <el-form-item v-if="action">
       <slot name="action" :form="form" :model="model" :validate="form && form.validate">
         <div :class="actionClass">
-          <el-button type="primary" @click="submitForm(form)">{{ submitText }}</el-button>
-          <el-button @click="resetForm(form)">{{ cancelText }}</el-button>
+          <el-button type="primary" @click="submitForm">{{ submitText }}</el-button>
+          <el-button @click="resetForm">{{ cancelText }}</el-button>
         </div>
       </slot>
     </el-form-item>
@@ -211,10 +215,10 @@
         { deep: true }
       )
 
-      const submitForm = (formEl: FormInstance) => {
-        if (!formEl) return
+      const submitForm = () => {
+        if (!form.value) return
         // emit('submit', model.value)
-        formEl.validate((valid) => {
+        form.value.validate((valid) => {
           if (valid) {
             emit('submit', model.value)
           } else {
@@ -224,14 +228,14 @@
         })
       }
 
-      const resetForm = (formEl: FormInstance) => {
-        if (!formEl) return
-        formEl.resetFields()
+      const resetForm = () => {
+        if (!form.value) return
+        form.value.resetFields()
         emit('reset', model.value)
       }
 
-      const showSlot = (item: string | string[] | null) => {
-        return item && typeof item !== 'string' && item.length && item.length > 0
+      const showSlot = (item: string | string[] | undefined): boolean => {
+        return !!item && typeof item !== 'string' && !!item.length && item.length > 0
       }
 
       return {

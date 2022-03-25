@@ -22,6 +22,7 @@
 
 <script lang="ts">
   import type { AppRouteRecordRaw } from '@/router/types'
+  import { useNav } from './useNav'
 
   import type { PropType } from 'vue'
 
@@ -54,21 +55,9 @@
       const { menus } = toRefs(props)
       // 设置menu的调试
       const menuHeight = ref(0)
+      const { genMenuKeys } = useNav(ctx.emit)
 
       // 给树形菜单添加key
-      function genMenuKeys(menus: Array<AppRouteRecordRaw>, level = '0') {
-        menus.forEach((item, index) => {
-          const key = level.indexOf('-') !== -1 ? `${level}${index}` : index + ''
-          item.meta = {
-            ...item.meta,
-            key
-          }
-          if (item.children) {
-            return (item.children = genMenuKeys(item.children, key + '-'))
-          }
-        })
-        return menus
-      }
       const menusWithKeys = genMenuKeys(menus.value)
       onMounted(() => {
         // 获取slots的调试

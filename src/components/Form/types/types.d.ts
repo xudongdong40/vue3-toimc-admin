@@ -27,10 +27,12 @@ export type FormSchema = {
   label?: string
   prop: string
   slot?: string | string[]
+  itemSlot?: string | string[]
   rules?: RuleItem[]
   attrs?: any
   children?: Partial<FormSchema>[]
   events?: any
+  class?: string
   upload?: {
     action?: string
     headers?: object
