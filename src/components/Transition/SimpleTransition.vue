@@ -4,6 +4,10 @@
     :name="name"
     :mode="mode"
     :on-before-enter="onBeforeEnter"
+    :style="{
+      '--transition-delay': typeof delay === 'string' ? delay : delay + 's',
+      '--transition-timing-function': timingFunction
+    }"
     v-bind="$attrs"
   >
     <slot></slot>
@@ -35,6 +39,14 @@
       origin: {
         type: String as PropType<string>,
         default: 'top center 0'
+      },
+      delay: {
+        type: [String, Number],
+        default: '0.3s'
+      },
+      timingFunction: {
+        type: String,
+        default: 'cubic-bezier(0.25, 0.8, 0.5, 1)'
       }
     },
     setup(props) {

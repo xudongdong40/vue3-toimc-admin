@@ -1,5 +1,5 @@
 <template>
-  <basic-transition :name="name" v-on="on">
+  <basic-transition :name="name" v-bind="$attrs" v-on="on">
     <slot></slot>
   </basic-transition>
 </template>

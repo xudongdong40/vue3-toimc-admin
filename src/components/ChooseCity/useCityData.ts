@@ -1,4 +1,4 @@
-import type { AreaItem } from '../ChooseArea2/types'
+import type { AreaItem } from '../ChooseArea/types'
 import type { ProvincePyItem, CityPyItem } from './types'
 
 import pinyin from 'pinyin'

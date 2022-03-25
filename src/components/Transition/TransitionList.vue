@@ -3,6 +3,8 @@
     :is="/Expand/.test(name) ? 'expand-transition' : 'simple-transition'"
     :name="toLine(name + 'Transition')"
     :x="name === 'ExpandX'"
+    :delay="delay"
+    v-bind="$attrs"
   >
     <slot></slot>
   </component>
@@ -24,6 +26,10 @@
       name: {
         type: String as PropType<TransitionList>,
         default: ''
+      },
+      delay: {
+        type: [String, Number],
+        default: '0.3s'
       }
     },
     setup() {
