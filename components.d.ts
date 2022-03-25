@@ -8,6 +8,7 @@ declare module 'vue' {
     BasicTable: typeof import('./src/components/Table/BasicTable.vue')['default']
     BasicTransition: typeof import('./src/components/Transition/BasicTransition.vue')['default']
     ChooseArea: typeof import('./src/components/ChooseArea/index.vue')['default']
+    ChooseArea2: typeof import('./src/components/ChooseArea2/index.vue')['default']
     ChooseCity: typeof import('./src/components/ChooseCity/index.vue')['default']
     CityList: typeof import('./src/components/ChooseCity/CityList.vue')['default']
     CollapseContainer: typeof import('./src/components/CollapseContainer/index.vue')['default']
