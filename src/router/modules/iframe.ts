@@ -6,7 +6,7 @@ const iframeRoutes: Array<AppRouteRecordRaw> = [
     name: 'Iframe',
     meta: {
       title: '外部页面',
-      order: 20,
+      order: 80,
       icon: 'Document'
     },
     path: '/',
