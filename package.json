@@ -23,6 +23,7 @@
     "@vueuse/core": "^8.1.2",
     "axios": "^0.26.1",
     "copy-to-clipboard": "^3.3.1",
+    "cropperjs": "^1.5.12",
     "dayjs": "^1.11.0",
     "element-plus": "2",
     "gsap": "^3.9.1",

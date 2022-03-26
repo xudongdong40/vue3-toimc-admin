@@ -1,5 +1,10 @@
 <template>
-  <el-popover placement="bottom" :width="width" :trigger="trigger" popper-class="custom-popper">
+  <el-popover
+    placement="bottom"
+    :width="width"
+    :trigger="trigger"
+    popper-class="toimc-custom-popper"
+  >
     <template #reference>
       <notification
         :size="size"

@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { MenuProps } from 'types/menus'
+import { MenuProps } from '@/components/Menu/types'
 
 export const useStore = defineStore('menu', {
   state: (): MenuProps => ({

@@ -16,6 +16,7 @@ specifiers:
   axios: ^0.26.1
   commitizen: ^4.2.4
   copy-to-clipboard: ^3.3.1
+  cropperjs: ^1.5.12
   dayjs: ^1.11.0
   element-plus: '2'
   eslint: ^8.11.0
@@ -62,6 +63,7 @@ dependencies:
   '@vueuse/core': 8.1.2_vue@3.2.31
   axios: 0.26.1
   copy-to-clipboard: 3.3.1
+  cropperjs: 1.5.12
   dayjs: 1.11.0
   element-plus: 2.1.4_1a412d14def5ff5ca1122000e4bee666
   gsap: 3.9.1
@@ -1945,6 +1947,10 @@ packages:
   /create-require/1.1.1:
     resolution: {integrity: sha512-dcKFX3jn0MpIaXjisoRvexIJVEKzaq7z2rZKxf+MSr9TkdmHmsU4m2lcLojrj/FHl8mk5VxMmYA+ftRkP/3oKQ==}
     dev: true
+
+  /cropperjs/1.5.12:
+    resolution: {integrity: sha512-re7UdjE5UnwdrovyhNzZ6gathI4Rs3KGCBSc8HCIjUo5hO42CtzyblmWLj6QWVw7huHyDMfpKxhiO2II77nhDw==}
+    dev: false
 
   /cross-spawn/7.0.3:
     resolution: {integrity: sha512-iRDPJKUPVEND7dHPO8rkbOnPpyDygcDFtWjpeWNCgy8WP2rXcxXL8TskReQl6OrB2G7+UJrags1q15Fudc7G6w==}

@@ -24,7 +24,7 @@
         :size="size"
         :border="border"
         :column="column"
-        class="custom-descriptions"
+        class="toimc-custom-descriptions"
       >
         <!-- <template v-if="!extra" #extra>
       <slot name="extra"></slot>
@@ -108,7 +108,7 @@
 </script>
 
 <style lang="scss">
-  .custom-descriptions {
+  .toimc-custom-descriptions {
     padding: 6px 0;
 
     .el-descriptions__header {
