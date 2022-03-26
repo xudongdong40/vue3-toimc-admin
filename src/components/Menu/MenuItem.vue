@@ -1,9 +1,7 @@
 <template>
   <el-menu-item :index="getIndex(item)" @click="(e) => handleMenuClick(e, item)">
     <icon v-if="item?.meta?.icon" :type="getIcons(item)" />
-    <template #title>
-      {{ item.meta?.title }}
-    </template>
+    <template #title>{{ item.meta?.title }}</template>
   </el-menu-item>
 </template>
 
@@ -22,7 +20,15 @@
     },
     emits: ['menuClick'],
     setup(_props, { emit }) {
-      const { menuHasChildren, getIndex, handleMenuClick, getIcons } = useNav(emit)
+      const router = useRouter()
+      const { menuHasChildren, getIndex, getIcons } = useNav()
+
+      // 菜单点击回调
+      function handleMenuClick(e, item) {
+        const { push } = router
+        push(item)
+        emit('menuClick', e)
+      }
 
       return {
         menuHasChildren,

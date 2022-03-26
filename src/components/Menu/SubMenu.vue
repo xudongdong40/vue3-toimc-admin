@@ -27,8 +27,8 @@
       }
     },
     emits: ['menuClick'],
-    setup(_props, { emit }) {
-      const { menuHasChildren, getIndex, getIcons } = useNav(emit)
+    setup() {
+      const { menuHasChildren, getIndex, getIcons } = useNav()
 
       return {
         menuHasChildren,

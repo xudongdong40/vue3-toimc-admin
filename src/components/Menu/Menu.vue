@@ -58,7 +58,7 @@
       const menuHeight = ref(0)
       const scroll = ref()
       const menuRef = ref()
-      const { genMenuKeys } = useNav(ctx.emit)
+      const { genMenuKeys } = useNav()
 
       // 给树形菜单添加key
       const menusWithKeys = genMenuKeys(menus.value)

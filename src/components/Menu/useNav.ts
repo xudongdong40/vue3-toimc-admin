@@ -1,10 +1,7 @@
 import type { IconTypes } from '@/components/Icon/types'
 import type { AppRouteRecordRaw } from '@/router/types'
-import { useRouter } from 'vue-router'
 
-export function useNav(emit) {
-  const router = useRouter()
-
+export function useNav() {
   // 给树形菜单添加key
   function genMenuKeys(menus: Array<AppRouteRecordRaw>, level = '0') {
     // 过滤隐藏菜单
@@ -37,13 +34,6 @@ export function useNav(emit) {
     return item.meta?.key as string
   }
 
-  // 菜单点击回调
-  function handleMenuClick(e, item) {
-    const { push } = router
-    push(item)
-    emit('menuClick', e)
-  }
-
   // 获取图标
   function getIcons(item) {
     return item.meta?.icon as IconTypes
@@ -53,7 +43,6 @@ export function useNav(emit) {
     genMenuKeys,
     menuHasChildren,
     getIndex,
-    handleMenuClick,
     getIcons
   }
 }
