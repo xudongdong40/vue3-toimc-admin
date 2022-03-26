@@ -3,7 +3,7 @@
   <el-sub-menu v-if="menuHasChildren(item)" :index="getIndex(item)">
     <template #title>
       <icon v-if="item.meta.icon" :type="getIcons(item)" />
-      <span>{{ item.meta.title }}</span>
+      <span v-if="!collapse">{{ item.meta.title }}</span>
     </template>
 
     <template v-for="child in item.children" :key="child.path">
@@ -21,6 +21,10 @@
   export default defineComponent({
     name: 'SubMenu',
     props: {
+      collapse: {
+        type: Boolean,
+        default: false
+      },
       item: {
         type: Object as PropType<AppRouteRecordRaw>,
         default: () => ({})

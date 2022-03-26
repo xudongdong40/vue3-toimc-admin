@@ -15,7 +15,7 @@
     <slot></slot>
     <el-scrollbar ref="scroll" :max-height="menuHeight">
       <template v-for="item in menusWithKeys" :key="item.path">
-        <sub-menu :item="item"></sub-menu>
+        <sub-menu :item="item" :collapse="collapse"></sub-menu>
       </template>
     </el-scrollbar>
   </el-menu>
@@ -77,13 +77,20 @@
         }
       }
 
+      watch(
+        () => props.collapse,
+        () => {
+          initHeight()
+        }
+      )
+
       onMounted(() => {
         // 获取slots的高度
         initHeight()
 
         const debouncedFn = useDebounceFn(() => {
           initHeight()
-        }, 500)
+        }, 1000)
 
         useResizeObserver(menuRef, debouncedFn)
       })
