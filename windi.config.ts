@@ -14,5 +14,8 @@ export default defineConfig({
       }
     }
   },
-  plugins: [formsPlugin, lineClampPlugin]
+  plugins: [formsPlugin, lineClampPlugin],
+  shortcuts: {
+    'wh-full': 'w-full h-full'
+  }
 })
