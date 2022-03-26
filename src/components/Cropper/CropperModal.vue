@@ -110,9 +110,9 @@
       <slot name="footer">
         <span class="dialog-footer">
           <el-button @click="handleCancel">{{ cancelText }}</el-button>
-          <el-button :loading="loading" type="primary" @click="handleConfirm">{{
-            okText
-          }}</el-button>
+          <el-button :loading="loading" type="primary" @click="handleConfirm">
+            {{ okText }}
+          </el-button>
         </span>
       </slot>
     </template>
@@ -219,8 +219,10 @@
       }
 
       const handleClose = (done: () => void) => {
+        handleCancel()
         done()
       }
+
       return {
         cropper,
         src,

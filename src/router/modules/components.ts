@@ -74,14 +74,6 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
             }
           },
           {
-            name: 'UseForms',
-            path: 'use-form',
-            component: () => import('@/views/components/forms/use-form.vue'),
-            meta: {
-              title: 'useForm'
-            }
-          },
-          {
             name: 'ComprehensiveFormJson',
             path: 'comprehensive-json',
             component: () => import('@/views/components/forms/comprehensive-json.vue'),
@@ -173,6 +165,14 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
           title: '过渡动画'
         },
         component: () => import('@/views/components/transitions/index.vue')
+      },
+      {
+        name: 'CropperDemo',
+        path: 'crop',
+        meta: {
+          title: '图片裁剪'
+        },
+        component: () => import('@/views/components/cropper/index.vue')
       }
     ]
   }

@@ -98,7 +98,6 @@
 
       const showSlots = (name: string): boolean => {
         const slot = slots[name]
-        console.log('🚀 ~ file: TInput.vue ~ line 100 ~ showSlots ~ slot', slot)
         return !!(slot && slot())
       }
 
