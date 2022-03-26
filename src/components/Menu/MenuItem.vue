@@ -9,6 +9,7 @@
   import type { AppRouteRecordRaw } from '@/router/types'
   import type { PropType } from 'vue'
   import { useNav } from './useNav'
+  import { isUrl } from '@/utils'
 
   export default defineComponent({
     name: 'MenuItem',
@@ -24,9 +25,13 @@
       const { menuHasChildren, getIndex, getIcons } = useNav()
 
       // 菜单点击回调
-      function handleMenuClick(e, item) {
+      function handleMenuClick(e, item: AppRouteRecordRaw) {
         const { push } = router
-        push(item)
+        if (isUrl(item.path)) {
+          window.open(item.path)
+        } else {
+          push(item)
+        }
         emit('menuClick', e)
       }
 

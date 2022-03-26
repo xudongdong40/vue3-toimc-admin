@@ -36,3 +36,5 @@ export const withInstall = <T>(component: T, alias?: string) => {
   }
   return component as T
 }
+
+export * from './is'
