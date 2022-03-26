@@ -25,7 +25,8 @@ export function useNav() {
       !menu.meta?.hideMenu &&
       !!menu.children &&
       Reflect.has(menu, 'children') &&
-      menu.children.length > 0
+      // 判断是否有子菜单，如果只有一个，直接显示父级菜单
+      menu.children.length > 1
     )
   }
 

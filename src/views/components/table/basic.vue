@@ -1,5 +1,12 @@
 <template>
-  <basic-table :data="tableData" :columns="columns" :pagination="pagination" height="100%">
+  <basic-table
+    :data="tableData"
+    :columns="columns"
+    :pagination="pagination"
+    :default-sort="{ prop: 'date', order: 'descending' }"
+    height="100%"
+    ref="table"
+  >
     <template #address="{ row }">{{ row }}</template>
   </basic-table>
 </template>
@@ -67,7 +74,10 @@
         {
           label: '日期',
           prop: 'date',
-          align: 'center'
+          align: 'center',
+          attrs: {
+            sortable: true
+          }
         },
         {
           label: '头像',
@@ -164,19 +174,25 @@
         console.log('🚀 ~ file: basic.vue ~ line 151 ~ handleCurrentChange ~ val', val)
       }
 
-      // const table = ref()
-      // onMounted(() => {
-      //   setInterval(() => {
-      //     table.value.tableRef.clearSelection()
-      //   }, 3000)
-      // })
+      const table = ref()
+      onMounted(() => {
+        setInterval(() => {
+          // table.value.clearSelection()
+          // table.value.setScrollLeft(50)
+          // table.value.scrollTo({ left: 50 })
+          // const rows = table.value.getSelectionRows()
+          // table.value.toggleRowSelection(rows[0], false)
+          // table.value.tableRef.clearSelection()
+          // console.log('🚀 ~ file: basic.vue ~ line 177 ~ setInterval ~ table.value', table.value.getSelectionRows()[0])
+        }, 3000)
+      })
 
       return {
         tableData,
         columns,
         pagination,
-        handleCurrentChange
-        // table
+        handleCurrentChange,
+        table
         // testHanlder
       }
     }

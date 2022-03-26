@@ -33,6 +33,7 @@
           :prop="item.prop"
           :width="item.width"
           :fixed="item.fixed"
+          v-bind="item.attrs"
         >
           <template v-if="item.actionItems && item.actionItems.length" #default="scope">
             <div
@@ -58,9 +59,9 @@
             <slot :name="item.slot || 'default'" v-bind="scope"></slot>
           </template>
           <template v-else-if="item.type" #default="scope">
-            <el-tag v-if="item.type === 'tag'" v-bind="item.attrs">
-              {{ scope.row[item.prop] }}
-            </el-tag>
+            <el-tag v-if="item.type === 'tag'" v-bind="item.attrs">{{
+              scope.row[item.prop]
+            }}</el-tag>
             <el-progress
               v-if="item.type === 'progress'"
               :percentage="scope.row[item.prop]"
@@ -89,9 +90,9 @@
               >
             </template>
             <template v-if="item.type === 'badge'">
-              <el-badge :value="scope.row[item.prop]" v-bind="item.attrs">{{
-                item.attrs?.text || item.label
-              }}</el-badge>
+              <el-badge :value="scope.row[item.prop]" v-bind="item.attrs">
+                {{ item.attrs?.text || item.label }}
+              </el-badge>
             </template>
             <template v-if="item.type === 'image'">
               <el-image :src="scope.row[item.prop]" v-bind="item.attrs"></el-image>
@@ -200,41 +201,63 @@
         })
       }
     },
-    expose: [
-      'clearSelection',
-      'getSelectionRows',
-      'toggleRowSelection',
-      'toggleAllSelection',
-      'toggleRowExpansion',
-      'setCurrentRow',
-      'clearSort',
-      'clearFilter',
-      'doLayout',
-      'sort',
-      'scrollTo',
-      'setScrollTop',
-      'setScrollLeft'
-    ],
     emits: ['register'],
-    setup() {
+    setup(_props, { expose }) {
       const tableRef = ref<InstanceType<typeof ElTable>>()
+      type Row = typeof _props.data[number]
+      type ScrollType = {
+        top?: number
+        left?: number
+      }
+
+      expose({
+        clearSelection: function () {
+          tableRef.value?.clearSelection()
+        },
+        getSelectionRows: function () {
+          return tableRef.value?.getSelectionRows()
+        },
+        toggleRowSelection: function (row: Row, select: boolean) {
+          tableRef.value?.toggleRowSelection(row, select)
+        },
+        toggleAllSelection: function () {
+          tableRef.value?.toggleAllSelection()
+        },
+        toggleRowExpansion: function (row: Row, expanded: boolean) {
+          tableRef.value?.toggleRowExpansion(row, expanded)
+        },
+        setCurrentRow: function (row: Row) {
+          tableRef.value?.setCurrentRow(row)
+        },
+        clearSort: function () {
+          tableRef.value?.clearSort()
+        },
+        clearFilter: function (str: string[]) {
+          tableRef.value?.clearFilter(str)
+        },
+        doLayout: function () {
+          tableRef.value?.doLayout()
+        },
+        sort: function (prop: string, order: string) {
+          tableRef.value?.sort(prop, order)
+        },
+        scrollTo: function ({ top, left }: ScrollType) {
+          tableRef.value?.scrollTo({
+            top,
+            left
+          })
+        },
+        setScrollTop: function (top: number) {
+          tableRef.value?.setScrollTop(top)
+        },
+        setScrollLeft: function (left: number) {
+          tableRef.value?.setScrollLeft(left)
+        }
+      })
 
       return {
         omit,
-        tableRef,
-        clearSelection: tableRef.value!.clearSelection,
-        getSelectionRows: tableRef.value!.getSelectionRows,
-        toggleRowSelection: tableRef.value!.toggleRowSelection,
-        toggleAllSelection: tableRef.value!.toggleAllSelection,
-        toggleRowExpansion: tableRef.value!.toggleRowExpansion,
-        setCurrentRow: tableRef.value!.setCurrentRow,
-        clearSort: tableRef.value!.clearSort,
-        clearFilter: tableRef.value!.clearFilter,
-        doLayout: tableRef.value!.doLayout,
-        sort: tableRef.value!.sort,
-        scrollTo: tableRef.value!.scrollTo,
-        setScrollTop: tableRef.value!.setScrollTop,
-        setScrollLeft: tableRef.value!.setScrollLeft
+        tableRef
       }
     }
   })
