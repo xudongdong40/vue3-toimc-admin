@@ -181,6 +181,14 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
           title: '动态数字'
         },
         component: () => import('@/views/components/numbers/index.vue')
+      },
+      {
+        name: 'EditorDemo',
+        path: 'toast-editor',
+        meta: {
+          title: 'ToastUI编辑器'
+        },
+        component: () => import('@/views/components/editor/toast-ui/index.vue')
       }
     ]
   }
