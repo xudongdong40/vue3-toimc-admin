@@ -68,8 +68,10 @@ const pagesRoutes: Array<AppRouteRecordRaw> = [
         path: 'errors',
         component: () => import('@/views/pages/errors/index.vue'),
         meta: {
-          title: '异常页'
+          title: '异常页',
+          alone: false
         },
+        redirect: '/page/errors/default',
         children: [
           {
             name: 'Default404',

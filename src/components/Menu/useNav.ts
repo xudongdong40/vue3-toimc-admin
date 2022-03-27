@@ -26,7 +26,9 @@ export function useNav() {
       !!menu.children &&
       Reflect.has(menu, 'children') &&
       // 判断是否有子菜单，如果只有一个，直接显示父级菜单
-      menu.children.length > 1
+      menu.children.length > 0 &&
+      // 如果设置alone为true，则必须设置redirect属性
+      !menu.meta?.alone
     )
   }
 

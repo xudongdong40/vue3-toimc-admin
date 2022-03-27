@@ -8,7 +8,8 @@ const aboutRoutes: Array<AppRouteRecordRaw> = [
       title: '关于',
       order: 100000,
       icon: 'InfoFilled',
-      hideChildrenInMenu: true
+      hideChildrenInMenu: true,
+      alone: true
     },
     path: '/about',
     component: LayoutsDefault,
