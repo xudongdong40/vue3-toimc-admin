@@ -173,6 +173,14 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
           title: '图片裁剪'
         },
         component: () => import('@/views/components/cropper/index.vue')
+      },
+      {
+        name: 'DynamicNumbers',
+        path: 'numbers',
+        meta: {
+          title: '动态数字'
+        },
+        component: () => import('@/views/components/numbers/index.vue')
       }
     ]
   }

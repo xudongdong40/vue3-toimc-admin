@@ -37,4 +37,20 @@ export const withInstall = <T>(component: T, alias?: string) => {
   return component as T
 }
 
-export * from './is'
+// 随机长度的数
+export function rand(len: number): string {
+  len = len || 28
+  const chars = '0123456789'
+  const maxPos = chars.length
+  let str = ''
+  for (let i = 0; i < len; i++) {
+    const tmp = chars.charAt(Math.floor(Math.random() * maxPos))
+    if (i === 0 && tmp === '0') {
+      // 首字母不能为0
+      i--
+    } else {
+      str += tmp
+    }
+  }
+  return str
+}

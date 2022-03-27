@@ -33,10 +33,10 @@
         >
       </component>
       <t-input
-        :is="'el-' + item.component"
         v-else-if="item.component === 'input'"
         v-model="model[item.prop]"
         v-bind="item.attrs"
+        v-on="item.events || {}"
       >
         <template v-if="item?.itemSlot" #[getSlotName(item)]>
           <slot v-if="item.slot" :name="item.slot"></slot>
@@ -104,14 +104,14 @@
         </template>
       </component>
     </el-form-item>
-    <el-form-item v-if="action">
+    <template v-if="action">
       <slot name="action" :form="form" :model="model" :validate="form && form.validate">
         <div :class="actionClass">
           <el-button type="primary" @click="submitForm">{{ submitText }}</el-button>
           <el-button @click="resetForm">{{ cancelText }}</el-button>
         </div>
       </slot>
-    </el-form-item>
+    </template>
   </el-form>
 </template>
 

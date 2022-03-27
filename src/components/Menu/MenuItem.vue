@@ -9,7 +9,7 @@
   import type { AppRouteRecordRaw } from '@/router/types'
   import type { PropType } from 'vue'
   import { useNav } from './useNav'
-  import { isUrl } from '@/utils'
+  import { isUrl } from '@/utils/is'
 
   export default defineComponent({
     name: 'MenuItem',

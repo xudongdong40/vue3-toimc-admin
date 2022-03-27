@@ -77,6 +77,13 @@
 
       const localValue = ref(modelValue.value)
 
+      watch(
+        () => modelValue.value,
+        (val) => {
+          localValue.value = val
+        }
+      )
+
       const handleEvent = (type: InputEventType, e: any = null) => {
         emit(type, e)
         if (['change', 'input'].includes(type)) {
