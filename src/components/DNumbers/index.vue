@@ -151,16 +151,15 @@
         // 计算定时器的倍率
         const rate = bigInt(duration.value).divide(setupDuration)
 
-        // 计算step, 并加入随机性，这样就不会有很多0
-        let step = rate.compareAbs(bigInt.zero) !== 0 ? target.minus(origin).divide(rate) : target
-        if (step.compareAbs(bigInt.zero) === 1) {
-          const len = step.toString().length
-          step = bigInt(rand(len))
-        } else {
-          step = bigInt(1)
-        }
-
         ctrl = setInterval(() => {
+          // 计算step, 并加入随机性，这样就不会有很多0
+          let step = rate.compareAbs(bigInt.zero) !== 0 ? target.minus(origin).divide(rate) : target
+          if (step.compareAbs(bigInt.zero) === 1) {
+            const len = step.toString().length
+            step = bigInt(rand(len))
+          } else {
+            step = bigInt(1)
+          }
           // 暂停
           if (pauseFlag.value) return
           origin = origin.add(step)
@@ -171,9 +170,11 @@
           result.value =
             divide.quotient.toString() +
             (dot.value > 0 ? '.' : '') +
-            (divide.remainder.toString().length < dot.value
-              ? divide.remainder.toString().padEnd(dot.value, '0')
-              : divide.remainder.toString())
+            (divide.remainder.toString() !== '0'
+              ? divide.remainder.toString().length < dot.value
+                ? divide.remainder.toString().padEnd(dot.value, '0')
+                : divide.remainder.toString()
+              : '')
 
           // 如果达到目标值，则停止
           if (origin.compareAbs(target) === 1) {
