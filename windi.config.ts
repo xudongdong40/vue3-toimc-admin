@@ -16,6 +16,8 @@ export default defineConfig({
   },
   plugins: [formsPlugin, lineClampPlugin],
   shortcuts: {
-    'wh-full': 'w-full h-full'
+    'wh-full': 'w-full h-full',
+    'f-center': 'flex justify-center items-center',
+    'f-between': 'flex justify-between items-center'
   }
 })

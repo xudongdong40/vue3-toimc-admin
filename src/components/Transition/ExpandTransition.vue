@@ -58,9 +58,9 @@
 
             el.style.setProperty('transition', 'none', 'important')
             el.style.overflow = 'hidden'
-            // const offset = `${el[offsetProperty]}px`;
+            const offset = `${el[offsetProperty]}px`
 
-            // el.style[sizeProperty] = '0';
+            el.style[sizeProperty] = '0'
 
             void el.offsetHeight // force reflow
 
@@ -71,7 +71,7 @@
             }
 
             requestAnimationFrame(() => {
-              // el.style[sizeProperty] = offset;
+              el.style[sizeProperty] = offset
             })
           },
 
