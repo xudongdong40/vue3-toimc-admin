@@ -15,6 +15,9 @@ import Icons from 'unplugin-icons/vite'
 import IconsResolver from 'unplugin-icons/resolver'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 
+import OptimizationPersist from 'vite-plugin-optimize-persist'
+import PkgConfig from 'vite-plugin-package-config'
+
 // vitejs
 import { loadEnv } from 'vite'
 import { viteMockServe } from 'vite-plugin-mock'
@@ -92,7 +95,9 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
         iconDirs: [pathResolve('src/assets/svg')],
         // 指定symbolId格式
         symbolId: 'icon-[dir]-[name]'
-      })
+      }),
+      PkgConfig(),
+      OptimizationPersist()
     ],
     json: {
       stringify: true

@@ -21,6 +21,9 @@ declare module 'vue' {
     DNumbers: typeof import('./src/components/DNumbers/index.vue')['default']
     DProgress: typeof import('./src/components/DProgress/index.vue')['default']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']
+    ElButton: typeof import('element-plus/es')['ElButton']
+    ElCard: typeof import('element-plus/es')['ElCard']
+    ElDialog: typeof import('element-plus/es')['ElDialog']
     ElDivider: typeof import('element-plus/es')['ElDivider']
     ElHeader: typeof import('element-plus/es')['ElHeader']
     ElIcon: typeof import('element-plus/es')['ElIcon']
@@ -29,10 +32,13 @@ declare module 'vue' {
     ElRow: typeof import('element-plus/es')['ElRow']
     ElScrollbar: typeof import('element-plus/es')['ElScrollbar']
     ElSubMenu: typeof import('element-plus/es')['ElSubMenu']
+    ElSwitch: typeof import('element-plus/es')['ElSwitch']
     ExpandTransition: typeof import('./src/components/Transition/ExpandTransition.vue')['default']
+    ICarbonAccessibility: typeof import('~icons/carbon/accessibility')['default']
     Icon: typeof import('./src/components/Icon/index.vue')['default']
     IconList: typeof import('./src/components/Icon/IconList.vue')['default']
     IconPicker: typeof import('./src/components/Icon/IconPicker.vue')['default']
+    IMdiAccountBox: typeof import('~icons/mdi/account-box')['default']
     Menu: typeof import('./src/components/Menu/Menu.vue')['default']
     MenuItem: typeof import('./src/components/Menu/MenuItem.vue')['default']
     MessageList: typeof import('./src/components/List/MessageList.vue')['default']
@@ -49,4 +55,4 @@ declare module 'vue' {
   }
 }
 
-export { }
+export {}
