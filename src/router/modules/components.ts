@@ -235,6 +235,14 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
               title: '文件下载'
             },
             component: () => import('@/views/components/tools/download.vue')
+          },
+          {
+            name: 'Prints',
+            path: 'print',
+            meta: {
+              title: '打印'
+            },
+            component: () => import('@/views/components/tools/print.vue')
           }
         ]
       },

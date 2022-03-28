@@ -6,7 +6,7 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
     name: 'MenusDemo',
     meta: {
       title: '多级菜单',
-      order: 40,
+      order: 70,
       icon: 'Guide'
     },
     path: '/menus',
