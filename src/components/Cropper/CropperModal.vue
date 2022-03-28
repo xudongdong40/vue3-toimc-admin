@@ -110,9 +110,9 @@
       <slot name="footer">
         <span class="dialog-footer">
           <el-button @click="handleCancel">{{ cancelText }}</el-button>
-          <el-button :loading="loading" type="primary" @click="handleConfirm">
-            {{ okText }}
-          </el-button>
+          <el-button :loading="loading" type="primary" @click="handleConfirm">{{
+            okText
+          }}</el-button>
         </span>
       </slot>
     </template>
@@ -123,7 +123,7 @@
   import { defineComponent } from 'vue'
   import { CropendResult } from './typing'
   import { isFunction } from 'lodash'
-  import { dataURLtoBlob } from '@/utils/base64Conver'
+  import { dataURLtoBlob } from '@/utils/file/base64Conver'
 
   export default defineComponent({
     props: {
