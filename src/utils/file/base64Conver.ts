@@ -15,7 +15,7 @@ export function dataURLtoBlob(base64Buf: string): Blob {
 }
 
 /**
- * img url to base64
+ * img url转base64
  * @param url
  */
 export function urlToBase64(url: string, mineType?: string): Promise<string> {

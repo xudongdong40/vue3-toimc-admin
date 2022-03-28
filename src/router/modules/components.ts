@@ -111,76 +111,142 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
         ]
       },
       {
-        name: 'Area',
-        path: 'area',
+        name: 'Selectors',
+        path: 'select',
         meta: {
-          title: '省市区选择器'
+          title: '选择器'
         },
-        component: () => import('@/views/components/area/index.vue')
+        component: () => import('@/layouts/blank.vue'),
+        children: [
+          {
+            name: 'Area',
+            path: 'area',
+            meta: {
+              title: '省市区选择器'
+            },
+            component: () => import('@/views/components/area/index.vue')
+          },
+          {
+            name: 'City',
+            path: 'city',
+            meta: {
+              title: '城市选择器'
+            },
+            component: () => import('@/views/components/city/index.vue')
+          }
+        ]
       },
       {
-        name: 'City',
-        path: 'city',
+        name: 'DynamicShows',
+        path: 'dynamic',
         meta: {
-          title: '城市选择器'
+          title: '动态展示'
         },
-        component: () => import('@/views/components/city/index.vue')
+        component: () => import('@/layouts/blank.vue'),
+        children: [
+          {
+            name: 'Trends',
+            path: 'trends',
+            meta: {
+              title: '趋势指示'
+            },
+            component: () => import('@/views/components/trends/index.vue')
+          },
+          {
+            name: 'Progress',
+            path: 'progress',
+            meta: {
+              title: '动态进度条'
+            },
+            component: () => import('@/views/components/progress/index.vue')
+          },
+          {
+            name: 'DynamicNumbers',
+            path: 'numbers',
+            meta: {
+              title: '动态数字'
+            },
+            component: () => import('@/views/components/numbers/index.vue')
+          }
+        ]
       },
       {
-        name: 'Trends',
-        path: 'trends',
+        name: 'NoticeAbout',
+        path: 'select',
         meta: {
-          title: '趋势指示'
+          title: '通知&分享'
         },
-        component: () => import('@/views/components/trends/index.vue')
+        component: () => import('@/layouts/blank.vue'),
+        children: [
+          {
+            name: 'NoticeMessage',
+            path: 'notice',
+            meta: {
+              title: '通知菜单'
+            },
+            component: () => import('@/views/components/notice-message/index.vue')
+          },
+          {
+            name: 'Qrcode',
+            path: 'qrcode',
+            meta: {
+              title: '二维码'
+            },
+            component: () => import('@/views/components/share/qrcode.vue')
+          },
+          {
+            name: 'CopyAndShare',
+            path: 'copy',
+            meta: {
+              title: '复制'
+            },
+            component: () => import('@/views/components/share/copy.vue')
+          }
+        ]
       },
       {
-        name: 'NoticeMessage',
-        path: 'notice',
+        name: 'Functions',
+        path: 'func',
         meta: {
-          title: '通知菜单'
+          title: '功能'
         },
-        component: () => import('@/views/components/notice-message/index.vue')
+        component: () => import('@/layouts/blank.vue'),
+        children: [
+          {
+            name: 'TransitionsDemo',
+            path: 'transition',
+            meta: {
+              title: '过渡动画'
+            },
+            component: () => import('@/views/components/transitions/index.vue')
+          },
+          {
+            name: 'CropperDemo',
+            path: 'crop',
+            meta: {
+              title: '图片裁剪'
+            },
+            component: () => import('@/views/components/cropper/index.vue')
+          }
+        ]
       },
       {
-        name: 'Progress',
-        path: 'progress',
+        name: 'Display',
+        path: 'display',
         meta: {
-          title: '动态进度条'
+          title: '展示'
         },
-        component: () => import('@/views/components/progress/index.vue')
-      },
-      {
-        name: 'Descriptions',
-        path: 'descriptions',
-        meta: {
-          title: '详情面板'
-        },
-        component: () => import('@/views/components/descriptions/index.vue')
-      },
-      {
-        name: 'TransitionsDemo',
-        path: 'transition',
-        meta: {
-          title: '过渡动画'
-        },
-        component: () => import('@/views/components/transitions/index.vue')
-      },
-      {
-        name: 'CropperDemo',
-        path: 'crop',
-        meta: {
-          title: '图片裁剪'
-        },
-        component: () => import('@/views/components/cropper/index.vue')
-      },
-      {
-        name: 'DynamicNumbers',
-        path: 'numbers',
-        meta: {
-          title: '动态数字'
-        },
-        component: () => import('@/views/components/numbers/index.vue')
+        component: () => import('@/layouts/blank.vue'),
+        children: [
+          {
+            name: 'Descriptions',
+            path: 'descriptions',
+            meta: {
+              title: '详情面板'
+            },
+            component: () => import('@/views/components/descriptions/index.vue')
+          }
+        ]
       }
     ]
   }
