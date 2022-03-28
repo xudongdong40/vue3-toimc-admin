@@ -17,12 +17,18 @@
   import codeSyntaxHighlight from '@toast-ui/editor-plugin-code-syntax-highlight'
   import { defineComponent, onMounted, reactive, toRefs, ref } from 'vue'
 
-  // interface DataProps {
-  //   editorIns: {},
-  //   getHeight: ()=>string
-  //   // editorContent: string
-  //   // getContent:(ref?: any) => void
-  // }
+  interface DataProps {
+    editorIns: any
+    getHeight: () => string
+    getEditorElements: any
+    getHTML: () => string
+    getMarkdown: () => string
+    hide: () => void
+    show: () => void
+    isMarkdownMode: () => boolean
+    isWysiwygMode: () => boolean
+    setHeight: (ref?: string) => void
+  }
 
   const defaultToolbarItems = [
     ['heading', 'bold', 'italic', 'strike'],
@@ -80,11 +86,35 @@
         theme
       } = toRefs(props)
 
-      const data = reactive({
-        editorIns: {}
-        // getHeight: ()=>{
-        //   return data.editorIns.getHeight()
-        // }
+      const data: DataProps = reactive({
+        editorIns: {},
+        getHeight: () => {
+          return data.editorIns.getHeight()
+        },
+        getEditorElements: () => {
+          return data.editorIns.getEditorElements()
+        },
+        getHTML: () => {
+          return data.editorIns.getHTML()
+        },
+        getMarkdown: () => {
+          return data.editorIns.getMarkdown()
+        },
+        hide: () => {
+          return data.editorIns.hide()
+        },
+        show: () => {
+          return data.editorIns.show()
+        },
+        isMarkdownMode: () => {
+          return data.editorIns.isMarkdownMode()
+        },
+        isWysiwygMode: () => {
+          return data.editorIns.isWysiwygMode()
+        },
+        setHeight: (h) => {
+          return data.editorIns.setHeight(h)
+        }
       })
 
       const editor = ref<HTMLElement>()
