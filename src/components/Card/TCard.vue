@@ -9,26 +9,27 @@
             <span class="flex items-center">
               <span class="mr-2">{{ header }}</span>
               <template v-if="tips">
-                <template v-if="typeof tips === 'string'">
-                  <el-tooltip :content="tips">
-                    <icon icon="ep:info-filled" class="text-gray-400"></icon>
-                  </el-tooltip>
-                </template>
-                <template v-else-if="tips.content !== ''">
-                  <el-tooltip v-bind="tips">
-                    <icon icon="ep:info-filled" class="text-gray-400"></icon>
-                  </el-tooltip>
-                </template>
+                <slot name="tips">
+                  <template v-if="typeof tips === 'string'">
+                    <el-tooltip :content="tips">
+                      <icon :icon="tipsIcon" class="text-gray-400"></icon>
+                    </el-tooltip>
+                  </template>
+                  <template v-else-if="tips.content !== ''">
+                    <el-tooltip v-bind="tips">
+                      <icon :icon="tipsIcon" class="text-gray-400"></icon>
+                    </el-tooltip>
+                  </template>
+                </slot>
               </template>
             </span>
           </template>
           <slot v-else name="header"></slot>
-          <icon
-            v-if="collapse"
-            icon="ep:arrow-down"
-            :class="['rotate-icon', isCollapse && 'active']"
-            @click="toggle"
-          ></icon>
+          <div v-if="collapse" @click="toggle">
+            <slot name="collapse" :show="isCollapse">
+              <icon icon="ep:arrow-up" :class="['rotate-icon', isCollapse && 'active']"></icon>
+            </slot>
+          </div>
         </div>
       </template>
       <transition-list name="Expand">
@@ -107,6 +108,10 @@
       layout: {
         type: String as PropType<CardLayoutType>,
         default: 'default'
+      },
+      tipsIcon: {
+        type: String,
+        default: 'ep:info-filled'
       }
     },
     setup(_props, { slots }) {

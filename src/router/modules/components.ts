@@ -247,6 +247,24 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
         ]
       },
       {
+        name: 'EditorDemo',
+        path: 'editor',
+        meta: {
+          title: '编辑器'
+        },
+        component: () => import('@/layouts/blank.vue'),
+        children: [
+          {
+            name: 'ToastUiEditor',
+            path: 'toast',
+            meta: {
+              title: 'ToastUI'
+            },
+            component: () => import('@/views/components/editor/toast-ui/index.vue')
+          }
+        ]
+      },
+      {
         name: 'Display',
         path: 'display',
         meta: {

@@ -4,6 +4,7 @@
 
 declare module 'vue' {
   export interface GlobalComponents {
+    BaseEditor: typeof import('./src/components/Editor/toast-ui/BaseEditor.vue')['default']
     BasicForm: typeof import('./src/components/Form/BasicForm.vue')['default']
     BasicTable: typeof import('./src/components/Table/BasicTable.vue')['default']
     BasicTransition: typeof import('./src/components/Transition/BasicTransition.vue')['default']
@@ -24,23 +25,21 @@ declare module 'vue' {
     ElAvatar: typeof import('element-plus/es')['ElAvatar']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElCard: typeof import('element-plus/es')['ElCard']
-    ElCascader: typeof import('element-plus/es')['ElCascader']
+    ElCol: typeof import('element-plus/es')['ElCol']
+    ElContainer: typeof import('element-plus/es')['ElContainer']
+    ElDescriptions: typeof import('element-plus/es')['ElDescriptions']
+    ElDescriptionsItem: typeof import('element-plus/es')['ElDescriptionsItem']
     ElDivider: typeof import('element-plus/es')['ElDivider']
-    ElForm: typeof import('element-plus/es')['ElForm']
-    ElFormItem: typeof import('element-plus/es')['ElFormItem']
     ElHeader: typeof import('element-plus/es')['ElHeader']
     ElIcon: typeof import('element-plus/es')['ElIcon']
-    ElInput: typeof import('element-plus/es')['ElInput']
     ElLink: typeof import('element-plus/es')['ElLink']
     ElMenu: typeof import('element-plus/es')['ElMenu']
     ElMenuItem: typeof import('element-plus/es')['ElMenuItem']
     ElRow: typeof import('element-plus/es')['ElRow']
     ElScrollbar: typeof import('element-plus/es')['ElScrollbar']
     ElSubMenu: typeof import('element-plus/es')['ElSubMenu']
-    ElTabPane: typeof import('element-plus/es')['ElTabPane']
-    ElTabs: typeof import('element-plus/es')['ElTabs']
+    ElTag: typeof import('element-plus/es')['ElTag']
     ElTooltip: typeof import('element-plus/es')['ElTooltip']
-    ElUpload: typeof import('element-plus/es')['ElUpload']
     ExpandTransition: typeof import('./src/components/Transition/ExpandTransition.vue')['default']
     Icon: typeof import('./src/components/Icon/index.vue')['default']
     IconList: typeof import('./src/components/Icon/IconList.vue')['default']
@@ -56,8 +55,10 @@ declare module 'vue' {
     SvgIcon: typeof import('./src/components/Icon/SvgIcon.vue')['default']
     TCard: typeof import('./src/components/Card/TCard.vue')['default']
     TInput: typeof import('./src/components/Input/TInput.vue')['default']
+    ToastEditor: typeof import('./src/components/Editor/toast-ui/ToastEditor.vue')['default']
     TransitionList: typeof import('./src/components/Transition/TransitionList.vue')['default']
     Trend: typeof import('./src/components/Trend/index.vue')['default']
+    TuiEditor: typeof import('./src/components/Editor/toast-ui/TuiEditor.vue')['default']
   }
 }
 

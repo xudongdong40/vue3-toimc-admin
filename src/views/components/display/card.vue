@@ -59,6 +59,43 @@
       <p>内容</p>
       <p>内容</p>
     </t-card>
+    <t-card
+      header="test"
+      :tips="{ content: '这里是tips', placement: 'top' }"
+      tips-icon="ant-design:alert-filled"
+    >
+      <p>tips示例, 更换icon</p>
+      <p>内容</p>
+      <p>内容</p>
+      <p>内容</p>
+      <p>内容</p>
+      <p>内容</p>
+    </t-card>
+    <t-card header="test" :tips="true">
+      <template #tips>
+        <icon icon="ep:home-filled"></icon>
+        <icon icon="ep:postcard"></icon>
+        <icon icon="ep:user"></icon>
+      </template>
+      <p>tips示例, 更换成按钮组</p>
+      <p>内容</p>
+      <p>内容</p>
+      <p>内容</p>
+      <p>内容</p>
+      <p>内容</p>
+    </t-card>
+    <t-card header="test" :tips="true" collapse>
+      <template #collapse="{ show }">
+        <icon v-show="show" icon="ant-design:caret-down-outlined"></icon>
+        <icon v-show="!show" icon="ant-design:caret-up-filled"></icon>
+      </template>
+      <p>自定义collapse的icon</p>
+      <p>内容</p>
+      <p>内容</p>
+      <p>内容</p>
+      <p>内容</p>
+      <p>内容</p>
+    </t-card>
   </div>
 </template>
 
