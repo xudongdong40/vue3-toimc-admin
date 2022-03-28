@@ -1,17 +1,28 @@
 <template>
   <div>
-    <div id="editor" ref="editor"></div>
+    <div ref="editor"></div>
   </div>
 </template>
 
 <script lang="ts">
   import type { ToolbarItem } from './types'
+  import Prism from 'prismjs'
   import Editor from '@toast-ui/editor'
+  import 'prismjs/themes/prism.css'
+  import '@toast-ui/editor-plugin-code-syntax-highlight/dist/toastui-editor-plugin-code-syntax-highlight.css'
   import '@toast-ui/editor/dist/toastui-editor.css'
   import '@toast-ui/editor/dist/theme/toastui-editor-dark.css'
   import '@toast-ui/editor/dist/i18n/zh-cn'
   import '@toast-ui/editor/dist/i18n/zh-tw'
-  import { defineComponent, onMounted } from 'vue'
+  import codeSyntaxHighlight from '@toast-ui/editor-plugin-code-syntax-highlight'
+  import { defineComponent, onMounted, reactive, toRefs, ref } from 'vue'
+
+  // interface DataProps {
+  //   editorIns: {},
+  //   getHeight: ()=>string
+  //   // editorContent: string
+  //   // getContent:(ref?: any) => void
+  // }
 
   const defaultToolbarItems = [
     ['heading', 'bold', 'italic', 'strike'],
@@ -21,11 +32,6 @@
     ['code', 'codeblock']
     // ['scrollSync']
   ]
-
-  const codeSyntaxHighlight = require('@toast-ui/editor-plugin-code-syntax-highlight')
-
-  // const { Editor } = toastui;
-  // const { codeSyntaxHighlight } = Editor.plugin;
 
   export default defineComponent({
     props: {
@@ -73,11 +79,19 @@
         toolbarItems,
         theme
       } = toRefs(props)
+
+      const data = reactive({
+        editorIns: {}
+        // getHeight: ()=>{
+        //   return data.editorIns.getHeight()
+        // }
+      })
+
       const editor = ref<HTMLElement>()
 
       onMounted(() => {
         if (editor.value) {
-          new Editor({
+          data.editorIns = new Editor({
             el: editor.value,
             height: height.value,
             initialValue: initialValue.value,
@@ -88,13 +102,14 @@
             language: language.value,
             toolbarItems: toolbarItems.value,
             theme: theme.value,
-            plugins: [codeSyntaxHighlight]
+            plugins: [[codeSyntaxHighlight, { highlighter: Prism }]]
           })
         }
       })
 
       return {
-        editor
+        editor,
+        ...toRefs(data)
       }
     }
   })

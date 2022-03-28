@@ -227,16 +227,16 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
               title: '图片裁剪'
             },
             component: () => import('@/views/components/cropper/index.vue')
-          },
-          {
-            name: 'EditorDemo',
-            path: 'toast-editor',
-            meta: {
-              title: 'ToastUI编辑器'
-            },
-            component: () => import('@/views/components/editor/toast-ui/index.vue')
           }
         ]
+      },
+      {
+        name: 'EditorDemo',
+        path: 'toast-editor',
+        meta: {
+          title: 'ToastUI编辑器'
+        },
+        component: () => import('@/views/components/editor/toast-ui/index.vue')
       },
       {
         name: 'Display',
