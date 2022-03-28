@@ -88,6 +88,14 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
             meta: {
               title: '表单DOM写法'
             }
+          },
+          {
+            name: 'StepForm',
+            path: 'step-form',
+            component: () => import('@/views/components/forms/step-form.vue'),
+            meta: {
+              title: '分步表单'
+            }
           }
         ]
       },
