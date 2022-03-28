@@ -7,7 +7,8 @@
     "baseUrl": ".",
     "module": "commonjs",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "types": ["./types/*"],
     }
   },
   "exclude": ["node_modules", "dist", "temp"],

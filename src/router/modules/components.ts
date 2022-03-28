@@ -247,12 +247,20 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
         component: () => import('@/layouts/blank.vue'),
         children: [
           {
-            name: 'Descriptions',
-            path: 'descriptions',
+            name: 'DescriptionDemo',
+            path: 'desc',
             meta: {
               title: '详情面板'
             },
-            component: () => import('@/views/components/descriptions/index.vue')
+            component: () => import('@/views/components/display/desc.vue')
+          },
+          {
+            name: 'Cards',
+            path: 'cards',
+            meta: {
+              title: '卡片'
+            },
+            component: () => import('@/views/components/display/card.vue')
           }
         ]
       }
