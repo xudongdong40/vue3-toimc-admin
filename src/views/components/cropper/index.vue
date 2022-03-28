@@ -29,8 +29,8 @@
         </el-col>
         <el-col :span="12">
           <img
-            class="h-[300px] w-[300px]"
             v-if="previewSource"
+            class="h-[300px] w-[300px]"
             :src="previewSource"
             alt="预览图片"
           />
@@ -53,8 +53,8 @@
         </el-col>
         <el-col :span="12">
           <img
-            class="h-[300px] w-[300px]"
             v-if="previewSourceCircle"
+            class="h-[300px] w-[300px]"
             :src="previewSourceCircle"
             alt="预览图片"
           />

@@ -1,11 +1,11 @@
 <template>
   <basic-table
+    ref="table"
     :data="tableData"
     :columns="columns"
     :pagination="pagination"
     :default-sort="{ prop: 'date', order: 'descending' }"
     height="100%"
-    ref="table"
   >
     <template #address="{ row }">{{ row }}</template>
   </basic-table>

@@ -10,7 +10,7 @@
     </div>
     <div @click="() => (show = true)">
       <slot name="trigger">
-        <el-button type="primary" v-if="showBtn">选择图片</el-button>
+        <el-button v-if="showBtn" type="primary">选择图片</el-button>
       </slot>
     </div>
     <cropper-modal v-model="show" :image="src"></cropper-modal>

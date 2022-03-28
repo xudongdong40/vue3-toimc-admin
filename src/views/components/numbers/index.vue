@@ -12,12 +12,12 @@
       </el-row>
       <div class="text-center py-6 break-words">
         <d-numbers
+          ref="ctrl"
           :end="form.end"
           :begin="form.begin"
           :dot="form.dot"
           :duration="form.duration"
           :auto="form.auto"
-          ref="ctrl"
           :size="48"
           :break-all="form.breakAll"
           :classes="'d-text'"
@@ -169,7 +169,6 @@
 <style scoped lang="scss">
   :deep(.d-text) {
     background: linear-gradient(90deg, #3493c3, #688c3c, #df6b27);
-    background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
   }

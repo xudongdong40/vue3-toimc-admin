@@ -227,6 +227,14 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
               title: '图片裁剪'
             },
             component: () => import('@/views/components/cropper/index.vue')
+          },
+          {
+            name: 'Downloads',
+            path: 'download',
+            meta: {
+              title: '文件下载'
+            },
+            component: () => import('@/views/components/tools/download.vue')
           }
         ]
       },
