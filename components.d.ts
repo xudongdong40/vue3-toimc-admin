@@ -22,19 +22,14 @@ declare module 'vue' {
     DProgress: typeof import('./src/components/DProgress/index.vue')['default']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']
     ElCard: typeof import('element-plus/es')['ElCard']
-    ElCol: typeof import('element-plus/es')['ElCol']
-    ElDescriptions: typeof import('element-plus/es')['ElDescriptions']
-    ElDescriptionsItem: typeof import('element-plus/es')['ElDescriptionsItem']
     ElDivider: typeof import('element-plus/es')['ElDivider']
     ElHeader: typeof import('element-plus/es')['ElHeader']
     ElIcon: typeof import('element-plus/es')['ElIcon']
-    ElLink: typeof import('element-plus/es')['ElLink']
     ElMenu: typeof import('element-plus/es')['ElMenu']
     ElMenuItem: typeof import('element-plus/es')['ElMenuItem']
     ElRow: typeof import('element-plus/es')['ElRow']
     ElScrollbar: typeof import('element-plus/es')['ElScrollbar']
     ElSubMenu: typeof import('element-plus/es')['ElSubMenu']
-    ElTag: typeof import('element-plus/es')['ElTag']
     ElTooltip: typeof import('element-plus/es')['ElTooltip']
     ExpandTransition: typeof import('./src/components/Transition/ExpandTransition.vue')['default']
     Icon: typeof import('./src/components/Icon/index.vue')['default']
@@ -57,4 +52,4 @@ declare module 'vue' {
   }
 }
 
-export {}
+export { }

@@ -1,7 +1,6 @@
 <template>
-  <div>
+  <div ref="waterfallRef">
     <div
-      ref="wrapperRef"
       class="vue3-waterfall-wrapper"
       :style="{
         height: wrapperHeight + 'px',
@@ -21,8 +20,8 @@
       <div class="waterfall-loading">
         <div class="dot-wrapper">
           <span
-            v-for="(_, index) of new Array(dotsNum)"
-            :key="'dot' + index"
+            v-for="(_, idx) of new Array(dotsNum)"
+            :key="idx"
             class="dot"
             :style="'background-color:' + dotsColor"
           ></span>
@@ -30,7 +29,7 @@
       </div>
     </slot>
     <slot v-if="isOver" name="footer">
-      <div class="waterfall-over-message">呀，被看光了！</div>
+      <div class="waterfall-over-message">没有数据了</div>
     </slot>
   </div>
 </template>
@@ -48,8 +47,9 @@
     watch
   } from 'vue'
   import { getDevice } from '@/utils'
-  import useWaterfall from './useWaterfall'
-  // import { calculateCols, imagePreload, layout } from './composable'
+  import calculateCols from './cal'
+  import imagePreload from './img'
+  import layout from './layout'
   export default defineComponent({
     name: 'V3Waterfall',
     props: {
@@ -107,11 +107,6 @@
         type: String,
         default: ''
       },
-      isMounted: {
-        // 和 scrollBodySelector 配合使用
-        type: Boolean,
-        default: false
-      },
       errorImgSrc: {
         // 图片加载失败时默认展示的图片
         type: String,
@@ -120,21 +115,17 @@
     },
     emits: ['scroll-reach-bottom'],
     setup(props, { emit }) {
-      const { colWidth, gap, mobileGap, list, isLoading, isOver, isMounted } = toRefs(props)
-      const wrapperRef = ref<HTMLElement | null>(null)
-      // eslint-disable-next-line vue/no-setup-props-destructure
-      const { srcKey, bottomGap, distanceToScroll, scrollBodySelector, errorImgSrc } = props
+      const waterfallRef = ref<HTMLElement | null>(null)
+
+      const { colWidth, gap, mobileGap, list, isLoading, isOver } = toRefs(props)
+
       // 是否为手机端
       let isMobile = getDevice(navigator.userAgent) === 'mobile'
       let actualGap = isMobile ? mobileGap.value : gap.value
-
-      const { calculateCols, imagePreload, layout } = useWaterfall()
-
       const { actualColWidth, actualCols, colsTop, calculateActualCols } = calculateCols(
         colWidth,
         gap,
-        mobileGap,
-        wrapperRef
+        mobileGap
       )
       const { actualList, setActualList, setLastPreloadImgIdx, imagePreloadHandle } = imagePreload()
       const { wrapperHeight, setLastLayoutImgIdx, layoutHandle } = layout(
@@ -143,7 +134,7 @@
         actualList,
         actualCols,
         actualGap,
-        bottomGap
+        props.bottomGap
       )
       // 容器实际宽度
       const wrapperWidth = computed(() => {
@@ -160,8 +151,8 @@
           itemListNew,
           actualColWidth,
           () => layoutHandle(colsTop),
-          srcKey,
-          errorImgSrc
+          props.srcKey,
+          props.errorImgSrc
         )
       }
       // 第一次加载或者重载
@@ -206,38 +197,41 @@
       let body = document.documentElement || document.body
       let scrollTimeoutHandle: any
       const scrollFn = (): void => {
+        console.log(123)
         if (actualLoading.value || isOver.value || !isActive) return
         const [scrollHeight, scrollTop, clientHeight] = [
           body.scrollHeight,
           body.scrollTop,
           body.clientHeight
         ]
-        if (scrollHeight - scrollTop - clientHeight <= distanceToScroll) {
+        if (scrollHeight - scrollTop - clientHeight <= props.distanceToScroll) {
           clearTimeout(scrollTimeoutHandle)
           scrollTimeoutHandle = setTimeout(() => {
             emit('scroll-reach-bottom')
           }, 200)
         }
       }
-      // 如果滚动事件是绑定在非 window 对象上使用
-      watch(isMounted, (newV: boolean) => {
-        if (scrollBodySelector && newV) {
-          scrollElement.removeEventListener('scroll', scrollFn)
-          scrollElement = body = document.querySelector(scrollBodySelector) as HTMLElement
-          scrollElement.addEventListener('scroll', scrollFn)
-        }
+
+      onMounted(() => {
+        scrollElement = waterfallRef?.value?.parentElement as HTMLElement
+        console.log(scrollElement)
+        scrollElement.addEventListener('scroll', scrollFn)
       })
+
+      onBeforeUnmount(() => {
+        scrollElement.removeEventListener('scroll', scrollFn)
+      })
+
       onMounted(() => {
         if (list.value && list.value.length > 0) {
           firstOrReset()
         }
         window.addEventListener('resize', resizeHandle)
-        scrollElement.addEventListener('scroll', scrollFn)
       })
       onBeforeUnmount(() => {
         window.removeEventListener('resize', resizeHandle)
-        scrollElement.removeEventListener('scroll', scrollFn)
       })
+
       return {
         isMobile,
         wrapperWidth,
@@ -245,7 +239,8 @@
         actualLoading,
         actualColWidth,
         actualList,
-        actualCols
+        actualCols,
+        waterfallRef
       }
     }
   })

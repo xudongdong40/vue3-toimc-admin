@@ -253,6 +253,14 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
               title: '卡片'
             },
             component: () => import('@/views/components/display/card.vue')
+          },
+          {
+            name: 'waterfall',
+            path: 'waterfall',
+            meta: {
+              title: '瀑布流'
+            },
+            component: () => import('@/views/components/display/waterfall.vue')
           }
         ]
       }
