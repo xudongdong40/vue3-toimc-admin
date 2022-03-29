@@ -15,10 +15,9 @@
   import '@toast-ui/editor/dist/i18n/zh-cn'
   import '@toast-ui/editor/dist/i18n/zh-tw'
   import codeSyntaxHighlight from '@toast-ui/editor-plugin-code-syntax-highlight'
-  import { defineComponent, onMounted, reactive, toRefs, ref } from 'vue'
+  import { defineComponent, onMounted, toRefs, ref } from 'vue'
 
   interface DataProps {
-    editorIns: any
     getHeight: () => string
     getEditorElements: any
     getHTML: () => string
@@ -28,6 +27,7 @@
     isMarkdownMode: () => boolean
     isWysiwygMode: () => boolean
     setHeight: (ref?: string) => void
+    reset: () => void
   }
 
   const defaultToolbarItems = [
@@ -86,34 +86,38 @@
         theme
       } = toRefs(props)
 
+      let editorIns: any = {}
+
       const data: DataProps = reactive({
-        editorIns: {},
         getHeight: () => {
-          return data.editorIns.getHeight()
+          return editorIns.getHeight()
         },
         getEditorElements: () => {
-          return data.editorIns.getEditorElements()
+          return editorIns.getEditorElements()
         },
         getHTML: () => {
-          return data.editorIns.getHTML()
+          return editorIns.getHTML()
         },
         getMarkdown: () => {
-          return data.editorIns.getMarkdown()
+          return editorIns.getMarkdown()
         },
         hide: () => {
-          return data.editorIns.hide()
+          return editorIns.hide()
         },
         show: () => {
-          return data.editorIns.show()
+          return editorIns.show()
         },
         isMarkdownMode: () => {
-          return data.editorIns.isMarkdownMode()
+          return editorIns.isMarkdownMode()
         },
         isWysiwygMode: () => {
-          return data.editorIns.isWysiwygMode()
+          return editorIns.isWysiwygMode()
         },
         setHeight: (h) => {
-          return data.editorIns.setHeight(h)
+          return editorIns.setHeight(h)
+        },
+        reset: () => {
+          return editorIns.reset()
         }
       })
 
@@ -121,7 +125,7 @@
 
       onMounted(() => {
         if (editor.value) {
-          data.editorIns = new Editor({
+          editorIns = new Editor({
             el: editor.value,
             height: height.value,
             initialValue: initialValue.value,
