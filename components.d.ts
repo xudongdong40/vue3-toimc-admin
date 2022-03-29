@@ -54,7 +54,6 @@ declare module 'vue' {
     TransitionList: typeof import('./src/components/Transition/TransitionList.vue')['default']
     Trend: typeof import('./src/components/Trend/index.vue')['default']
     Waterfall: typeof import('./src/components/Waterfall/index.vue')['default']
-    Waterfull: typeof import('./src/components/Waterfull/index.vue')['default']
   }
 }
 
