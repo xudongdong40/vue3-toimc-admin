@@ -68,3 +68,12 @@ export function openWindow(
 
   window.open(url, target, feature.join(','))
 }
+
+// 获得设备型号
+export function getDevice(userAgent: string): 'mobile' | 'ipad' | 'pc' {
+  return /(Android|iPhone|iPod|iOS|Windows Phone)/gi.test(userAgent)
+    ? 'mobile'
+    : /iPad/gi.test(userAgent)
+    ? 'ipad'
+    : 'pc'
+}

@@ -1,244 +1,316 @@
 <template>
-  <div> </div>
+  <div>
+    <div
+      ref="wrapperRef"
+      class="vue3-waterfall-wrapper"
+      :style="{
+        height: wrapperHeight + 'px',
+        width: wrapperWidth + 'px'
+      }"
+    >
+      <div
+        v-for="(item, idx) of actualList"
+        :key="'w' + idx"
+        class="waterfall-item"
+        :style="item.styles || { width: actualColWidth + 'px' }"
+      >
+        <slot :item="item"></slot>
+      </div>
+    </div>
+    <slot v-if="actualLoading && !isOver" name="loading">
+      <div class="waterfall-loading">
+        <div class="dot-wrapper">
+          <span
+            v-for="(_, index) of new Array(dotsNum)"
+            :key="'dot' + index"
+            class="dot"
+            :style="'background-color:' + dotsColor"
+          ></span>
+        </div>
+      </div>
+    </slot>
+    <slot v-if="isOver" name="footer">
+      <div class="waterfall-over-message">呀，被看光了！</div>
+    </slot>
+  </div>
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue'
-
+  /* eslint-disable @typescript-eslint/ban-types */
+  import {
+    computed,
+    defineComponent,
+    onActivated,
+    onBeforeUnmount,
+    onDeactivated,
+    onMounted,
+    toRefs,
+    watch
+  } from 'vue'
+  import { getDevice } from '@/utils'
+  import useWaterfall from './useWaterfall'
+  // import { calculateCols, imagePreload, layout } from './composable'
   export default defineComponent({
-    name: 'Waterfall',
+    name: 'V3Waterfall',
     props: {
-      width: {
-        // 容器宽度
+      list: {
+        type: Array,
+        default: () => []
+      },
+      colWidth: {
+        // 每列的宽度，不包括两列的间隔
         type: Number,
-        default: 0
+        default: 250
       },
-      height: {
-        // 容器高度
-        type: [Number, String],
-        default: 0
-      },
-      reachBottomDistance: {
-        // 滚动触底距离，触发加载新图片
-        type: Number, // selector
-        default: 20 // 默认在最低那一列到底时触发
-      },
-      loadingDotCount: {
-        // loading 点数
-        type: Number,
-        default: 3
-      },
-      loadingDotStyle: {
-        type: Object,
-        default: () => {}
+      srcKey: {
+        // 图片地址的键值
+        type: String,
+        default: 'src'
       },
       gap: {
-        // .img-box 间距
+        // 两列间的间隔，PC 端，px
         type: Number,
         default: 20
       },
       mobileGap: {
+        // 两列间的间隔，手机端，px
         type: Number,
         default: 8
       },
-      maxCols: {
+      bottomGap: {
+        // 上下间距, px
+        type: Number,
+        default: 10
+      },
+      isLoading: {
+        type: Boolean,
+        default: false
+      },
+      isOver: {
+        type: Boolean,
+        default: false
+      },
+      dotsNum: {
         type: Number,
         default: 5
       },
-      imgsArr: {
-        type: Array,
-        required: true
-      },
-      srcKey: {
+      dotsColor: {
         type: String,
-        default: 'src'
+        default: ''
       },
-      hrefKey: {
-        type: String,
-        default: 'href'
-      },
-      imgWidth: {
+      distanceToScroll: {
         type: Number,
-        default: 240
+        default: 200
       },
-      isRouterLink: {
+      scrollBodySelector: {
+        // 滚动主体选择器，默认为页面
+        type: String,
+        default: ''
+      },
+      isMounted: {
+        // 和 scrollBodySelector 配合使用
         type: Boolean,
         default: false
       },
-      linkRange: {
-        type: String as PropType<'card' | 'img' | 'custom'>,
-        default: 'card'
-      },
-      loadingTimeOut: {
-        // 预加载事件小于500毫秒就不显示加载动画，增加用户体验
-        type: Number,
-        default: 500
-      },
-      cardAnimationClass: {
-        type: [String],
-        default: 'default-card-animation'
-      },
-      enablePullDownEvent: {
-        type: Boolean,
-        default: false
+      errorImgSrc: {
+        // 图片加载失败时默认展示的图片
+        type: String,
+        default: ''
       }
     },
-    setup(props, { slots }) {
-      // 初始信息
-      const msg = ref('this is from vue-waterfall-easy.vue')
-      // 是否为移动端
-      const isMobile = !!navigator.userAgent.match(/(iPhone|iPod|Android|ios)/i)
-      const isPreloading = ref(true)
-      const isPreloading_c = ref(true)
+    emits: ['scroll-reach-bottom'],
+    setup(props, { emit }) {
+      const { colWidth, gap, mobileGap, list, isLoading, isOver, isMounted } = toRefs(props)
+      const wrapperRef = ref<HTMLElement | null>(null)
+      // eslint-disable-next-line vue/no-setup-props-destructure
+      const { srcKey, bottomGap, distanceToScroll, scrollBodySelector, errorImgSrc } = props
+      // 是否为手机端
+      let isMobile = getDevice(navigator.userAgent) === 'mobile'
+      let actualGap = isMobile ? mobileGap.value : gap.value
 
-      const imgsArr_c = ref([]) // 待图片预加载imgsArr完成，插入新的字段height之后,才会生成imgsArr_c，这时才开始渲染
-      const loadedCount = ref(0)
-      const cols = ref(0) // 需要根据窗口宽度初始化
-      const imgBoxEls = ref(null) // 所有的.img-box元素
-      const beginIndex = ref(0) // 开始要排列的图片索引首次为第二列的第一张图片，后续加载则为已经排列图片的下一个索引
-      const colsHeightArr = ref([])
-      // 自定义loading
-      const LoadingTimer = ref(null)
-      const isFirstLoad = ref(true) // 首次加载
-      const over = ref(false) // 结束waterfall加载
+      const { calculateCols, imagePreload, layout } = useWaterfall()
 
-      // 每一列的宽度
-      const colWidth = computed(() => props.width / props.gap)
-
-      const imgWidth_c = computed(() =>
-        isMobile ? window.innerWidth / 2 - props.mobileGap : props.imgWidth
-      )
-
-      const hasLoadingSlot = computed(() => !!slots.loading)
-
-      return {
-        msg,
-        isMobile,
-        isPreloading,
-        isPreloading_c,
-        imgsArr_c,
-        loadedCount,
-        cols,
-        imgBoxEls,
-        beginIndex,
-        colsHeightArr,
-        LoadingTimer,
-        isFirstLoad,
-        over,
+      const { actualColWidth, actualCols, colsTop, calculateActualCols } = calculateCols(
         colWidth,
-        imgWidth_c,
-        hasLoadingSlot
+        gap,
+        mobileGap,
+        wrapperRef
+      )
+      const { actualList, setActualList, setLastPreloadImgIdx, imagePreloadHandle } = imagePreload()
+      const { wrapperHeight, setLastLayoutImgIdx, layoutHandle } = layout(
+        list,
+        actualColWidth,
+        actualList,
+        actualCols,
+        actualGap,
+        bottomGap
+      )
+      // 容器实际宽度
+      const wrapperWidth = computed(() => {
+        return actualColWidth.value * actualCols.value + actualGap * (actualCols.value - 1)
+      })
+      // 加载状态
+      const actualLoading = computed(() => {
+        return isLoading.value || actualList.value.length !== list.value.length
+      })
+      // 进行瀑布流计算
+      const waterfall = <T extends object>(itemList: T[]): void => {
+        const itemListNew: T[] = JSON.parse(JSON.stringify(itemList))
+        imagePreloadHandle(
+          itemListNew,
+          actualColWidth,
+          () => layoutHandle(colsTop),
+          srcKey,
+          errorImgSrc
+        )
+      }
+      // 第一次加载或者重载
+      const firstOrReset = <T extends object>(): void => {
+        setLastPreloadImgIdx(-1)
+        setLastLayoutImgIdx(-1)
+        setActualList([])
+        calculateActualCols(isMobile)
+        waterfall(list.value as T[])
+      }
+      watch(list, <T extends object>(newV: unknown[], oldV: unknown[]) => {
+        if (newV[0] !== oldV[0]) {
+          firstOrReset()
+          return
+        }
+        waterfall(newV as T[])
+      })
+      const documentBody = document.documentElement || document.body
+      // resize 时的 handle
+      let timeHandler: any
+      let lastClientWidth = documentBody.offsetWidth
+      const resizeHandle = (): void => {
+        const clientWidth = documentBody.offsetWidth
+        if (clientWidth === lastClientWidth) return
+        lastClientWidth = clientWidth
+        clearTimeout(timeHandler)
+        // 重新计算
+        timeHandler = setTimeout(() => {
+          isMobile = getDevice(navigator.userAgent) === 'mobile'
+          actualGap = isMobile ? mobileGap.value : gap.value
+          firstOrReset()
+        }, 500)
+      }
+      // 兼容滚动事件绑定在 window 上，
+      // 并且页面被 keep-alive 缓存时滚动穿越的情形
+      // (a 页面绑定滚动被缓存，b 页面滚动会影响 a 页面的监听)
+      let isActive = true
+      onActivated(() => (isActive = true))
+      onDeactivated(() => (isActive = false))
+      // 滚动
+      let scrollElement: Window | HTMLElement = window
+      let body = document.documentElement || document.body
+      let scrollTimeoutHandle: any
+      const scrollFn = (): void => {
+        if (actualLoading.value || isOver.value || !isActive) return
+        const [scrollHeight, scrollTop, clientHeight] = [
+          body.scrollHeight,
+          body.scrollTop,
+          body.clientHeight
+        ]
+        if (scrollHeight - scrollTop - clientHeight <= distanceToScroll) {
+          clearTimeout(scrollTimeoutHandle)
+          scrollTimeoutHandle = setTimeout(() => {
+            emit('scroll-reach-bottom')
+          }, 200)
+        }
+      }
+      // 如果滚动事件是绑定在非 window 对象上使用
+      watch(isMounted, (newV: boolean) => {
+        if (scrollBodySelector && newV) {
+          scrollElement.removeEventListener('scroll', scrollFn)
+          scrollElement = body = document.querySelector(scrollBodySelector) as HTMLElement
+          scrollElement.addEventListener('scroll', scrollFn)
+        }
+      })
+      onMounted(() => {
+        if (list.value && list.value.length > 0) {
+          firstOrReset()
+        }
+        window.addEventListener('resize', resizeHandle)
+        scrollElement.addEventListener('scroll', scrollFn)
+      })
+      onBeforeUnmount(() => {
+        window.removeEventListener('resize', resizeHandle)
+        scrollElement.removeEventListener('scroll', scrollFn)
+      })
+      return {
+        isMobile,
+        wrapperWidth,
+        wrapperHeight,
+        actualLoading,
+        actualColWidth,
+        actualList,
+        actualCols
       }
     }
   })
 </script>
 
 <style lang="scss" scoped>
-  .vue-waterfall-easy-container {
+  .vue3-waterfall-wrapper {
     position: relative;
     width: 100%;
-    height: 100%;
+    margin: 0 auto;
+  }
 
-    .vue-waterfall-easy-scroll {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      overflow-x: hidden;
-      overflow-y: scroll;
-      -webkit-overflow-scrolling: touch;
-    }
+  .waterfall-item {
+    // visibility: hidden;
+    position: absolute;
+    animation: scale-item 0.3s linear forwards;
+    transition: all 0.3s;
+  }
 
-    .vue-waterfall-easy {
-      @keyframes show-card {
-        0% {
-          transform: scale(0.5);
-        }
+  .waterfall-over-message {
+    height: 40px;
+    line-height: 40px;
+    color: #999;
+    text-align: center;
+  }
 
-        100% {
-          transform: scale(1);
-        }
+  .dot-wrapper {
+    padding: 10px 0;
+    text-align: center;
+
+    .dot {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      margin: 0 2px;
+      background-color: rgb(169 169 169 / 80%);
+      border-radius: 50%;
+
+      &:nth-of-type(2n) {
+        animation: dot-scale 0.4s linear infinite alternate;
       }
 
-      position: absolute;
-      width: 100%; // 移动端生效
-      & > .img-box {
-        position: absolute;
-        width: 50%; // 移动端生效
-        box-sizing: border-box;
-      }
-
-      & > .img-box.default-card-animation {
-        animation: show-card 0.4s;
-        transition: left 0.6s, top 0.6s;
-        transition-delay: 0.1s;
-      }
-
-      a {
-        display: block;
-      }
-
-      a.img-inner-box {
-        border-radius: 4px;
-        box-shadow: 0 1px 3px rgb(0 0 0 / 30%);
-      }
-
-      a.img-wrapper {
-        & > img {
-          display: block;
-          width: 100%;
-          border: none;
-        }
-      }
-
-      .over {
-        position: absolute;
-        width: 100%;
-        font-size: 12px;
-        line-height: 1.6;
-        color: #aaa;
-        text-align: center;
+      &:nth-of-type(2n - 1) {
+        animation: dot-scale 0.4s linear 0.4s infinite alternate;
       }
     }
+  }
 
-    & > .loading.first {
-      bottom: 50%;
-      transform: translate(-50%, 50%);
+  @keyframes dot-scale {
+    0% {
+      transform: scale(1);
     }
 
-    & > .loading {
-      @keyframes ball-beat {
-        50% {
-          opacity: 0.2;
-          transform: scale(0.75);
-        }
+    100% {
+      transform: scale(0.5);
+    }
+  }
 
-        100% {
-          opacity: 1;
-          transform: scale(1);
-        }
-      }
+  @keyframes scale-item {
+    0% {
+      transform: scale(0.5);
+    }
 
-      position: absolute;
-      bottom: 6px;
-      left: 50%;
-      z-index: 999;
-      transform: translateX(-50%);
-
-      &.ball-beat > .dot {
-        display: inline-block;
-        width: 12px;
-        height: 12px;
-        margin: 3px;
-        vertical-align: bottom;
-        background-color: #4b15ab;
-        border-radius: 50%;
-        animation: ball-beat 0.7s 0s infinite linear;
-        animation-fill-mode: both;
-      }
-
-      &.ball-beat > .dot:nth-child(2n-1) {
-        animation-delay: 0.35s;
-      }
+    100% {
+      transform: scale(1);
     }
   }
 </style>
