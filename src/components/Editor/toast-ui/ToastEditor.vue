@@ -28,6 +28,11 @@
     isWysiwygMode: () => boolean
     setHeight: (ref?: string) => void
     reset: () => void
+    changeMode: (ref?: string) => void
+    setLanguage: (ref?: string) => void
+    setMarkdown: (ref?: string) => void
+    setHTML: (ref?: string) => void
+    insertText: (ref?: string) => void
   }
 
   const defaultToolbarItems = [
@@ -42,8 +47,8 @@
   export default defineComponent({
     props: {
       height: {
-        type: String,
-        default: '500px'
+        type: Number,
+        default: 500
       },
       initialValue: {
         type: String,
@@ -118,16 +123,31 @@
         },
         reset: () => {
           return editorIns.reset()
+        },
+        changeMode: (mode: string) => {
+          return editorIns.changeMode(mode)
+        },
+        setLanguage: (lang: string) => {
+          return Editor.setLanguage(lang, {})
+        },
+        setMarkdown: (str: string) => {
+          return editorIns.setMarkdown(str)
+        },
+        setHTML: (str: string) => {
+          return editorIns.setHTML(str)
+        },
+        insertText: (str: string) => {
+          return editorIns.insertText(str)
         }
       })
 
       const editor = ref<HTMLElement>()
 
-      onMounted(() => {
+      const initEditor = () => {
         if (editor.value) {
           editorIns = new Editor({
             el: editor.value,
-            height: height.value,
+            height: height.value + 'px',
             initialValue: initialValue.value,
             placeholder: placeholder.value,
             previewStyle: 'vertical',
@@ -139,7 +159,19 @@
             plugins: [[codeSyntaxHighlight, { highlighter: Prism }]]
           })
         }
+      }
+
+      onMounted(() => {
+        initEditor()
       })
+
+      // theme,language 没有API设置
+      watch(
+        () => [theme.value, language.value],
+        () => {
+          initEditor()
+        }
+      )
 
       return {
         editor,
