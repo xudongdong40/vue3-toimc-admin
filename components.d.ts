@@ -21,7 +21,6 @@ declare module 'vue' {
     DNumbers: typeof import('./src/components/DNumbers/index.vue')['default']
     DProgress: typeof import('./src/components/DProgress/index.vue')['default']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']
-    ElCard: typeof import('element-plus/es')['ElCard']
     ElDivider: typeof import('element-plus/es')['ElDivider']
     ElHeader: typeof import('element-plus/es')['ElHeader']
     ElIcon: typeof import('element-plus/es')['ElIcon']
@@ -30,7 +29,6 @@ declare module 'vue' {
     ElRow: typeof import('element-plus/es')['ElRow']
     ElScrollbar: typeof import('element-plus/es')['ElScrollbar']
     ElSubMenu: typeof import('element-plus/es')['ElSubMenu']
-    ElTooltip: typeof import('element-plus/es')['ElTooltip']
     ExpandTransition: typeof import('./src/components/Transition/ExpandTransition.vue')['default']
     Icon: typeof import('./src/components/Icon/index.vue')['default']
     IconList: typeof import('./src/components/Icon/IconList.vue')['default']
@@ -52,4 +50,4 @@ declare module 'vue' {
   }
 }
 
-export { }
+export {}

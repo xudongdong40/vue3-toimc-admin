@@ -1,7 +1,6 @@
 <template>
   <div class="limit-box content">
     <waterfall
-      :key="forUpdate"
       class="waterfall"
       :list="list"
       src-key="cover"
@@ -65,17 +64,8 @@
       const isMounted = ref(false)
       const forUpdate = ref(0)
       const isLimit = ref(false)
-      const toggleLimit = async () => {
-        isLimit.value = !isLimit.value
-        list.value = []
-        over.value = false
-        forUpdate.value++
-        await fetchList()
-        isMounted.value = true
-      }
       return {
         isLimit,
-        toggleLimit,
         isMounted,
         forUpdate,
         list,
