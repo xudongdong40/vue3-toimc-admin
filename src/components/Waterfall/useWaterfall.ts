@@ -1,44 +1,40 @@
-import { onMounted } from 'vue'
 import { ref, Ref } from 'vue'
 import { _image } from './errorImage'
 import { CalculateActualCols, ImagePreload, ListItem, Layout } from './types'
 
 const useWaterFall = () => {
+  /**
+   * @description: 计算排布多少列
+   * @param {Ref<number>} colWidth 列宽
+   * @param {Ref<number>} gap 两列的间距
+   * @param {Ref<number>} mobileGap 移动端两列的间距
+   * @return {CalculateActualCols}
+   */
   function calculateCols(
     colWidth: Ref<number>,
     gap: Ref<number>,
     mobileGap: Ref<number>,
-    wrapperRef: Ref<HTMLElement | null>
+    id: string
   ): CalculateActualCols {
     const actualColWidth = ref(0) // 实际列宽
     const actualCols = ref(1) // 实际列数
     const colsTop = ref<number[]>([]) // 记录每列的 top 值
-    const parentWidth = ref(0)
-
-    // 获得父级宽度
-    onMounted(() => {
-      getParentWidth()
-    })
-
-    function getParentWidth() {
-      const dom = wrapperRef.value
-      parentWidth.value = dom?.parentElement?.offsetWidth || 0
-    }
 
     // 计算列数以及手机端的宽度
     const calculateActualCols = (isMobile: boolean): void => {
-      getParentWidth()
       actualColWidth.value = colWidth.value
       actualCols.value = 1
 
-      if (isMobile && parentWidth.value < colWidth.value * 2 + mobileGap.value) {
-        actualColWidth.value = parentWidth.value - 2 * mobileGap.value
+      const parentWidth = document.getElementById(id)?.parentElement?.offsetWidth || 0
+
+      if (isMobile && parentWidth < colWidth.value * 2 + mobileGap.value) {
+        actualColWidth.value = parentWidth - 2 * mobileGap.value
         colsTop.value = Array(actualCols.value).fill(0)
         return
       }
 
       const g = isMobile ? mobileGap.value : gap.value
-      actualCols.value = Math.floor((parentWidth.value + g) / (colWidth.value + g))
+      actualCols.value = Math.floor((parentWidth + g) / (colWidth.value + g))
       colsTop.value = Array(actualCols.value).fill(0)
     }
 
@@ -62,7 +58,16 @@ const useWaterFall = () => {
       lastPreloadImgIdx = idx
     }
 
-    // 图片预加载
+    /**
+     * @description: 图片预加载
+     * @param {ListItem[]} noPreloadList 未进行预加载的列表
+     * @param {Ref<number>} actualColWidth 实际列宽
+     * @param {Function | undefined} preloadedFn 预加载完成后的回调
+     * @param {string} srcKey 存放图片链接的键名
+     * @param {ComputedRef<number>} errorImgHeight 错误图片展示高度
+     * @param {string} errorImgSrc 图片加载失败时默认图片地址
+     * @return {void}
+     */
     function imagePreloadHandle(
       noPreloadList: ListItem[],
       actualColWidth: Ref<number>,
@@ -163,6 +168,16 @@ const useWaterFall = () => {
     }
   }
 
+  /**
+   * @description: 排版
+   * @param {Ref<unknown[]>} list 原始列表
+   * @param {Ref<number>} actualColWidth 实际列宽
+   * @param {Ref<ListItem[]>} actualList 添加排版数据后的列表
+   * @param {Ref<number>} actualCols 实际列数
+   * @param {number} actualGap 实际间隔
+   * @param {number} bottomGap 底部距离
+   * @return {Layout}
+   */
   function layout(
     list: Ref<unknown[]>,
     actualColWidth: Ref<number>,

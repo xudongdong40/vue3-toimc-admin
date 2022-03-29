@@ -88,45 +88,6 @@
 </script>
 
 <style lang="scss" scoped>
-  /* ipad pro */
-  @media screen and(max-width: 1024px) {
-    header {
-      height: 40vh;
-      background-size: 100% 100%;
-    }
-  }
-
-  @media screen and(max-width: 1000px) {
-    .waterfall,
-    .tags {
-      width: 100%;
-      min-width: auto;
-      padding: 0 30px;
-      box-sizing: border-box;
-    }
-  }
-
-  @media screen and(max-width: 576px) {
-    header {
-      height: 30vh;
-      min-height: 300px;
-      background-position: 40% 0;
-      background-size: 150% 100%;
-    }
-
-    .waterfall,
-    .tags {
-      width: 100%;
-      min-width: auto;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    .tags {
-      width: 90%;
-    }
-  }
-
   .content {
     padding-top: 30px;
     background-color: #dee3e7;
@@ -140,7 +101,7 @@
   .waterfall,
   .tags {
     width: 80%;
-    min-width: 1200px;
+    width: 100%;
     margin: 0 auto;
   }
 

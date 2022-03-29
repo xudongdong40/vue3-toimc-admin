@@ -1,7 +1,8 @@
 <template>
   <div ref="waterfallRef">
     <div
-      class="vue3-waterfall-wrapper"
+      :id="id"
+      class="relative w-full my-0 mx-auto"
       :style="{
         height: wrapperHeight + 'px',
         width: wrapperWidth + 'px'
@@ -35,21 +36,9 @@
 </template>
 
 <script lang="ts">
-  /* eslint-disable @typescript-eslint/ban-types */
-  import {
-    computed,
-    defineComponent,
-    onActivated,
-    onBeforeUnmount,
-    onDeactivated,
-    onMounted,
-    toRefs,
-    watch
-  } from 'vue'
+  import { v4 as uuid } from 'uuid'
   import { getDevice } from '@/utils'
-  import calculateCols from './cal'
-  import imagePreload from './img'
-  import layout from './layout'
+  import useWaterFall from './useWaterfall'
   export default defineComponent({
     name: 'V3Waterfall',
     props: {
@@ -115,19 +104,32 @@
     },
     emits: ['scroll-reach-bottom'],
     setup(props, { emit }) {
+      // 瀑布流ref
       const waterfallRef = ref<HTMLElement | null>(null)
+      // 滚动容器
+      let scrollElement: HTMLElement
 
       const { colWidth, gap, mobileGap, list, isLoading, isOver } = toRefs(props)
 
       // 是否为手机端
       let isMobile = getDevice(navigator.userAgent) === 'mobile'
+
+      // 列间隔
       let actualGap = isMobile ? mobileGap.value : gap.value
+
+      const id = uuid()
+
+      const { calculateCols, imagePreload, layout } = useWaterFall()
+
       const { actualColWidth, actualCols, colsTop, calculateActualCols } = calculateCols(
         colWidth,
         gap,
-        mobileGap
+        mobileGap,
+        id
       )
+
       const { actualList, setActualList, setLastPreloadImgIdx, imagePreloadHandle } = imagePreload()
+
       const { wrapperHeight, setLastLayoutImgIdx, layoutHandle } = layout(
         list,
         actualColWidth,
@@ -136,14 +138,17 @@
         actualGap,
         props.bottomGap
       )
+
       // 容器实际宽度
       const wrapperWidth = computed(() => {
         return actualColWidth.value * actualCols.value + actualGap * (actualCols.value - 1)
       })
+
       // 加载状态
       const actualLoading = computed(() => {
         return isLoading.value || actualList.value.length !== list.value.length
       })
+
       // 进行瀑布流计算
       const waterfall = <T extends object>(itemList: T[]): void => {
         const itemListNew: T[] = JSON.parse(JSON.stringify(itemList))
@@ -155,6 +160,7 @@
           props.errorImgSrc
         )
       }
+
       // 第一次加载或者重载
       const firstOrReset = <T extends object>(): void => {
         setLastPreloadImgIdx(-1)
@@ -163,15 +169,17 @@
         calculateActualCols(isMobile)
         waterfall(list.value as T[])
       }
-      watch(list, <T extends object>(newV: unknown[], oldV: unknown[]) => {
-        if (newV[0] !== oldV[0]) {
+
+      watch(list, <T extends object>(newValue: unknown[], oldValue: unknown[]) => {
+        if (newValue[0] !== oldValue[0]) {
           firstOrReset()
           return
         }
-        waterfall(newV as T[])
+        waterfall(newValue as T[])
       })
+
       const documentBody = document.documentElement || document.body
-      // resize 时的 handle
+
       let timeHandler: any
       let lastClientWidth = documentBody.offsetWidth
       const resizeHandle = (): void => {
@@ -186,18 +194,19 @@
           firstOrReset()
         }, 500)
       }
+
       // 兼容滚动事件绑定在 window 上，
       // 并且页面被 keep-alive 缓存时滚动穿越的情形
       // (a 页面绑定滚动被缓存，b 页面滚动会影响 a 页面的监听)
       let isActive = true
       onActivated(() => (isActive = true))
       onDeactivated(() => (isActive = false))
+
       // 滚动
-      let scrollElement: Window | HTMLElement = window
       let body = document.documentElement || document.body
       let scrollTimeoutHandle: any
+      // 滚动事件
       const scrollFn = (): void => {
-        console.log(123)
         if (actualLoading.value || isOver.value || !isActive) return
         const [scrollHeight, scrollTop, clientHeight] = [
           body.scrollHeight,
@@ -212,12 +221,13 @@
         }
       }
 
+      // 挂载时 监听父组件 scroll 事件
       onMounted(() => {
         scrollElement = waterfallRef?.value?.parentElement as HTMLElement
-        console.log(scrollElement)
         scrollElement.addEventListener('scroll', scrollFn)
       })
 
+      // 卸载时 删除父组件 scroll 事件
       onBeforeUnmount(() => {
         scrollElement.removeEventListener('scroll', scrollFn)
       })
@@ -240,21 +250,21 @@
         actualColWidth,
         actualList,
         actualCols,
-        waterfallRef
+        waterfallRef,
+        id
       }
     }
   })
 </script>
 
 <style lang="scss" scoped>
-  .vue3-waterfall-wrapper {
+  .waterfall-wrapper {
     position: relative;
     width: 100%;
     margin: 0 auto;
   }
 
   .waterfall-item {
-    // visibility: hidden;
     position: absolute;
     animation: scale-item 0.3s linear forwards;
     transition: all 0.3s;
