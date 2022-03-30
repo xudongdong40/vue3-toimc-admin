@@ -4,10 +4,10 @@
 
 declare module 'vue' {
   export interface GlobalComponents {
-    BaseEditor: typeof import('./src/components/Editor/toast-ui/BaseEditor.vue')['default']
     BasicForm: typeof import('./src/components/Form/BasicForm.vue')['default']
     BasicTable: typeof import('./src/components/Table/BasicTable.vue')['default']
     BasicTransition: typeof import('./src/components/Transition/BasicTransition.vue')['default']
+    Calendar: typeof import('./src/components/Calendar/index.vue')['default']
     ChooseArea: typeof import('./src/components/ChooseArea/index.vue')['default']
     ChooseCity: typeof import('./src/components/ChooseCity/index.vue')['default']
     CityList: typeof import('./src/components/ChooseCity/CityList.vue')['default']
@@ -21,12 +21,13 @@ declare module 'vue' {
     Descriptions: typeof import('./src/components/Descriptions/index.vue')['default']
     DNumbers: typeof import('./src/components/DNumbers/index.vue')['default']
     DProgress: typeof import('./src/components/DProgress/index.vue')['default']
-    ElAlert: typeof import('element-plus/es')['ElAlert']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']
     ElButton: typeof import('element-plus/es')['ElButton']
+    ElButtonGroup: typeof import('element-plus/es')['ElButtonGroup']
+    ElCalendar: typeof import('element-plus/es')['ElCalendar']
     ElCard: typeof import('element-plus/es')['ElCard']
     ElCol: typeof import('element-plus/es')['ElCol']
-    ElContainer: typeof import('element-plus/es')['ElContainer']
+    ElConfigProvider: typeof import('element-plus/es')['ElConfigProvider']
     ElDescriptions: typeof import('element-plus/es')['ElDescriptions']
     ElDescriptionsItem: typeof import('element-plus/es')['ElDescriptionsItem']
     ElDivider: typeof import('element-plus/es')['ElDivider']
@@ -58,7 +59,6 @@ declare module 'vue' {
     ToastEditor: typeof import('./src/components/Editor/toast-ui/ToastEditor.vue')['default']
     TransitionList: typeof import('./src/components/Transition/TransitionList.vue')['default']
     Trend: typeof import('./src/components/Trend/index.vue')['default']
-    TuiEditor: typeof import('./src/components/Editor/toast-ui/TuiEditor.vue')['default']
   }
 }
 
