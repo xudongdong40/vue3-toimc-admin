@@ -27,6 +27,7 @@
       :language="form.language"
       :theme="form.theme"
     ></toast-editor>
+    <t-card class="mt-5" type="markdown" header="测试Markdown"> # 测试 ## 要点 </t-card>
   </div>
 </template>
 

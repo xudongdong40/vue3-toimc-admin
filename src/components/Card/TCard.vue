@@ -33,7 +33,7 @@
         </div>
       </template>
       <transition-list name="Expand">
-        <div v-show="isCollapse" :class="bodyClass">
+        <div v-show="isCollapse" ref="bodyContent" :class="bodyClass">
           <slot></slot>
         </div>
       </transition-list>
@@ -45,6 +45,7 @@
 </template>
 
 <script lang="ts">
+  import TuiEditor from '@toast-ui/editor'
   import { CSSProperties, defineComponent } from 'vue'
 
   type CardLayoutType = 'default' | 'shadow'
@@ -66,9 +67,14 @@
       | 'right-start'
       | 'right-end'
   }
+  type CardType = 'default' | 'markdown' | 'wysiwyg'
 
   export default defineComponent({
     props: {
+      type: {
+        type: String as PropType<CardType>,
+        default: 'default'
+      },
       header: {
         type: String,
         default: ''
@@ -122,7 +128,59 @@
 
       const [isCollapse, toggle] = useToggle(true)
 
+      const bodyContent = ref()
+      var content = [
+        '![image](https://uicdn.toast.com/toastui/img/tui-editor-bi.png)',
+        '',
+        '# Awesome Editor!',
+        '',
+        'It has been _released as opensource in 2018_ and has ~~continually~~ evolved to **receive 10k GitHub ⭐️ Stars**.',
+        '',
+        '## Create Instance',
+        '',
+        'You can create an instance with the following code and use `getHtml()` and `getMarkdown()` of the [Editor](https://github.com/nhn/tui.editor).',
+        '',
+        '```js',
+        'const editor = new Editor(options);',
+        '```',
+        '',
+        '> See the table below for default options',
+        '> > More API information can be found in the document',
+        '',
+        '| name | type | description |',
+        '| --- | --- | --- |',
+        '| el | `HTMLElement` | container element |',
+        '',
+        '## Features',
+        '',
+        '* CommonMark + GFM Specifications',
+        '   * Live Preview',
+        '   * Scroll Sync',
+        '   * Auto Indent',
+        '   * Syntax Highlight',
+        '        1. Markdown',
+        '        2. Preview',
+        '',
+        '## Support Wrappers',
+        '',
+        '> * Wrappers',
+        '>    1. [x] React',
+        '>    2. [x] Vue',
+        '>    3. [ ] Ember'
+      ].join('\n')
+
+      onMounted(() => {
+        console.log(bodyContent.value.textContent.split('\n'))
+
+        TuiEditor.factory({
+          el: bodyContent.value,
+          viewer: true,
+          initialValue: content //bodyContent.value.innerHTML
+        })
+      })
+
       return {
+        bodyContent,
         showSlots,
         isCollapse,
         toggle
