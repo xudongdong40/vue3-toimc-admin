@@ -287,16 +287,16 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
               title: '卡片'
             },
             component: () => import('@/views/components/display/card.vue')
+          },
+          {
+            name: 'Calendar',
+            path: 'calendar',
+            meta: {
+              title: '日历'
+            },
+            component: () => import('@/views/components/display/calendar.vue')
           }
         ]
-      },
-      {
-        name: 'Calendar',
-        path: 'calendar',
-        meta: {
-          title: '日历'
-        },
-        component: () => import('@/views/components/calendar/index.vue')
       }
     ]
   }

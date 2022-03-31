@@ -73,3 +73,17 @@ export type FormSchema = {
     onExceed?: (files: File[], uploadFiles: UploadFiles) => void
   }
 }
+
+export type FormActionType = {
+  submit: () => Promise<void>
+  validate: (
+    callback?: (isValid: boolean, invalidFields?: ValidateFieldsError) => void
+  ) => Promise<void>
+  validateField: (
+    props?: Arrayable<FormItemProp>,
+    callback?: (isValid: boolean, invalidFields?: ValidateFieldsError) => void
+  ) => Promise<void>
+  resetFields: (props?: Arrayable<FormItemProp>) => void
+  scrollToField: (props: FormItemProp) => void
+  clearValidate: (props?: Arrayable<FormItemProp>) => void
+}

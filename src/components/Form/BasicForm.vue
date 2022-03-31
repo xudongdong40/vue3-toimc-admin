@@ -23,6 +23,7 @@
         v-if="['radio-group', 'checkbox-group'].includes(item.component)"
         v-model="model[item.prop]"
         v-bind="item.attrs"
+        v-on="item.events || {}"
       >
         <component
           :is="'el-' + radio.component"

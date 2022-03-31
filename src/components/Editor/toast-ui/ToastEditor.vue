@@ -15,10 +15,9 @@
   import '@toast-ui/editor/dist/i18n/zh-cn'
   import '@toast-ui/editor/dist/i18n/zh-tw'
   import codeSyntaxHighlight from '@toast-ui/editor-plugin-code-syntax-highlight'
-  import { defineComponent, onMounted, reactive, toRefs, ref } from 'vue'
+  import { defineComponent, onMounted, toRefs, ref } from 'vue'
 
   interface DataProps {
-    editorIns: any
     getHeight: () => string
     getEditorElements: any
     getHTML: () => string
@@ -28,6 +27,12 @@
     isMarkdownMode: () => boolean
     isWysiwygMode: () => boolean
     setHeight: (ref?: string) => void
+    reset: () => void
+    changeMode: (ref?: string) => void
+    setLanguage: (ref?: string) => void
+    setMarkdown: (ref?: string) => void
+    setHTML: (ref?: string) => void
+    insertText: (ref?: string) => void
   }
 
   const defaultToolbarItems = [
@@ -42,8 +47,8 @@
   export default defineComponent({
     props: {
       height: {
-        type: String,
-        default: '500px'
+        type: Number,
+        default: 500
       },
       initialValue: {
         type: String,
@@ -86,44 +91,63 @@
         theme
       } = toRefs(props)
 
+      let editorIns: any = {}
+
       const data: DataProps = reactive({
-        editorIns: {},
         getHeight: () => {
-          return data.editorIns.getHeight()
+          return editorIns.getHeight()
         },
         getEditorElements: () => {
-          return data.editorIns.getEditorElements()
+          return editorIns.getEditorElements()
         },
         getHTML: () => {
-          return data.editorIns.getHTML()
+          return editorIns.getHTML()
         },
         getMarkdown: () => {
-          return data.editorIns.getMarkdown()
+          return editorIns.getMarkdown()
         },
         hide: () => {
-          return data.editorIns.hide()
+          return editorIns.hide()
         },
         show: () => {
-          return data.editorIns.show()
+          return editorIns.show()
         },
         isMarkdownMode: () => {
-          return data.editorIns.isMarkdownMode()
+          return editorIns.isMarkdownMode()
         },
         isWysiwygMode: () => {
-          return data.editorIns.isWysiwygMode()
+          return editorIns.isWysiwygMode()
         },
         setHeight: (h) => {
-          return data.editorIns.setHeight(h)
+          return editorIns.setHeight(h)
+        },
+        reset: () => {
+          return editorIns.reset()
+        },
+        changeMode: (mode: string) => {
+          return editorIns.changeMode(mode)
+        },
+        setLanguage: (lang: string) => {
+          return Editor.setLanguage(lang, {})
+        },
+        setMarkdown: (str: string) => {
+          return editorIns.setMarkdown(str)
+        },
+        setHTML: (str: string) => {
+          return editorIns.setHTML(str)
+        },
+        insertText: (str: string) => {
+          return editorIns.insertText(str)
         }
       })
 
       const editor = ref<HTMLElement>()
 
-      onMounted(() => {
+      const initEditor = () => {
         if (editor.value) {
-          data.editorIns = new Editor({
+          editorIns = new Editor({
             el: editor.value,
-            height: height.value,
+            height: height.value + 'px',
             initialValue: initialValue.value,
             placeholder: placeholder.value,
             previewStyle: 'vertical',
@@ -135,7 +159,19 @@
             plugins: [[codeSyntaxHighlight, { highlighter: Prism }]]
           })
         }
+      }
+
+      onMounted(() => {
+        initEditor()
       })
+
+      // theme,language 没有API设置
+      watch(
+        () => [theme.value, language.value],
+        () => {
+          initEditor()
+        }
+      )
 
       return {
         editor,
