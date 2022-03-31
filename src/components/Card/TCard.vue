@@ -108,7 +108,7 @@
         default: 'default'
       },
       tips: {
-        type: [String, Object] as PropType<string | ToolTipsType>,
+        type: [String, Object, Boolean] as PropType<string | ToolTipsType | boolean>,
         default: ''
       },
       layout: {
