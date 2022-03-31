@@ -17,10 +17,12 @@ import 'element-plus/dist/index.css'
 
 import * as plugins from './plugins/index'
 
+import directive from './directive'
+
 const app = createApp(App)
 
 setupStore(app)
 setupRouter(app)
 setupPlugins(app, plugins)
 
-app.mount('#app')
+app.use(directive).mount('#app')
