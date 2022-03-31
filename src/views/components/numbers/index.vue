@@ -21,6 +21,7 @@
           :size="48"
           :break-all="form.breakAll"
           :classes="'d-text'"
+          split=","
         >
           <template #prefix>{{ form.prefix }}</template>
           <template #suffix>{{ form.suffix }}</template>

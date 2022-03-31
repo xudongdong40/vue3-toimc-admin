@@ -14,6 +14,7 @@
   import { CSSProperties, defineComponent } from 'vue'
   import bigInt from 'big-integer'
   import { rand } from '@/utils'
+  import { isFunction, isNumber } from 'lodash'
 
   export default defineComponent({
     props: {
@@ -58,23 +59,23 @@
       style: {
         type: Object as PropType<CSSProperties>,
         default: () => ({})
-      }
+      },
       // todo
+      split: {
+        type: String,
+        default: ''
+      },
       // 比如，可以由,或者.来分隔数据
-      // split: {
-      //   type: String,
-      //   default: ''
-      // },
       // 比如，可以设置单位，千，百，万，亿，兆
       // unit: {
       //   type: String as PropType<>,
       //   default: '',
       // }
       // 比如，用户可以定义format格式
-      // format: {
-      //   type: String as PropType<>,
-      //   default: '',
-      // }
+      format: {
+        type: Function,
+        default: null
+      }
     },
     setup(props, { expose }) {
       const { setupDuration } = unref(props)
@@ -87,6 +88,7 @@
 
       let ctrl
 
+      // 先把带小数的数放大，倍数是：10的倍数 的 小数位数 次方，比如：1.12345，那么放大后是：1.12345 * 10^5
       function getTimesNum(number, times) {
         const str = number.toString()
         if (str.indexOf('.') !== -1) {
@@ -102,23 +104,44 @@
         }
       }
 
+      // 加分隔符
+      function formatWithSeperator(val: string, separator: string) {
+        const num = val.split('.')
+        let x1 = num[0]
+        const x2 = num.length > 1 ? '.' + num[1] : ''
+        const rgx = /(\d+)(\d{3})/
+        if (separator && !isNumber(separator)) {
+          while (rgx.test(x1)) {
+            x1 = x1.replace(rgx, '$1' + separator + '$2')
+          }
+        }
+        return x1 + x2
+      }
+
+      // 格式化
       function format(number, digits) {
+        // 用户传递了format方法，直接返回
+        if (isFunction(props.format)) {
+          return formatWithSeperator(props.format(number), props.split)
+        }
         const str = number.toString()
+        let tmp
         if (digits > 0) {
           if (str.indexOf('.') === -1) {
             // number中无"."
-            return (str + '.').padEnd(digits + str.length + 1, '0')
+            tmp = (str + '.').padEnd(digits + str.length + 1, '0')
           } else {
             // number中无中有".""
             if (str.split('.')[1].length > digits) {
-              return str.split('.')[0] + '.' + str.split('.')[1].substr(0, digits)
+              tmp = str.split('.')[0] + '.' + str.split('.')[1].substr(0, digits)
             } else {
-              return str.split('.')[0] + '.' + str.split('.')[1].padEnd(digits, '0')
+              tmp = str.split('.')[0] + '.' + str.split('.')[1].padEnd(digits, '0')
             }
           }
         } else {
-          return str.substr(0, str.length - digits)
+          tmp = str.substr(0, str.length - digits)
         }
+        return formatWithSeperator(tmp, props.split)
       }
 
       function init() {
@@ -145,15 +168,17 @@
           times = bigInt(10).pow(dot.value)
         }
 
+        // 初始值与结束值
         origin = getTimesNum(begin.value, times)
         target = getTimesNum(end.value, times)
 
         // 计算定时器的倍率
         const rate = bigInt(duration.value).divide(setupDuration)
 
+        // 计算step, 并加入随机性，这样就不会有很多0
+        let step = rate.compareAbs(bigInt.zero) !== 0 ? target.minus(origin).divide(rate) : target
+
         ctrl = setInterval(() => {
-          // 计算step, 并加入随机性，这样就不会有很多0
-          let step = rate.compareAbs(bigInt.zero) !== 0 ? target.minus(origin).divide(rate) : target
           if (step.compareAbs(bigInt.zero) === 1) {
             const len = step.toString().length
             step = bigInt(rand(len))
@@ -167,7 +192,7 @@
           // format
           let divide = origin.divmod(times)
 
-          result.value =
+          let tmp =
             divide.quotient.toString() +
             (dot.value > 0 ? '.' : '') +
             (divide.remainder.toString() !== '0'
@@ -176,7 +201,9 @@
                 : divide.remainder.toString()
               : '')
 
-          // 如果达到目标值，则停止
+          tmp = isFunction(props.format) ? props.format(tmp) : tmp
+          result.value = formatWithSeperator(tmp, props.split)
+          // 如果达到目标值cvb'，则停止
           if (origin.compareAbs(target) === 1) {
             result.value = format(end.value, dot.value)
             status.value = false
