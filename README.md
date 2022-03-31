@@ -1,6 +1,7 @@
 # vue-toimc-admin 管理后台项目
 
 <div align="center"> <a href="https://github.com/toimc-team/vue3-toimc-admin"> <img alt="Toimc Logo" width="360" height="100" src="https://toimc-online.obs.cn-east-3.myhuaweicloud.com/logo.png"> </a> <br> <br>
+</div>
 
 > 基于 Vue3.0+TypeScript+Vite+Element-plus 的管理后台项目
 >
@@ -12,7 +13,9 @@ Hello，小伙伴们，我们是 toimc 开源项目团队，本文我们将简�
 
 ## 起源
 
-今年 2 月 7 日，Vue 3 成为了新的默认版本。市面上也出现了很多基于 Vue 3 开发的优秀的中后台解决方案，如 NaiveAdmin、vue-vben-admin、vue-admin-better 等，但是在这些解决方案相关的生态、跨端方案、安全方案等有所欠缺，于是我们便想打造一款拥有良好生态的企业级跨端前后台解决方案。
+2022年2月7日，Vue 3 成为了新的默认版本。
+
+市面上也出现了很多基于 Vue 3 开发的优秀的中后台解决方案，如 NaiveAdmin、vue-vben-admin、vue-admin-better 等，但是在这些解决方案相关的生态、跨端方案、安全方案等有所欠缺，于是我们便想打造一款拥有良好生态的企业级跨端前后台解决方案。
 
 ## 项目开发
 
@@ -113,7 +116,7 @@ npm run build
 - 测试
 - 运营：文案、抖音、社群
 
-<img src="public/assets/640.png" alt="640" style="zoom:50%;" />
+<img src="public/assets/640.png" alt="640" style="width: 50%;" />
 
 ## 如何贡献
 
