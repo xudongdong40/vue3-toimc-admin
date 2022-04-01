@@ -49,7 +49,7 @@
 <script lang="ts">
   import dayjs from 'dayjs'
   import { solar2lunar } from '@/utils/calendar'
-  import { isFunction } from 'lodash'
+  import { isFunction } from 'lodash-es'
 
   const defaultTools = {
     'prev-year': '上一年',

@@ -122,7 +122,7 @@
 <script lang="ts">
   import { defineComponent } from 'vue'
   import { CropendResult } from './typing'
-  import { isFunction } from 'lodash'
+  import { isFunction } from 'lodash-es'
   import { dataURLtoBlob } from '@/utils/file/base64Conver'
 
   export default defineComponent({

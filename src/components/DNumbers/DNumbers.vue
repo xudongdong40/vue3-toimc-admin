@@ -14,7 +14,7 @@
   import { CSSProperties, defineComponent } from 'vue'
   import bigInt from 'big-integer'
   import { rand } from '@/utils'
-  import { isFunction, isNumber } from 'lodash'
+  import { isFunction, isNumber } from 'lodash-es'
 
   export default defineComponent({
     props: {

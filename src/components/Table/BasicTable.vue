@@ -131,7 +131,7 @@
 
 <script lang="ts">
   import { ColumnOptions, LoadingProps, PaginationProps } from './types'
-  import { omit } from 'lodash'
+  import { omit } from 'lodash-es'
   import { ElTable } from 'element-plus'
 
   export default defineComponent({
