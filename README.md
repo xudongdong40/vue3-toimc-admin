@@ -11,9 +11,11 @@
 
 Hello，小伙伴们，我们是 toimc 开源项目团队，本文我们将简单介绍下现阶段我们开源项目的规划，帮助大家来了解我们的开源计划，了解我们团队。
 
+国内镜像站：[https://gitee.com/toimc-team/vue3-toimc-admin](https://gitee.com/toimc-team/vue3-toimc-admin)
+
 ## 起源
 
-2022年2月7日，Vue 3 成为了新的默认版本。
+2022 年 2 月 7 日，Vue 3 成为了新的默认版本。
 
 市面上也出现了很多基于 Vue 3 开发的优秀的中后台解决方案，如 NaiveAdmin、vue-vben-admin、vue-admin-better 等，但是在这些解决方案相关的生态、跨端方案、安全方案等有所欠缺，于是我们便想打造一款拥有良好生态的企业级跨端前后台解决方案。
 
