@@ -7,10 +7,17 @@
       </div>
     </el-row>
     <el-row class="items-center">
-      <div class="pr-4">
+      <span class="items">
         <icon type="HomeFilled" size="24px" />
-      </div>
-      <icon type="Bell" size="24px" />
+      </span>
+      <span class="items">
+        <icon type="Bell" size="24px" />
+      </span>
+      <span class="items">
+        <drop-down :actions="localeList" :current="getCurrent" @command="handleCommand">
+          <icon icon="ion:language" size="24px"></icon>
+        </drop-down>
+      </span>
       <el-divider direction="vertical"></el-divider>
       <el-avatar
         :size="32"
@@ -25,6 +32,9 @@
 </template>
 
 <script lang="ts">
+  import { useLocale } from '@/locales/useLocale'
+  import { localeList } from '@/settings/localeSetting'
+  import { LocaleType } from 'types/config'
   export default defineComponent({
     name: 'CustomHeader',
     props: {
@@ -35,15 +45,32 @@
     },
     emits: ['update:collapse'],
     setup(_props, { emit }) {
+      const { changeLocale, getLocale } = useLocale()
+
+      const getCurrent = computed(() => {
+        return localeList.findIndex((item) => item.value + '' === unref(getLocale))
+      })
+
       function handleClick(flag: boolean) {
         emit('update:collapse', !flag)
       }
 
+      function handleCommand(command: string) {
+        changeLocale(command as LocaleType)
+      }
+
       return {
-        handleClick
+        handleClick,
+        localeList,
+        handleCommand,
+        getCurrent
       }
     }
   })
 </script>
 
-<style scoped></style>
+<style lang="scss" scoped>
+  .items {
+    @apply flex items-center cursor-pointer pr-4;
+  }
+</style>
