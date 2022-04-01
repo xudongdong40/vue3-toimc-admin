@@ -173,7 +173,6 @@
         "element-plus/es/components/transfer/style/css",
         "element-plus/es/components/upload/style/css",
         "element-plus/lib/locale/lang/zh-cn",
-        "lodash",
         "papaparse",
         "pinia",
         "print-js",

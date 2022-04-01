@@ -137,6 +137,24 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
         ]
       },
       {
+        name: 'Menus',
+        path: 'menu',
+        meta: {
+          title: '菜单'
+        },
+        component: () => import('@/layouts/blank.vue'),
+        children: [
+          {
+            name: 'DropDown',
+            path: 'dropdown',
+            meta: {
+              title: '下拉菜单'
+            },
+            component: () => import('@/views/components/menu/dropdown.vue')
+          }
+        ]
+      },
+      {
         name: 'DynamicShows',
         path: 'dynamic',
         meta: {
