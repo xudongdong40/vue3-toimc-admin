@@ -1,5 +1,5 @@
 import { Slots } from 'vue'
-import { isFunction } from 'lodash'
+import { isFunction } from 'lodash-es'
 
 /**
  * @description:  Get slot to prevent empty error

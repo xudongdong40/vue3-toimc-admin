@@ -1,7 +1,7 @@
 import type { AppRouteRecordRaw } from '@/router/types'
 import type { App } from 'vue'
 
-import { sortBy } from 'lodash'
+import { sortBy } from 'lodash-es'
 
 // 菜单排序
 export function sortMenu(menus: Array<AppRouteRecordRaw> = []) {
