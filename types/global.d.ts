@@ -30,6 +30,15 @@ declare global {
   declare type NonNullable<T> = T extends null | undefined ? never : T
   declare type Recordable<T = any> = Record<string, T>
 
+  // meta不存在的问题
+  interface ImportMeta {
+    env: Record<string, unknown>
+  }
+
+  interface ImportMetaEnv extends ViteEnv {
+    __: unknown
+  }
+
   declare interface ViteEnv {
     VITE_PORT: number
     VITE_USE_MOCK: boolean
