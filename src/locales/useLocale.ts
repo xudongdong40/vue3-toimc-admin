@@ -7,7 +7,6 @@ import { i18n } from './setupI18n'
 import { useLocaleStoreWithOut } from '@/store/modules/locale'
 import { unref, computed } from 'vue'
 import { loadLocalePool, setHtmlPageLang } from './helper'
-
 interface LangModule {
   message: Recordable
   dateLocale: Recordable
@@ -30,10 +29,6 @@ export function useLocale() {
   const localeStore = useLocaleStoreWithOut()
   const getLocale = computed(() => localeStore.getLocale)
   const getShowLocalePicker = computed(() => localeStore.getShowPicker)
-
-  const getAntdLocale = computed((): any => {
-    return i18n.global.getLocaleMessage(unref(getLocale))?.antdLocale ?? {}
-  })
 
   // Switching the language will change the locale of useI18n
   // And submit to configuration modification
@@ -63,7 +58,6 @@ export function useLocale() {
   return {
     getLocale,
     getShowLocalePicker,
-    changeLocale,
-    getAntdLocale
+    changeLocale
   }
 }

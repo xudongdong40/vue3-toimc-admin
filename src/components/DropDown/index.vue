@@ -27,7 +27,7 @@
             :command="item.value"
           >
             <span class="flex items-center" @click="() => handleItemClick(item, index)">
-              <icon :icon="item.icon" v-bind="item.iconProps"></icon>
+              <icon v-if="item.icon" :icon="item.icon" v-bind="item.iconProps"></icon>
               {{ item.text }}
             </span>
           </el-dropdown-item>
