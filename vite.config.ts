@@ -18,6 +18,8 @@ import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 import OptimizationPersist from 'vite-plugin-optimize-persist'
 import PkgConfig from 'vite-plugin-package-config'
 
+import vueI18n from '@intlify/vite-plugin-vue-i18n'
+
 // vitejs
 import { loadEnv } from 'vite'
 import { viteMockServe } from 'vite-plugin-mock'
@@ -97,7 +99,15 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
         symbolId: 'icon-[dir]-[name]'
       }),
       PkgConfig(),
-      OptimizationPersist()
+      OptimizationPersist(),
+      // 国际化
+      vueI18n({
+        // if you want to use Vue I18n Legacy API, you need to set `compositionOnly: false`
+        // compositionOnly: false,
+
+        // you need to set i18n resource including paths !
+        include: pathResolve('src/locales/**')
+      })
     ],
     json: {
       stringify: true

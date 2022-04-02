@@ -3,12 +3,11 @@ import type { LocaleSetting, LocaleType } from 'types/config'
 import { DropMenuItem } from '../components/DropDown/types'
 
 export const LOCALE: { [key: string]: LocaleType } = {
-  ZH_CN: 'zh_CN',
+  ZH_CN: 'zh-CN',
   EN_US: 'en'
 }
 
 export const localeSetting: LocaleSetting = {
-  showPicker: true,
   // Locale
   locale: LOCALE.ZH_CN,
   // Default locale

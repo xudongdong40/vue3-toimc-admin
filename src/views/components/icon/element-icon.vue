@@ -3,8 +3,7 @@
     <el-card>
       <template #header>
         <el-row justify="space-between">
-          <div>{{ t('sys.api.title') }}</div>
-          <!-- <div>ElementPlus图标</div> -->
+          <div>ElementPlus图标</div>
           <el-row align="middle">
             <el-row align="middle">
               <div class="pr-1">只复制icon名</div>
@@ -41,14 +40,12 @@
   import { ElMessage } from 'element-plus'
 
   import copy from 'copy-to-clipboard'
-  import { useI18n } from '@/hooks/useI18n'
 
   export default defineComponent({
     setup() {
       const showIcon = ref(true)
       const showText = ref(false)
       const copyAll = ref(true)
-      const { t } = useI18n()
 
       function handleCopy(item: string) {
         copyAll.value ? copy(item) : copy(`<icon type="${item}"></icon>`)
@@ -66,8 +63,7 @@
         copyAll,
         classes: computed(() => {
           return showText.value ? 'w-1/8 py-6' : 'p-1'
-        }),
-        t
+        })
       }
     }
   })

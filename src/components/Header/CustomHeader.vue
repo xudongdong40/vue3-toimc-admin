@@ -25,16 +25,18 @@
       ></el-avatar>
       <span>管理员</span>
       <el-divider direction="vertical"></el-divider>
-      <span class="pr-1">退出</span>
+      <span class="pr-1">{{ $t('Header.CustomHeader.quit') }}</span>
       <icon type="SwitchButton" size="24px" />
     </el-row>
   </el-header>
 </template>
 
 <script lang="ts">
+  // useLocale把vue-i18n的useI18n封装了一层，加入了cache
   import { useLocale } from '@/locales/useLocale'
   import { localeList } from '@/settings/localeSetting'
   import { LocaleType } from 'types/config'
+
   export default defineComponent({
     name: 'CustomHeader',
     props: {
@@ -48,7 +50,7 @@
       const { changeLocale, getLocale } = useLocale()
 
       const getCurrent = computed(() => {
-        return localeList.findIndex((item) => item.value + '' === unref(getLocale))
+        return localeList.findIndex((item) => item.value + '' === getLocale.value)
       })
 
       function handleClick(flag: boolean) {

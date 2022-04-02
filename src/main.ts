@@ -21,10 +21,6 @@ import { setupPlugins } from './utils/index'
 import { setupDirectives } from './directive'
 import { setupI18n } from './locales/setupI18n'
 
-const app = createApp(App)
-
-setupStore(app)
-
 async function bootstrap() {
   const app = createApp(App)
 
@@ -34,6 +30,7 @@ async function bootstrap() {
   // Multilingual configuration
   // Asynchronous case: language files may be obtained from the server side
   await setupI18n(app)
+  // app.use(i18n)
 
   // Configure routing
   setupRouter(app)

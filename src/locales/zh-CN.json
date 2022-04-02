@@ -1,0 +1,21 @@
+{
+  "Header": {
+    "CustomHeader": {
+      "quit": "退出"
+    }
+  },
+  "menu": {
+    "home": "首页"
+  },
+  "components": {
+    "tools": {
+      "i18n": {
+        "card-title": "国际化示例",
+        "test": "测试文字1",
+        "5zpfmf": "测试文字2",
+        "c2am9h": "方法"
+      }
+    }
+  },
+  "test": "测试文字"
+}

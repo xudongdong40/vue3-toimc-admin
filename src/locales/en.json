@@ -1,0 +1,21 @@
+{
+  "Header": {
+    "CustomHeader": {
+      "quit": "Exit"
+    }
+  },
+  "menu": {
+    "home": "Home"
+  },
+  "components": {
+    "tools": {
+      "i18n": {
+        "card-title": "Examples of internationalisation",
+        "test": "test words1",
+        "5zpfmf": "test words 2",
+        "c2am9h": "xxxx"
+      }
+    }
+  },
+  "test": "test"
+}

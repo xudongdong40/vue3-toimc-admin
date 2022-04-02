@@ -21,30 +21,14 @@ export const useLocaleStore = defineStore({
     localInfo: lsLocaleSetting
   }),
   getters: {
-    getShowPicker(): boolean {
-      return !!this.localInfo?.showPicker
-    },
     getLocale(): LocaleType {
-      return this.localInfo?.locale ?? 'zh_CN'
+      return this.localInfo?.locale ?? 'zh-CN'
     }
   },
   actions: {
-    /**
-     * Set up multilingual information and cache
-     * @param info multilingual info
-     */
     setLocaleInfo(info: Partial<LocaleSetting>) {
       this.localInfo = { ...this.localInfo, ...info }
       ls.set(LOCALE_KEY, this.localInfo)
-    },
-    /**
-     * Initialize multilingual information and load the existing configuration from the local cache
-     */
-    initLocale() {
-      this.setLocaleInfo({
-        ...localeSetting,
-        ...this.localInfo
-      })
     }
   }
 })

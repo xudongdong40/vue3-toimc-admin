@@ -261,6 +261,14 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
               title: '打印'
             },
             component: () => import('@/views/components/tools/print.vue')
+          },
+          {
+            name: 'i18n',
+            path: 'i18n',
+            meta: {
+              title: '国际化'
+            },
+            component: () => import('@/views/components/tools/i18n.vue')
           }
         ]
       },
