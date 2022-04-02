@@ -16,7 +16,7 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue'
-  import { useLocale } from '@/locales/useLocale'
+  import { useLocale } from '@/hooks/useLocale'
 
   export default defineComponent({
     setup() {

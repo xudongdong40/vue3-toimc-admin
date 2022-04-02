@@ -33,7 +33,7 @@
 
 <script lang="ts">
   // useLocale把vue-i18n的useI18n封装了一层，加入了cache
-  import { useLocale } from '@/locales/useLocale'
+  import { useLocale } from '@/hooks/useLocale'
   import { localeList } from '@/settings/localeSetting'
   import { LocaleType } from 'types/config'
 

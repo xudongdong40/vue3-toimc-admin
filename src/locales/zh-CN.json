@@ -5,7 +5,9 @@
     }
   },
   "menu": {
-    "home": "首页"
+    "home": "首页",
+    "overview": "概览",
+    "component": "组件"
   },
   "components": {
     "tools": {

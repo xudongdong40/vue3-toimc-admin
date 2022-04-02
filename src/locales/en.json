@@ -5,7 +5,9 @@
     }
   },
   "menu": {
-    "home": "Home"
+    "home": "Home",
+    "overview": "Overview",
+    "component": "Components"
   },
   "components": {
     "tools": {
