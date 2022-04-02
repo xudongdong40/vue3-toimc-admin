@@ -128,6 +128,13 @@
         }
       )
 
+      watch(
+        () => props.current,
+        (val) => {
+          activeItem.value = val
+        }
+      )
+
       expose({
         handleOpen,
         handleClose
