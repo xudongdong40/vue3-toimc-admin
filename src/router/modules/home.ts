@@ -1,11 +1,12 @@
 import LayoutsDefault from '@/layouts/default.vue'
 import type { AppRouteRecordRaw } from '../types'
+import { t } from '@/hooks/useI18n'
 
 const homeRoutes: Array<AppRouteRecordRaw> = [
   {
     name: 'Home',
     meta: {
-      title: '首页',
+      title: t('menu.home'),
       order: 10,
       icon: 'House'
     },
@@ -18,7 +19,7 @@ const homeRoutes: Array<AppRouteRecordRaw> = [
         path: '/dashboard',
         component: () => import('@/views/dashboard/welcome/index.vue'),
         meta: {
-          title: '概览'
+          title: t('menu.overview')
         }
       }
     ]

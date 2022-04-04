@@ -3,7 +3,7 @@
   <el-sub-menu v-if="menuHasChildren(item)" :index="getIndex(item)">
     <template #title>
       <icon v-if="item.meta.icon" :type="getIcons(item)" />
-      <span v-if="!collapse">{{ item.meta.title }}</span>
+      <span v-if="!collapse">{{ $t(item.meta.title) }}</span>
     </template>
 
     <template v-for="child in item.children" :key="child.path">

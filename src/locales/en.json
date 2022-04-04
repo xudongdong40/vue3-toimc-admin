@@ -7,7 +7,120 @@
   "menu": {
     "home": "Home",
     "overview": "Overview",
-    "component": "Components"
+    "component": {
+      "title": "Components",
+      "display": {
+        "calendar": "Calendar",
+        "card": "Card",
+        "desc": "Details panel",
+        "title": "Exhibit"
+      },
+      "dynamic": {
+        "numbers": "Dynamic numbers",
+        "progress": "Dynamic progress bar",
+        "title": "Dynamic display",
+        "trends": "Trend indicator"
+      },
+      "editor": {
+        "title": "Editor",
+        "toast-ui": "ToastUI"
+      },
+      "form": {
+        "basic": "Basic Form",
+        "dom": "Form DOM writing",
+        "schema": "Form Schema writing",
+        "title": "Form"
+      },
+      "function": {
+        "crop": "Image Cropping",
+        "download": "Document Dowload",
+        "i18n": "Globalization",
+        "print": "Print",
+        "title": "Function",
+        "transition": "Transition Animation"
+      },
+      "icons": {
+        "element": "Element icon",
+        "icon": "Icon",
+        "icon-picker": "Icon Picker",
+        "iconify": "Iconify icon set",
+        "svg": "Svg Icon",
+        "title": "Components"
+      },
+      "menu": {
+        "dropdown": "Drop-down menu",
+        "title": "Menu"
+      },
+      "notice": {
+        "copy": "Copy",
+        "notice": "Notification menu",
+        "qrcode": "QR code",
+        "title": "Notify"
+      },
+      "select": {
+        "area": "Province City Selector",
+        "city": "City ​​Selector",
+        "title": "Selector"
+      },
+      "table": {
+        "basic": "Basic Form",
+        "title": "Sheet"
+      }
+    },
+    "pages": {
+      "title": "Pages",
+      "detail": {
+        "title": "Details page"
+      },
+      "errors": {
+        "default": "Default Exception ",
+        "title": "Exception Page"
+      },
+      "form": {
+        "default": "Default form page",
+        "title": "Form Page"
+      },
+      "lists": {
+        "title": "List Page"
+      },
+      "result": {
+        "title": "Results Page"
+      },
+      "settings": {
+        "title": "Settings Page"
+      },
+      "users": {
+        "title": "Personal Page"
+      }
+    },
+    "charts": {
+      "amap": "Amap",
+      "baidu": "Baidu Map",
+      "echarts": "Echarts",
+      "google": "Google Map",
+      "tencent": "Tencent Map",
+      "title": "Charts"
+    },
+    "nest-menus": {
+      "title": "Multi-level Menu"
+    },
+    "iframe": {
+      "external": "External Link",
+      "iframe": "Inline Page",
+      "title": "External Page"
+    },
+    "system": {
+      "department": "Departments",
+      "logs": "Logs",
+      "menu": "Menus",
+      "role": "Roles",
+      "title": "System Settings",
+      "user": "Users"
+    },
+    "about": {
+      "about-us": "AboutUs",
+      "title": "About"
+    }
   },
   "components": {
     "tools": {

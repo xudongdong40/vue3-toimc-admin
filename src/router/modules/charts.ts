@@ -1,3 +1,4 @@
+import { t } from '@/hooks/useI18n'
 import LayoutsDefault from '@/layouts/default.vue'
 import type { AppRouteRecordRaw } from '../types'
 
@@ -5,7 +6,7 @@ const chartsRoutes: Array<AppRouteRecordRaw> = [
   {
     name: 'Charts',
     meta: {
-      title: '图表',
+      title: t('menu.charts.title'),
       order: 50,
       icon: 'Histogram'
     },
@@ -17,7 +18,7 @@ const chartsRoutes: Array<AppRouteRecordRaw> = [
         name: 'BaiduCharts',
         path: 'baidu',
         meta: {
-          title: '百度地图'
+          title: t('menu.charts.baidu')
         },
         component: () => import('@/views/charts/baidu.vue')
       },
@@ -25,7 +26,7 @@ const chartsRoutes: Array<AppRouteRecordRaw> = [
         name: 'AmapCharts',
         path: 'amap',
         meta: {
-          title: '高德地图'
+          title: t('menu.charts.amap')
         },
         component: () => import('@/views/charts/amap.vue')
       },
@@ -33,7 +34,7 @@ const chartsRoutes: Array<AppRouteRecordRaw> = [
         name: '腾讯地图',
         path: 'tencent',
         meta: {
-          title: '腾讯地图'
+          title: t('menu.charts.tencent')
         },
         component: () => import('@/views/charts/tencent.vue')
       },
@@ -41,7 +42,7 @@ const chartsRoutes: Array<AppRouteRecordRaw> = [
         name: '谷歌地图',
         path: 'google',
         meta: {
-          title: '谷歌地图'
+          title: t('menu.charts.google')
         },
         component: () => import('@/views/charts/google.vue')
       },
@@ -49,7 +50,7 @@ const chartsRoutes: Array<AppRouteRecordRaw> = [
         name: 'Echarts',
         path: 'echarts',
         meta: {
-          title: 'Echarts'
+          title: t('menu.charts.echarts')
         },
         component: () => import('@/views/charts/echarts.vue')
       }

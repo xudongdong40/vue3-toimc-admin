@@ -7,7 +7,120 @@
   "menu": {
     "home": "首页",
     "overview": "概览",
-    "component": "组件"
+    "component": {
+      "title": "组件",
+      "icons": {
+        "title": "组件",
+        "icon": "图标",
+        "element": "Element图标",
+        "iconify": "Iconify图标集",
+        "icon-picker": "图标选择器",
+        "svg": "svg图标"
+      },
+      "form": {
+        "title": "表单",
+        "basic": "基础表单",
+        "schema": "表单Schema写法",
+        "dom": "表单DOM写法"
+      },
+      "table": {
+        "title": "表格",
+        "basic": "基础表格"
+      },
+      "select": {
+        "title": "选择器",
+        "area": "省市区选择器",
+        "city": "城市选择器"
+      },
+      "menu": {
+        "title": "菜单",
+        "dropdown": "下拉菜单"
+      },
+      "dynamic": {
+        "title": "动态展示",
+        "trends": "趋势指示",
+        "progress": "动态进度条",
+        "numbers": "动态数字"
+      },
+      "notice": {
+        "title": "通知&分享",
+        "notice": "通知菜单",
+        "qrcode": "二维码",
+        "copy": "复制"
+      },
+      "function": {
+        "title": "功能",
+        "transition": "过渡动画",
+        "crop": "图片裁剪",
+        "download": "文件下载",
+        "print": "打印",
+        "i18n": "国际化"
+      },
+      "editor": {
+        "title": "编辑器",
+        "toast-ui": "ToastUI"
+      },
+      "display": {
+        "title": "展示",
+        "desc": "详情面板",
+        "card": "卡片",
+        "calendar": "日历"
+      }
+    },
+    "pages": {
+      "title": "页面",
+      "form": {
+        "title": "表单页",
+        "default": "默认表单页"
+      },
+      "detail": {
+        "title": "详情页"
+      },
+      "result": {
+        "title": "结果页"
+      },
+      "users": {
+        "title": "个人页"
+      },
+      "settings": {
+        "title": "设置页"
+      },
+      "errors": {
+        "title": "异常页",
+        "default": "默认异常页"
+      },
+      "lists": {
+        "title": "列表页"
+      }
+    },
+    "charts": {
+      "title": "图表",
+      "baidu": "百度地图",
+      "amap": "高德地图",
+      "tencent": "腾讯地图",
+      "google": "谷歌地图",
+      "echarts": "Echarts"
+    },
+    "nest-menus": {
+      "title": "多级菜单"
+    },
+    "iframe": {
+      "title": "外部页面",
+      "iframe": "内嵌页面",
+      "external": "外链页面"
+    },
+    "system": {
+      "title": "系统管理",
+      "user": "用户管理",
+      "role": "角色管理",
+      "menu": "菜单管理",
+      "department": "部门管理",
+      "logs": "系统日志"
+    },
+    "about": {
+      "title": "关于",
+      "about-us": "关于我们"
+    }
   },
   "components": {
     "tools": {

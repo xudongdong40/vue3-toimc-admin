@@ -1,3 +1,4 @@
+import { t } from '@/hooks/useI18n'
 import LayoutsDefault from '@/layouts/default.vue'
 import type { AppRouteRecordRaw } from '../types'
 
@@ -5,7 +6,7 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
   {
     name: 'MenusDemo',
     meta: {
-      title: '多级菜单',
+      title: t('menu.nest-menus.title'),
       order: 70,
       icon: 'Guide'
     },
