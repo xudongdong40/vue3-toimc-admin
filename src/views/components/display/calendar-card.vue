@@ -10,7 +10,7 @@
 
 <script lang="ts">
   export default defineComponent({
-    name: 'SmallComponents',
+    name: 'CalendarCard',
     setup() {
       return {}
     }

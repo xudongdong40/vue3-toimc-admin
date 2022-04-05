@@ -327,19 +327,19 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
       },
       {
         name: 'SmallComp',
-        path: 'comp',
+        path: 'small-comp',
         meta: {
-          title: '小组件'
+          title: t('menu.component.small-comp.title')
         },
         component: () => import('@/layouts/blank.vue'),
         children: [
           {
-            name: 'Calendar',
+            name: 'CalendarCard',
             path: 'calendar',
             meta: {
-              title: '日历卡片'
+              title: t('menu.component.small-comp.calendar')
             },
-            component: () => import('@/views/components/components/index.vue')
+            component: () => import('@/views/components/small-components/calendar.vue')
           }
         ]
       }

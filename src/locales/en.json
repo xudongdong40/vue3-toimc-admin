@@ -65,6 +65,10 @@
       "table": {
         "basic": "Basic Form",
         "title": "Sheet"
+      },
+      "small-comp": {
+        "calendar": "CalendarCard",
+        "title": "Widgets"
       }
     },
     "pages": {

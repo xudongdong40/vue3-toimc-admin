@@ -65,6 +65,10 @@
         "desc": "详情面板",
         "card": "卡片",
         "calendar": "日历"
+      },
+      "small-comp": {
+        "title": "小组件",
+        "calendar": "日历卡片"
       }
     },
     "pages": {
