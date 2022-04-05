@@ -120,7 +120,7 @@
   import type { FormInstance, FormRules } from 'element-plus'
   import { defineComponent, PropType } from 'vue'
   import { FormSchema } from './types/types'
-  import { cloneDeep } from 'lodash'
+  import { cloneDeep } from 'lodash-es'
 
   import {
     ElInput,

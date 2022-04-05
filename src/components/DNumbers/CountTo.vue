@@ -5,7 +5,7 @@
 </template>
 <script lang="ts">
   import { TransitionPresets } from '@vueuse/core'
-  import { isNumber } from 'lodash'
+  import { isNumber } from 'lodash-es'
 
   const props = {
     startVal: { type: Number, default: 0 },

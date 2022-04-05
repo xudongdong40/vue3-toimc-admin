@@ -1,3 +1,4 @@
+import { t } from '@/hooks/useI18n'
 import LayoutsDefault from '@/layouts/default.vue'
 import type { AppRouteRecordRaw } from '../types'
 
@@ -5,7 +6,7 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
   {
     name: 'Components',
     meta: {
-      title: '组件',
+      title: t('menu.component.title'),
       order: 20,
       icon: 'ScaleToOriginal'
     },
@@ -17,7 +18,7 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
         name: 'Icons',
         path: 'icon',
         meta: {
-          title: '图标'
+          title: t('menu.component.icons.icon')
         },
         component: () => import('@/views/components/icon/index.vue'),
         redirect: '/comp/icon/element',
@@ -27,7 +28,7 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
             path: 'element',
             component: () => import('@/views/components/icon/element-icon.vue'),
             meta: {
-              title: 'Element图标'
+              title: t('menu.component.icons.element')
             }
           },
           {
@@ -35,7 +36,7 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
             path: 'element',
             component: () => import('@/views/components/icon/iconify.vue'),
             meta: {
-              title: 'Iconify图标集'
+              title: t('menu.component.icons.iconify')
             }
           },
           {
@@ -43,7 +44,7 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
             path: 'element',
             component: () => import('@/views/components/icon/picker.vue'),
             meta: {
-              title: '图标选择器'
+              title: t('menu.component.icons.icon-picker')
             }
           },
           {
@@ -51,7 +52,7 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
             path: 'svgs',
             component: () => import('@/views/components/icon/svg-icons.vue'),
             meta: {
-              title: 'svg图标'
+              title: t('menu.component.icons.svg')
             }
           }
         ]
@@ -60,7 +61,7 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
         name: 'Forms',
         path: 'form',
         meta: {
-          title: '表单'
+          title: t('menu.component.form.title')
         },
         component: () => import('@/views/components/forms/index.vue'),
         redirect: '/comp/forms/basic',
@@ -70,7 +71,7 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
             path: 'basic',
             component: () => import('@/views/components/forms/basic.vue'),
             meta: {
-              title: '基础表单'
+              title: t('menu.component.form.basic')
             }
           },
           {
@@ -78,7 +79,7 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
             path: 'comprehensive-json',
             component: () => import('@/views/components/forms/comprehensive-json.vue'),
             meta: {
-              title: '表单Schema写法'
+              title: t('menu.component.form.schema')
             }
           },
           {
@@ -86,7 +87,7 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
             path: 'comprehensive-dom',
             component: () => import('@/views/components/forms/comprehensive-dom.vue'),
             meta: {
-              title: '表单DOM写法'
+              title: t('menu.component.form.dom')
             }
           }
         ]
@@ -95,7 +96,7 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
         name: 'Tables',
         path: 'table',
         meta: {
-          title: '表格'
+          title: t('menu.component.table.title')
         },
         component: () => import('@/views/components/table/index.vue'),
         redirect: '/comp/table/basic',
@@ -105,7 +106,7 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
             path: 'basic',
             component: () => import('@/views/components/table/basic.vue'),
             meta: {
-              title: '基础表格'
+              title: t('menu.component.table.basic')
             }
           }
         ]
@@ -114,7 +115,7 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
         name: 'Selectors',
         path: 'select',
         meta: {
-          title: '选择器'
+          title: t('menu.component.select.title')
         },
         component: () => import('@/layouts/blank.vue'),
         children: [
@@ -122,7 +123,7 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
             name: 'Area',
             path: 'area',
             meta: {
-              title: '省市区选择器'
+              title: t('menu.component.select.area')
             },
             component: () => import('@/views/components/area/index.vue')
           },
@@ -130,9 +131,27 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
             name: 'City',
             path: 'city',
             meta: {
-              title: '城市选择器'
+              title: t('menu.component.select.city')
             },
             component: () => import('@/views/components/city/index.vue')
+          }
+        ]
+      },
+      {
+        name: 'Menus',
+        path: 'menu',
+        meta: {
+          title: t('menu.component.menu.title')
+        },
+        component: () => import('@/layouts/blank.vue'),
+        children: [
+          {
+            name: 'DropDown',
+            path: 'dropdown',
+            meta: {
+              title: t('menu.component.menu.dropdown')
+            },
+            component: () => import('@/views/components/menu/dropdown.vue')
           }
         ]
       },
@@ -140,7 +159,7 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
         name: 'DynamicShows',
         path: 'dynamic',
         meta: {
-          title: '动态展示'
+          title: t('menu.component.dynamic.title')
         },
         component: () => import('@/layouts/blank.vue'),
         children: [
@@ -148,7 +167,7 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
             name: 'Trends',
             path: 'trends',
             meta: {
-              title: '趋势指示'
+              title: t('menu.component.dynamic.trends')
             },
             component: () => import('@/views/components/trends/index.vue')
           },
@@ -156,7 +175,7 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
             name: 'Progress',
             path: 'progress',
             meta: {
-              title: '动态进度条'
+              title: t('menu.component.dynamic.progress')
             },
             component: () => import('@/views/components/progress/index.vue')
           },
@@ -164,7 +183,7 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
             name: 'DynamicNumbers',
             path: 'numbers',
             meta: {
-              title: '动态数字'
+              title: t('menu.component.dynamic.numbers')
             },
             component: () => import('@/views/components/numbers/index.vue')
           }
@@ -172,9 +191,9 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
       },
       {
         name: 'NoticeAbout',
-        path: 'select',
+        path: 'notice',
         meta: {
-          title: '通知&分享'
+          title: t('menu.component.notice.title')
         },
         component: () => import('@/layouts/blank.vue'),
         children: [
@@ -182,7 +201,7 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
             name: 'NoticeMessage',
             path: 'notice',
             meta: {
-              title: '通知菜单'
+              title: t('menu.component.notice.notice')
             },
             component: () => import('@/views/components/notice-message/index.vue')
           },
@@ -190,7 +209,7 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
             name: 'Qrcode',
             path: 'qrcode',
             meta: {
-              title: '二维码'
+              title: t('menu.component.notice.qrcode')
             },
             component: () => import('@/views/components/share/qrcode.vue')
           },
@@ -198,7 +217,7 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
             name: 'CopyAndShare',
             path: 'copy',
             meta: {
-              title: '复制'
+              title: t('menu.component.notice.copy')
             },
             component: () => import('@/views/components/share/copy.vue')
           }
@@ -208,7 +227,7 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
         name: 'Functions',
         path: 'func',
         meta: {
-          title: '功能'
+          title: t('menu.component.function.title')
         },
         component: () => import('@/layouts/blank.vue'),
         children: [
@@ -216,7 +235,7 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
             name: 'TransitionsDemo',
             path: 'transition',
             meta: {
-              title: '过渡动画'
+              title: t('menu.component.function.transition')
             },
             component: () => import('@/views/components/transitions/index.vue')
           },
@@ -224,7 +243,7 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
             name: 'CropperDemo',
             path: 'crop',
             meta: {
-              title: '图片裁剪'
+              title: t('menu.component.function.crop')
             },
             component: () => import('@/views/components/cropper/index.vue')
           },
@@ -232,7 +251,7 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
             name: 'Downloads',
             path: 'download',
             meta: {
-              title: '文件下载'
+              title: t('menu.component.function.download')
             },
             component: () => import('@/views/components/tools/download.vue')
           },
@@ -240,9 +259,17 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
             name: 'Prints',
             path: 'print',
             meta: {
-              title: '打印'
+              title: t('menu.component.function.print')
             },
             component: () => import('@/views/components/tools/print.vue')
+          },
+          {
+            name: 'i18n',
+            path: 'i18n',
+            meta: {
+              title: t('menu.component.function.i18n')
+            },
+            component: () => import('@/views/components/tools/i18n.vue')
           }
         ]
       },
@@ -250,7 +277,7 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
         name: 'EditorDemo',
         path: 'editor',
         meta: {
-          title: '编辑器'
+          title: t('menu.component.editor.title')
         },
         component: () => import('@/layouts/blank.vue'),
         children: [
@@ -258,7 +285,7 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
             name: 'ToastUiEditor',
             path: 'toast',
             meta: {
-              title: 'ToastUI'
+              title: t('menu.component.editor.toast-ui')
             },
             component: () => import('@/views/components/editor/toast-ui/index.vue')
           }
@@ -268,7 +295,7 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
         name: 'Display',
         path: 'display',
         meta: {
-          title: '展示'
+          title: t('menu.component.display.title')
         },
         component: () => import('@/layouts/blank.vue'),
         children: [
@@ -276,7 +303,7 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
             name: 'DescriptionDemo',
             path: 'desc',
             meta: {
-              title: '详情面板'
+              title: t('menu.component.display.desc')
             },
             component: () => import('@/views/components/display/desc.vue')
           },
@@ -284,7 +311,7 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
             name: 'Cards',
             path: 'cards',
             meta: {
-              title: '卡片'
+              title: t('menu.component.display.card')
             },
             component: () => import('@/views/components/display/card.vue')
           },
@@ -292,7 +319,7 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
             name: 'Calendar',
             path: 'calendar',
             meta: {
-              title: '日历'
+              title: t('menu.component.display.calendar')
             },
             component: () => import('@/views/components/display/calendar.vue')
           }

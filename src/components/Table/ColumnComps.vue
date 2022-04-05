@@ -39,7 +39,7 @@
 </template>
 
 <script lang="ts">
-  import { omit } from 'lodash'
+  import { omit } from 'lodash-es'
 
   export default defineComponent({
     props: {

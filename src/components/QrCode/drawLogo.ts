@@ -1,4 +1,4 @@
-import { isString } from 'lodash'
+import { isString } from 'lodash-es'
 import { RenderQrCodeParams, LogoType } from './types'
 
 export const drawLogo = ({ canvas, logo }: RenderQrCodeParams) => {

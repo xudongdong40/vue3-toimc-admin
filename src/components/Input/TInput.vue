@@ -34,11 +34,7 @@
 
 <script lang="ts">
   import { toLine } from '@/utils'
-  export interface IconProps {
-    color?: string
-    size?: string
-    classes?: string
-  }
+  import { IconProps } from './types'
 
   export type InputEventType = 'input' | 'clear' | 'blur' | 'change' | 'focus'
 

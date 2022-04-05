@@ -1,3 +1,4 @@
+import { t } from '@/hooks/useI18n'
 import LayoutsDefault from '@/layouts/default.vue'
 import type { AppRouteRecordRaw } from '../types'
 
@@ -5,7 +6,7 @@ const pagesRoutes: Array<AppRouteRecordRaw> = [
   {
     name: 'Pages',
     meta: {
-      title: '页面',
+      title: t('menu.pages.title'),
       order: 40,
       icon: 'CopyDocument'
     },
@@ -18,7 +19,7 @@ const pagesRoutes: Array<AppRouteRecordRaw> = [
         path: 'form',
         component: () => import('@/views/pages/form/index.vue'),
         meta: {
-          title: '表单页'
+          title: t('menu.pages.form.title')
         },
         children: [
           {
@@ -26,7 +27,7 @@ const pagesRoutes: Array<AppRouteRecordRaw> = [
             path: 'default',
             component: () => import('@/views/pages/form/default.vue'),
             meta: {
-              title: '默认表单页'
+              title: t('menu.pages.form.default')
             }
           }
         ]
@@ -36,7 +37,7 @@ const pagesRoutes: Array<AppRouteRecordRaw> = [
         path: 'detail',
         component: () => import('@/views/pages/form/index.vue'),
         meta: {
-          title: '详情页'
+          title: t('menu.pages.detail.title')
         }
       },
       {
@@ -44,7 +45,7 @@ const pagesRoutes: Array<AppRouteRecordRaw> = [
         path: 'result',
         component: () => import('@/views/pages/form/index.vue'),
         meta: {
-          title: '结果页'
+          title: t('menu.pages.result.title')
         }
       },
       {
@@ -52,7 +53,7 @@ const pagesRoutes: Array<AppRouteRecordRaw> = [
         path: 'users',
         component: () => import('@/views/pages/form/index.vue'),
         meta: {
-          title: '个人页'
+          title: t('menu.pages.users.title')
         }
       },
       {
@@ -60,7 +61,7 @@ const pagesRoutes: Array<AppRouteRecordRaw> = [
         path: 'settings',
         component: () => import('@/views/pages/form/index.vue'),
         meta: {
-          title: '设置页'
+          title: t('menu.pages.settings.title')
         }
       },
       {
@@ -68,7 +69,7 @@ const pagesRoutes: Array<AppRouteRecordRaw> = [
         path: 'errors',
         component: () => import('@/views/pages/errors/index.vue'),
         meta: {
-          title: '异常页',
+          title: t('menu.pages.errors.title'),
           alone: false
         },
         redirect: '/page/errors/default',
@@ -78,7 +79,7 @@ const pagesRoutes: Array<AppRouteRecordRaw> = [
             path: 'default',
             component: () => import('@/views/pages/errors/default.vue'),
             meta: {
-              title: '默认异常页'
+              title: t('menu.pages.errors.default')
             }
           }
         ]
@@ -88,7 +89,7 @@ const pagesRoutes: Array<AppRouteRecordRaw> = [
         path: 'lists',
         component: () => import('@/views/pages/form/index.vue'),
         meta: {
-          title: '列表页'
+          title: t('menu.pages.lists.title')
         }
       }
     ]

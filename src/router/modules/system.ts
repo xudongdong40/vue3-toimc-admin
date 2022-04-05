@@ -1,3 +1,4 @@
+import { t } from '@/hooks/useI18n'
 import LayoutsDefault from '@/layouts/default.vue'
 import type { AppRouteRecordRaw } from '../types'
 
@@ -5,7 +6,7 @@ const systemRoutes: Array<AppRouteRecordRaw> = [
   {
     name: 'System',
     meta: {
-      title: '系统管理',
+      title: t('menu.system.title'),
       order: 200,
       icon: 'Setting'
     },
@@ -17,7 +18,7 @@ const systemRoutes: Array<AppRouteRecordRaw> = [
         name: 'UsersPage',
         path: 'user',
         meta: {
-          title: '用户管理'
+          title: t('menu.system.user')
         },
         component: () => import('@/views/system/user.vue')
       },
@@ -25,7 +26,7 @@ const systemRoutes: Array<AppRouteRecordRaw> = [
         name: 'RolesPage',
         path: 'role',
         meta: {
-          title: '角色管理'
+          title: t('menu.system.role')
         },
         component: () => import('@/views/system/role.vue')
       },
@@ -33,7 +34,7 @@ const systemRoutes: Array<AppRouteRecordRaw> = [
         name: 'MenusPage',
         path: 'menu',
         meta: {
-          title: '菜单管理'
+          title: t('menu.system.menu')
         },
         component: () => import('@/views/system/menu.vue')
       },
@@ -41,7 +42,7 @@ const systemRoutes: Array<AppRouteRecordRaw> = [
         name: 'DepartmentPage',
         path: 'department',
         meta: {
-          title: '部门管理'
+          title: t('menu.system.department')
         },
         component: () => import('@/views/system/department.vue')
       },
@@ -49,7 +50,7 @@ const systemRoutes: Array<AppRouteRecordRaw> = [
         name: 'LogsPage',
         path: 'logs',
         meta: {
-          title: '系统日志'
+          title: t('menu.system.logs')
         },
         component: () => import('@/views/system/logs.vue')
       }
