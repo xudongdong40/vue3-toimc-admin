@@ -114,6 +114,7 @@
         return residualHeight / 12
       }
 
+      // 获得组件最终高度
       const getFinalHeight = () => {
         if (props.height) {
           return props.height + 'px'
@@ -134,7 +135,6 @@
 
       onMounted(() => {
         finalHeight.value = getFinalHeight()
-        console.log(finalHeight.value)
         finalMargin.value = calculateMargin()
       })
 
