@@ -1,0 +1,120 @@
+<template>
+  <div>
+    <el-drawer :model-value="showSetting" title="主题设置" :size="320" @closed="handleClosed">
+      <el-form :model="form" label-position="left">
+        <el-form-item label="布局">
+          <el-select v-model="form.layout">
+            <el-option label="分栏" :value="1" />
+            <el-option label="综合" :value="2" />
+            <el-option label="纵向" :value="3" />
+            <el-option label="横向" :value="4" />
+          </el-select>
+        </el-form-item>
+        <el-form-item label="主题">
+          <el-select v-model="form.theme">
+            <el-option label="蓝黑" :value="1" />
+            <el-option label="蓝白" :value="2" />
+            <el-option label="绿黑" :value="3" />
+            <el-option label="绿白" :value="4" />
+            <el-option label="紫黑" :value="5" />
+            <el-option label="紫白" :value="6" />
+            <el-option label="红黑" :value="7" />
+            <el-option label="红白" :value="8" />
+          </el-select>
+        </el-form-item>
+        <el-form-item label="菜单宽度">
+          <el-select v-model="form.menuWidth">
+            <el-option label="266px" value="266px" />
+            <el-option label="277px" value="277px" />
+            <el-option label="288px" value="288px" />
+          </el-select>
+        </el-form-item>
+        <el-form-item label="多页面标签">
+          <el-switch v-model="form.tabPage" />
+        </el-form-item>
+        <el-form-item label="页面标签图标">
+          <el-switch v-model="form.tabPageIcon" />
+        </el-form-item>
+        <el-form-item label="页面标签风格">
+          <el-select v-model="form.tabPageStyle">
+            <el-option label="卡片" value="card" />
+            <el-option label="灵动" value="normal" />
+            <el-option label="圆滑" value="round" />
+          </el-select>
+        </el-form-item>
+        <el-form-item label="头部固定">
+          <el-switch v-model="form.fixedHead" />
+        </el-form-item>
+        <el-form-item label="加载进度条">
+          <el-switch v-model="form.progress" />
+        </el-form-item>
+      </el-form>
+      <template #footer>
+        <el-button type="primary">保存</el-button>
+        <el-button>恢复默认</el-button>
+      </template>
+    </el-drawer>
+  </div>
+</template>
+
+<script lang="ts">
+  export default defineComponent({
+    props: {
+      show: {
+        type: Boolean,
+        default: false
+      }
+    },
+    emits: ['update:show'],
+    setup(props, { emit }) {
+      let { show } = toRefs(props)
+      const showSetting = ref(show)
+
+      const form = reactive({
+        layout: 1,
+        theme: '',
+        menuWidth: '266px',
+        tabPage: false,
+        tabPageIcon: false,
+        tabPageStyle: 'card',
+        fixedHead: true,
+        progress: true
+      })
+
+      function handleClosed() {
+        emit('update:show', false)
+      }
+
+      return {
+        showSetting,
+        handleClosed,
+        form
+      }
+    }
+  })
+</script>
+
+<style lang="scss" scoped>
+  :deep(.el-form-item) {
+    display: flex;
+    align-items: center;
+  }
+
+  :deep(.el-form-item__label) {
+    flex: 1 1;
+    text-align: left;
+  }
+
+  :deep(.el-form-item__content) {
+    flex: 0 0 auto;
+  }
+
+  :deep(.el-form-item .el-input__inner) {
+    width: 115px;
+  }
+
+  :deep(.el-drawer__footer) {
+    padding: 10px;
+    border-top: 1px solid #dcdfe6;
+  }
+</style>

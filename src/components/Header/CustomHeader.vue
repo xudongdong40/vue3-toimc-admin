@@ -18,6 +18,9 @@
           <icon icon="ion:language" size="24px"></icon>
         </drop-down>
       </span>
+      <span class="items" @click="handleShowThemeSetting">
+        <icon collection="ri" type="brush-2-line" size="24px" />
+      </span>
       <el-divider direction="vertical"></el-divider>
       <el-avatar
         :size="32"
@@ -43,9 +46,13 @@
       collapse: {
         type: Boolean,
         default: false
+      },
+      showThemeSetting: {
+        type: Boolean,
+        default: false
       }
     },
-    emits: ['update:collapse'],
+    emits: ['update:collapse', 'show-theme-setting'],
     setup(_props, { emit }) {
       const { changeLocale, getLocale } = useLocale()
 
@@ -61,11 +68,16 @@
         changeLocale(command as LocaleType)
       }
 
+      function handleShowThemeSetting() {
+        emit('show-theme-setting')
+      }
+
       return {
         handleClick,
         localeList,
         handleCommand,
-        getCurrent
+        getCurrent,
+        handleShowThemeSetting
       }
     }
   })

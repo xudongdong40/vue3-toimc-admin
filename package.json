@@ -101,35 +101,5 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/toimc-team/vue-toimc-admin.git"
-  },
-  "vite": {
-    "optimizeDeps": {
-      "include": [
-        "@element-plus/icons-vue",
-        "@iconify/vue",
-        "@toast-ui/editor",
-        "@toast-ui/editor-plugin-code-syntax-highlight",
-        "@toast-ui/editor/dist/i18n/zh-cn",
-        "@toast-ui/editor/dist/i18n/zh-tw",
-        "@vueuse/core",
-        "axios",
-        "big-integer",
-        "copy-to-clipboard",
-        "cropperjs",
-        "dayjs",
-        "dayjs/locale/zh-cn",
-        "element-plus",
-        "element-plus/es",
-        "element-plus/dist/index.css",
-        "element-plus/lib/locale/lang/zh-cn",
-        "papaparse",
-        "pinia",
-        "print-js",
-        "prismjs",
-        "qrcode",
-        "vue",
-        "vue-router"
-      ]
-    }
   }
 }

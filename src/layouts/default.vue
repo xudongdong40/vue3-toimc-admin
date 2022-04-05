@@ -9,7 +9,12 @@
     </div>
     <div class="flex flex-col flex-1 overflow-hidden">
       <!-- header -->
-      <custom-header v-model:collapse="isCollapse"></custom-header>
+      <custom-header
+        v-model:collapse="isCollapse"
+        @show-theme-setting="handleShowThemeSetting"
+      ></custom-header>
+      <!-- theme -->
+      <theme-setting v-model:show="isShowThemeSetting"></theme-setting>
       <!-- content -->
       <el-scrollbar class="custom-scroll">
         <router-view></router-view>
@@ -25,9 +30,17 @@
   export default defineComponent({
     setup() {
       const isCollapse = ref(false)
+      const isShowThemeSetting = ref(true)
+
+      function handleShowThemeSetting() {
+        isShowThemeSetting.value = true
+      }
+
       return {
         asyncRoutes,
-        isCollapse
+        isCollapse,
+        isShowThemeSetting,
+        handleShowThemeSetting
       }
     }
   })
