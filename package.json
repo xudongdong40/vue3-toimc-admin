@@ -41,12 +41,12 @@
     "qrcode": "^1.5.0",
     "vue": "^3.2.31",
     "vue-i18n": "9",
-    "vue-router": "4.0.14"
+    "vue-router": "4.0.13"
   },
   "devDependencies": {
     "@commitlint/cli": "^16.2.3",
     "@commitlint/config-conventional": "^16.2.1",
-    "@iconify/json": "^2.1.23",
+    "@iconify/json": "^2.1.24",
     "@iconify/vue": "^3.2.1",
     "@intlify/vite-plugin-vue-i18n": "^3.3.1",
     "@types/lodash-es": "^4.17.6",
@@ -91,7 +91,7 @@
     "windicss": "^3.5.1"
   },
   "engines": {
-    "node": "^12 || >=14"
+    "node": "^14 || >=16"
   },
   "homepage": "https://github.com/toimc-team/vue-toimc-admin",
   "license": "MIT",
@@ -101,35 +101,5 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/toimc-team/vue-toimc-admin.git"
-  },
-  "vite": {
-    "optimizeDeps": {
-      "include": [
-        "@element-plus/icons-vue",
-        "@iconify/vue",
-        "@toast-ui/editor",
-        "@toast-ui/editor-plugin-code-syntax-highlight",
-        "@toast-ui/editor/dist/i18n/zh-cn",
-        "@toast-ui/editor/dist/i18n/zh-tw",
-        "@vueuse/core",
-        "axios",
-        "big-integer",
-        "copy-to-clipboard",
-        "cropperjs",
-        "dayjs",
-        "dayjs/locale/zh-cn",
-        "element-plus",
-        "element-plus/es",
-        "element-plus/dist/index.css",
-        "element-plus/lib/locale/lang/zh-cn",
-        "papaparse",
-        "pinia",
-        "print-js",
-        "prismjs",
-        "qrcode",
-        "vue",
-        "vue-router"
-      ]
-    }
   }
 }
