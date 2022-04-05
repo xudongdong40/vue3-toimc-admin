@@ -186,6 +186,14 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
               title: t('menu.component.dynamic.numbers')
             },
             component: () => import('@/views/components/numbers/index.vue')
+          },
+          {
+            name: 'Slider',
+            path: 'slider',
+            meta: {
+              title: t('menu.component.dynamic.slider')
+            },
+            component: () => import('@/views/components/slider/index.vue')
           }
         ]
       },

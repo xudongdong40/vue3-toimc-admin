@@ -19,7 +19,8 @@
         "numbers": "Dynamic numbers",
         "progress": "Dynamic progress bar",
         "title": "Dynamic display",
-        "trends": "Trend indicator"
+        "trends": "Trend indicator",
+        "slider": "slider"
       },
       "editor": {
         "title": "Editor",
