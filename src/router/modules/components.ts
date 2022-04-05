@@ -297,6 +297,24 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
             component: () => import('@/views/components/display/calendar.vue')
           }
         ]
+      },
+      {
+        name: 'SmallComp',
+        path: 'comp',
+        meta: {
+          title: '小组件'
+        },
+        component: () => import('@/layouts/blank.vue'),
+        children: [
+          {
+            name: 'Calendar',
+            path: 'calendar',
+            meta: {
+              title: '日历卡片'
+            },
+            component: () => import('@/views/components/components/index.vue')
+          }
+        ]
       }
     ]
   }
