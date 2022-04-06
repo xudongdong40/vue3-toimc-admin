@@ -1,5 +1,7 @@
 # vue-toimc-admin 管理后台项目
 
+中文 | [English](./README-en.md)
+
 <div align="center"> <a href="https://github.com/toimc-team/vue3-toimc-admin"> <img alt="Toimc Logo" width="360" height="100" src="https://toimc-online.obs.cn-east-3.myhuaweicloud.com/logo.png"> </a> <br> <br>
 </div>
 
