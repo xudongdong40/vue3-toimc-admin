@@ -135,6 +135,15 @@
         "5zpfmf": "测试文字2",
         "c2am9h": "方法"
       }
+    },
+    "editor": {
+      "milkdown": {
+        "heading": "标题",
+        "large-heading": "一级标题",
+        "medium-heading": "二级标题",
+        "small-heading": "三级标题",
+        "plain-text": "正文"
+      }
     }
   },
   "test": "测试文字"

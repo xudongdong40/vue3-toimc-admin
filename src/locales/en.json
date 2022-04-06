@@ -135,6 +135,15 @@
         "5zpfmf": "test words 2",
         "c2am9h": "xxxx"
       }
+    },
+    "editor": {
+      "milkdown": {
+        "heading": "标题",
+        "large-heading": "Large Heading",
+        "medium-heading": "Medium Heading",
+        "small-heading": "Small Heading",
+        "plain-text": "Plain Text"
+      }
     }
   },
   "test": "test"

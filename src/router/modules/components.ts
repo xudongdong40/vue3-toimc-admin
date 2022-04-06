@@ -296,6 +296,14 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
               title: t('menu.component.editor.toast-ui')
             },
             component: () => import('@/views/components/editor/toast-ui/index.vue')
+          },
+          {
+            name: 'MilkDownEditor',
+            path: 'milkdown',
+            meta: {
+              title: 'MilkDown'
+            },
+            component: () => import('@/views/components/editor/milkdown/index.vue')
           }
         ]
       },
