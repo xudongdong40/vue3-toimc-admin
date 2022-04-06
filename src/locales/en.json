@@ -37,7 +37,8 @@
         "i18n": "Globalization",
         "print": "Print",
         "title": "Function",
-        "transition": "Transition Animation"
+        "transition": "Transition Animation",
+        "watermark": "watermark"
       },
       "icons": {
         "element": "Element icon",
