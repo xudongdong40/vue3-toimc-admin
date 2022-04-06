@@ -5,7 +5,7 @@ export default {
     app.directive('precode', {
       mounted(el) {
         const content = el.outerHTML
-          .match(/<pre>([\s\S]*?)<\/pre>/)[1]
+          .match(/<pre([\s\S])*?>([\s\S]*?)<\/pre>/)[2]
           .split('\n')
           .map((item) => item.trim())
           .join('\n')

@@ -19,7 +19,8 @@
         "numbers": "Dynamic numbers",
         "progress": "Dynamic progress bar",
         "title": "Dynamic display",
-        "trends": "Trend indicator"
+        "trends": "Trend indicator",
+        "slider": "Slider"
       },
       "editor": {
         "title": "Editor",
@@ -37,7 +38,8 @@
         "i18n": "Globalization",
         "print": "Print",
         "title": "Function",
-        "transition": "Transition Animation"
+        "transition": "Transition Animation",
+        "watermark": "Watermark"
       },
       "icons": {
         "element": "Element icon",
@@ -65,6 +67,10 @@
       "table": {
         "basic": "Basic Form",
         "title": "Sheet"
+      },
+      "small-comp": {
+        "calendar": "CalendarCard",
+        "title": "Widgets"
       }
     },
     "pages": {
@@ -129,6 +135,15 @@
         "test": "test words1",
         "5zpfmf": "test words 2",
         "c2am9h": "xxxx"
+      }
+    },
+    "editor": {
+      "milkdown": {
+        "heading": "标题",
+        "large-heading": "Large Heading",
+        "medium-heading": "Medium Heading",
+        "small-heading": "Small Heading",
+        "plain-text": "Plain Text"
       }
     }
   },
