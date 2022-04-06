@@ -1,6 +1,6 @@
 import type { RouteMeta } from 'vue-router'
 export interface MenuItem {
-  menuType?: string //菜单类型: 0一级菜单 1子菜单 2按钮/权限
+  menuType: number //菜单类型: 0一级菜单 1子菜单 2按钮/权限
   name?: string //菜单名称/按钮/权限名称
   url?: string //访问路径
   component: any //前端组件

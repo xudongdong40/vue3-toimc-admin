@@ -119,7 +119,7 @@ const demoMenu = [
     status: null,
     title: '系统管理',
     updateBy: 'admin',
-    updateTime: '2020-01-07 11:00:45',
+    updateTime: '2022-01-07 11:00:45',
     url: '/isystem'
   }
 ]

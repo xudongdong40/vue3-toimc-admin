@@ -1,7 +1,7 @@
 <template>
   <div class="p-4">
-    <div class="flex">
-      <el-button type="primary" icon="Plus"> 新增菜单</el-button>
+    <div class="flex"> 
+      <el-button type="primary" icon="Plus" @click="addMenu"> 新增菜单</el-button>
       <el-dropdown
         v-if="multipleSelection.length > 0"
         style="margin-left: 5px;"
@@ -57,9 +57,8 @@
         min-width="50"
         align="center"
       >
-        <template #default="scope">
-          {{ scope.row.icon }}
-          <el-icon><box /></el-icon>
+        <template #default="scope">  
+          <el-icon  :name="scope.row.icon"><box /></el-icon>
         </template>
       </el-table-column>
       <el-table-column property="component" label="组件" min-width="150" />
@@ -76,17 +75,16 @@
             </span>
             <template #dropdown>
               <el-dropdown-menu>
-                <el-dropdown-item command="a">添加下级</el-dropdown-item>
-                <el-dropdown-item command="b">删除</el-dropdown-item>
+                <el-dropdown-item :command="{index:0,row:scope.row}">添加下级</el-dropdown-item>
+                <el-dropdown-item :command="{index:1,row:scope.row}">删除</el-dropdown-item>
               </el-dropdown-menu>
             </template>
           </el-dropdown>
           <!-- <el-button type="text"  @click="handleDel(scope.row)">删除</el-button> -->
         </template>
       </el-table-column>
-    </el-table>
-
-    <menu-drawer></menu-drawer>
+    </el-table>  
+    <menu-drawer :show-drawer="data.showDrawer" :obj="data.obj" :is-update="data.isUpdate" @on-confirm="onConfirm" @close="data.showDrawer = false"></menu-drawer>
   </div>
 </template>
 <script lang="ts">
@@ -100,21 +98,63 @@
     components: {
       MenuDrawer
     },
-    setup() {
+    setup() { 
+        
+      let data= reactive({
+        isUpdate:false,
+        showDrawer:false,
+        obj:{}
+
+      })
       const multipleSelection = ref<Array<MenuItem>>([])
       const tableData = ref<Array<MenuItem>>([])
 
       const handleCommand = (command: string | number | object) => {
         ElMessage(`click on item ${command}`)
       }
-      const handleMoreCommand = (command: string | number | object) => {
-        ElMessage(`click on item ${command}`)
+
+
+
+       interface MenuCommand{
+          index:0,
+          row:MenuItem
+       } 
+      const handleMoreCommand = (command: MenuCommand) => { 
+        if(command.index==0){
+           console.log('click add item ',command) 
+          //添加下级
+           data.isUpdate=false, 
+          data.showDrawer=true  // 显示抽屉
+          data.obj={
+            parentId:command.row.id,
+            parentName:command.row.name,
+            menuType:1,
+            route:true,
+            permsType:'1',
+            status:'1'
+          };
+        }else{
+          //删除
+          console.log('click on del item ',command) 
+        }
       }
       const handleSelectionChange = (val: Array<MenuItem>) => {
         multipleSelection.value = val
       }
+      const addMenu = () => {
+        data.isUpdate=false, 
+        data.showDrawer=true  // 显示抽屉
+        data.obj={menuType:0,  route:true,permsType:'1',status:'1'}
+      }
+      const onConfirm = (obj:any) => {
+        console.log('onConfirm obj is:',obj)
+        data.showDrawer=false  
+      }
       const handleEdit = (row: MenuItem) => {
-        ElMessage(`编辑 ${row.name}`)
+        ElMessage(`编辑 ${row.name}`) 
+         data.isUpdate=true 
+         data.showDrawer=true  
+         data.obj=row
       }
       const handleDel = (row: MenuItem) => {
         console.log(`删除 ${row.name}`)
@@ -152,9 +192,12 @@
       onUnmounted(() => {
         console.log('unmount')
       })
-      return {
+      return { 
         multipleSelection,
         tableData,
+        data,
+        addMenu,
+        onConfirm,
         handleSelectionChange,
         handleCommand,
         handleMoreCommand,
