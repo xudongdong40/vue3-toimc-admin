@@ -79,8 +79,7 @@
                 <el-dropdown-item :command="{index:1,row:scope.row}">删除</el-dropdown-item>
               </el-dropdown-menu>
             </template>
-          </el-dropdown>
-          <!-- <el-button type="text"  @click="handleDel(scope.row)">删除</el-button> -->
+          </el-dropdown> 
         </template>
       </el-table-column>
     </el-table>  
@@ -135,7 +134,11 @@
           };
         }else{
           //删除
-          console.log('click on del item ',command) 
+          console.log('click on del item ',command)  
+            ElMessage({
+              message: `删除 ${command.row.name} 成功`,
+              type: 'success'
+            })
         }
       }
       const handleSelectionChange = (val: Array<MenuItem>) => {
@@ -151,17 +154,11 @@
         data.showDrawer=false  
       }
       const handleEdit = (row: MenuItem) => {
-        ElMessage(`编辑 ${row.name}`) 
+        // ElMessage(`编辑 ${row.name}`) 
          data.isUpdate=true 
          data.showDrawer=true  
          data.obj=row
-      }
-      const handleDel = (row: MenuItem) => {
-        console.log(`删除 ${row.name}`)
-        // ElMessage.confirm('确定删除该菜单吗?', () => {
-        //   ElMessage.success('删除成功')
-        // })
-      }
+      } 
       const toggleSelection = () => {
         multipleSelection.value = []
       }
@@ -201,8 +198,7 @@
         handleSelectionChange,
         handleCommand,
         handleMoreCommand,
-        handleEdit,
-        handleDel,
+        handleEdit, 
         toggleSelection
       }
     }

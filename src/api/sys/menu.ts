@@ -7,8 +7,7 @@ enum Api {
  * @description: Get user menu based on id
  */
 
-export const getMenuList = () => {
-  console.log('================')
+export const getMenuList = () => { 
 
   return new Promise((resolve) => {
     const headers = {
