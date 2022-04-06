@@ -40,7 +40,8 @@
         "title": "动态展示",
         "trends": "趋势指示",
         "progress": "动态进度条",
-        "numbers": "动态数字"
+        "numbers": "动态数字",
+        "slider": "滑块"
       },
       "notice": {
         "title": "通知&分享",
@@ -65,6 +66,10 @@
         "desc": "详情面板",
         "card": "卡片",
         "calendar": "日历"
+      },
+      "small-comp": {
+        "title": "小组件",
+        "calendar": "日历卡片"
       }
     },
     "pages": {

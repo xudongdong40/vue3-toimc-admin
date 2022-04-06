@@ -186,6 +186,14 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
               title: t('menu.component.dynamic.numbers')
             },
             component: () => import('@/views/components/numbers/index.vue')
+          },
+          {
+            name: 'Slider',
+            path: 'slider',
+            meta: {
+              title: t('menu.component.dynamic.slider')
+            },
+            component: () => import('@/views/components/slider/index.vue')
           }
         ]
       },
@@ -330,6 +338,24 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
               title: '瀑布流'
             },
             component: () => import('@/views/components/display/waterfall.vue')
+          }
+        ]
+      },
+      {
+        name: 'SmallComp',
+        path: 'small-comp',
+        meta: {
+          title: t('menu.component.small-comp.title')
+        },
+        component: () => import('@/layouts/blank.vue'),
+        children: [
+          {
+            name: 'CalendarCard',
+            path: 'calendar',
+            meta: {
+              title: t('menu.component.small-comp.calendar')
+            },
+            component: () => import('@/views/components/small-components/calendar.vue')
           }
         ]
       }
