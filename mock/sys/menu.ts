@@ -102,14 +102,14 @@ const demoMenu = [
     description: null,
     hidden: false,
     icon: 'ant-design:setting',
-    id: 'd7d6e2e4e2934f2c9385a623fd98c6f3',
+    id: 'd7d6e2e4e2934f2c9385a6ds98c6f3',
     internalOrExternal: false,
     isLeaf: false,
     keepAlive: false,
-    key: 'd7d6e2e4e2934f2c9385a623fd98c6f3',
+    key: 'd7d6e2e4e2934f2c9385a6ds98c6f3',
     leaf: false,
     menuType: 0,
-    name: '系统管理',
+    name: '其他菜单',
     parentId: '',
     perms: null,
     permsType: null,
@@ -117,12 +117,13 @@ const demoMenu = [
     route: true,
     sortNo: 2,
     status: null,
-    title: '系统管理',
+    title: '其他菜单',
     updateBy: 'admin',
     updateTime: '2022-01-07 11:00:45',
-    url: '/isystem'
+    url: '/isystem1'
   }
 ]
+
 export default [
   {
     url: `${baseUrl}/sys/permission/getUserPermissionByToken`,
