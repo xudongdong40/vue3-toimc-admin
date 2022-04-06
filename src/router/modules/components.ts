@@ -278,6 +278,14 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
               title: t('menu.component.function.i18n')
             },
             component: () => import('@/views/components/tools/i18n.vue')
+          },
+          {
+            name: 'watermark',
+            path: 'watermark',
+            meta: {
+              title: t('menu.component.function.watermark')
+            },
+            component: () => import('@/views/components/tools/watermark.vue')
           }
         ]
       },

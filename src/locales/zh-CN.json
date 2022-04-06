@@ -55,7 +55,8 @@
         "crop": "图片裁剪",
         "download": "文件下载",
         "print": "打印",
-        "i18n": "国际化"
+        "i18n": "国际化",
+        "watermark": "水印"
       },
       "editor": {
         "title": "编辑器",

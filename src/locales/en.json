@@ -20,7 +20,7 @@
         "progress": "Dynamic progress bar",
         "title": "Dynamic display",
         "trends": "Trend indicator",
-        "slider": "slider"
+        "slider": "Slider"
       },
       "editor": {
         "title": "Editor",
@@ -38,7 +38,8 @@
         "i18n": "Globalization",
         "print": "Print",
         "title": "Function",
-        "transition": "Transition Animation"
+        "transition": "Transition Animation",
+        "watermark": "Watermark"
       },
       "icons": {
         "element": "Element icon",

@@ -67,6 +67,7 @@ specifiers:
   print-js: ^1.6.0
   prismjs: ^1.27.0
   qrcode: ^1.5.0
+  resize-observer-polyfill: ^1.5.1
   rollup: ^2.70.1
   sass: ^1.49.11
   stylelint: ^14.6.1
@@ -135,6 +136,7 @@ dependencies:
   print-js: 1.6.0
   prismjs: 1.27.0
   qrcode: 1.5.0
+  resize-observer-polyfill: 1.5.1
   vue: 3.2.31
   vue-i18n: 9.1.9_vue@3.2.31
   vue-router: 4.0.14_vue@3.2.31
@@ -6802,6 +6804,10 @@ packages:
 
   /require-main-filename/2.0.0:
     resolution: {integrity: sha512-NKN5kMDylKuldxYLSUfrbo5Tuzh4hd+2E8NPPX02mZtn1VuREQToYe/ZdlJy+J3uCpfaiGF05e7B8W0iXbQHmg==}
+    dev: false
+
+  /resize-observer-polyfill/1.5.1:
+    resolution: {integrity: sha512-LwZrotdHOo12nQuZlHEmtuXdqGoOD0OhaxopaNFxWzInpEgaLWoVuAMbTzixuosCx2nEG58ngzW3vxdWoxIgdg==}
     dev: false
 
   /resolve-dir/1.0.1:
