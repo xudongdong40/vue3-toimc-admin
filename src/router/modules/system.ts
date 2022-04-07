@@ -36,7 +36,7 @@ const systemRoutes: Array<AppRouteRecordRaw> = [
         meta: {
           title: t('menu.system.menu')
         },
-        component: () => import('@/views/system/menu.vue')
+        component: () => import('@/views/system/menu/index.vue')
       },
       {
         name: 'DepartmentPage',
