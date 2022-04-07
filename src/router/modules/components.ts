@@ -186,6 +186,14 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
               title: t('menu.component.dynamic.numbers')
             },
             component: () => import('@/views/components/numbers/index.vue')
+          },
+          {
+            name: 'Slider',
+            path: 'slider',
+            meta: {
+              title: t('menu.component.dynamic.slider')
+            },
+            component: () => import('@/views/components/slider/index.vue')
           }
         ]
       },
@@ -270,6 +278,14 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
               title: t('menu.component.function.i18n')
             },
             component: () => import('@/views/components/tools/i18n.vue')
+          },
+          {
+            name: 'watermark',
+            path: 'watermark',
+            meta: {
+              title: t('menu.component.function.watermark')
+            },
+            component: () => import('@/views/components/tools/watermark.vue')
           }
         ]
       },
@@ -288,6 +304,14 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
               title: t('menu.component.editor.toast-ui')
             },
             component: () => import('@/views/components/editor/toast-ui/index.vue')
+          },
+          {
+            name: 'MilkDownEditor',
+            path: 'milkdown',
+            meta: {
+              title: 'MilkDown'
+            },
+            component: () => import('@/views/components/editor/milkdown/index.vue')
           }
         ]
       },
@@ -322,6 +346,24 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
               title: t('menu.component.display.calendar')
             },
             component: () => import('@/views/components/display/calendar.vue')
+          }
+        ]
+      },
+      {
+        name: 'SmallComp',
+        path: 'small-comp',
+        meta: {
+          title: t('menu.component.small-comp.title')
+        },
+        component: () => import('@/layouts/blank.vue'),
+        children: [
+          {
+            name: 'CalendarCard',
+            path: 'calendar',
+            meta: {
+              title: t('menu.component.small-comp.calendar')
+            },
+            component: () => import('@/views/components/small-components/calendar.vue')
           }
         ]
       }
