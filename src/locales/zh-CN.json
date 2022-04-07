@@ -20,6 +20,7 @@
       "form": {
         "title": "表单",
         "basic": "基础表单",
+        "formPlus": "FormPlus",
         "schema": "表单Schema写法",
         "dom": "表单DOM写法"
       },

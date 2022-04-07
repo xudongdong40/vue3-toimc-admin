@@ -75,6 +75,14 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
             }
           },
           {
+            name: 'FormPlus',
+            path: 'formplus',
+            component: () => import('@/views/components/forms/form-plus.vue'),
+            meta: {
+              title: t('menu.component.form.formPlus')
+            }
+          },
+          {
             name: 'ComprehensiveFormJson',
             path: 'comprehensive-json',
             component: () => import('@/views/components/forms/comprehensive-json.vue'),

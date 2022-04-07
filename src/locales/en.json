@@ -29,6 +29,7 @@
       "form": {
         "basic": "Basic Form",
         "dom": "Form DOM writing",
+        "formPlus": "FormPlus",
         "schema": "Form Schema writing",
         "title": "Form"
       },
