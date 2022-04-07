@@ -57,8 +57,9 @@
         min-width="50"
         align="center"
       >
-        <template #default="scope">  
-          <el-icon  :name="scope.row.icon"><box /></el-icon>
+        <template #default="scope"> 
+          <el-icon  v-if="scope.row.icon" :name="scope.row.icon"><box /></el-icon>
+          <span v-else class="iconify m-auto" data-icon="null"></span>
         </template>
       </el-table-column>
       <el-table-column property="component" label="组件" min-width="150" />
@@ -83,14 +84,14 @@
         </template>
       </el-table-column>
     </el-table>  
-    <menu-drawer :show-drawer="data.showDrawer" :obj="data.obj" :is-update="data.isUpdate" @on-confirm="onConfirm" @close="data.showDrawer = false"></menu-drawer>
+    <menu-drawer :show-drawer="data.showDrawer" :obj="data.obj" :menus="data.menuALL" :is-update="data.isUpdate" @on-confirm="onConfirm" @close="data.showDrawer = false"></menu-drawer>
   </div>
 </template>
 <script lang="ts">
   import { defineComponent, onMounted, ref, onUnmounted } from 'vue'
   import { ElMessage } from 'element-plus'
   import MenuDrawer from './MenuDrawer.vue'
-  import { getMenuList } from '@/api/sys/menu'
+  import { getMenuList,saveOrUpdateMenu,deleteMenu } from '@/api/sys/menu'
   import { MenuItem } from '@/api/sys/model/menuModel'
   export default defineComponent({
     name: 'MenusPage',
@@ -102,8 +103,8 @@
       let data= reactive({
         isUpdate:false,
         showDrawer:false,
-        obj:{}
-
+        obj:{},
+        menuALL:[] as MenuItem[]
       })
       const multipleSelection = ref<Array<MenuItem>>([])
       const tableData = ref<Array<MenuItem>>([])
@@ -135,10 +136,14 @@
         }else{
           //删除
           console.log('click on del item ',command)  
-            ElMessage({
-              message: `删除 ${command.row.name} 成功`,
-              type: 'success'
+
+          deleteMenu({id:command.row.id}).then((res)=>{
+             ElMessage({
+             message: `${res.message}`,
+              type: 'error'
             })
+          })
+           
         }
       }
       const handleSelectionChange = (val: Array<MenuItem>) => {
@@ -152,6 +157,13 @@
       const onConfirm = (obj:any) => {
         console.log('onConfirm obj is:',obj)
         data.showDrawer=false  
+        saveOrUpdateMenu(obj, data.isUpdate).then(res=>{
+          ElMessage({
+            message: `${res.message}`,
+            type: 'error'
+          }) 
+
+        })
       }
       const handleEdit = (row: MenuItem) => {
         // ElMessage(`编辑 ${row.name}`) 
@@ -161,18 +173,7 @@
       } 
       const toggleSelection = () => {
         multipleSelection.value = []
-      }
-      //  const getMenuList2 =  () => {
-      //    console.log("ddd")
-      //   getMenuList().then(res => {
-      //     console.log("res",res)
-      //     // tableData.value = res.data
-      //   }).catch(err => {
-      //     console.log("err",err)
-      //     ElMessage.error(err)
-      //   })
-
-      // }
+      } 
 
       onMounted(() => {
         console.log('onMounted')
@@ -180,6 +181,7 @@
         getMenuList()
           .then((res: any) => {
             tableData.value = res.result || []
+            data.menuALL=res.result || []
           })
           .catch((err) => {
             console.log('err', err)
@@ -211,4 +213,11 @@
     color: #333;
     background: #f1f1f1;
   }
+  span.iconify {
+    display: block;
+    width: 1em;
+    height: 1em;
+    background-color: #5551;
+    border-radius: 100%;
+}
 </style>
