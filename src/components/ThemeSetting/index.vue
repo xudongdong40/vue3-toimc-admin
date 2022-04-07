@@ -2,14 +2,6 @@
   <div>
     <el-drawer :model-value="showSetting" title="主题设置" :size="320" @closed="handleClosed">
       <el-form :model="form" label-position="left">
-        <el-form-item label="布局">
-          <el-select v-model="form.layout">
-            <el-option label="分栏" :value="1" />
-            <el-option label="综合" :value="2" />
-            <el-option label="纵向" :value="3" />
-            <el-option label="横向" :value="4" />
-          </el-select>
-        </el-form-item>
         <el-form-item label="主题">
           <el-select v-model="form.theme">
             <el-option label="蓝黑" :value="1" />
@@ -22,6 +14,23 @@
             <el-option label="红白" :value="8" />
           </el-select>
         </el-form-item>
+        <el-form-item label="暗黑模式">
+          <el-switch v-model="form.darkMode" />
+        </el-form-item>
+        <el-form-item label="暗黑模式">
+          <el-switch v-model="form.greyMode" />
+        </el-form-item>
+        <el-form-item label="菜单背景" class="menu-bg-custom">
+          <div> 123 </div>
+        </el-form-item>
+        <el-form-item label="导航模式">
+          <el-select v-model="form.navigationMode">
+            <el-option label="分栏" :value="1" />
+            <el-option label="综合" :value="2" />
+            <el-option label="纵向" :value="3" />
+            <el-option label="横向" :value="4" />
+          </el-select>
+        </el-form-item>
         <el-form-item label="菜单宽度">
           <el-select v-model="form.menuWidth">
             <el-option label="266px" value="266px" />
@@ -29,24 +38,39 @@
             <el-option label="288px" value="288px" />
           </el-select>
         </el-form-item>
-        <el-form-item label="多页面标签">
+        <el-form-item label="菜单可拖拽">
+          <el-switch v-model="form.sidebarResize" />
+        </el-form-item>
+        <el-form-item label="头部固定">
+          <el-switch v-model="form.fixedHead" />
+        </el-form-item>
+        <el-form-item label="标签页">
           <el-switch v-model="form.tabPage" />
         </el-form-item>
-        <el-form-item label="页面标签图标">
+        <el-form-item label="标签图标">
           <el-switch v-model="form.tabPageIcon" />
         </el-form-item>
-        <el-form-item label="页面标签风格">
+        <el-form-item label="标签风格">
           <el-select v-model="form.tabPageStyle">
             <el-option label="卡片" value="card" />
             <el-option label="灵动" value="normal" />
             <el-option label="圆滑" value="round" />
           </el-select>
         </el-form-item>
-        <el-form-item label="头部固定">
-          <el-switch v-model="form.fixedHead" />
+        <el-form-item label="显示面包屑">
+          <el-switch v-model="form.showCrumbs" />
+        </el-form-item>
+        <el-form-item label="显示Logo">
+          <el-switch v-model="form.showLogo" />
         </el-form-item>
         <el-form-item label="加载进度条">
           <el-switch v-model="form.progress" />
+        </el-form-item>
+        <el-form-item label="切换loading">
+          <el-switch v-model="form.changeLoading" />
+        </el-form-item>
+        <el-form-item label="切换动画">
+          <el-switch v-model="form.changeAnimate" />
         </el-form-item>
       </el-form>
       <template #footer>
@@ -71,14 +95,21 @@
       const showSetting = ref(show)
 
       const form = reactive({
-        layout: 1,
         theme: '',
+        darkMode: false,
+        greyMode: false,
+        navigationMode: 1,
         menuWidth: '266px',
+        sidebarResize: false,
+        fixedHead: true,
         tabPage: false,
         tabPageIcon: false,
         tabPageStyle: 'card',
-        fixedHead: true,
-        progress: true
+        showCrumbs: false,
+        showLogo: false,
+        progress: true,
+        changeLoading: false,
+        changeAnimate: false
       })
 
       function handleClosed() {
@@ -111,6 +142,10 @@
 
   :deep(.el-form-item .el-input__inner) {
     width: 115px;
+  }
+
+  :deep(.el-drawer__header) {
+    margin-bottom: 20px;
   }
 
   :deep(.el-drawer__footer) {
