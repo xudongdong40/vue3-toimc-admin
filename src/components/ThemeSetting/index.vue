@@ -17,19 +17,17 @@
         <el-form-item label="暗黑模式">
           <el-switch v-model="form.darkMode" />
         </el-form-item>
-        <el-form-item label="暗黑模式">
-          <el-switch v-model="form.greyMode" />
-        </el-form-item>
         <el-form-item label="菜单背景" class="menu-bg-custom">
           <div> 123 </div>
         </el-form-item>
-        <el-form-item label="导航模式">
-          <el-select v-model="form.navigationMode">
+        <el-form-item label="导航模式" class="nav-type">
+          <navigation-type v-model="form.navigationMode"></navigation-type>
+          <!-- <el-select v-model="form.navigationMode">
             <el-option label="分栏" :value="1" />
             <el-option label="综合" :value="2" />
             <el-option label="纵向" :value="3" />
             <el-option label="横向" :value="4" />
-          </el-select>
+          </el-select> -->
         </el-form-item>
         <el-form-item label="菜单宽度">
           <el-select v-model="form.menuWidth">
@@ -97,8 +95,7 @@
       const form = reactive({
         theme: '',
         darkMode: false,
-        greyMode: false,
-        navigationMode: 1,
+        navigationMode: 'top',
         menuWidth: '266px',
         sidebarResize: false,
         fixedHead: true,
@@ -126,6 +123,14 @@
 </script>
 
 <style lang="scss" scoped>
+  .nav-type {
+    display: block !important;
+
+    :deep(.el-form-item__content) {
+      display: block !important;
+    }
+  }
+
   :deep(.el-form-item) {
     display: flex;
     align-items: center;
