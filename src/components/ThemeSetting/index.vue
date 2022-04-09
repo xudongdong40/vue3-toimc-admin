@@ -18,16 +18,10 @@
           <el-switch v-model="form.darkMode" />
         </el-form-item>
         <el-form-item label="菜单背景" class="menu-bg-custom">
-          <div> 123 </div>
+          <navigation-bg></navigation-bg>
         </el-form-item>
         <el-form-item label="导航模式" class="nav-type">
-          <navigation-type v-model="form.navigationMode"></navigation-type>
-          <!-- <el-select v-model="form.navigationMode">
-            <el-option label="分栏" :value="1" />
-            <el-option label="综合" :value="2" />
-            <el-option label="纵向" :value="3" />
-            <el-option label="横向" :value="4" />
-          </el-select> -->
+          <navigation-type v-model:navigationMode="form.navigationMode"></navigation-type>
         </el-form-item>
         <el-form-item label="菜单宽度">
           <el-select v-model="form.menuWidth">
@@ -123,6 +117,10 @@
 </script>
 
 <style lang="scss" scoped>
+  .menu-bg-custom {
+    display: block !important;
+  }
+
   .nav-type {
     display: block !important;
 

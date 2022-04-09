@@ -3,7 +3,7 @@
     <div
       v-for="item of navType"
       :key="item"
-      :class="['setting-menu', 'type-picker-' + item, { active: type === item }]"
+      :class="['setting-menu', 'type-picker-' + item, { active: navigationMode === item }]"
       @click="handleChangeNavType(item)"
     ></div>
   </div>
@@ -13,24 +13,22 @@
   import { defineComponent } from 'vue'
   export default defineComponent({
     props: {
-      modelValue: {
-        type: String,
+      navigationMode: {
+        type: String as PropType<'siderbar' | 'mix' | 'top' | 'mixbar'>,
         default: 'siderbar'
       }
     },
-    emits: ['update:modelValue'],
+    emits: ['update:navigationMode'],
     setup(props, { emit }) {
-      const { modelValue: type } = toRefs(props)
-      // console.log(modelValue.value)
       const navType = ['siderbar', 'mix', 'top', 'mixbar']
 
       const handleChangeNavType = (type) => {
-        emit('update:modelValue', type)
+        emit('update:navigationMode', type)
       }
 
       return {
         navType,
-        type,
+        ...toRefs(props),
         handleChangeNavType
       }
     }
