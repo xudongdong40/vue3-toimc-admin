@@ -21,8 +21,12 @@
 
 <script lang="ts">
   import { asyncRoutes } from '@/router/index'
+  import CustomHeader from './header/CustomHeader.vue'
 
   export default defineComponent({
+    components: {
+      CustomHeader
+    },
     setup() {
       const isCollapse = ref(false)
       return {
