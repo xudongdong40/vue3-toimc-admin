@@ -47,7 +47,7 @@ const demoMenu = [
         delFlag: 0,
         description: null,
         hidden: false,
-        icon: 'ant-design:appstore',
+        icon: 'Menu',
         id: '1438108176814825473',
         internalOrExternal: false,
         isLeaf: true,
@@ -73,7 +73,7 @@ const demoMenu = [
     createBy: null,
     createTime: '2018-12-25 20:34:38',
     hidden: false,
-    icon: 'ant-design:setting',
+    icon: 'Menu',
     id: 'd7d6e2e4e2934f2c9385a623fd98c6f3',
     internalOrExternal: false,
     keepAlive: false,
@@ -101,7 +101,7 @@ const demoMenu = [
     delFlag: 0,
     description: null,
     hidden: false,
-    icon: 'ant-design:setting',
+    icon: 'Menu',
     id: 'd7d6e2e4e2934f2c9385a6ds98c6f3',
     internalOrExternal: false,
     isLeaf: false,
@@ -126,7 +126,7 @@ const demoMenu = [
 
 export default [
   {
-    url: `${baseUrl}/sys/permission/getUserPermissionByToken`,
+    url: `${baseUrl}/sys/permission/list`, 
     timeout: 1000,
     method: 'get',
     response: (request: requestParams) => {
@@ -155,6 +155,63 @@ export default [
       }
 
       return resultSuccess(menu)
+    }
+  },
+  {
+    url: `${baseUrl}/sys/permission/add`, 
+    timeout: 1000,
+    method: 'post', 
+    response: (request: requestParams) => {
+      const token = getRequestToken(request)
+      if (!token) {
+        return resultError('Invalid token!')
+      }
+      const checkUser = {
+        token: '12321',
+        userId: '1'
+      }
+      if (!checkUser) {
+        return resultError('Invalid user token!')
+      }  
+      return resultError('没有权限，请联系管理员授权')
+    }
+  },
+  {
+    url: `${baseUrl}/sys/permission/edit`, 
+    timeout: 1000,
+    method: 'post', 
+    response: (request: requestParams) => {
+      const token = getRequestToken(request)
+      if (!token) {
+        return resultError('Invalid token!')
+      }
+      const checkUser = {
+        token: '12321',
+        userId: '1'
+      }
+      if (!checkUser) {
+        return resultError('Invalid user token!')
+      }  
+      return resultError('没有权限，请联系管理员授权')
+    }
+  },
+  {
+    url: `${baseUrl}/sys/permission/delete`, 
+    timeout: 1000,
+    method: 'delete', 
+    response: (request: requestParams) => {
+      const token = getRequestToken(request)
+      if (!token) {
+        return resultError('Invalid token!')
+      }
+      const checkUser = {
+        token: '12321',
+        userId: '1'
+      }
+      if (!checkUser) {
+        return resultError('Invalid user token!')
+      }  
+      return resultError('没有权限，请联系管理员授权')
     }
   }
 ] as MockMethod[]
