@@ -1,6 +1,6 @@
 <template>
   <div class="p-4">
-    <div class="flex"> 
+    <div class="flex">
       <el-button type="primary" icon="Plus" @click="addMenu"> 新增菜单</el-button>
       <el-dropdown
         v-if="multipleSelection.length > 0"
@@ -57,8 +57,9 @@
         min-width="50"
         align="center"
       >
-        <template #default="scope">  
-          <el-icon  :name="scope.row.icon"><box /></el-icon>
+        <template #default="scope">
+          <el-icon v-if="scope.row.icon" :name="scope.row.icon"><box /></el-icon>
+          <span v-else class="iconify m-auto" data-icon="null"></span>
         </template>
       </el-table-column>
       <el-table-column property="component" label="组件" min-width="150" />
@@ -75,35 +76,43 @@
             </span>
             <template #dropdown>
               <el-dropdown-menu>
-                <el-dropdown-item :command="{index:0,row:scope.row}">添加下级</el-dropdown-item>
-                <el-dropdown-item :command="{index:1,row:scope.row}">删除</el-dropdown-item>
+                <el-dropdown-item :command="{ index: 0, row: scope.row }"
+                  >添加下级</el-dropdown-item
+                >
+                <el-dropdown-item :command="{ index: 1, row: scope.row }">删除</el-dropdown-item>
               </el-dropdown-menu>
             </template>
-          </el-dropdown> 
+          </el-dropdown>
         </template>
       </el-table-column>
-    </el-table>  
-    <menu-drawer :show-drawer="data.showDrawer" :obj="data.obj" :is-update="data.isUpdate" @on-confirm="onConfirm" @close="data.showDrawer = false"></menu-drawer>
+    </el-table>
+    <menu-drawer
+      :show-drawer="data.showDrawer"
+      :obj="data.obj"
+      :menus="data.menuALL"
+      :is-update="data.isUpdate"
+      @on-confirm="onConfirm"
+      @close="data.showDrawer = false"
+    ></menu-drawer>
   </div>
 </template>
 <script lang="ts">
   import { defineComponent, onMounted, ref, onUnmounted } from 'vue'
   import { ElMessage } from 'element-plus'
   import MenuDrawer from './MenuDrawer.vue'
-  import { getMenuList } from '@/api/sys/menu'
+  import { getMenuList, saveOrUpdateMenu, deleteMenu } from '@/api/sys/menu'
   import { MenuItem } from '@/api/sys/model/menuModel'
   export default defineComponent({
     name: 'MenusPage',
     components: {
       MenuDrawer
     },
-    setup() { 
-        
-      let data= reactive({
-        isUpdate:false,
-        showDrawer:false,
-        obj:{}
-
+    setup() {
+      let data = reactive({
+        isUpdate: false,
+        showDrawer: false,
+        obj: {},
+        menuALL: [] as MenuItem[]
       })
       const multipleSelection = ref<Array<MenuItem>>([])
       const tableData = ref<Array<MenuItem>>([])
@@ -112,74 +121,74 @@
         ElMessage(`click on item ${command}`)
       }
 
-
-
-       interface MenuCommand{
-          index:0,
-          row:MenuItem
-       } 
-      const handleMoreCommand = (command: MenuCommand) => { 
-        if(command.index==0){
-           console.log('click add item ',command) 
+      interface MenuCommand {
+        index: 0
+        row: MenuItem
+      }
+      const handleMoreCommand = (command: MenuCommand) => {
+        if (command.index == 0) {
+          console.log('click add item ', command)
           //添加下级
-           data.isUpdate=false, 
-          data.showDrawer=true  // 显示抽屉
-          data.obj={
-            parentId:command.row.id,
-            parentName:command.row.name,
-            menuType:1,
-            route:true,
-            permsType:'1',
-            status:'1'
-          };
-        }else{
+          ;(data.isUpdate = false), (data.showDrawer = true) // 显示抽屉
+          data.obj = {
+            parentId: command.row.id,
+            parentName: command.row.name,
+            menuType: 1,
+            route: true,
+            permsType: '1',
+            status: '1'
+          }
+        } else {
           //删除
-          console.log('click on del item ',command)  
+          console.log('click on del item ', command)
+
+          deleteMenu({ id: command.row.id }).then((res) => {
+            const { message } = res as HttpResponse
             ElMessage({
-              message: `删除 ${command.row.name} 成功`,
-              type: 'success'
+              message: `${message}` || '删除成功',
+              type: 'error'
             })
+          })
         }
       }
       const handleSelectionChange = (val: Array<MenuItem>) => {
+        // todo 菜单联动效果
+        // console.log('🚀 ~ file: index.vue ~ line 155 ~ handleSelectionChange ~ val', val)
         multipleSelection.value = val
       }
       const addMenu = () => {
-        data.isUpdate=false, 
-        data.showDrawer=true  // 显示抽屉
-        data.obj={menuType:0,  route:true,permsType:'1',status:'1'}
+        ;(data.isUpdate = false), (data.showDrawer = true) // 显示抽屉
+        data.obj = { menuType: 0, route: true, permsType: '1', status: '1' }
       }
-      const onConfirm = (obj:any) => {
-        console.log('onConfirm obj is:',obj)
-        data.showDrawer=false  
+      const onConfirm = (obj: any) => {
+        console.log('onConfirm obj is:', obj)
+        data.showDrawer = false
+        saveOrUpdateMenu(obj, data.isUpdate).then((res) => {
+          const { message } = res as HttpResponse
+          ElMessage({
+            message: `${message}` || '保存成功',
+            type: 'error'
+          })
+        })
       }
       const handleEdit = (row: MenuItem) => {
-        // ElMessage(`编辑 ${row.name}`) 
-         data.isUpdate=true 
-         data.showDrawer=true  
-         data.obj=row
-      } 
+        // ElMessage(`编辑 ${row.name}`)
+        data.isUpdate = true
+        data.showDrawer = true
+        data.obj = row
+      }
+      // 取消全选
       const toggleSelection = () => {
         multipleSelection.value = []
       }
-      //  const getMenuList2 =  () => {
-      //    console.log("ddd")
-      //   getMenuList().then(res => {
-      //     console.log("res",res)
-      //     // tableData.value = res.data
-      //   }).catch(err => {
-      //     console.log("err",err)
-      //     ElMessage.error(err)
-      //   })
-
-      // }
 
       onMounted(() => {
         console.log('onMounted')
         // console.log("onMounted",http)
         getMenuList()
           .then((res: any) => {
-            tableData.value = res.result || []
+            tableData.value = res.data || []
+            data.menuALL = res.data || []
           })
           .catch((err) => {
             console.log('err', err)
@@ -189,7 +198,7 @@
       onUnmounted(() => {
         console.log('unmount')
       })
-      return { 
+      return {
         multipleSelection,
         tableData,
         data,
@@ -198,7 +207,7 @@
         handleSelectionChange,
         handleCommand,
         handleMoreCommand,
-        handleEdit, 
+        handleEdit,
         toggleSelection
       }
     }
@@ -210,5 +219,13 @@
     margin: 10px auto;
     color: #333;
     background: #f1f1f1;
+  }
+
+  span.iconify {
+    display: block;
+    width: 1em;
+    height: 1em;
+    background-color: #5551;
+    border-radius: 100%;
   }
 </style>
