@@ -18,12 +18,13 @@
         default: 'siderbar'
       }
     },
-    emits: ['update:navigationMode'],
+    emits: ['update:navigationMode', 'change'],
     setup(props, { emit }) {
       const navType = ['siderbar', 'mix', 'top', 'mixbar']
 
       const handleChangeNavType = (type) => {
         emit('update:navigationMode', type)
+        emit('change', type)
       }
 
       return {

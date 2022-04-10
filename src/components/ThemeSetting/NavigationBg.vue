@@ -1,7 +1,7 @@
 <template>
   <div class="flex">
     <div class="nav-bg-item active">
-      <icon icon="mdi:water-off-outline" :size="26" color="#515A6E"></icon>
+      <icon icon="mdi:water-off-outline" size="26px" color="#515A6E"></icon>
     </div>
     <div class="nav-bg-item">
       <img src="./assets/background.png" alt="" />

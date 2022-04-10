@@ -21,7 +21,10 @@
           <navigation-bg></navigation-bg>
         </el-form-item>
         <el-form-item label="导航模式" class="nav-type">
-          <navigation-type v-model:navigationMode="form.navigationMode"></navigation-type>
+          <navigation-type
+            v-model:navigationMode="form.navigationMode"
+            @change="handleChangeLayout"
+          ></navigation-type>
         </el-form-item>
         <el-form-item label="菜单宽度">
           <el-select v-model="form.menuWidth">
@@ -74,7 +77,9 @@
 </template>
 
 <script lang="ts">
+  import { useSettingsStore } from '@/store/modules/settings'
   export default defineComponent({
+    name: 'ThemeSetting',
     props: {
       show: {
         type: Boolean,
@@ -83,13 +88,15 @@
     },
     emits: ['update:show'],
     setup(props, { emit }) {
+      const store = useSettingsStore()
+
       let { show } = toRefs(props)
       const showSetting = ref(show)
 
       const form = reactive({
         theme: '',
         darkMode: false,
-        navigationMode: 'top',
+        navigationMode: store.layout,
         menuWidth: '266px',
         sidebarResize: false,
         fixedHead: true,
@@ -103,14 +110,20 @@
         changeAnimate: false
       })
 
-      function handleClosed() {
+      const handleClosed = () => {
         emit('update:show', false)
       }
 
+      const handleChangeLayout = (layout) => {
+        console.log(layout)
+        store.setLayout(layout)
+      }
+
       return {
+        form,
         showSetting,
         handleClosed,
-        form
+        handleChangeLayout
       }
     }
   })

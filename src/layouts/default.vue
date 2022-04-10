@@ -1,12 +1,6 @@
 <template>
   <div class="w-full h-screen flex bg-content-bg overflow-hidden">
-    <div class="w-auto h-full flex flex-col">
-      <Menu :menus="asyncRoutes" :collapse="isCollapse">
-        <div class="py-8 px-3 bg-black">
-          <img class="inline-block" src="@/assets/images/logo.png" />
-        </div>
-      </Menu>
-    </div>
+    <sider-bar></sider-bar>
     <div class="flex flex-col flex-1 overflow-hidden">
       <!-- header -->
       <custom-header
@@ -25,22 +19,29 @@
 </template>
 
 <script lang="ts">
+  import { storeToRefs } from 'pinia'
   import { asyncRoutes } from '@/router/index'
   import CustomHeader from './header/CustomHeader.vue'
+  import { useSettingsStore } from '@/store/modules/settings'
+  import SiderBar from './sider/SiderBar.vue'
 
   export default defineComponent({
     components: {
-      CustomHeader
+      CustomHeader,
+      SiderBar
     },
     setup() {
+      const store = useSettingsStore()
+      const { layout } = storeToRefs(store)
       const isCollapse = ref(false)
-      const isShowThemeSetting = ref(true)
+      const isShowThemeSetting = ref(false)
 
       function handleShowThemeSetting() {
         isShowThemeSetting.value = true
       }
 
       return {
+        layout,
         asyncRoutes,
         isCollapse,
         isShowThemeSetting,
