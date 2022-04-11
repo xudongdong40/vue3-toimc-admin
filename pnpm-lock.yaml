@@ -91,6 +91,7 @@ specifiers:
   vite-plugin-svg-icons: ^2.0.1
   vite-plugin-windicss: ^1.8.3
   vue: ^3.2.31
+  vue-echarts: ^6.0.2
   vue-i18n: '9'
   vue-router: ^4.0.14
   vue-tsc: ^0.33.9
@@ -141,6 +142,7 @@ dependencies:
   qrcode: 1.5.0
   resize-observer-polyfill: 1.5.1
   vue: 3.2.31
+  vue-echarts: 6.0.2_echarts@5.3.2+vue@3.2.31
   vue-i18n: 9.1.9_vue@3.2.31
   vue-router: 4.0.14_vue@3.2.31
 
@@ -7129,6 +7131,10 @@ packages:
     resolution: {integrity: sha512-NKN5kMDylKuldxYLSUfrbo5Tuzh4hd+2E8NPPX02mZtn1VuREQToYe/ZdlJy+J3uCpfaiGF05e7B8W0iXbQHmg==}
     dev: false
 
+  /resize-detector/0.3.0:
+    resolution: {integrity: sha512-R/tCuvuOHQ8o2boRP6vgx8hXCCy87H1eY9V5imBYeVNyNVpuL9ciReSccLj2gDcax9+2weXy3bc8Vv+NRXeEvQ==}
+    dev: false
+
   /resize-observer-polyfill/1.5.1:
     resolution: {integrity: sha512-LwZrotdHOo12nQuZlHEmtuXdqGoOD0OhaxopaNFxWzInpEgaLWoVuAMbTzixuosCx2nEG58ngzW3vxdWoxIgdg==}
     dev: false
@@ -8557,6 +8563,23 @@ packages:
         optional: true
     dependencies:
       vue: 3.2.31
+    dev: false
+
+  /vue-echarts/6.0.2_echarts@5.3.2+vue@3.2.31:
+    resolution: {integrity: sha512-9xDokauJtAc389MNKbwi1I0VDmp4Y6ndAJTQ8T9K7H0ffosTe1OJSJbUtkT7/fVLDFzlCcmg2TfAKaMzbpg5yQ==}
+    requiresBuild: true
+    peerDependencies:
+      '@vue/composition-api': ^1.0.5
+      echarts: ^5.1.2
+      vue: ^2.6.12 || ^3.1.1
+    peerDependenciesMeta:
+      '@vue/composition-api':
+        optional: true
+    dependencies:
+      echarts: 5.3.2
+      resize-detector: 0.3.0
+      vue: 3.2.31
+      vue-demi: 0.12.5_vue@3.2.31
     dev: false
 
   /vue-eslint-parser/8.3.0_eslint@8.13.0:
