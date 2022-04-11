@@ -1,19 +1,27 @@
 <template>
-  <div class="w-full h-screen flex bg-content-bg overflow-hidden">
-    <sider-bar></sider-bar>
-    <div class="flex flex-col flex-1 overflow-hidden">
-      <!-- header -->
-      <custom-header
-        v-model:collapse="isCollapse"
-        @show-theme-setting="handleShowThemeSetting"
-      ></custom-header>
-      <!-- theme -->
-      <theme-setting v-model:show="isShowThemeSetting"></theme-setting>
-      <!-- content -->
-      <el-scrollbar class="custom-scroll">
-        <router-view></router-view>
+  <div class="w-full h-screen bg-content-bg overflow-hidden">
+    <div :class="['layout-' + layout, 'layout-mode-' + layoutMode]">
+      <el-scrollbar v-if="layoutMode === 'row'" class="side-bar">
+        <sider-bar></sider-bar>
       </el-scrollbar>
-      <!-- footer -->
+      <div class="main-page">
+        <div class="layout-header">
+          <div class="nav">
+            <custom-header
+              v-model:collapse="isCollapse"
+              :layout-mode="layoutMode"
+              @show-theme-setting="handleShowThemeSetting"
+            ></custom-header>
+          </div>
+          <div class="tabs">Tabs</div>
+        </div>
+        <div class="layout-main">
+          <el-scrollbar class="custom-scroll">
+            <router-view></router-view>
+          </el-scrollbar>
+        </div>
+      </div>
+      <theme-setting v-model:show="isShowThemeSetting"></theme-setting>
     </div>
   </div>
 </template>
@@ -36,12 +44,15 @@
       const isCollapse = ref(false)
       const isShowThemeSetting = ref(false)
 
+      const layoutMode = computed(() => (layout.value === 'top' ? 'column' : 'row'))
+
       function handleShowThemeSetting() {
         isShowThemeSetting.value = true
       }
 
       return {
         layout,
+        layoutMode,
         asyncRoutes,
         isCollapse,
         isShowThemeSetting,
@@ -52,19 +63,36 @@
 </script>
 
 <style lang="scss" scoped>
-  .el-menu {
-    border-right: none;
-  }
+  .layout-mode-row {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
 
-  .el-menu-vertical {
-    .is-active {
-      background-color: #0960bd !important;
+    .side-bar :deep(.el-scrollbar__view) {
+      height: 100%;
+    }
+
+    .main-page {
+      flex: 1;
     }
   }
 
-  :deep(.custom-scroll) {
-    .el-scrollbar__view {
-      height: 100%;
+  .layout-mode-column {
+    .layout-header {
+      .nav {
+        color: #ffffffb3;
+        background-color: #282c34;
+      }
+
+      .tabs {
+        width: 92%;
+        margin: auto;
+      }
+    }
+
+    .layout-main {
+      width: 92%;
+      margin: auto;
     }
   }
 </style>

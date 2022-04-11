@@ -1,10 +1,18 @@
 <template>
   <!-- header -->
   <el-header class="nav flex justify-between items-center bg-white">
-    <el-row>
+    <div v-show="layoutMode === 'column'" class="fix-no-menu-block"></div>
+    <el-row v-show="layoutMode === 'row'">
       <div @click="() => handleClick(collapse)">
         <icon :type="collapse ? 'Expand' : 'Fold'" size="24px" />
       </div>
+    </el-row>
+    <el-row class="flex-1">
+      <Menu v-if="layoutMode === 'column'" :menus="asyncRoutes" :mode="menuMode">
+        <!-- <div>
+          <img class="inline-block" style="height:30px;" src="@/assets/images/logo.png" />
+        </div> -->
+      </Menu>
     </el-row>
     <el-row class="items-center">
       <span class="items">
@@ -39,6 +47,7 @@
   import { useLocale } from '@/hooks/useLocale'
   import { localeList } from '@/settings/localeSetting'
   import { LocaleType } from 'types/config'
+  import { asyncRoutes } from '@/router/index'
 
   export default defineComponent({
     name: 'CustomHeader',
@@ -50,11 +59,17 @@
       showThemeSetting: {
         type: Boolean,
         default: false
+      },
+      layoutMode: {
+        type: String,
+        default: 'row'
       }
     },
     emits: ['update:collapse', 'show-theme-setting'],
     setup(_props, { emit }) {
       const { changeLocale, getLocale } = useLocale()
+
+      const menuMode = computed(() => (_props.layoutMode === 'row' ? 'vertical' : 'horizontal'))
 
       const getCurrent = computed(() => {
         return localeList.findIndex((item) => item.value + '' === getLocale.value)
@@ -73,6 +88,8 @@
       }
 
       return {
+        menuMode,
+        asyncRoutes,
         handleClick,
         localeList,
         handleCommand,

@@ -1,7 +1,7 @@
 <template>
   <div class="w-auto h-full flex flex-col">
-    <Menu :menus="asyncRoutes" :collapse="isCollapse">
-      <div class="py-8 px-3 bg-black">
+    <Menu :menus="asyncRoutes" :collapse="isCollapse" background-color="#282c34">
+      <div class="py-8 px-3">
         <img class="inline-block" src="@/assets/images/logo.png" />
       </div>
     </Menu>

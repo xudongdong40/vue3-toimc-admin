@@ -1,5 +1,6 @@
 <template>
   <!-- menu -->
+  <slot></slot>
   <el-menu
     v-bind="$attrs"
     ref="menuRef"
@@ -12,12 +13,11 @@
     active-text-color="#fff"
     :style="{ '--menu-width': width }"
   >
-    <slot></slot>
-    <el-scrollbar ref="scroll" :max-height="menuHeight">
-      <template v-for="item in menusWithKeys" :key="item.path">
-        <sub-menu :item="item" :collapse="collapse"></sub-menu>
-      </template>
-    </el-scrollbar>
+    <!-- <el-scrollbar ref="scroll" :max-height="menuHeight"> -->
+    <template v-for="item in menusWithKeys" :key="item.path">
+      <sub-menu :item="item" :collapse="collapse"></sub-menu>
+    </template>
+    <!-- </el-scrollbar> -->
   </el-menu>
 </template>
 
@@ -48,7 +48,7 @@
       },
       backgroundColor: {
         type: String,
-        default: '#000'
+        default: '#282c34'
       }
     },
     emits: ['menuClick'],
@@ -71,8 +71,10 @@
             const elRef = defaults[0]
             const dom = elRef.el as HTMLElement
             // -100的目的是距离底部一定的距离
-            menuHeight.value = window.innerHeight - dom.offsetHeight
-            scroll.value?.update()
+            if (dom) {
+              menuHeight.value = window.innerHeight - dom.offsetHeight
+              scroll.value?.update()
+            }
           }
         }
       }
@@ -105,6 +107,10 @@
 </script>
 
 <style lang="scss" scoped>
+  .el-menu--horizontal {
+    border-bottom: none;
+  }
+
   .el-menu-custom {
     // --menu-width: 210px;
     &:not(.el-menu--collapse) {
