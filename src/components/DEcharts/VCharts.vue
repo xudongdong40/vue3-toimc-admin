@@ -67,6 +67,8 @@
         ])
       })
 
+      // todo Expose
+
       return { chartRef, chart }
     }
   })

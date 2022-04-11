@@ -22,6 +22,8 @@ export function useCharts(responsive = true) {
     }
   }
 
+  // todo Expose
+
   onUnmounted(destroy)
 
   return { chartRef, chart, resize, destroy }
