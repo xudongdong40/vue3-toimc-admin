@@ -1,24 +1,34 @@
 <template>
   <!-- menu -->
-  <slot></slot>
-  <el-menu
-    v-bind="$attrs"
-    ref="menuRef"
-    :default-active="'1'"
-    class="el-menu-custom flex-1"
-    :mode="mode"
-    :collapse="collapse"
-    :background-color="backgroundColor"
-    text-color="#ffffffb3"
-    active-text-color="#fff"
-    :style="{ '--menu-width': width }"
+  <div
+    :class="[
+      'flex',
+      { 'items-center': mode === 'horizontal' },
+      mode === 'horizontal' ? 'flex-row' : 'flex-col'
+    ]"
+    :style="{ width: menuWidth }"
   >
-    <!-- <el-scrollbar ref="scroll" :max-height="menuHeight"> -->
-    <template v-for="item in menusWithKeys" :key="item.path">
-      <sub-menu :item="item" :collapse="collapse"></sub-menu>
-    </template>
-    <!-- </el-scrollbar> -->
-  </el-menu>
+    <div class="menu-slot-wrap">
+      <slot></slot>
+    </div>
+    <el-menu
+      v-bind="$attrs"
+      ref="menuRef"
+      :default-active="'1'"
+      class="el-menu-custom flex-1"
+      :mode="mode"
+      :collapse="collapse"
+      :background-color="backgroundColor"
+      text-color="#ffffffb3"
+      active-text-color="#fff"
+    >
+      <!-- <el-scrollbar ref="scroll" :max-height="menuHeight"> -->
+      <template v-for="item in menusWithKeys" :key="item.path">
+        <sub-menu :item="item" :collapse="collapse"></sub-menu>
+      </template>
+      <!-- </el-scrollbar> -->
+    </el-menu>
+  </div>
 </template>
 
 <script lang="ts">
@@ -53,7 +63,7 @@
     },
     emits: ['menuClick'],
     setup(props, ctx) {
-      const { menus } = toRefs(props)
+      const { mode, menus, width } = toRefs(props)
       // 设置menu的调试
       const menuHeight = ref(0)
       const scroll = ref()
@@ -62,6 +72,8 @@
 
       // 给树形菜单添加key
       const menusWithKeys = genMenuKeys(menus.value)
+
+      const menuWidth = computed(() => (mode.value === 'vertical' ? width.value : 'auto'))
 
       const initHeight = async () => {
         const { slots } = ctx
@@ -98,6 +110,7 @@
       })
 
       return {
+        menuWidth,
         menusWithKeys,
         menuHeight,
         menuRef
@@ -107,14 +120,17 @@
 </script>
 
 <style lang="scss" scoped>
+  // .menu-slot-wrap {
+  //   width: var(--menu-width);
+  // }
   .el-menu--horizontal {
     border-bottom: none;
   }
 
-  .el-menu-custom {
-    // --menu-width: 210px;
-    &:not(.el-menu--collapse) {
-      width: var(--menu-width);
-    }
-  }
+  // .el-menu-custom {
+  //   // --menu-width: 210px;
+  //   &:not(.el-menu--collapse) {
+  //     width: var(--menu-width);
+  //   }
+  // }
 </style>

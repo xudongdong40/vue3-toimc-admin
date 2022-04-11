@@ -9,11 +9,14 @@
           <div class="nav">
             <custom-header
               v-model:collapse="isCollapse"
-              :layout-mode="layoutMode"
+              class="layout-main"
+              :layout="layout"
               @show-theme-setting="handleShowThemeSetting"
             ></custom-header>
           </div>
-          <div class="tabs">Tabs</div>
+          <div class="tabs">
+            <div class="layout-main">Tabs show here</div>
+          </div>
         </div>
         <div class="layout-main">
           <el-scrollbar class="custom-scroll">
@@ -68,8 +71,12 @@
     flex-direction: row;
     height: 100%;
 
-    .side-bar :deep(.el-scrollbar__view) {
-      height: 100%;
+    .side-bar {
+      background-color: #282c34;
+
+      :deep(.el-scrollbar__view) {
+        height: 100%;
+      }
     }
 
     .main-page {
@@ -82,11 +89,6 @@
       .nav {
         color: #ffffffb3;
         background-color: #282c34;
-      }
-
-      .tabs {
-        width: 92%;
-        margin: auto;
       }
     }
 

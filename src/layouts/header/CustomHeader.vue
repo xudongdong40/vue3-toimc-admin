@@ -1,19 +1,23 @@
 <template>
   <!-- header -->
   <el-header class="nav flex justify-between items-center bg-white">
-    <div v-show="layoutMode === 'column'" class="fix-no-menu-block"></div>
-    <el-row v-show="layoutMode === 'row'">
+    <!-- fix no menu -->
+    <div v-show="layout === 'top'" class="fix-no-menu-block"></div>
+    <!-- Expand Btn -->
+    <el-row v-show="layout !== 'top'">
       <div @click="() => handleClick(collapse)">
         <icon :type="collapse ? 'Expand' : 'Fold'" size="24px" />
       </div>
     </el-row>
+    <!-- Menu -->
     <el-row class="flex-1">
-      <Menu v-if="layoutMode === 'column'" :menus="asyncRoutes" :mode="menuMode">
-        <!-- <div>
-          <img class="inline-block" style="height:30px;" src="@/assets/images/logo.png" />
-        </div> -->
+      <Menu v-if="layout === 'top'" :menus="asyncRoutes" :mode="menuMode">
+        <div>
+          <img class="inline-block" style="height: 30px;" src="@/assets/images/logo.png" />
+        </div>
       </Menu>
     </el-row>
+    <!-- Actions -->
     <el-row class="items-center">
       <span class="items">
         <icon type="HomeFilled" size="24px" />
@@ -60,16 +64,16 @@
         type: Boolean,
         default: false
       },
-      layoutMode: {
+      layout: {
         type: String,
-        default: 'row'
+        default: 'sidebar'
       }
     },
     emits: ['update:collapse', 'show-theme-setting'],
     setup(_props, { emit }) {
       const { changeLocale, getLocale } = useLocale()
 
-      const menuMode = computed(() => (_props.layoutMode === 'row' ? 'vertical' : 'horizontal'))
+      const menuMode = computed(() => (_props.layout !== 'top' ? 'vertical' : 'horizontal'))
 
       const getCurrent = computed(() => {
         return localeList.findIndex((item) => item.value + '' === getLocale.value)
