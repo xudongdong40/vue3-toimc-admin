@@ -18,6 +18,13 @@
           <icon icon="ion:language" size="24px"></icon>
         </drop-down>
       </span>
+      <span class="items" @click="setStorage">
+        <el-badge :value="state.github ? 'new' : ''" class="badge">
+          <el-link :underline="false" :href="GITHUB_URL" target="_blank">
+            <icon icon="ant-design:github-filled" size="24px"></icon>
+          </el-link>
+        </el-badge>
+      </span>
       <el-divider direction="vertical"></el-divider>
       <el-avatar
         :size="32"
@@ -36,7 +43,7 @@
   import { useLocale } from '@/hooks/useLocale'
   import { localeList } from '@/settings/localeSetting'
   import { LocaleType } from 'types/config'
-
+  import { GITHUB_URL } from '@/settings/siteSetting'
   export default defineComponent({
     name: 'CustomHeader',
     props: {
@@ -48,6 +55,8 @@
     emits: ['update:collapse'],
     setup(_props, { emit }) {
       const { changeLocale, getLocale } = useLocale()
+
+      const state = useStorage('my-repo', { github: true })
 
       const getCurrent = computed(() => {
         return localeList.findIndex((item) => item.value + '' === getLocale.value)
@@ -61,11 +70,18 @@
         changeLocale(command as LocaleType)
       }
 
+      function setStorage() {
+        state.value.github = false
+      }
+
       return {
         handleClick,
         localeList,
         handleCommand,
-        getCurrent
+        getCurrent,
+        GITHUB_URL,
+        state,
+        setStorage
       }
     }
   })
@@ -73,6 +89,15 @@
 
 <style lang="scss" scoped>
   .items {
-    @apply flex items-center cursor-pointer pr-4;
+    @apply flex items-center cursor-pointer mr-4;
+  }
+
+  .badge {
+    --el-badge-padding: 4px;
+    --el-badge-size: 16px;
+
+    :deep(.el-badge__content) {
+      line-height: 13px;
+    }
   }
 </style>
