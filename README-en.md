@@ -9,7 +9,7 @@
 >
 > Rich base components and business functional components, 100% more efficient
 
-[![license](https://img.shields.io/github/license/toimc-team/vue3-toimc-admin.svg)](LICENSE)![GitHub package.json version](https://img.shields.io/github/package-json/v/toimc-team/vue3-toimc-admin)![Github issues](https://img.shields.io/github/issues/toimc-team/vue3-toimc-admin) ![](https://img.shields.io/badge/Vue-%5E3.2.31-brightgreen)![element-plus](https://img.shields.io/badge/element--plus-2.x-orange)![vite](https://img.shields.io/badge/vite-%5E2.9.0-yellowgreen)
+[![license](https://img.shields.io/github/license/toimc-team/vue3-toimc-admin.svg)](LICENSE) ![GitHub package.json version](https://img.shields.io/github/package-json/v/toimc-team/vue3-toimc-admin) ![Github issues](https://img.shields.io/github/issues/toimc-team/vue3-toimc-admin) ![](https://img.shields.io/badge/Vue-%5E3.2.31-brightgreen) ![element-plus](https://img.shields.io/badge/element--plus-2.x-orange) ![vite](https://img.shields.io/badge/vite-%5E2.9.0-yellowgreen)
 
 Hello, guys, we are the toimc open source project team, in this article we will briefly introduce the current phase of our open source project planning, to help you to understand our open source plans, to understand our team.
 
@@ -26,12 +26,19 @@ There are many excellent middle and backend solutions based on Vue 3, such as Na
 Version requirements.
 
 - Node LTS 14+
-- pnpm 6.x+
+- pnpm 6.x+/yarn/npm
 
 Installed dependencies.
 
 ```
+# recommand
 pnpm i
+
+# or
+yarn install
+
+# or
+npm install
 ```
 
 Run the project.
