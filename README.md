@@ -145,3 +145,11 @@ npm run build
 - PR：[在这里](https://github.com/toimc-team/vue3-toimc-admin/pulls?q=is%3Apr+is%3Aopen+sort%3Aupdated-desc)
 
 - 等待审核，合并~~
+
+## 项目赞助
+
+如果你认为这个项目对你有帮助，你可以帮作者买一杯咖啡，以示支持!
+
+<img src="https://toimc-online.obs.cn-east-3.myhuaweicloud.com/vue-toimc-admin/payme.jpg" alt="payme" style="zoom:30%;" />
+
+Paypal：[https://paypal.me/toimc](https://paypal.me/toimc)
