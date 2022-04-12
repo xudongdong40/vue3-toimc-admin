@@ -20,6 +20,26 @@
         <d-echarts :option="radarOptions"></d-echarts>
       </t-card>
     </el-col>
+    <el-col>
+      <t-card header="折线图">
+        <v-charts type="LineChart" :option="lineOptions"></v-charts>
+      </t-card>
+    </el-col>
+    <el-col>
+      <t-card header="饼图">
+        <v-charts type="PieChart" :option="pieOptions"></v-charts>
+      </t-card>
+    </el-col>
+    <el-col>
+      <t-card header="柱形图">
+        <v-charts type="BarChart" :option="barOptions"></v-charts>
+      </t-card>
+    </el-col>
+    <el-col>
+      <t-card header="雷达图">
+        <v-charts type="RadarChart" prefix-class="my-charts" :option="radarOptions"></v-charts>
+      </t-card>
+    </el-col>
   </div>
 </template>
 
@@ -142,4 +162,9 @@
   })
 </script>
 
-<style scoped></style>
+<style scoped lang="scss">
+  .my-charts {
+    width: 100%;
+    height: 500px;
+  }
+</style>

@@ -309,7 +309,7 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
             name: 'MilkDownEditor',
             path: 'milkdown',
             meta: {
-              title: 'MilkDown'
+              title: t('menu.component.editor.milkdown')
             },
             component: () => import('@/views/components/editor/milkdown/index.vue')
           }

@@ -33,6 +33,13 @@
       <span class="items" @click="handleShowThemeSetting">
         <icon collection="ri" type="brush-2-line" size="24px" />
       </span>
+      <span class="items" @click="setStorage">
+        <el-badge :value="state.github ? 'new' : ''" class="badge">
+          <el-link :underline="false" :href="GITHUB_URL" target="_blank">
+            <icon icon="ant-design:github-filled" size="24px"></icon>
+          </el-link>
+        </el-badge>
+      </span>
       <el-divider direction="vertical"></el-divider>
       <el-avatar
         :size="32"
@@ -53,6 +60,7 @@
   import { LocaleType } from 'types/config'
   import { asyncRoutes } from '@/router/index'
 
+  import { GITHUB_URL } from '@/settings/siteSetting'
   export default defineComponent({
     name: 'CustomHeader',
     props: {
@@ -74,6 +82,7 @@
       const { changeLocale, getLocale } = useLocale()
 
       const menuMode = computed(() => (_props.layout !== 'top' ? 'vertical' : 'horizontal'))
+      const state = useStorage('my-repo', { github: true })
 
       const getCurrent = computed(() => {
         return localeList.findIndex((item) => item.value + '' === getLocale.value)
@@ -90,6 +99,9 @@
       function handleShowThemeSetting() {
         emit('show-theme-setting')
       }
+      function setStorage() {
+        state.value.github = false
+      }
 
       return {
         menuMode,
@@ -98,7 +110,10 @@
         localeList,
         handleCommand,
         getCurrent,
-        handleShowThemeSetting
+        handleShowThemeSetting,
+        GITHUB_URL,
+        state,
+        setStorage
       }
     }
   })
@@ -106,6 +121,15 @@
 
 <style lang="scss" scoped>
   .items {
-    @apply flex items-center cursor-pointer pr-4;
+    @apply flex items-center cursor-pointer mr-4;
+  }
+
+  .badge {
+    --el-badge-padding: 4px;
+    --el-badge-size: 16px;
+
+    :deep(.el-badge__content) {
+      line-height: 13px;
+    }
   }
 </style>

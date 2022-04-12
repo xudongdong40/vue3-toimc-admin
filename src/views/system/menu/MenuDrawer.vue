@@ -1,5 +1,4 @@
 <template>
-  
   <el-drawer v-model="show" :direction="direction" @close="onClose">
     <template #title>
       <h4 class="divide-y divide-gray-500/50">{{ isUpdate ? '编辑菜单' : '新增菜单' }}</h4>
@@ -109,13 +108,19 @@
               </el-form-item>
             </template>
             <!-- 子菜单 -->
-            <template v-else-if="formData.menuType == 1">  
+            <template v-else-if="formData.menuType == 1">
               <el-form-item label="上级菜单：" prop="parentId" class="required">
                 <!-- <el-input v-model="formData.parentId" type="text" clearable></el-input> -->
                 <!-- 树控件有问题 2022.4.7 -->
                 <el-tree-select
-                  v-model="formData.parentId" :render-after-expand="false" 
-                  :current-node-key="formData.parentId" node-key="id" :props="treeProps" :data="menus" check-strictly />
+                  v-model="formData.parentId"
+                  :render-after-expand="false"
+                  :current-node-key="formData.parentId"
+                  node-key="id"
+                  :props="treeProps"
+                  :data="menus"
+                  check-strictly
+                />
               </el-form-item>
 
               <el-form-item label="访问路径：" prop="url" class="required">
@@ -138,32 +143,30 @@
 
             <el-form-item label="菜单图标：" prop="icon">
               <el-input v-model="formData.icon" type="text" placeholder="点击选择图标" clearable>
-                <template #append> 
-                    <el-popover
-                        placement="bottom" 
-                        :width="400"
-                        trigger="click" 
-                      >
-                        <template #reference>
-                          <el-button :icon="formData.icon?formData.icon:'Search'"></el-button>
-                        </template>
+                <template #append>
+                  <el-popover placement="bottom" :width="400" trigger="click">
+                    <template #reference>
+                      <el-button :icon="formData.icon ? formData.icon : 'Search'"></el-button>
+                    </template>
 
-                        <el-input v-model="searchIconKey" class="my-2" type="text" placeholder="点击搜索图标" clearable></el-input>
+                    <el-input
+                      v-model="searchIconKey"
+                      class="my-2"
+                      type="text"
+                      placeholder="点击搜索图标"
+                      clearable
+                    ></el-input>
 
-                        <div class="icon-container overflow-auto"> 
-                          <icon-list
-                          classes="p-2 w-1/8"
-                          :items="menuIconList"
-                          :show-text="false"
-                          :choose="formData.icon"
-                          @click="onPickIcon"
-                        ></icon-list>
-
-                        </div>
-
-
-                      </el-popover>
-
+                    <div class="icon-container overflow-auto">
+                      <icon-list
+                        classes="p-2 w-1/8"
+                        :items="menuIconList"
+                        :show-text="false"
+                        :choose="formData.icon"
+                        @click="onPickIcon"
+                      ></icon-list>
+                    </div>
+                  </el-popover>
                 </template>
               </el-input>
             </el-form-item>
@@ -235,23 +238,16 @@
         <el-button type="primary" @click="handleSubmit">确认</el-button>
       </div>
     </template>
-
-
-       
   </el-drawer>
-
-
-   
 </template>
 
 <script lang="ts">
-  import { ref,  defineComponent, toRefs, reactive } from 'vue'
+  import { ref, defineComponent, toRefs, reactive } from 'vue'
   import { IconData } from '@/components/Icon/data'
   import { Search } from '@element-plus/icons-vue' // 引入图标
 
-  
-// import { ClickOutside as vClickOutside } from 'element-plus'
-  export default defineComponent({ 
+  // import { ClickOutside as vClickOutside } from 'element-plus'
+  export default defineComponent({
     props: {
       showDrawer: {
         type: Boolean,
@@ -275,19 +271,18 @@
       const vForm = ref(null)
       const visibleRef = ref(false)
       const isEdit = ref(false)
-      const direction = ref('rtl');
+      const direction = ref('rtl')
 
-      const searchIconKey = ref('');
- 
-      
-      const menuIconList= computed(() => (
-         IconData.filter(item =>  item.toLowerCase().includes(searchIconKey.value.toLowerCase()) )
-      ))
-     
+      const searchIconKey = ref('')
+
+      const menuIconList = computed(() =>
+        IconData.filter((item) => item.toLowerCase().includes(searchIconKey.value.toLowerCase()))
+      )
 
       const treeProps = {
-        label: 'name',value:'id',
-        children:'children' 
+        label: 'name',
+        value: 'id',
+        children: 'children'
       }
 
       // const buttonRef = ref()
@@ -295,10 +290,6 @@
       // const onClickOutside = () => {
       //   unref(popoverRef).popperRef?.delayHide?.()
       // }
-      
-
-
-     
 
       function cancelClick() {
         ctx.emit('close')
@@ -398,8 +389,8 @@
       })
       const menuData = ref({})
 
-     const onPickIcon=(item)=>{
-        console.log('pick',item)
+      const onPickIcon = (item) => {
+        console.log('pick', item)
         state.formData.icon = item
       }
 
@@ -481,10 +472,8 @@
         })
       }
 
-
-      
-      const show= computed(() => (props.showDrawer)); 
-      // const isUpdate = computed(() => (props.isUpdate));  
+      const show = computed(() => props.showDrawer)
+      // const isUpdate = computed(() => (props.isUpdate));
       // watch(
       //   () => props.showDrawer,
       //   (newVal, oldVal) => {
@@ -525,9 +514,14 @@
           }
         },
         { deep: true }
-      ) 
-      return {show,treeProps,onPickIcon,menuIconList,searchIconKey,
-      // showDrawer,isUpdate,
+      )
+      return {
+        show,
+        treeProps,
+        onPickIcon,
+        menuIconList,
+        searchIconKey,
+        // showDrawer,isUpdate,
         // buttonRef,popoverRef,
         // vClickOutside,onClickOutside,
         vForm,
@@ -545,7 +539,7 @@
   })
 </script>
 <style scoped>
-.icon-container{
-  height: 300px;
-}
+  .icon-container {
+    height: 300px;
+  }
 </style>
