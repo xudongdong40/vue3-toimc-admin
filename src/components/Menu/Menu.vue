@@ -1,11 +1,7 @@
 <template>
   <!-- menu -->
   <div
-    :class="[
-      'flex',
-      { 'items-center': mode === 'horizontal' },
-      mode === 'horizontal' ? 'flex-row' : 'flex-col'
-    ]"
+    :class="['flex', mode === 'horizontal' ? 'flex-row' : 'flex-col']"
     :style="{ width: menuWidth }"
   >
     <div class="flex-shrink-0">
