@@ -70,7 +70,8 @@
       },
       "small-comp": {
         "calendar": "CalendarCard",
-        "title": "Widgets"
+        "title": "Widgets",
+        "weather": "Weather"
       }
     },
     "pages": {
