@@ -18,25 +18,25 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
         name: 'Menus1',
         path: 'menu',
         meta: {
-          title: 'Menu1'
+          title: t('menu.nest-menus.menu1')
         },
         component: () => import('@/views/menus/menu1.vue'),
         redirect: '/comp/icon/element',
         children: [
           {
-            name: 'Menus1-1',
+            name: 'Menu1-1',
             path: 'menu1-1',
             component: () => import('@/views/menus/menu1-1.vue'),
             meta: {
-              title: 'Menu1-1'
+              title: t('menu.nest-menus.menu1-1')
             },
             children: [
               {
-                name: 'Menus1-1-1',
+                name: 'Menu1-1-1',
                 path: 'menu1-1-1',
                 component: () => import('@/views/menus/menu1-1-1.vue'),
                 meta: {
-                  title: 'Menu111'
+                  title: t('menu.nest-menus.menu1-1-1')
                 }
               }
             ]
@@ -46,7 +46,7 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
             path: 'menu1-2',
             component: () => import('@/views/menus/menu1-2.vue'),
             meta: {
-              title: 'Menu1-2'
+              title: t('menu.nest-menus.menu1-2')
             }
           }
         ]
@@ -55,7 +55,7 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
         name: 'Menus2',
         path: 'menu',
         meta: {
-          title: 'Menu2'
+          title: t('menu.nest-menus.menu2')
         },
         component: () => import('@/views/menus/menu2.vue')
       }
