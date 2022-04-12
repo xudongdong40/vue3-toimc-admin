@@ -1,5 +1,5 @@
 <template>
-  <div class="w-auto h-full flex flex-col">
+  <div class="w-auto">
     <Menu :menus="asyncRoutes" :collapse="isCollapse" background-color="#282c34">
       <div class="py-6 px-3">
         <img class="inline-block" src="@/assets/images/logo.png" />

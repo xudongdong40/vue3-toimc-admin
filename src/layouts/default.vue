@@ -66,6 +66,10 @@
 </script>
 
 <style lang="scss" scoped>
+  :deep(.el-menu) {
+    border: none;
+  }
+
   .layout-mode-row {
     display: flex;
     flex-direction: row;
@@ -73,10 +77,6 @@
 
     .side-bar {
       background-color: #282c34;
-
-      :deep(.el-scrollbar__view) {
-        height: 100%;
-      }
     }
 
     .main-page {

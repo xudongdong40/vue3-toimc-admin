@@ -18,7 +18,7 @@
       </Menu>
     </el-row>
     <!-- Actions -->
-    <el-row class="items-center">
+    <el-row class="items-center flex-shrink-0">
       <span class="items">
         <icon type="HomeFilled" size="24px" />
       </span>

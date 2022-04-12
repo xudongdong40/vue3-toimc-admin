@@ -8,7 +8,7 @@
     ]"
     :style="{ width: menuWidth }"
   >
-    <div class="menu-slot-wrap">
+    <div class="flex-shrink-0">
       <slot></slot>
     </div>
     <el-menu
