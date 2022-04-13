@@ -10,7 +10,7 @@ const iframeRoutes: Array<AppRouteRecordRaw> = [
       order: 80,
       icon: 'Document'
     },
-    path: '/',
+    path: '/iframe',
     component: LayoutsDefault,
     redirect: '/iframe',
     children: [

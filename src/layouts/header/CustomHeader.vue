@@ -91,12 +91,17 @@
 
       const topMenu = computed(() => {
         return asyncRoutes.map((item) => {
-          if (item.children) {
-            delete item.children
-          }
-          return item
+          let topMenuItem = {}
+          Object.keys(item).forEach((key) => {
+            if (key !== 'children') {
+              topMenuItem[key] = item[key]
+            }
+          })
+          return topMenuItem
         })
       })
+
+      console.log(asyncRoutes)
 
       function handleClick(flag: boolean) {
         emit('update:collapse', !flag)
