@@ -12,9 +12,7 @@
     <!-- Menu -->
     <el-row class="flex-1">
       <Menu v-if="layout === 'top'" :menus="asyncRoutes" :mode="menuMode">
-        <div>
-          <img class="inline-block" style="height: 30px;" src="@/assets/images/logo.png" />
-        </div>
+        <img style="height: 30px;" src="@/assets/images/logo.png" />
       </Menu>
     </el-row>
     <!-- Actions -->

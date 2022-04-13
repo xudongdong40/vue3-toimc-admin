@@ -1,10 +1,10 @@
 <template>
   <!-- menu -->
   <div
-    :class="['flex', mode === 'horizontal' ? 'flex-row' : 'flex-col']"
+    :class="['flex', mode === 'horizontal' ? 'flex-row flex-1 pr-50px' : 'flex-col']"
     :style="{ width: menuWidth }"
   >
-    <div class="flex-shrink-0">
+    <div class="flex items-center flex-shrink-0">
       <slot></slot>
     </div>
     <el-menu
@@ -18,11 +18,9 @@
       text-color="#ffffffb3"
       active-text-color="#fff"
     >
-      <!-- <el-scrollbar ref="scroll" :max-height="menuHeight"> -->
       <template v-for="item in menusWithKeys" :key="item.path">
         <sub-menu :item="item" :collapse="collapse"></sub-menu>
       </template>
-      <!-- </el-scrollbar> -->
     </el-menu>
   </div>
 </template>
@@ -123,10 +121,12 @@
     border-bottom: none;
   }
 
-  // .el-menu-custom {
-  //   // --menu-width: 210px;
-  //   &:not(.el-menu--collapse) {
-  //     width: var(--menu-width);
-  //   }
-  // }
+  .el-menu-custom {
+    width: 0;
+
+    //   // --menu-width: 210px;
+    //   &:not(.el-menu--collapse) {
+    //     width: var(--menu-width);
+    //   }
+  }
 </style>

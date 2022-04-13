@@ -1,45 +1,5 @@
 <template>
   <div class="w-full h-screen bg-content-bg overflow-hidden">
-    <Menu :menus="asyncRoutes" mode="horizontal"> </Menu>
-
-    <div style="display: flex;">
-      <div style="width: 200px;">
-        <img class="inline-block" style="height: 30px;" src="@/assets/images/logo.png" />
-      </div>
-      <el-menu mode="horizontal" style="width: 0; flex: 1;">
-        <el-menu-item index="1">Menu1</el-menu-item>
-        <el-sub-menu index="21">
-          <template #title>Workspace</template>
-          <el-menu-item index="2-1">item one</el-menu-item>
-          <el-menu-item index="2-2">item two</el-menu-item>
-          <el-menu-item index="2-3">item three</el-menu-item>
-          <el-sub-menu index="2-4">
-            <template #title>item four</template>
-            <el-menu-item index="2-4-1">item one</el-menu-item>
-            <el-menu-item index="2-4-2">item two</el-menu-item>
-            <el-menu-item index="2-4-3">item three</el-menu-item>
-          </el-sub-menu>
-        </el-sub-menu>
-        <el-menu-item index="2">Menu2</el-menu-item>
-        <el-menu-item index="3">Menu3</el-menu-item>
-        <el-menu-item index="4">Menu4</el-menu-item>
-        <el-menu-item index="5">Menu5</el-menu-item>
-        <el-menu-item index="6">Menu6</el-menu-item>
-        <el-menu-item index="7">Menu7</el-menu-item>
-        <el-menu-item index="8">Menu8</el-menu-item>
-        <el-menu-item index="9">Menu9</el-menu-item>
-        <el-menu-item index="10">Menu10</el-menu-item>
-        <el-menu-item index="11">Menu11</el-menu-item>
-        <el-menu-item index="12">Menu12</el-menu-item>
-      </el-menu>
-      <div class="flex items-center">
-        <div style="padding: 0 10px;">操作1</div>
-        <div style="padding: 0 10px;">操作2</div>
-        <div style="padding: 0 10px;">操作3</div>
-        <div style="padding: 0 10px;">操作4</div>
-      </div>
-    </div>
-
     <div :class="['layout-' + layout, 'layout-mode-' + layoutMode]">
       <el-scrollbar v-if="layoutMode === 'row'" class="side-bar">
         <sider-bar></sider-bar>
