@@ -13,8 +13,7 @@
 </template>
 
 <script lang="ts">
-  import defaultIcon from '@/assets/svg/weather-animation-icon/rain.svg'
-  // import defaultIcon from './weather-static-icon/rain.svg'
+  import defaultIcon from '@/assets/svg/weather-static-icon/rain.svg'
 
   // import { ElNotification } from 'element-plus'
   export default defineComponent({
@@ -29,7 +28,7 @@
       const weatherText = ref('未知')
 
       // const getWeather = async () => {
-      //   // const res = await fetch(`${apiURL}/tapi/amap/v3/weather/weatherInfo?extensions=base&city=${adcode.value}`)
+      //   // const res = await fetch(`${https://kongfandong.cn}/tapi/amap/v3/weather/weatherInfo?extensions=base&city=${adcode.value}`)
       //   // const { status, lives } = await res.json()
       //   // if (status === '1') {
       //   //   const { weather, temperature: _temperature } = lives[0]
