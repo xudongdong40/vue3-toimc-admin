@@ -11,8 +11,13 @@
     </el-row>
     <!-- Menu -->
     <el-row class="flex-1">
-      <Menu v-if="layout === 'top'" :menus="asyncRoutes" :mode="menuMode">
-        <img style="height: 30px;" src="@/assets/images/logo.png" />
+      <Menu
+        v-if="['top', 'mix'].includes(layout)"
+        :menus="layout === 'top' ? asyncRoutes : topMenu"
+        mode="horizontal"
+        :text-color="layout === 'top' ? '#ffffffb3' : '#515a6e'"
+      >
+        <img v-if="layout === 'top'" style="height: 30px;" src="@/assets/images/logo.png" />
       </Menu>
     </el-row>
     <!-- Actions -->
@@ -78,12 +83,19 @@
     emits: ['update:collapse', 'show-theme-setting'],
     setup(_props, { emit }) {
       const { changeLocale, getLocale } = useLocale()
-
-      const menuMode = computed(() => (_props.layout !== 'top' ? 'vertical' : 'horizontal'))
       const state = useStorage('my-repo', { github: true })
 
       const getCurrent = computed(() => {
         return localeList.findIndex((item) => item.value + '' === getLocale.value)
+      })
+
+      const topMenu = computed(() => {
+        return asyncRoutes.map((item) => {
+          if (item.children) {
+            delete item.children
+          }
+          return item
+        })
       })
 
       function handleClick(flag: boolean) {
@@ -102,8 +114,8 @@
       }
 
       return {
-        menuMode,
         asyncRoutes,
+        topMenu,
         handleClick,
         localeList,
         handleCommand,

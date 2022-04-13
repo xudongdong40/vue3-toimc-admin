@@ -1,7 +1,8 @@
 <template>
   <!-- menu -->
   <div
-    :class="['flex', mode === 'horizontal' ? 'flex-row flex-1 pr-50px' : 'flex-col']"
+    class="flex"
+    :class="['menu-mode-' + mode, mode === 'horizontal' ? 'flex-row flex-1 pr-50px' : 'flex-col']"
     :style="{ width: menuWidth }"
   >
     <div class="flex items-center flex-shrink-0">
@@ -11,11 +12,12 @@
       v-bind="$attrs"
       ref="menuRef"
       :default-active="'1'"
-      class="el-menu-custom flex-1"
+      class="flex-1"
+      :class="{ 'w-0': mode === 'horizontal' }"
       :mode="mode"
       :collapse="collapse"
       :background-color="backgroundColor"
-      text-color="#ffffffb3"
+      :text-color="textColor"
       active-text-color="#fff"
     >
       <template v-for="item in menusWithKeys" :key="item.path">
@@ -48,11 +50,15 @@
       },
       width: {
         type: String,
-        default: '210px'
+        default: '266px'
       },
       backgroundColor: {
         type: String,
-        default: '#282c34'
+        default: 'transparent'
+      },
+      textColor: {
+        type: String,
+        default: '#ffffffb3'
       }
     },
     emits: ['menuClick'],
@@ -114,19 +120,24 @@
 </script>
 
 <style lang="scss" scoped>
+  .menu-mode-horizontal {
+    :deep(.el-menu--horizontal > .el-menu-item.is-active) {
+      // border-bottom: 2px solid var(--el-menu-active-color);
+      color: blue !important;
+    }
+  }
+
   // .menu-slot-wrap {
   //   width: var(--menu-width);
   // }
-  .el-menu--horizontal {
-    border-bottom: none;
-  }
+  // .el-menu--horizontal {
+  //   border-bottom: none;
+  // }
 
-  .el-menu-custom {
-    width: 0;
-
-    //   // --menu-width: 210px;
-    //   &:not(.el-menu--collapse) {
-    //     width: var(--menu-width);
-    //   }
-  }
+  // .el-menu-custom {
+  //   // --menu-width: 210px;
+  //   &:not(.el-menu--collapse) {
+  //     width: var(--menu-width);
+  //   }
+  // }
 </style>

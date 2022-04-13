@@ -3,7 +3,7 @@
  */
 const sysTheme = {
   // 'siderbar' 左侧菜单 | 'mix' 左侧+顶部菜单 | 'top' 顶部菜单 | 'mixbar' 双列菜单
-  layout: 'top'
+  layout: 'mix'
 }
 
 export default sysTheme
