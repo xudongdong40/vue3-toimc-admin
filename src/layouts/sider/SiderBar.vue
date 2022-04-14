@@ -19,30 +19,27 @@
     setup() {
       const isCollapse = ref(false)
       const route = useRoute()
-      const curRoutePath = unref(toRaw(route).path)
-
-      console.log(curRoutePath)
+      const store = useSettingsStore()
+      const layout = computed(() => store.layout)
+      const curRoutePath = computed(() => route.path)
 
       const mixSideMenu = computed(() => {
         return (
           asyncRoutes.find((item) =>
-            [item.path, item.redirect].includes('/' + curRoutePath.split('/')[1])
+            [item.path, item.redirect].includes('/' + curRoutePath.value.split('/')[1])
           )?.children || []
         )
       })
 
-      const store = useSettingsStore()
-      const layout = store.layout
-
       const showRoutes = computed(() => {
-        if (layout === 'sidebar') {
-          return curRoutePath
-        } else if (layout === 'mix') {
-          return mixSideMenu
+        if (layout.value === 'siderbar') {
+          console.log(asyncRoutes)
+          return asyncRoutes
+        } else if (layout.value === 'mix') {
+          console.log(2222)
+          return mixSideMenu.value
         }
       })
-
-      console.log(showRoutes)
 
       return {
         showRoutes,

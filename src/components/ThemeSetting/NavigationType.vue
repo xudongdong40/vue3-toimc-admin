@@ -1,11 +1,15 @@
 <template>
   <div class="flex justify-around">
-    <div
-      v-for="item of navType"
-      :key="item"
-      :class="['setting-menu', 'type-picker-' + item, { active: navigationMode === item }]"
-      @click="handleChangeNavType(item)"
-    ></div>
+    <el-tooltip v-for="item of navType" :key="item.name" effect="dark" :content="item.desc">
+      <div
+        :class="[
+          'setting-menu',
+          'type-picker-' + item.name,
+          { active: navigationMode === item.name }
+        ]"
+        @click="handleChangeNavType(item.name)"
+      ></div>
+    </el-tooltip>
   </div>
 </template>
 
@@ -20,7 +24,12 @@
     },
     emits: ['update:navigationMode', 'change'],
     setup(props, { emit }) {
-      const navType = ['siderbar', 'mix', 'top', 'mixbar']
+      const navType = [
+        { name: 'siderbar', desc: '左侧菜单模式' },
+        { name: 'mix', desc: '顶部左侧菜单混合模式' },
+        { name: 'top', desc: '顶部菜单模式' },
+        { name: 'mixbar', desc: '左侧菜单混合模式' }
+      ]
 
       const handleChangeNavType = (type) => {
         emit('update:navigationMode', type)

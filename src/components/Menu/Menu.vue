@@ -71,7 +71,7 @@
       const { genMenuKeys } = useNav()
 
       // 给树形菜单添加key
-      const menusWithKeys = genMenuKeys(menus.value)
+      const menusWithKeys = computed(() => genMenuKeys(menus.value))
 
       const menuWidth = computed(() => (mode.value === 'vertical' ? width.value : 'auto'))
 
@@ -122,8 +122,20 @@
 <style lang="scss" scoped>
   .menu-mode-horizontal {
     :deep(.el-menu--horizontal > .el-menu-item.is-active) {
-      // border-bottom: 2px solid var(--el-menu-active-color);
-      color: blue !important;
+      color: #1890ff !important;
+      border-bottom: 2px solid #1890ff;
+    }
+
+    :deep(.el-menu-item:not(.is-disabled):hover) {
+      color: #1890ff;
+      background-color: transparent;
+    }
+  }
+
+  .menu-mode-vertical {
+    :deep(.el-menu-item.is-active) {
+      color: #fff;
+      background-color: #1890ff;
     }
   }
 

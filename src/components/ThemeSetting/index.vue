@@ -115,7 +115,6 @@
       }
 
       const handleChangeLayout = (layout) => {
-        console.log(layout)
         store.setLayout(layout)
       }
 
