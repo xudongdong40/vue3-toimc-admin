@@ -129,6 +129,10 @@
       "department": "部门管理",
       "logs": "系统日志"
     },
+    "guide": {
+      "title": "引导页",
+      "guide": "引导页"
+    },
     "about": {
       "title": "关于",
       "about-us": "关于我们"

@@ -123,6 +123,10 @@
       "title": "System Settings",
       "user": "Users"
     },
+    "guide": {
+      "guide": "Guide",
+      "title": "Guide"
+    },
     "about": {
       "about-us": "AboutUs",
       "title": "About"

@@ -2,18 +2,18 @@
   <!-- header -->
   <el-header class="nav flex justify-between items-center bg-white">
     <el-row>
-      <div @click="() => handleClick(collapse)">
+      <div id="header-collapse" @click="() => handleClick(collapse)">
         <icon :type="collapse ? 'Expand' : 'Fold'" size="24px" />
       </div>
     </el-row>
     <el-row class="items-center">
-      <span class="items">
+      <span id="header-home" class="items">
         <icon type="HomeFilled" size="24px" />
       </span>
-      <span class="items">
+      <span id="header-message" class="items">
         <icon type="Bell" size="24px" />
       </span>
-      <span class="items">
+      <span id="header-internationalization" class="items">
         <drop-down :actions="localeList" :current="getCurrent" @command="handleCommand">
           <icon icon="ion:language" size="24px"></icon>
         </drop-down>
