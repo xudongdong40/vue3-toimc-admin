@@ -9,7 +9,7 @@
 >
 > Rich base components and business functional components, 100% more efficient
 
-[![license](https://img.shields.io/github/license/toimc-team/vue3-toimc-admin.svg)](LICENSE)![GitHub package.json version](https://img.shields.io/github/package-json/v/toimc-team/vue3-toimc-admin)![Github issues](https://img.shields.io/github/issues/toimc-team/vue3-toimc-admin) ![](https://img.shields.io/badge/Vue-%5E3.2.31-brightgreen)![element-plus](https://img.shields.io/badge/element--plus-2.x-orange)![vite](https://img.shields.io/badge/vite-%5E2.9.0-yellowgreen)
+[![license](https://img.shields.io/github/license/toimc-team/vue3-toimc-admin.svg)](LICENSE) ![GitHub package.json version](https://img.shields.io/github/package-json/v/toimc-team/vue3-toimc-admin) ![Github issues](https://img.shields.io/github/issues/toimc-team/vue3-toimc-admin) ![](https://img.shields.io/badge/Vue-%5E3.2.31-brightgreen) ![element-plus](https://img.shields.io/badge/element--plus-2.x-orange) ![vite](https://img.shields.io/badge/vite-%5E2.9.0-yellowgreen)
 
 Hello, guys, we are the toimc open source project team, in this article we will briefly introduce the current phase of our open source project planning, to help you to understand our open source plans, to understand our team.
 
@@ -26,12 +26,19 @@ There are many excellent middle and backend solutions based on Vue 3, such as Na
 Version requirements.
 
 - Node LTS 14+
-- pnpm 6.x+
+- pnpm 6.x+/yarn/npm
 
 Installed dependencies.
 
 ```
+# recommand
 pnpm i
+
+# or
+yarn install
+
+# or
+npm install
 ```
 
 Run the project.
@@ -122,19 +129,26 @@ Talent requirements.
 
 <img src="public/assets/640.png" alt="640" style="width: 50%;" />
 
-- How to contribute
+## How to contribute
 
-  - Join the WeChat group
-  - Learn about benchmarking projects
-    - Vben: https://vvbin.cn/next/#/dashboard/analysis
-    - Vue-admin: https://vue-admin-beautiful.com/admin-plus/
-    - arco: https://react-pro.arco.design/dashboard/monitor
-    - Naive: https://naive-ui-admin.vercel.app/#/dashboard/console
-  - See if there are plans and discussions in issues.
-    - Plan: [enhancement](https://github.com/toimc-team/vue3-toimc-admin/issues?q=is%3Aissue+is%3Aopen+label%3Aenhancement)
-    - Discussion: [discussion](https://github.com/toimc-team/vue3-toimc-admin/issues?q=is%3Aissue+is%3Aopen+label%3Adiscussion)
-  - (not required) create your own issues and join the project
-  - Download the project, coding, test~~
-  - PR: [here](https://github.com/toimc-team/vue3-toimc-admin/pulls?q=is%3Apr+is%3Aopen+sort%3Aupdated-desc)
+- Join the WeChat group
+- Learn about benchmarking projects
+  - Vben: https://vvbin.cn/next/#/dashboard/analysis
+  - Vue-admin: https://vue-admin-beautiful.com/admin-plus/
+  - arco: https://react-pro.arco.design/dashboard/monitor
+  - Naive: https://naive-ui-admin.vercel.app/#/dashboard/console
+- See if there are plans and discussions in issues.
+  - Plan: [enhancement](https://github.com/toimc-team/vue3-toimc-admin/issues?q=is%3Aissue+is%3Aopen+label%3Aenhancement)
+  - Discussion: [discussion](https://github.com/toimc-team/vue3-toimc-admin/issues?q=is%3Aissue+is%3Aopen+label%3Adiscussion)
+- (not required) create your own issues and join the project
+- Download the project, coding, test~~
+- PR: [here](https://github.com/toimc-team/vue3-toimc-admin/pulls?q=is%3Apr+is%3Aopen+sort%3Aupdated-desc)
+- Wait for review, merge~~
 
-  - Wait for review, merge~~
+## Donate
+
+If you think this project is helpful to you, you can help the author buy a cup of coffee to show your support!
+
+<img src="https://toimc-online.obs.cn-east-3.myhuaweicloud.com/vue-toimc-admin/payme.jpg" alt="payme" style="zoom:30%;" />
+
+Paypal：[https://paypal.me/toimc](https://paypal.me/toimc)

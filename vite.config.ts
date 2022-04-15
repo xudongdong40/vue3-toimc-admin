@@ -20,6 +20,8 @@ import PkgConfig from 'vite-plugin-package-config'
 
 import vueI18n from '@intlify/vite-plugin-vue-i18n'
 
+import { visualizer } from 'rollup-plugin-visualizer'
+
 // vitejs
 import { loadEnv } from 'vite'
 import { viteMockServe } from 'vite-plugin-mock'
@@ -41,7 +43,7 @@ const __APP_INFO__ = {
 }
 
 // https://vitejs.dev/config/
-export default ({ command, mode }: ConfigEnv): UserConfig => {
+export default ({ mode }: ConfigEnv): UserConfig => {
   const root = process.cwd()
 
   const env = loadEnv(mode, root)
@@ -51,8 +53,8 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
 
   const { VITE_PORT, VITE_PUBLIC_PATH, VITE_PROXY, VITE_DROP_CONSOLE, VITE_HTTPS } = viteEnv
 
-  const isBuild = command === 'build'
-  console.log('🚀 ~ file: vite.config.ts ~ line 28 ~ isBuild', isBuild)
+  // const isBuild = command === 'build'
+  const lifecycle = process.env.npm_lifecycle_event
   return {
     base: VITE_PUBLIC_PATH,
     root,
@@ -107,7 +109,16 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
 
         // you need to set i18n resource including paths !
         include: pathResolve('src/locales/**')
-      })
+      }),
+      // 打包分析
+      lifecycle === 'report'
+        ? visualizer({
+            filename: './node_modules/.cache/visualizer/stats.html',
+            open: true,
+            gzipSize: true,
+            brotliSize: true
+          })
+        : null
     ],
     json: {
       stringify: true

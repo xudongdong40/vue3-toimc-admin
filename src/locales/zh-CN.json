@@ -61,7 +61,8 @@
       },
       "editor": {
         "title": "编辑器",
-        "toast-ui": "ToastUI"
+        "toast-ui": "ToastUI",
+        "milkdown": "MilkDown"
       },
       "display": {
         "title": "展示",
@@ -109,7 +110,12 @@
       "echarts": "Echarts"
     },
     "nest-menus": {
-      "title": "多级菜单"
+      "title": "多级菜单",
+      "menu1": "Menu1",
+      "menu1-1": "Menus1-1",
+      "menu1-1-1": "Menus1-1-1",
+      "menu1-2": "Menu1-2",
+      "menu2": "Menu2"
     },
     "iframe": {
       "title": "外部页面",
@@ -123,6 +129,10 @@
       "menu": "菜单管理",
       "department": "部门管理",
       "logs": "系统日志"
+    },
+    "guide": {
+      "title": "引导页",
+      "guide": "引导页"
     },
     "about": {
       "title": "关于",
