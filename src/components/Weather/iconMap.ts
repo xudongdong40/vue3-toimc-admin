@@ -52,11 +52,11 @@ export const weatherMap: Record<string, any> = {
 }
 
 function getAnimationIcon(name: string) {
-  return new URL(`../../assets/imgs/weather-animation-icon/${name}.svg`, import.meta.url).href
+  return new URL(`./assets/weather-animation-icon/${name}.svg`, import.meta.url).href
 }
 
 function getStaticIcon(name: string) {
-  return new URL(`../../assets/imgs/weather-static-icon/${name}.svg`, import.meta.url).href
+  return new URL(`./assets/weather-static-icon/${name}.svg`, import.meta.url).href
 }
 
 export function getWeatherIconURL(name: string, isAnimationIcon = true) {

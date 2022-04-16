@@ -366,8 +366,8 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
             component: () => import('@/views/components/small-components/calendar.vue')
           },
           {
-            name: 'CalendarCard',
-            path: 'calendar',
+            name: 'Weather',
+            path: 'weather',
             meta: {
               title: t('menu.component.small-comp.weather')
             },
