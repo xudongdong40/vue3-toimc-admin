@@ -71,7 +71,8 @@
       },
       "small-comp": {
         "title": "小组件",
-        "calendar": "日历卡片"
+        "calendar": "日历卡片",
+        "weather": "天气"
       }
     },
     "pages": {
