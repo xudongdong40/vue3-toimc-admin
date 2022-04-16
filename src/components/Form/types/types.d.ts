@@ -66,6 +66,7 @@ export type FormSchema = {
   value?: any
   label?: string
   prop: string
+  span?: number
   slot?: string | string[]
   itemSlot?: string | { [key: string]: string }
   rules?: RuleItem[]

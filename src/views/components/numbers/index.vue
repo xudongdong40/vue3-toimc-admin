@@ -2,7 +2,7 @@
   <div class="p-4">
     <el-card header="动态数字增长">
       <el-row>
-        <basic-form :schemas="formSchema" inline :label-width="80" @change="handleChange">
+        <basic-form :schemas="formSchema" inline label-width="80px" @change="handleChange">
           <template #action="{ form }">
             <el-row>
               <el-button type="primary" @click="() => handleFormReset(form)">重置表格</el-button>
