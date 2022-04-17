@@ -13,7 +13,7 @@
     <el-row class="flex-1">
       <Menu
         v-if="['top', 'mix'].includes(layout)"
-        :menus="layout === 'top' ? asyncRoutes : topMenu"
+        :menus="showMenu"
         mode="horizontal"
         :text-color="layout === 'top' ? '#ffffffb3' : '#515a6e'"
       >
@@ -61,8 +61,8 @@
   import { useLocale } from '@/hooks/useLocale'
   import { localeList } from '@/settings/localeSetting'
   import { LocaleType } from 'types/config'
-  import { asyncRoutes } from '@/router/index'
-
+  // import { asyncRoutes } from '@/router/index'
+  import { useNav } from '@/components/Menu/useNav'
   import { GITHUB_URL } from '@/settings/siteSetting'
   export default defineComponent({
     name: 'CustomHeader',
@@ -84,24 +84,13 @@
     setup(_props, { emit }) {
       const { changeLocale, getLocale } = useLocale()
       const state = useStorage('my-repo', { github: true })
+      const { getAllMenu, getTopMenu } = useNav()
 
       const getCurrent = computed(() => {
         return localeList.findIndex((item) => item.value + '' === getLocale.value)
       })
 
-      const topMenu = computed(() => {
-        return asyncRoutes.map((item) => {
-          let topMenuItem = {}
-          Object.keys(item).forEach((key) => {
-            if (key !== 'children') {
-              topMenuItem[key] = item[key]
-            }
-          })
-          return topMenuItem
-        })
-      })
-
-      console.log(asyncRoutes)
+      const showMenu = computed(() => (_props.layout === 'top' ? getAllMenu() : getTopMenu()))
 
       function handleClick(flag: boolean) {
         emit('update:collapse', !flag)
@@ -119,8 +108,9 @@
       }
 
       return {
-        asyncRoutes,
-        topMenu,
+        // asyncRoutes,
+        // topMenu,
+        showMenu,
         handleClick,
         localeList,
         handleCommand,

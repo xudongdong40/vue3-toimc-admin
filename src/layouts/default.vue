@@ -1,9 +1,9 @@
 <template>
   <div class="w-full h-screen bg-content-bg overflow-hidden">
     <div :class="['layout-' + layout, 'layout-mode-' + layoutMode]">
-      <el-scrollbar v-if="layoutMode === 'row'" class="side-bar">
-        <sider-bar></sider-bar>
-      </el-scrollbar>
+      <!-- <el-scrollbar  class="side-bar"> -->
+      <sider-bar v-if="layoutMode === 'row'"></sider-bar>
+      <!-- </el-scrollbar> -->
       <div class="main-page">
         <div class="layout-header">
           <div class="nav">
@@ -76,7 +76,7 @@
     height: 100%;
 
     .side-bar {
-      background-color: #282c34;
+      // background-color: #282c34;
     }
 
     .main-page {

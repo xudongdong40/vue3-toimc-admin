@@ -1,6 +1,9 @@
 import type { IconTypes } from '@/components/Icon/types'
 import type { AppRouteRecordRaw } from '@/router/types'
 
+import { asyncRoutes } from '@/router/index'
+import { useRoute } from 'vue-router'
+
 export function useNav() {
   // 给树形菜单添加key
   function genMenuKeys(menus: Array<AppRouteRecordRaw>, level = '0') {
@@ -42,10 +45,46 @@ export function useNav() {
     return item.meta?.icon as IconTypes
   }
 
+  // 获取所有菜单
+  function getAllMenu() {
+    return computed(() => asyncRoutes)
+  }
+
+  // 获取顶级菜单
+  function getTopMenu() {
+    return computed(() => {
+      return asyncRoutes.map((item) => {
+        const topMenuItem = {}
+        Object.keys(item).forEach((key) => {
+          if (key !== 'children') {
+            topMenuItem[key] = item[key]
+          }
+        })
+        return topMenuItem
+      })
+    })
+  }
+
+  // 获取子菜单
+  function getSubMenu() {
+    const route = useRoute()
+    const curRoutePath = computed(() => route.path)
+    return computed(() => {
+      return (
+        asyncRoutes.find((item) =>
+          [item.path, item.redirect].includes('/' + curRoutePath.value.split('/')[1])
+        )?.children || []
+      )
+    })
+  }
+
   return {
     genMenuKeys,
     menuHasChildren,
     getIndex,
-    getIcons
+    getIcons,
+    getAllMenu,
+    getTopMenu,
+    getSubMenu
   }
 }

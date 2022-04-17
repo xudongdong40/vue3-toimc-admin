@@ -11,17 +11,31 @@
     <el-menu
       v-bind="$attrs"
       ref="menuRef"
-      :default-active="'1'"
+      :default-active="defaultActive"
       class="flex-1"
       :class="{ 'w-0': mode === 'horizontal' }"
       :mode="mode"
       :collapse="collapse"
       :background-color="backgroundColor"
       :text-color="textColor"
-      active-text-color="#fff"
+      :active-text-color="activeTextColor"
+      :default-openeds="defaultOpeneds"
     >
-      <template v-for="item in menusWithKeys" :key="item.path">
-        <sub-menu :item="item" :collapse="collapse"></sub-menu>
+      <template v-if="!isTop">
+        <sub-menu
+          v-for="item in menusWithKeys"
+          :key="item.path"
+          :item="item"
+          :collapse="collapse"
+        ></sub-menu>
+      </template>
+      <template v-else>
+        <menu-item
+          v-for="item in topMenusWithKeys"
+          :key="item.path"
+          :show-title="true"
+          :item="item"
+        ></menu-item>
       </template>
     </el-menu>
   </div>
@@ -32,6 +46,7 @@
   import { useNav } from './useNav'
 
   import type { PropType } from 'vue'
+  import { useRoute } from 'vue-router'
 
   export default defineComponent({
     name: 'Menu',
@@ -58,62 +73,111 @@
       },
       textColor: {
         type: String,
-        default: '#ffffffb3'
+        default: '#303133'
+      },
+      activeTextColor: {
+        type: String,
+        default: '#303133'
+      },
+      defaultOpeneds: {
+        type: Array,
+        default: () => []
+      },
+      isTop: {
+        type: Boolean,
+        default: false
       }
     },
     emits: ['menuClick'],
-    setup(props, ctx) {
-      const { mode, menus, width } = toRefs(props)
+    setup(props) {
+      const { mode, menus, width, isTop } = toRefs(props)
       // 设置menu的调试
       const menuHeight = ref(0)
-      const scroll = ref()
+      // const scroll = ref()
       const menuRef = ref()
       const { genMenuKeys } = useNav()
+      const route = useRoute()
 
       // 给树形菜单添加key
-      const menusWithKeys = computed(() => genMenuKeys(menus.value))
+      let menusWithKeys = computed(() => genMenuKeys(menus.value))
+
+      // 顶级菜单含key
+      const topMenusWithKeys = computed(() => {
+        let topMenus: Array<object> = []
+        menusWithKeys.value.forEach((item) => {
+          let menu = {}
+          let item2 = Object.assign({}, unref(item))
+          Object.keys(item2).forEach((i) => {
+            if (i !== 'children') {
+              menu[i] = item[i]
+            }
+          })
+          topMenus.push(menu)
+        })
+        return topMenus
+      })
+
+      const routeName = computed(() => route.name)
+
+      const defaultActive = computed(() => {
+        let currentKey = ''
+        const findActive = function (arr) {
+          arr.forEach((item) => {
+            if (item.name === routeName.value) {
+              currentKey = item.meta.key
+              return
+            } else if (item.children && item.children.length > 0) {
+              findActive(item.children)
+            }
+          })
+        }
+        findActive(menusWithKeys.value)
+        return isTop.value ? currentKey.split('-')[0] : currentKey
+      })
 
       const menuWidth = computed(() => (mode.value === 'vertical' ? width.value : 'auto'))
 
-      const initHeight = async () => {
-        const { slots } = ctx
-        if (slots.default) {
-          const defaults = slots.default()
-          if (defaults.length) {
-            const elRef = defaults[0]
-            const dom = elRef.el as HTMLElement
-            // -100的目的是距离底部一定的距离
-            if (dom) {
-              menuHeight.value = window.innerHeight - dom.offsetHeight
-              scroll.value?.update()
-            }
-          }
-        }
-      }
+      // const initHeight = async () => {
+      //   const { slots } = ctx
+      //   if (slots.default) {
+      //     const defaults = slots.default()
+      //     if (defaults.length) {
+      //       const elRef = defaults[0]
+      //       const dom = elRef.el as HTMLElement
+      //       // -100的目的是距离底部一定的距离
+      //       if (dom) {
+      //         menuHeight.value = window.innerHeight - dom.offsetHeight
+      //         scroll.value?.update()
+      //       }
+      //     }
+      //   }
+      // }
 
-      watch(
-        () => props.collapse,
-        () => {
-          initHeight()
-        }
-      )
+      // watch(
+      //   () => props.collapse,
+      //   () => {
+      //     initHeight()
+      //   }
+      // )
 
-      onMounted(() => {
-        // 获取slots的高度
-        initHeight()
+      // onMounted(() => {
+      //   // 获取slots的高度
+      //   initHeight()
 
-        const debouncedFn = useDebounceFn(() => {
-          initHeight()
-        }, 1000)
+      //   const debouncedFn = useDebounceFn(() => {
+      //     initHeight()
+      //   }, 1000)
 
-        useResizeObserver(menuRef, debouncedFn)
-      })
+      //   useResizeObserver(menuRef, debouncedFn)
+      // })
 
       return {
         menuWidth,
         menusWithKeys,
+        topMenusWithKeys,
         menuHeight,
-        menuRef
+        menuRef,
+        defaultActive
       }
     }
   })

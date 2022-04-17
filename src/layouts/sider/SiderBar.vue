@@ -1,52 +1,69 @@
 <template>
-  <div class="w-auto">
-    <Menu :menus="showRoutes" :collapse="isCollapse" background-color="#282c34">
-      <div class="py-6 px-3">
-        <img class="inline-block" src="@/assets/images/logo.png" />
-      </div>
-    </Menu>
+  <div>
+    <div class="py-3 px-3 h-60px">
+      <img class="inline-block h-full" src="@/assets/images/logo.png" />
+    </div>
+    <div class="flex flex-row h-[calc(100%-60px)]">
+      <el-scrollbar class="top-side-menu">
+        <Menu
+          v-if="layout === 'mixbar'"
+          width="auto"
+          :menus="allMenu"
+          :collapse="true"
+          text-color="#fff"
+          :is-top="true"
+        ></Menu>
+      </el-scrollbar>
+      <el-scrollbar class="sub-side-menu">
+        <Menu :menus="mainMenu" :collapse="false"></Menu>
+      </el-scrollbar>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
   import { defineComponent } from 'vue'
-  import { asyncRoutes } from '@/router/index'
-  import { useRoute } from 'vue-router'
   import { useSettingsStore } from '@/store/modules/settings'
+  import { useNav } from '@/components/Menu/useNav'
 
   export default defineComponent({
     name: 'SiderBar',
     setup() {
       const isCollapse = ref(false)
-      const route = useRoute()
       const store = useSettingsStore()
       const layout = computed(() => store.layout)
-      const curRoutePath = computed(() => route.path)
+      const { getAllMenu, getSubMenu } = useNav()
 
-      const mixSideMenu = computed(() => {
-        return (
-          asyncRoutes.find((item) =>
-            [item.path, item.redirect].includes('/' + curRoutePath.value.split('/')[1])
-          )?.children || []
-        )
-      })
+      const allMenu = getAllMenu()
+      // const topMenu = getTopMenu()
+      const subMenu = getSubMenu()
 
-      const showRoutes = computed(() => {
+      const mainMenu = computed(() => {
         if (layout.value === 'siderbar') {
-          console.log(asyncRoutes)
-          return asyncRoutes
-        } else if (layout.value === 'mix') {
-          console.log(2222)
-          return mixSideMenu.value
+          return allMenu.value
+        } else if (layout.value === 'mixbar' || layout.value === 'mix') {
+          return subMenu.value
         }
       })
 
       return {
-        showRoutes,
+        layout,
+        allMenu,
+        // topMenu,
+        subMenu,
+        mainMenu,
         isCollapse
       }
     }
   })
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+  .top-side-menu {
+    background-color: #282c34;
+  }
+
+  .sub-side-menu {
+    background-color: #fff;
+  }
+</style>
