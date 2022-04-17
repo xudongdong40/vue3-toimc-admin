@@ -129,19 +129,26 @@ Talent requirements.
 
 <img src="public/assets/640.png" alt="640" style="width: 50%;" />
 
-- How to contribute
+## How to contribute
 
-  - Join the WeChat group
-  - Learn about benchmarking projects
-    - Vben: https://vvbin.cn/next/#/dashboard/analysis
-    - Vue-admin: https://vue-admin-beautiful.com/admin-plus/
-    - arco: https://react-pro.arco.design/dashboard/monitor
-    - Naive: https://naive-ui-admin.vercel.app/#/dashboard/console
-  - See if there are plans and discussions in issues.
-    - Plan: [enhancement](https://github.com/toimc-team/vue3-toimc-admin/issues?q=is%3Aissue+is%3Aopen+label%3Aenhancement)
-    - Discussion: [discussion](https://github.com/toimc-team/vue3-toimc-admin/issues?q=is%3Aissue+is%3Aopen+label%3Adiscussion)
-  - (not required) create your own issues and join the project
-  - Download the project, coding, test~~
-  - PR: [here](https://github.com/toimc-team/vue3-toimc-admin/pulls?q=is%3Apr+is%3Aopen+sort%3Aupdated-desc)
+- Join the WeChat group
+- Learn about benchmarking projects
+  - Vben: https://vvbin.cn/next/#/dashboard/analysis
+  - Vue-admin: https://vue-admin-beautiful.com/admin-plus/
+  - arco: https://react-pro.arco.design/dashboard/monitor
+  - Naive: https://naive-ui-admin.vercel.app/#/dashboard/console
+- See if there are plans and discussions in issues.
+  - Plan: [enhancement](https://github.com/toimc-team/vue3-toimc-admin/issues?q=is%3Aissue+is%3Aopen+label%3Aenhancement)
+  - Discussion: [discussion](https://github.com/toimc-team/vue3-toimc-admin/issues?q=is%3Aissue+is%3Aopen+label%3Adiscussion)
+- (not required) create your own issues and join the project
+- Download the project, coding, test~~
+- PR: [here](https://github.com/toimc-team/vue3-toimc-admin/pulls?q=is%3Apr+is%3Aopen+sort%3Aupdated-desc)
+- Wait for review, merge~~
 
-  - Wait for review, merge~~
+## Donate
+
+If you think this project is helpful to you, you can help the author buy a cup of coffee to show your support!
+
+<img src="https://toimc-online.obs.cn-east-3.myhuaweicloud.com/vue-toimc-admin/payme.jpg" alt="payme" style="zoom:30%;" />
+
+Paypal：[https://paypal.me/toimc](https://paypal.me/toimc)

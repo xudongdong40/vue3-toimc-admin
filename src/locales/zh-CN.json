@@ -71,7 +71,8 @@
       },
       "small-comp": {
         "title": "小组件",
-        "calendar": "日历卡片"
+        "calendar": "日历卡片",
+        "weather": "天气"
       }
     },
     "pages": {
@@ -128,6 +129,10 @@
       "menu": "菜单管理",
       "department": "部门管理",
       "logs": "系统日志"
+    },
+    "guide": {
+      "title": "引导页",
+      "guide": "引导页"
     },
     "about": {
       "title": "关于",

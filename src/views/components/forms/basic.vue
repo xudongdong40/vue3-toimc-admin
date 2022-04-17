@@ -7,12 +7,9 @@
         <li>3.动态表单</li>
         <li>4.集成第三方组件：富文本，markdown编辑器，扩展性好</li>
       </ul>
-      <basic-form :schemas="formBasicSchema">
-        <!-- <template #upload1-trigger>
-          <el-button type="primary">点击上传</el-button>
-        </template>-->
+      <basic-form :schemas="formBasicSchema" label-width="120px">
         <template #upload1-trigger>
-          <el-button type="primary">点击上传</el-button>
+          <el-button type="primary">点击上传 slot设置</el-button>
         </template>
         <template #upload2-trigger>
           <el-button type="primary">点击上传</el-button>
@@ -20,6 +17,23 @@
         <template #upload2-tip>
           <div class="el-upload__tip">jpg/png files with a size less than 500kb</div>
         </template>
+        <template #haha> 对应append </template>
+        <template #haha1> prefix </template>
+      </basic-form>
+      <div class="pt-4">inline表格</div>
+      <div class="pb-2">可以设置span</div>
+      <basic-form :schemas="formBasicSchema" inline label-width="120px">
+        <template #upload1-trigger>
+          <el-button type="primary">点击上传 slot设置</el-button>
+        </template>
+        <template #upload2-trigger>
+          <el-button type="primary">点击上传</el-button>
+        </template>
+        <template #upload2-tip>
+          <div class="el-upload__tip">jpg/png files with a size less than 500kb</div>
+        </template>
+        <template #haha> 对应append </template>
+        <template #haha1> prefix </template>
       </basic-form>
     </el-card>
   </div>
@@ -28,8 +42,12 @@
 <script lang="ts">
   import { FormSchema } from '@/components/Form/types/types'
   import { defineComponent } from 'vue'
+  import Demo from './Demo.vue'
 
   export default defineComponent({
+    // components: {
+    //   Demo
+    // },
     setup() {
       const formBasicSchema: FormSchema[] = [
         {
@@ -40,7 +58,9 @@
           rules: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
           attrs: {
             placeholder: '请输入用户名'
-          }
+          },
+          itemSlot: { append: 'haha', prefix: 'haha1' },
+          span: 12
         },
         {
           component: 'input',
@@ -62,7 +82,8 @@
           ],
           attrs: {
             placeholder: '请输入密码'
-          }
+          },
+          span: 12
         },
         {
           component: 'select',
@@ -95,7 +116,8 @@
               label: '测试',
               value: 'test'
             }
-          ]
+          ],
+          span: 24
         },
         {
           component: 'checkbox-group',
@@ -123,7 +145,8 @@
               label: '游泳',
               value: '3'
             }
-          ]
+          ],
+          span: 12
         },
         {
           component: 'radio-group',
@@ -146,23 +169,25 @@
               label: '未知',
               value: '3'
             }
-          ]
+          ],
+          span: 12
         },
         {
           component: 'upload',
           label: '图片',
           prop: 'file',
           // slotId
-          slot: 'upload1-',
+          slot: 'upload1',
           upload: {
             action: ''
-          }
+          },
+          span: 24
         },
         {
           component: 'upload',
           label: '文档',
           prop: 'file',
-          slot: 'upload2-',
+          slot: 'upload2',
           upload: {
             action: ''
           }
@@ -176,7 +201,8 @@
             btnType: 'success',
             text: '点击上传',
             action: ''
-          }
+          },
+          span: 24
         },
         {
           component: 'upload',
@@ -188,7 +214,21 @@
             onChange: (file, list) => {
               console.log(file, list)
             }
-          }
+          },
+          span: 24
+        },
+        {
+          component: Demo,
+          label: '组件引用',
+          prop: 'demo',
+          span: 24
+        },
+        {
+          component: 'innerText',
+          label: '纯文本',
+          prop: 'inner',
+          value: '文本内容写在这里',
+          span: 24
         }
       ]
 

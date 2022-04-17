@@ -43,7 +43,7 @@ const __APP_INFO__ = {
 }
 
 // https://vitejs.dev/config/
-export default ({ command, mode }: ConfigEnv): UserConfig => {
+export default ({ mode }: ConfigEnv): UserConfig => {
   const root = process.cwd()
 
   const env = loadEnv(mode, root)
@@ -53,7 +53,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
 
   const { VITE_PORT, VITE_PUBLIC_PATH, VITE_PROXY, VITE_DROP_CONSOLE, VITE_HTTPS } = viteEnv
 
-  const isBuild = command === 'build'
+  // const isBuild = command === 'build'
   const lifecycle = process.env.npm_lifecycle_event
   return {
     base: VITE_PUBLIC_PATH,
@@ -68,14 +68,6 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
       port: VITE_PORT,
       // Load proxy configuration from .env
       proxy: createProxy(VITE_PROXY)
-    },
-    build: {
-      terserOptions: {
-        compress: {
-          drop_console: isBuild,
-          drop_debugger: isBuild
-        }
-      }
     },
     plugins: [
       vue(),

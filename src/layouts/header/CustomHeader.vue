@@ -28,7 +28,7 @@
       <span class="items">
         <icon type="Bell" size="20px" />
       </span>
-      <span class="items">
+      <span id="header-internationalization" class="items">
         <drop-down :actions="localeList" :current="getCurrent" @command="handleCommand">
           <icon icon="ion:language" size="20px"></icon>
         </drop-down>
