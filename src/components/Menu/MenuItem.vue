@@ -1,8 +1,7 @@
 <template>
   <el-menu-item :index="getIndex(item)" @click="(e) => handleMenuClick(e, item)">
-    <icon v-if="item?.meta?.icon" :type="getIcons(item)" />
+    <icon v-if="item?.meta?.icon" class="menu-icon" :type="getIcons(item)" />
     <template #title>{{ $t(item.meta?.title) }}</template>
-    <div v-if="showTitle">{{ $t(item.meta?.title) }}</div>
   </el-menu-item>
 </template>
 

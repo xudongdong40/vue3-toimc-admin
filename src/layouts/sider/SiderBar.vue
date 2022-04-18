@@ -9,13 +9,13 @@
           v-if="layout === 'mixbar'"
           width="auto"
           :menus="allMenu"
-          :collapse="true"
+          :collapse="false"
           text-color="#fff"
           :is-top="true"
         ></Menu>
       </el-scrollbar>
-      <el-scrollbar class="sub-side-menu">
-        <Menu :menus="mainMenu" :collapse="false"></Menu>
+      <el-scrollbar class="sub-side-menu" :style="{ 'background-color': backgroundColor }">
+        <Menu :menus="mainMenu" :text-color="textColor" :collapse="false"></Menu>
       </el-scrollbar>
     </div>
   </div>
@@ -46,13 +46,31 @@
         }
       })
 
+      const backgroundColor = computed(() => {
+        if (layout.value === 'siderbar' || layout.value === 'mix') {
+          return '#282c34'
+        } else {
+          return '#fff'
+        }
+      })
+
+      const textColor = computed(() => {
+        if (layout.value === 'siderbar' || layout.value === 'mix') {
+          return '#fff'
+        } else {
+          return '#303133'
+        }
+      })
+
       return {
         layout,
         allMenu,
         // topMenu,
         subMenu,
         mainMenu,
-        isCollapse
+        isCollapse,
+        backgroundColor,
+        textColor
       }
     }
   })
@@ -61,6 +79,19 @@
 <style lang="scss" scoped>
   .top-side-menu {
     background-color: #282c34;
+
+    :deep(.el-menu-item) {
+      padding: 0 6px !important;
+      font-size: 14px;
+      line-height: unset;
+      flex-direction: column;
+      justify-content: center;
+
+      .menu-icon {
+        margin-right: 0;
+        margin-bottom: 1px;
+      }
+    }
   }
 
   .sub-side-menu {

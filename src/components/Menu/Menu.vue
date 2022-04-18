@@ -47,6 +47,7 @@
 
   import type { PropType } from 'vue'
   import { useRoute } from 'vue-router'
+  import _ from 'lodash-es'
 
   export default defineComponent({
     name: 'Menu',
@@ -97,27 +98,18 @@
       const menuRef = ref()
       const { genMenuKeys } = useNav()
       const route = useRoute()
+      const routeName = computed(() => route.name)
 
       // 给树形菜单添加key
       let menusWithKeys = computed(() => genMenuKeys(menus.value))
 
       // 顶级菜单含key
       const topMenusWithKeys = computed(() => {
-        let topMenus: Array<object> = []
-        menusWithKeys.value.forEach((item) => {
-          let menu = {}
-          let item2 = Object.assign({}, unref(item))
-          Object.keys(item2).forEach((i) => {
-            if (i !== 'children') {
-              menu[i] = item[i]
-            }
-          })
-          topMenus.push(menu)
+        return _.cloneDeep(menusWithKeys.value).map((item) => {
+          delete item.children
+          return item
         })
-        return topMenus
       })
-
-      const routeName = computed(() => route.name)
 
       const defaultActive = computed(() => {
         let currentKey = ''

@@ -1,10 +1,8 @@
 <template>
   <div class="w-full h-screen bg-content-bg overflow-hidden">
-    <div :class="['layout-' + layout, 'layout-mode-' + layoutMode]">
-      <!-- <el-scrollbar  class="side-bar"> -->
+    <div :class="['layout-' + layout, 'layout-mode-' + layoutMode, 'h-full']">
       <sider-bar v-if="layoutMode === 'row'"></sider-bar>
-      <!-- </el-scrollbar> -->
-      <div class="main-page">
+      <div class="main-page h-full" :class="{ 'overflow-auto': fixHeader !== true }">
         <div class="layout-header">
           <div class="nav">
             <custom-header
@@ -18,7 +16,7 @@
             <div class="layout-main">Tabs show here</div>
           </div>
         </div>
-        <div class="layout-main">
+        <div class="layout-main" :class="{ 'h-[calc(100%-84px)]': fixHeader === true }">
           <el-scrollbar class="custom-scroll">
             <router-view></router-view>
           </el-scrollbar>
@@ -43,7 +41,7 @@
     },
     setup() {
       const store = useSettingsStore()
-      const { layout } = storeToRefs(store)
+      const { layout, fixHeader } = storeToRefs(store)
       const isCollapse = ref(false)
       const isShowThemeSetting = ref(false)
 
@@ -56,6 +54,7 @@
       return {
         layout,
         layoutMode,
+        fixHeader,
         asyncRoutes,
         isCollapse,
         isShowThemeSetting,

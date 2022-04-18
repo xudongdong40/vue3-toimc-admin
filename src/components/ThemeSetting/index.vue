@@ -37,7 +37,7 @@
           <el-switch v-model="form.sidebarResize" />
         </el-form-item>
         <el-form-item label="头部固定">
-          <el-switch v-model="form.fixedHead" />
+          <el-switch v-model="form.fixedHead" @change="handleChangeFixedHead" />
         </el-form-item>
         <el-form-item label="标签页">
           <el-switch v-model="form.tabPage" />
@@ -118,11 +118,16 @@
         store.setLayout(layout)
       }
 
+      const handleChangeFixedHead = (value) => {
+        store.$state.fixHeader = value
+      }
+
       return {
         form,
         showSetting,
         handleClosed,
-        handleChangeLayout
+        handleChangeLayout,
+        handleChangeFixedHead
       }
     }
   })
