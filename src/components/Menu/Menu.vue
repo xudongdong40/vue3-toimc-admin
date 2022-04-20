@@ -10,7 +10,6 @@
     </div>
     <el-menu
       v-bind="$attrs"
-      ref="menuRef"
       :default-active="defaultActive"
       class="flex-1"
       :class="{ 'w-0': mode === 'horizontal' }"
@@ -21,33 +20,14 @@
       :active-text-color="activeTextColor"
       :default-openeds="defaultOpeneds"
     >
-      <template v-if="!isTop">
-        <sub-menu
-          v-for="item in menusWithKeys"
-          :key="item.path"
-          :item="item"
-          :collapse="collapse"
-        ></sub-menu>
-      </template>
-      <template v-else>
-        <menu-item
-          v-for="item in topMenusWithKeys"
-          :key="item.path"
-          :show-title="true"
-          :item="item"
-        ></menu-item>
-      </template>
+      <sub-menu v-for="item in menus" :key="item.path" :item="item" :collapse="collapse"></sub-menu>
     </el-menu>
   </div>
 </template>
 
 <script lang="ts">
   import type { AppRouteRecordRaw } from '@/router/types'
-  import { useNav } from './useNav'
-
   import type { PropType } from 'vue'
-  import { useRoute } from 'vue-router'
-  import _ from 'lodash-es'
 
   export default defineComponent({
     name: 'Menu',
@@ -84,92 +64,17 @@
         type: Array,
         default: () => []
       },
-      isTop: {
-        type: Boolean,
-        default: false
+      defaultActive: {
+        type: String,
+        default: ''
       }
     },
     emits: ['menuClick'],
     setup(props) {
-      const { mode, menus, width, isTop } = toRefs(props)
-      // 设置menu的调试
-      const menuHeight = ref(0)
-      // const scroll = ref()
-      const menuRef = ref()
-      const { genMenuKeys } = useNav()
-      const route = useRoute()
-      const routeName = computed(() => route.name)
-
-      // 给树形菜单添加key
-      let menusWithKeys = computed(() => genMenuKeys(menus.value))
-
-      // 顶级菜单含key
-      const topMenusWithKeys = computed(() => {
-        return _.cloneDeep(menusWithKeys.value).map((item) => {
-          delete item.children
-          return item
-        })
-      })
-
-      const defaultActive = computed(() => {
-        let currentKey = ''
-        const findActive = function (arr) {
-          arr.forEach((item) => {
-            if (item.name === routeName.value) {
-              currentKey = item.meta.key
-              return
-            } else if (item.children && item.children.length > 0) {
-              findActive(item.children)
-            }
-          })
-        }
-        findActive(menusWithKeys.value)
-        return isTop.value ? currentKey.split('-')[0] : currentKey
-      })
-
+      const { mode, width } = toRefs(props)
       const menuWidth = computed(() => (mode.value === 'vertical' ? width.value : 'auto'))
-
-      // const initHeight = async () => {
-      //   const { slots } = ctx
-      //   if (slots.default) {
-      //     const defaults = slots.default()
-      //     if (defaults.length) {
-      //       const elRef = defaults[0]
-      //       const dom = elRef.el as HTMLElement
-      //       // -100的目的是距离底部一定的距离
-      //       if (dom) {
-      //         menuHeight.value = window.innerHeight - dom.offsetHeight
-      //         scroll.value?.update()
-      //       }
-      //     }
-      //   }
-      // }
-
-      // watch(
-      //   () => props.collapse,
-      //   () => {
-      //     initHeight()
-      //   }
-      // )
-
-      // onMounted(() => {
-      //   // 获取slots的高度
-      //   initHeight()
-
-      //   const debouncedFn = useDebounceFn(() => {
-      //     initHeight()
-      //   }, 1000)
-
-      //   useResizeObserver(menuRef, debouncedFn)
-      // })
-
       return {
-        menuWidth,
-        menusWithKeys,
-        topMenusWithKeys,
-        menuHeight,
-        menuRef,
-        defaultActive
+        menuWidth
       }
     }
   })

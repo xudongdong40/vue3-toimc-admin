@@ -8,14 +8,20 @@
         <Menu
           v-if="layout === 'mixbar'"
           width="auto"
-          :menus="allMenu"
+          :menus="topMenu"
           :collapse="false"
           text-color="#fff"
+          :default-active="defaultActive"
           :is-top="true"
         ></Menu>
       </el-scrollbar>
       <el-scrollbar class="sub-side-menu" :style="{ 'background-color': backgroundColor }">
-        <Menu :menus="mainMenu" :text-color="textColor" :collapse="false"></Menu>
+        <Menu
+          :menus="mainMenu"
+          :default-active="defaultSubActive"
+          :text-color="textColor"
+          :collapse="false"
+        ></Menu>
       </el-scrollbar>
     </div>
   </div>
@@ -24,27 +30,61 @@
 <script lang="ts">
   import { defineComponent } from 'vue'
   import { useSettingsStore } from '@/store/modules/settings'
-  import { useNav } from '@/components/Menu/useNav'
+  import { useStore } from '@/store/modules/menu'
+  import { useRoute } from 'vue-router'
+  import _ from 'lodash-es'
 
   export default defineComponent({
     name: 'SiderBar',
     setup() {
+      const menuStore = useStore()
       const isCollapse = ref(false)
       const store = useSettingsStore()
       const layout = computed(() => store.layout)
-      const { getAllMenu, getSubMenu } = useNav()
+      const route = useRoute()
+      const routeName = computed(() => route.name)
+      const curRoutePath = computed(() => route.path)
 
-      const allMenu = getAllMenu()
-      // const topMenu = getTopMenu()
-      const subMenu = getSubMenu()
+      const allMenu = computed(() => menuStore.menus)
 
       const mainMenu = computed(() => {
         if (layout.value === 'siderbar') {
           return allMenu.value
         } else if (layout.value === 'mixbar' || layout.value === 'mix') {
-          return subMenu.value
+          return (
+            menuStore.menus?.find((item) =>
+              [item.path, item.redirect].includes('/' + curRoutePath.value.split('/')[1])
+            )?.children || []
+          )
         }
       })
+
+      const topMenu = computed(() => {
+        return _.cloneDeep(allMenu.value)?.map((item) => {
+          delete item.children
+          return item
+        })
+      })
+
+      const defaultSubActive = computed(() => {
+        if (routeName) {
+          let currentKey = ''
+          const findActive = function (arr) {
+            arr.forEach((item) => {
+              if (item.name === routeName.value) {
+                currentKey = item.meta.key
+                return
+              } else if (item.children && item.children.length > 0) {
+                findActive(item.children)
+              }
+            })
+          }
+          findActive(mainMenu.value)
+          return currentKey
+        }
+      })
+
+      const defaultActive = computed(() => defaultSubActive.value?.split('-')[0])
 
       const backgroundColor = computed(() => {
         if (layout.value === 'siderbar' || layout.value === 'mix') {
@@ -63,10 +103,11 @@
       })
 
       return {
+        defaultActive,
+        defaultSubActive,
         layout,
         allMenu,
-        // topMenu,
-        subMenu,
+        topMenu,
         mainMenu,
         isCollapse,
         backgroundColor,

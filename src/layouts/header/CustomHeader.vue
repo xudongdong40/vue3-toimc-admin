@@ -61,9 +61,9 @@
   import { useLocale } from '@/hooks/useLocale'
   import { localeList } from '@/settings/localeSetting'
   import { LocaleType } from 'types/config'
-  // import { asyncRoutes } from '@/router/index'
-  import { useNav } from '@/components/Menu/useNav'
+  import { useStore } from '@/store/modules/menu'
   import { GITHUB_URL } from '@/settings/siteSetting'
+  import _ from 'lodash-es'
   export default defineComponent({
     name: 'CustomHeader',
     props: {
@@ -81,16 +81,26 @@
       }
     },
     emits: ['update:collapse', 'show-theme-setting'],
-    setup(_props, { emit }) {
+    setup(props, { emit }) {
+      const { layout } = toRefs(props)
       const { changeLocale, getLocale } = useLocale()
+      const menuStore = useStore()
       const state = useStorage('my-repo', { github: true })
-      const { getAllMenu, getTopMenu } = useNav()
 
       const getCurrent = computed(() => {
         return localeList.findIndex((item) => item.value + '' === getLocale.value)
       })
 
-      const showMenu = computed(() => (_props.layout === 'top' ? getAllMenu() : getTopMenu()))
+      const allMenu = computed(() => menuStore.menus)
+
+      const topMenu = computed(() => {
+        return _.cloneDeep(allMenu.value)?.map((item) => {
+          delete item.children
+          return item
+        })
+      })
+
+      const showMenu = computed(() => (layout.value === 'top' ? allMenu.value : topMenu.value))
 
       function handleClick(flag: boolean) {
         emit('update:collapse', !flag)
