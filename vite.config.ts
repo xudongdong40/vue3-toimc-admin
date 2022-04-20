@@ -15,9 +15,6 @@ import Icons from 'unplugin-icons/vite'
 import IconsResolver from 'unplugin-icons/resolver'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 
-import OptimizationPersist from 'vite-plugin-optimize-persist'
-import PkgConfig from 'vite-plugin-package-config'
-
 import vueI18n from '@intlify/vite-plugin-vue-i18n'
 
 import { visualizer } from 'rollup-plugin-visualizer'
@@ -100,8 +97,6 @@ export default ({ mode }: ConfigEnv): UserConfig => {
         // 指定symbolId格式
         symbolId: 'icon-[dir]-[name]'
       }),
-      PkgConfig(),
-      OptimizationPersist(),
       // 国际化
       vueI18n({
         // if you want to use Vue I18n Legacy API, you need to set `compositionOnly: false`
