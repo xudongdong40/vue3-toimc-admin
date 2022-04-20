@@ -13,7 +13,8 @@
             ></custom-header>
           </div>
           <div class="tabs">
-            <div class="layout-main">Tabs show here</div>
+            <multi-tabs></multi-tabs>
+            <!-- <div class="layout-main">Tabs show here</div> -->
           </div>
         </div>
         <div class="layout-main" :class="{ 'h-[calc(100%-84px)]': fixHeader === true }">
@@ -30,14 +31,16 @@
 <script lang="ts">
   import { storeToRefs } from 'pinia'
   import { asyncRoutes } from '@/router/index'
-  import CustomHeader from './header/CustomHeader.vue'
   import { useSettingsStore } from '@/store/modules/settings'
   import SiderBar from './sider/SiderBar.vue'
+  import CustomHeader from './header/CustomHeader.vue'
+  import MultiTabs from './tabs/MultiTabs.vue'
 
   export default defineComponent({
     components: {
       CustomHeader,
-      SiderBar
+      SiderBar,
+      MultiTabs
     },
     setup() {
       const store = useSettingsStore()
