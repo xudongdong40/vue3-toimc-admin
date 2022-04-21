@@ -3,7 +3,8 @@
     <el-tabs
       v-model="tabActive"
       type="card"
-      class="tabs-content"
+      class="tabs-content flex-1 w-0"
+      :class="'tabs-' + tabsClass"
       @tab-click="handleTabClick"
       @tab-remove="handleTabRemove"
     >
@@ -16,30 +17,31 @@
       ></el-tab-pane>
     </el-tabs>
 
-    <!-- <el-dropdown @command="handleCommand">
-      <span style="cursor: pointer">
-        更多操作
-        <i class="el-icon-arrow-down el-icon--right"></i>
+    <el-dropdown class="flex justify-center items-center w-40px" @command="handleCommand">
+      <span style="cursor: pointer;">
+        <Icon icon="mdi:view-grid" size="18px" />
       </span>
-      <el-dropdown-menu slot="dropdown" class="tabs-more">
-        <el-dropdown-item command="closeOtherstabs">
-          <vab-icon :icon="['fas', 'times-circle']" />
-          关闭其他
-        </el-dropdown-item>
-        <el-dropdown-item command="closeLefttabs">
-          <vab-icon :icon="['fas', 'arrow-alt-circle-left']"></vab-icon>
-          关闭左侧
-        </el-dropdown-item>
-        <el-dropdown-item command="closeRighttabs">
-          <vab-icon :icon="['fas', 'arrow-alt-circle-right']"></vab-icon>
-          关闭右侧
-        </el-dropdown-item>
-        <el-dropdown-item command="closeAlltabs">
-          <vab-icon :icon="['fas', 'ban']"></vab-icon>
-          关闭全部
-        </el-dropdown-item>
-      </el-dropdown-menu>
-    </el-dropdown> -->
+      <template #dropdown>
+        <el-dropdown-menu class="tabs-more">
+          <el-dropdown-item command="closeOtherstabs">
+            <Icon icon="ep:close" />
+            关闭其他
+          </el-dropdown-item>
+          <el-dropdown-item command="closeLefttabs">
+            <Icon icon="line-md:arrow-close-left" />
+            关闭左侧
+          </el-dropdown-item>
+          <el-dropdown-item command="closeRighttabs">
+            <Icon icon="line-md:arrow-close-right" />
+            关闭右侧
+          </el-dropdown-item>
+          <el-dropdown-item command="closeAlltabs">
+            <Icon icon="codicon:close-all" />
+            关闭全部
+          </el-dropdown-item>
+        </el-dropdown-menu>
+      </template>
+    </el-dropdown>
   </div>
 </template>
 
@@ -59,6 +61,7 @@
       let tabActive = ref('')
       const route = useRoute()
       const router = useRouter()
+      const tabsClass = ref('card')
 
       const isAffix = (tag) => {
         return tag.meta && tag.meta.affix
@@ -121,6 +124,43 @@
         }
       }
 
+      const toThisTag = computed(() => {
+        const view = visitedRoutes.value.filter((item) => {
+          if (item.path === route.fullPath) {
+            return item
+          }
+        })[0]
+        if (route.path !== view.path) router.push(view)
+        return view
+      })
+
+      const toLastTag = (visitedRoutes) => {
+        const latestView = visitedRoutes.value.slice(-1)[0]
+        if (latestView) {
+          router.push(latestView)
+        } else {
+          router.push('/')
+        }
+      }
+
+      const handleCommand = (command) => {
+        switch (command) {
+          case 'closeOtherstabs':
+            store.delOthersVisitedRoute(toThisTag.value)
+            break
+          case 'closeLefttabs':
+            store.delLeftVisitedRoute(toThisTag.value)
+            break
+          case 'closeRighttabs':
+            store.delRightVisitedRoute(toThisTag.value)
+            break
+          case 'closeAlltabs':
+            store.delAllVisitedRoutes()
+            toLastTag(visitedRoutes)
+            break
+        }
+      }
+
       watch(
         () => route.path,
         () => {
@@ -147,9 +187,11 @@
       return {
         visitedRoutes,
         tabActive,
+        tabsClass,
         isAffix,
         handleTabClick,
-        handleTabRemove
+        handleTabRemove,
+        handleCommand
       }
     }
   })
@@ -160,5 +202,29 @@
     background-color: #fff;
     border-top: 1px solid #f6f6f6;
     user-select: none;
+  }
+
+  :deep(.el-tabs__header) {
+    border-bottom: 0;
+
+    .el-tabs__nav {
+      border: 0;
+    }
+
+    .el-tabs__item {
+      height: 34px;
+      margin-right: 5px;
+      line-height: 34px;
+      border: 1px solid #dcdfe6 !important;
+      border-radius: 4px;
+      box-sizing: border-box;
+      transition: padding 0.3s cubic-bezier(0.645, 0.045, 0.355, 1) !important;
+
+      &.is-active {
+        color: var(--el-color-primary) !important;
+        background: var(--el-color-primary-light-9) !important;
+        border: 1px solid var(--el-color-primary) !important;
+      }
+    }
   }
 </style>

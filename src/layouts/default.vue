@@ -2,7 +2,7 @@
   <div class="w-full h-screen bg-content-bg overflow-hidden">
     <div :class="['layout-' + layout, 'layout-mode-' + layoutMode, 'h-full']">
       <sider-bar v-if="layoutMode === 'row'"></sider-bar>
-      <div class="main-page h-full" :class="{ 'overflow-auto': fixHeader !== true }">
+      <div class="flex-1 w-0 h-full" :class="{ 'overflow-auto': fixHeader !== true }">
         <div class="layout-header">
           <div class="nav">
             <custom-header
@@ -76,14 +76,6 @@
     display: flex;
     flex-direction: row;
     height: 100%;
-
-    .side-bar {
-      // background-color: #282c34;
-    }
-
-    .main-page {
-      flex: 1;
-    }
   }
 
   .layout-mode-column {
