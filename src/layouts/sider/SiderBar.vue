@@ -1,5 +1,5 @@
 <template>
-  <div :style="{ width: menuWidth }">
+  <div class="transition-all duration-300" :style="{ width: menuWidth }">
     <div class="py-3 px-3 h-60px">
       <img class="inline-block h-full" src="@/assets/images/logo.png" />
     </div>
@@ -7,7 +7,7 @@
       <el-scrollbar class="top-side-menu">
         <Menu
           v-if="layout === 'mixbar'"
-          width="auto"
+          width="64px"
           :menus="topMenu"
           :collapse="false"
           text-color="#fff"
@@ -15,9 +15,13 @@
           :is-top="true"
         ></Menu>
       </el-scrollbar>
-      <el-scrollbar class="sub-side-menu" :style="{ 'background-color': backgroundColor }">
+      <el-scrollbar
+        class="sub-side-menu"
+        :style="{ 'background-color': backgroundColor, width: mainMenuWidth }"
+      >
         <Menu
           :menus="mainMenu"
+          :width="mainMenuWidth"
           :default-active="defaultSubActive"
           :text-color="textColor"
           :collapse="collapse"
@@ -59,6 +63,14 @@
           }
         } else {
           return ''
+        }
+      })
+
+      const mainMenuWidth = computed(() => {
+        if (layout.value === 'siderbar' || layout.value === 'mix') {
+          return '100%'
+        } else if (layout.value === 'mixbar') {
+          return parseInt(menuWidth.value) - 64 + 'px'
         }
       })
 
@@ -121,6 +133,7 @@
 
       return {
         menuWidth,
+        mainMenuWidth,
         defaultActive,
         defaultSubActive,
         layout,

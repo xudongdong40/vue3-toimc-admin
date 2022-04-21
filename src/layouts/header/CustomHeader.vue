@@ -16,6 +16,7 @@
         :menus="showMenu"
         mode="horizontal"
         :text-color="layout === 'top' ? '#ffffffb3' : '#515a6e'"
+        :background-color="layout === 'top' ? '#303133' : ''"
       >
         <img v-if="layout === 'top'" style="height: 30px;" src="@/assets/images/logo.png" />
       </Menu>
