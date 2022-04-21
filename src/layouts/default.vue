@@ -2,7 +2,10 @@
   <div class="w-full h-screen bg-content-bg overflow-hidden">
     <div :class="['layout-' + layout, 'layout-mode-' + layoutMode, 'h-full']">
       <sider-bar v-if="layoutMode === 'row'"></sider-bar>
-      <div class="flex-1 w-0 h-full" :class="{ 'overflow-auto': fixHeader !== true }">
+      <div
+        class="flex-1 h-full"
+        :class="{ 'overflow-auto': fixHeader !== true, 'w-0': layout !== 'top' }"
+      >
         <div class="layout-header">
           <div class="nav">
             <custom-header
@@ -12,7 +15,7 @@
               @show-theme-setting="handleShowThemeSetting"
             ></custom-header>
           </div>
-          <div class="tabs">
+          <div class="tabs bg-white">
             <multi-tabs></multi-tabs>
             <!-- <div class="layout-main">Tabs show here</div> -->
           </div>

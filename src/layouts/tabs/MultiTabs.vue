@@ -1,5 +1,8 @@
 <template>
-  <div class="layout-tabs flex justify-between items-center px-20px h-50px">
+  <div
+    class="layout-tabs flex justify-between items-center px-20px h-50px"
+    :style="{ width: layout === 'top' ? '92%' : '', margin: layout === 'top' ? '0 auto' : '' }"
+  >
     <el-tabs
       v-model="tabActive"
       type="card"
@@ -47,15 +50,19 @@
 
 <script lang="ts">
   import path from 'path'
+  import { storeToRefs } from 'pinia'
   import { defineComponent } from 'vue'
   import { useTabsStore } from '@/store/modules/tabsbar'
   import { useStore } from '@/store/modules/menu'
+  import { useSettingsStore } from '@/store/modules/settings'
   import { useRoute, useRouter } from 'vue-router'
   import { AppRouteRecordRaw } from '@/router/types'
 
   export default defineComponent({
     name: 'MultiTabs',
     setup() {
+      const settingStore = useSettingsStore()
+      const { layout } = storeToRefs(settingStore)
       const store = useTabsStore()
       const menuStore = useStore()
       let tabActive = ref('')
@@ -185,6 +192,7 @@
       )
 
       return {
+        layout,
         visitedRoutes,
         tabActive,
         tabsClass,
@@ -199,16 +207,21 @@
 
 <style lang="scss" scoped>
   .layout-tabs {
-    background-color: #fff;
     border-top: 1px solid #f6f6f6;
     user-select: none;
   }
 
   :deep(.el-tabs__header) {
+    margin-bottom: 0;
     border-bottom: 0;
 
     .el-tabs__nav {
       border: 0;
+    }
+
+    .el-tabs__nav-next,
+    .el-tabs__nav-prev {
+      line-height: 34px;
     }
 
     .el-tabs__item {
