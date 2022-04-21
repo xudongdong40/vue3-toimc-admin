@@ -1,12 +1,13 @@
 import { defineStore } from 'pinia'
 import defaultSettings from '@/config'
 
-const { layout, fixHeader } = defaultSettings
+const { layout, fixHeader, menuWidth } = defaultSettings
 
 export const useSettingsStore = defineStore('settings', {
   state: () => ({
     layout: layout || 'siderbar',
-    fixHeader: fixHeader || true
+    fixHeader: fixHeader || true,
+    menuWidth: menuWidth || '266px'
   }),
   getters: {
     getLayout: (state) => state.layout

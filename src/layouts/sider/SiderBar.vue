@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :style="{ width: menuWidth }">
     <div class="py-3 px-3 h-60px">
       <img class="inline-block h-full" src="@/assets/images/logo.png" />
     </div>
@@ -20,7 +20,7 @@
           :menus="mainMenu"
           :default-active="defaultSubActive"
           :text-color="textColor"
-          :collapse="false"
+          :collapse="collapse"
         ></Menu>
       </el-scrollbar>
     </div>
@@ -36,14 +36,31 @@
 
   export default defineComponent({
     name: 'SiderBar',
-    setup() {
+    props: {
+      collapse: {
+        type: Boolean,
+        default: false
+      }
+    },
+    setup(props) {
       const menuStore = useStore()
-      const isCollapse = ref(false)
       const store = useSettingsStore()
       const layout = computed(() => store.layout)
       const route = useRoute()
       const routeName = computed(() => route.name)
       const curRoutePath = computed(() => route.path)
+
+      const menuWidth = computed(() => {
+        if (store.layout !== 'top') {
+          if (props.collapse) {
+            return '64px'
+          } else {
+            return store.menuWidth
+          }
+        } else {
+          return ''
+        }
+      })
 
       const allMenu = computed(() => menuStore.menus)
 
@@ -103,13 +120,13 @@
       })
 
       return {
+        menuWidth,
         defaultActive,
         defaultSubActive,
         layout,
         allMenu,
         topMenu,
         mainMenu,
-        isCollapse,
         backgroundColor,
         textColor
       }
