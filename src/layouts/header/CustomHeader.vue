@@ -44,6 +44,9 @@
           </el-link>
         </el-badge>
       </span>
+      <change-locale class="items"></change-locale>
+      <full-screen class="items"></full-screen>
+      <repo-badge class="items"></repo-badge>
       <el-avatar
         :size="20"
         src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
@@ -63,8 +66,14 @@
   import { useStore } from '@/store/modules/menu'
   import { GITHUB_URL } from '@/settings/siteSetting'
   import _ from 'lodash-es'
+  import { FullScreen, ChangeLocale, RepoBadge } from './components'
   export default defineComponent({
     name: 'CustomHeader',
+    components: {
+      FullScreen,
+      ChangeLocale,
+      RepoBadge
+    },
     props: {
       collapse: {
         type: Boolean,
