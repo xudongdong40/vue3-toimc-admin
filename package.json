@@ -61,6 +61,7 @@
     "katex": "^0.15.3",
     "lodash-es": "^4.17.21",
     "papaparse": "^5.3.2",
+    "path-browserify": "^1.0.1",
     "pinia": "^2.0.13",
     "pinyin": "^2.11.2",
     "print-js": "^1.6.0",

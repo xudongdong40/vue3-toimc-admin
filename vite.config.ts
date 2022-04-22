@@ -124,7 +124,8 @@ export default ({ mode }: ConfigEnv): UserConfig => {
     resolve: {
       alias: {
         '@': pathResolve('src'),
-        types: pathResolve('types')
+        types: pathResolve('types'),
+        path: 'path-browserify'
         // dayjs: 'dayjs/esm'
       }
     }
