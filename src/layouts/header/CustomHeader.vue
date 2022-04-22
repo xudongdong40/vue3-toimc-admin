@@ -44,13 +44,11 @@
           </el-link>
         </el-badge>
       </span>
-      <!-- <el-divider direction="vertical"></el-divider> -->
       <el-avatar
         :size="20"
         src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
       ></el-avatar>
       <span class="text-sm mr-4">管理员</span>
-      <!-- <el-divider direction="vertical"></el-divider> -->
       <span class="text-sm pr-1">{{ $t('Header.CustomHeader.quit') }}</span>
       <icon type="SwitchButton" size="20px" />
     </el-row>
@@ -119,8 +117,6 @@
       }
 
       return {
-        // asyncRoutes,
-        // topMenu,
         showMenu,
         handleClick,
         localeList,

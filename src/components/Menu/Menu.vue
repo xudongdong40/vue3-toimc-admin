@@ -99,18 +99,4 @@
       background-color: #1890ff;
     }
   }
-
-  // .menu-slot-wrap {
-  //   width: var(--menu-width);
-  // }
-  // .el-menu--horizontal {
-  //   border-bottom: none;
-  // }
-
-  // .el-menu-custom {
-  //   // --menu-width: 210px;
-  //   &:not(.el-menu--collapse) {
-  //     width: var(--menu-width);
-  //   }
-  // }
 </style>
