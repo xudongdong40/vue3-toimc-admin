@@ -7,24 +7,15 @@
       </div>
     </el-row>
     <el-row class="items-center">
-      <span id="header-home" class="items">
+      <!-- <span id="header-home" class="items">
         <icon type="HomeFilled" size="24px" />
       </span>
       <span id="header-message" class="items">
         <icon type="Bell" size="24px" />
-      </span>
-      <span id="header-internationalization" class="items">
-        <drop-down :actions="localeList" :current="getCurrent" @command="handleCommand">
-          <icon icon="ion:language" size="24px"></icon>
-        </drop-down>
-      </span>
-      <span class="items" @click="setStorage">
-        <el-badge :value="state.github ? 'new' : ''" class="badge">
-          <el-link :underline="false" :href="GITHUB_URL" target="_blank">
-            <icon icon="ant-design:github-filled" size="24px"></icon>
-          </el-link>
-        </el-badge>
-      </span>
+      </span> -->
+      <change-locale class="items"></change-locale>
+      <full-screen class="items"></full-screen>
+      <repo-badge class="items"></repo-badge>
       <el-divider direction="vertical"></el-divider>
       <el-avatar
         :size="32"
@@ -39,13 +30,14 @@
 </template>
 
 <script lang="ts">
-  // useLocale把vue-i18n的useI18n封装了一层，加入了cache
-  import { useLocale } from '@/hooks/useLocale'
-  import { localeList } from '@/settings/localeSetting'
-  import { LocaleType } from 'types/config'
-  import { GITHUB_URL } from '@/settings/siteSetting'
+  import { FullScreen, ChangeLocale, RepoBadge } from './components'
   export default defineComponent({
     name: 'CustomHeader',
+    components: {
+      FullScreen,
+      ChangeLocale,
+      RepoBadge
+    },
     props: {
       collapse: {
         type: Boolean,
@@ -54,34 +46,12 @@
     },
     emits: ['update:collapse'],
     setup(_props, { emit }) {
-      const { changeLocale, getLocale } = useLocale()
-
-      const state = useStorage('my-repo', { github: true })
-
-      const getCurrent = computed(() => {
-        return localeList.findIndex((item) => item.value + '' === getLocale.value)
-      })
-
       function handleClick(flag: boolean) {
         emit('update:collapse', !flag)
       }
 
-      function handleCommand(command: string) {
-        changeLocale(command as LocaleType)
-      }
-
-      function setStorage() {
-        state.value.github = false
-      }
-
       return {
-        handleClick,
-        localeList,
-        handleCommand,
-        getCurrent,
-        GITHUB_URL,
-        state,
-        setStorage
+        handleClick
       }
     }
   })
@@ -91,7 +61,6 @@
   .items {
     @apply flex items-center cursor-pointer mr-4;
   }
-
   .badge {
     --el-badge-padding: 4px;
     --el-badge-size: 16px;
