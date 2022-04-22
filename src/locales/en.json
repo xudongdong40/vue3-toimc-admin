@@ -72,6 +72,10 @@
         "calendar": "CalendarCard",
         "title": "Widgets",
         "weather": "Weather"
+      },
+      "password-comp": {
+        "title": "Widgets",
+        "password": "PasswordCard"
       }
     },
     "pages": {
