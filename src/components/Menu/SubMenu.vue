@@ -1,6 +1,6 @@
 <template>
   <menu-item v-if="!menuHasChildren(item)" :item="item"></menu-item>
-  <el-sub-menu v-if="menuHasChildren(item)" :index="getIndex(item)">
+  <el-sub-menu v-else :index="getIndex(item)">
     <template #title>
       <icon v-if="item.meta.icon" :type="getIcons(item)" />
       <span v-if="!collapse">{{ $t(item.meta.title) }}</span>
