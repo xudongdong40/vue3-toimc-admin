@@ -1,7 +1,7 @@
 import { Random } from 'mockjs'
 
 export function mixPics() {
-  const mockData = []
+  const mockData = [] as string[]
   for (let i = 0; i < 20; i++) {
     const result = Random.pick(['image', 'pic'])
     mockData.push(
@@ -18,7 +18,7 @@ const listsData = [
     url: '/api/public/lists',
     method: 'get',
     response: () => {
-      const mockData = []
+      const mockData = [] as any[]
       for (let i = 0; i < 20; i++) {
         mockData.push({
           id: Random.integer(1, 100),
@@ -44,7 +44,7 @@ const listsData = [
     url: '/api/public/images',
     method: 'get',
     response: () => {
-      const mockData = []
+      const mockData = [] as string[]
       for (let i = 0; i < 20; i++) {
         mockData.push(
           'https://toimc-online.obs.cn-east-3.myhuaweicloud.com/vue-toimc-admin/shotcuts/pic' +
@@ -64,7 +64,7 @@ const listsData = [
     url: '/api/public/beauty',
     method: 'get',
     response: () => {
-      const mockData = []
+      const mockData = [] as string[]
       for (let i = 0; i < 20; i++) {
         mockData.push(
           'https://toimc-online.obs.cn-east-3.myhuaweicloud.com/vue-toimc-admin/shotcuts/image' +
