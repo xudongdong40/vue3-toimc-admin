@@ -1,7 +1,7 @@
 <template>
   <div class="transition-all duration-300" :style="{ width: menuWidth }">
-    <div class="py-3 px-3 h-60px">
-      <img class="inline-block h-full" src="@/assets/images/logo.png" />
+    <div class="flex items-center justify-center py-3 px-3 h-60px">
+      <img class="max-h-full" src="@/assets/images/logo.png" />
     </div>
     <div class="flex flex-row h-[calc(100%-60px)]">
       <el-scrollbar class="top-side-menu">
