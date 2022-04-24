@@ -31,7 +31,7 @@
   import DepartRole from './components/DepartRole.vue'
   // import type { TabsPaneContext } from 'element-plus'
   import { ElMessage } from 'element-plus'
-
+  import { HttpResponse } from '@/api/sys/model/http'
   import { queryRoleTreeList, saveOrUpdateDepart, queryDepartPermission } from '@/api/sys/depart'
   export default defineComponent({
     components: { DepartLeftTree, DepartInfo, DepartRole },
@@ -57,7 +57,7 @@
       }
       //查询部门拥有的权限
       const queryDepartPermissionById = (departId: number) => {
-        queryDepartPermission({ departId }).then((res: any) => {
+        queryDepartPermission({ departId }).then((res: HttpResponse) => {
           console.log('queryDepartPermissionById', departPermissionRef)
           departPermissionRef.value.setCheckedKeys(res.data)
         })
@@ -68,7 +68,7 @@
       const loadRootTreeData = () => {
         loading.value = true
         treeData.value = []
-        queryRoleTreeList().then((res: any) => {
+        queryRoleTreeList().then((res: HttpResponse) => {
           treeData.value = res.data
           loading.value = false
         })
@@ -78,7 +78,7 @@
       //更新当前选中的部门信息
       const onSave = (data) => {
         console.log('onSave', data)
-        saveOrUpdateDepart(data, true).then((res: any) => {
+        saveOrUpdateDepart(data, true).then((res: HttpResponse) => {
           console.log('更新树节点', res)
           if (res.code === 200) {
             //保存成功

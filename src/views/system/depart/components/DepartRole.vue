@@ -20,6 +20,7 @@
   import { getMenuList } from '@/api/sys/menu'
   import { saveOrUpdateDepartPermission } from '@/api/sys/depart'
   import { ElMessage } from 'element-plus'
+  import { HttpResponse } from '@/api/sys/model/http'
   let tempIds: any = []
   export default defineComponent({
     props: {
@@ -50,7 +51,7 @@
 
       //获取菜单列表
       const loadMenuTree = () => {
-        getMenuList().then((res: any) => {
+        getMenuList().then((res: HttpResponse) => {
           treeData.value = res?.data
         })
       }
@@ -70,7 +71,7 @@
           lastPermissionIds: tempIds, //上次的权限
           permissionIds: checkedKeys.value //本次的权限
         }
-        saveOrUpdateDepartPermission(data).then((res: any) => {
+        saveOrUpdateDepartPermission(data).then((res: HttpResponse) => {
           if (res.code === 200) {
             //保存成功
           } else {

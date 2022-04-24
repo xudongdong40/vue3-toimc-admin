@@ -114,6 +114,7 @@
   import MenuDrawer from './MenuDrawer.vue'
   import { getMenuList, saveOrUpdateMenu, deleteMenu, deleteMenus } from '@/api/sys/menu'
   import { MenuItem } from '@/api/sys/model/menuModel'
+  import { HttpResponse } from '@/api/sys/model/http'
   export default defineComponent({
     name: 'MenusPage',
     components: {
@@ -141,7 +142,7 @@
               .then(() => {
                 let ids = multipleSelection.value.map((item) => item.id)
                 console.log('ids', ids)
-                deleteMenus({ ids: ids }).then((res: any) => {
+                deleteMenus({ ids: ids }).then((res: HttpResponse) => {
                   ElMessage({
                     message: `${res.message}`,
                     type: 'error'
@@ -176,7 +177,7 @@
           console.log('click on del item ', command)
           ElMessageBox.confirm('确定删除吗？', '温馨提示')
             .then(() => {
-              deleteMenu({ id: command.row.id }).then((res: any) => {
+              deleteMenu({ id: command.row.id }).then((res: HttpResponse) => {
                 ElMessage({
                   message: `${res.message}`,
                   type: 'error'
@@ -261,7 +262,7 @@
       const onConfirm = (obj: any) => {
         console.log('onConfirm obj is:', obj)
         data.showDrawer = false
-        saveOrUpdateMenu(obj, data.isUpdate).then((res: any) => {
+        saveOrUpdateMenu(obj, data.isUpdate).then((res: HttpResponse) => {
           ElMessage({
             message: `${res.message}`,
             type: 'error'
@@ -283,7 +284,7 @@
         console.log('onMounted')
         // console.log("onMounted",http)
         getMenuList()
-          .then((res: any) => {
+          .then((res: HttpResponse) => {
             tableData.value = res.data || []
             allCheckId.value = []
             getAllMenuId(tableData.value)
