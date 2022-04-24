@@ -5,13 +5,20 @@
         <basic-form :schemas="formSchema" inline label-width="80px" @change="handleChange">
           <template #action>
             <el-row>
-              <!-- <el-button type="primary" @click="() => handleGetHeight()">获取高度</el-button>
-              <el-button type="primary" @click="() => handleGetHTMLText()">获取HTML</el-button>
-              <el-button type="primary" @click="() => handleGetMarkdown()">获取Markdown</el-button>
-              <el-button type="success" @click="() => handleSetHTMLText()">设置HTML</el-button>
-              <el-button type="success" @click="() => handleSetMarkdown()">设置Markdown</el-button>
-              <el-button type="success" @click="() => handleInsertText()">插入文本</el-button>
-              <el-button type="danger" @click="() => handleEditorReset()">清空内容</el-button> -->
+              <el-button type="primary" @click="() => handleGetValue()">获取数据</el-button>
+              <el-button type="primary" @click="() => handleGetHTML()">获取HTML</el-button>
+              <el-button type="primary" @click="() => handleGetSelection()">获取选中内容</el-button>
+              <el-button type="primary" @click="() => handleGetCursorPosition()">获取当前坐标</el-button>
+              <el-button type="primary" @click="() => handleGetCurrentMode()">获取当前模式</el-button>
+              <el-button type="success" @click="() => handleInsertValue()">插入数据</el-button>
+              <el-button type="success" @click="() => handleFocus()">聚焦</el-button>
+              <el-button type="success" @click="() => handleBlur()">失焦</el-button>
+              <el-button type="success" @click="() => handleDisabled()">禁用</el-button>
+              <el-button type="success" @click="() => handleEnable()">启用</el-button>
+              <el-button type="success" @click="() => handleSetValue()">设置Value</el-button>
+              <el-button type="success" @click="() => handleUpdateValue()">更新Value</el-button>
+              <!-- <el-button type="success" @click="() => handleSetPreviewMode()">设置预览模式</el-button> -->
+              <el-button type="danger" @click="() => handleDeleteValue()">删除选中内容</el-button>
             </el-row>
           </template>
         </basic-form>
@@ -36,9 +43,11 @@
   import { FormSchema } from '@/components/Form/types/types'
   import { LangType, ModeType, ThemeType, IconType } from '@/components/Editor/vditor/types'
   import { defineComponent } from 'vue'
+  import { ElMessageBox } from 'element-plus'
   export default defineComponent({
     setup() {
       const editor = ref()
+      const vditorIns = computed(()=>editor.value.vditorIns)
 
       let form = reactive({
         mode: 'ir' as ModeType,
@@ -126,7 +135,6 @@
       ])
 
       const handleChange = (value) => {
-        console.log(value)
         form.mode = value.mode
         form.lang = value.lang
         form.minHeight = value.minHeight
@@ -136,11 +144,69 @@
         form.icon = value.icon
       }
 
+      const handleGetValue = () => {
+        ElMessageBox.alert(vditorIns.value.getValue())
+      }
+      const handleGetHTML = () => {
+        ElMessageBox.alert(vditorIns.value.getHTML())
+      }
+      const handleGetSelection = () => {
+        ElMessageBox.alert(vditorIns.value.getSelection())
+      }
+      const handleGetCursorPosition = () => {
+        ElMessageBox.alert(vditorIns.value.getCursorPosition())
+      }
+      const handleGetCurrentMode = () => {
+        ElMessageBox.alert(vditorIns.value.getCurrentMode())
+      }
+
+      const handleInsertValue = () => {
+        vditorIns.value.insertValue('新插入的数据')
+      }
+      const handleFocus = () => {
+        vditorIns.value.focus()
+      }
+      const handleBlur = () => {
+        vditorIns.value.blur()
+      }
+      const handleDisabled = () => {
+        vditorIns.value.disabled()
+      }
+      const handleEnable = () => {
+        vditorIns.value.enable()
+      }
+      const handleSetValue = () => {
+        vditorIns.value.setValue('这是新设置的value')
+      }
+      const handleDeleteValue = () => {
+        vditorIns.value.deleteValue()
+      }
+      const handleUpdateValue = () => {
+        vditorIns.value.updateValue('更新的数据')
+      }
+      // const handleSetPreviewMode = () => {
+      //   vditorIns.value.setPreviewMode('both')
+      // }
+
       return {
         editor,
         form,
         formSchema,
-        handleChange
+        handleChange,
+        handleGetValue,
+        handleGetHTML,
+        handleGetSelection,
+        handleGetCursorPosition,
+        handleGetCurrentMode,
+        handleInsertValue,
+        handleFocus,
+        handleBlur,
+        handleDisabled,
+        handleEnable,
+        handleSetValue,
+        handleDeleteValue,
+        handleUpdateValue
+        // handleSetPreviewMode
       }
     }
   })

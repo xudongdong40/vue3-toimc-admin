@@ -101,14 +101,14 @@
     },
     setup(props) {
       const vditor = ref()
-      let vditorIns: any = reactive({})
+      let vditorIns: any = ref({})
 
       const initEditor = (type?: string) => {
         if (vditor.value) {
           if (type !== 'init') {
-            vditorIns.destroy?.()
+            vditorIns.value.destroy?.()
           }
-          vditorIns = new Vditor(vditor.value, {
+          vditorIns.value = new Vditor(vditor.value, {
             mode: props.mode,
             value: props.value,
             lang: props.lang,
@@ -129,7 +129,6 @@
       watch(
         props,
         () => {
-          console.log(props)
           initEditor()
         },
         {
