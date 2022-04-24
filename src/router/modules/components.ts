@@ -306,6 +306,14 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
             component: () => import('@/views/components/editor/toast-ui/index.vue')
           },
           {
+            name: 'Vditor',
+            path: 'vditor',
+            meta: {
+              title: t('menu.component.editor.vditor')
+            },
+            component: () => import('@/views/components/editor/vditor/index.vue')
+          },
+          {
             name: 'MilkDownEditor',
             path: 'milkdown',
             meta: {

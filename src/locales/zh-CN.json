@@ -61,6 +61,7 @@
       "editor": {
         "title": "编辑器",
         "toast-ui": "ToastUI",
+        "vditor": "Vditor",
         "milkdown": "MilkDown"
       },
       "display": {
