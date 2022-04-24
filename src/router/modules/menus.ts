@@ -21,7 +21,6 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
           title: t('menu.nest-menus.menu1')
         },
         component: () => import('@/views/menus/menu1.vue'),
-        redirect: '/comp/icon/element',
         children: [
           {
             name: 'Menu1-1',
@@ -53,7 +52,7 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
       },
       {
         name: 'Menus2',
-        path: 'menu',
+        path: 'menu2',
         meta: {
           title: t('menu.nest-menus.menu2')
         },

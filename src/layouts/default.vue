@@ -1,56 +1,96 @@
 <template>
-  <div class="w-full h-screen flex bg-content-bg overflow-hidden">
-    <div class="w-auto h-full flex flex-col">
-      <Menu :menus="asyncRoutes" :collapse="isCollapse">
-        <div class="py-8 px-3 bg-black">
-          <img class="inline-block" src="@/assets/images/logo.png" />
+  <div class="w-full h-screen bg-content-bg overflow-hidden">
+    <div :class="['layout-' + layout, 'layout-mode-' + layoutMode, 'h-full']">
+      <sider-bar v-if="layoutMode === 'row'" :collapse="isCollapse"></sider-bar>
+      <div
+        class="flex-1 h-full"
+        :class="{ 'overflow-auto': fixHeader !== true, 'w-0': layout !== 'top' }"
+      >
+        <div class="layout-header">
+          <div class="nav">
+            <custom-header
+              v-model:collapse="isCollapse"
+              class="layout-main"
+              :layout="layout"
+              @show-theme-setting="handleShowThemeSetting"
+            ></custom-header>
+          </div>
+          <div class="tabs bg-white">
+            <multi-tabs></multi-tabs>
+          </div>
         </div>
-      </Menu>
-    </div>
-    <div class="flex flex-col flex-1 overflow-hidden">
-      <!-- header -->
-      <custom-header v-model:collapse="isCollapse"></custom-header>
-      <!-- content -->
-      <el-scrollbar class="custom-scroll">
-        <router-view></router-view>
-      </el-scrollbar>
-      <!-- footer -->
+        <div class="layout-main" :class="{ 'h-[calc(100%-84px)]': fixHeader === true }">
+          <el-scrollbar class="custom-scroll">
+            <router-view></router-view>
+          </el-scrollbar>
+        </div>
+      </div>
+      <theme-setting v-model:show="isShowThemeSetting"></theme-setting>
     </div>
   </div>
 </template>
 
 <script lang="ts">
+  import { storeToRefs } from 'pinia'
   import { asyncRoutes } from '@/router/index'
+  import { useSettingsStore } from '@/store/modules/settings'
+  import SiderBar from './sider/SiderBar.vue'
   import CustomHeader from './header/CustomHeader.vue'
+  import MultiTabs from './tabs/MultiTabs.vue'
 
   export default defineComponent({
     components: {
-      CustomHeader
+      CustomHeader,
+      SiderBar,
+      MultiTabs
     },
     setup() {
+      const store = useSettingsStore()
+      const { layout, fixHeader } = storeToRefs(store)
       const isCollapse = ref(false)
+      const isShowThemeSetting = ref(false)
+
+      const layoutMode = computed(() => (layout.value === 'top' ? 'column' : 'row'))
+
+      function handleShowThemeSetting() {
+        isShowThemeSetting.value = true
+      }
+
       return {
+        layout,
+        layoutMode,
+        fixHeader,
         asyncRoutes,
-        isCollapse
+        isCollapse,
+        isShowThemeSetting,
+        handleShowThemeSetting
       }
     }
   })
 </script>
 
 <style lang="scss" scoped>
-  .el-menu {
-    border-right: none;
+  :deep(.el-menu) {
+    border: none;
   }
 
-  .el-menu-vertical {
-    .is-active {
-      background-color: #0960bd !important;
+  .layout-mode-row {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+  }
+
+  .layout-mode-column {
+    .layout-header {
+      .nav {
+        color: #ffffffb3;
+        background-color: #282c34;
+      }
     }
-  }
 
-  :deep(.custom-scroll) {
-    .el-scrollbar__view {
-      height: 100%;
+    .layout-main {
+      width: 92%;
+      margin: auto;
     }
   }
 </style>

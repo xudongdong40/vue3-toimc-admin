@@ -33,7 +33,7 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
           },
           {
             name: 'IconifyIcons',
-            path: 'element',
+            path: 'iconify',
             component: () => import('@/views/components/icon/iconify.vue'),
             meta: {
               title: t('menu.component.icons.iconify')
@@ -41,7 +41,7 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
           },
           {
             name: 'IconPicker',
-            path: 'element',
+            path: 'picker',
             component: () => import('@/views/components/icon/picker.vue'),
             meta: {
               title: t('menu.component.icons.icon-picker')
