@@ -74,6 +74,9 @@
         "title": "小组件",
         "calendar": "日历卡片",
         "weather": "天气"
+      },
+      "password-comp": {
+        "title": "密码强度"
       }
     },
     "pages": {
@@ -83,7 +86,9 @@
         "default": "默认表单页"
       },
       "detail": {
-        "title": "详情页"
+        "title": "详情页",
+        "basic": "基础详情页",
+        "high": "高级详情页"
       },
       "result": {
         "title": "结果页"

@@ -74,12 +74,18 @@
         "calendar": "CalendarCard",
         "title": "Widgets",
         "weather": "Weather"
+      },
+      "password-comp": {
+        "title": "Password strength",
+        "password": "StrengthMeter"
       }
     },
     "pages": {
       "title": "Pages",
       "detail": {
-        "title": "Details page"
+        "title": "Details page",
+        "basic": "Basic details page",
+        "high": "High details page"
       },
       "errors": {
         "default": "Default Exception ",

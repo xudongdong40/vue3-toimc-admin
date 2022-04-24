@@ -35,10 +35,20 @@ const pagesRoutes: Array<AppRouteRecordRaw> = [
       {
         name: 'DetailPages',
         path: 'detail',
-        component: () => import('@/views/pages/form/index.vue'),
+        component: () => import('@/views/pages/details/index.vue'),
         meta: {
           title: t('menu.pages.detail.title')
-        }
+        },
+        children: [
+          {
+            name: 'BasicDetailPages',
+            path: 'basic',
+            component: () => import('@/views/pages/details/basic.vue'),
+            meta: {
+              title: t('menu.pages.detail.basic')
+            }
+          }
+        ]
       },
       {
         name: 'ResultPages',
