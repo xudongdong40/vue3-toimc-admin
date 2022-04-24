@@ -38,6 +38,8 @@ specifiers:
   '@vitejs/plugin-vue-jsx': ^1.3.10
   '@vue/runtime-core': ^3.2.33
   '@vueuse/core': ^8.3.1
+  '@zxcvbn-ts/core': ^2.0.1
+  '@zxcvbn-ts/language-common': ^2.0.1
   autoprefixer: ^10.4.4
   axios: ^0.26.1
   big-integer: ^1.6.51
@@ -125,6 +127,8 @@ dependencies:
   '@toast-ui/editor-plugin-code-syntax-highlight': 3.0.0
   '@vue/runtime-core': 3.2.33
   '@vueuse/core': 8.3.1_vue@3.2.33
+  '@zxcvbn-ts/core': 2.0.1
+  '@zxcvbn-ts/language-common': 2.0.1
   axios: 0.26.1
   big-integer: 1.6.51
   copy-to-clipboard: 3.3.1
@@ -1996,6 +2000,16 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
+
+  /@zxcvbn-ts/core/2.0.1:
+    resolution: {integrity: sha512-i3viYattwORK5liqS/d9WaIWSLki75oKVog5Elg9Ls9d8L6zKLwpAkj6PT/P4LZqJHIVRPnKjgajpP6SLerr6Q==}
+    dependencies:
+      fastest-levenshtein: 1.0.12
+    dev: false
+
+  /@zxcvbn-ts/language-common/2.0.1:
+    resolution: {integrity: sha512-P+v5MA/UNc9nb3FEOEoDgTyIGQc2vLc6m04pdf5YyuNOzrL0iNANhECk2TUp62JbrjouJVodqhMH0j1a8/24Bg==}
+    dev: false
 
   /JSONStream/1.3.5:
     resolution: {integrity: sha512-E+iruNOY8VV9s4JEbe1aNEm6MiszPRr/UfcHMz0TQh1BXSxHK+ASV1R6W4HpjBhSeS+54PIsAMCBmwD06LLsqQ==}
@@ -4332,7 +4346,6 @@ packages:
 
   /fastest-levenshtein/1.0.12:
     resolution: {integrity: sha512-On2N+BpYJ15xIC974QNVuYGMOlEVt4s0EOI3wwMqOmK1fdDY+FN/zltPV8vosq4ad4c/gJ1KHScUn/6AWIgiow==}
-    dev: true
 
   /fastq/1.13.0:
     resolution: {integrity: sha512-YpkpUnK8od0o1hmeSc7UUs/eB/vIPWJYjKck2QKIzAf71Vm1AAQ3EbuZB3g2JIy+pg+ERD0vqI79KyZiB2e2Nw==}

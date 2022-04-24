@@ -374,6 +374,24 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
             component: () => import('@/views/components/small-components/weather.vue')
           }
         ]
+      },
+      {
+        name: 'PasswordComp',
+        path: 'password-comp',
+        meta: {
+          title: t('menu.component.password-comp.title')
+        },
+        component: () => import('@/layouts/blank.vue'),
+        children: [
+          {
+            name: 'PasswordCard',
+            path: 'password',
+            meta: {
+              title: t('menu.component.password-comp.password')
+            },
+            component: () => import('@/views/components/password-components/index.vue')
+          }
+        ]
       }
     ]
   }

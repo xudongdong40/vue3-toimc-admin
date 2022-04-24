@@ -73,6 +73,10 @@
         "title": "小组件",
         "calendar": "日历卡片",
         "weather": "天气"
+      },
+      "password-comp": {
+        "title": "密码强度组件",
+        "password": "密码卡片"
       }
     },
     "pages": {
