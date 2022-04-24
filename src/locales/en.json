@@ -75,7 +75,7 @@
       },
       "password-comp": {
         "title": "Password strength",
-        "password": "PasswordCard"
+        "password": "StrengthMeter"
       }
     },
     "pages": {

@@ -194,6 +194,14 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
               title: t('menu.component.dynamic.slider')
             },
             component: () => import('@/views/components/slider/index.vue')
+          },
+          {
+            name: 'StrengthMeter',
+            path: 'password',
+            meta: {
+              title: t('menu.component.password-comp.title')
+            },
+            component: () => import('@/views/components/password/index.vue')
           }
         ]
       },
@@ -372,24 +380,6 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
               title: t('menu.component.small-comp.weather')
             },
             component: () => import('@/views/components/small-components/weather.vue')
-          }
-        ]
-      },
-      {
-        name: 'PasswordComp',
-        path: 'password-comp',
-        meta: {
-          title: t('menu.component.password-comp.title')
-        },
-        component: () => import('@/layouts/blank.vue'),
-        children: [
-          {
-            name: 'PasswordCard',
-            path: 'password',
-            meta: {
-              title: t('menu.component.password-comp.password')
-            },
-            component: () => import('@/views/components/password-components/index.vue')
           }
         ]
       }

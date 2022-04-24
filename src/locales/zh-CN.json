@@ -75,8 +75,7 @@
         "weather": "天气"
       },
       "password-comp": {
-        "title": "密码强度组件",
-        "password": "密码卡片"
+        "title": "密码强度"
       }
     },
     "pages": {
