@@ -1,67 +1,78 @@
 <template>
-  <div :class="['p-4', 'prefixCls']" class="relative">
+  <div class="toimc relative">
     <el-input
+      v-if="showInput"
       v-model="innerValueRef"
       type="password"
-      placeholder="Please input password"
-      @change="handleChange"
+      :placeholder="placeholder"
       :disabled="disabled"
-      show-password />
-    <div class="prefixCls-bar">
-      <div class="`prefixCls-bar--fill`" :data-score="getPasswordStrength"></div>
+      show-password
+      clearable
+      @change="handleChange" >
+    </el-input>
+    <div class="toimc-bar">
+      <div class="toimc-bar--fill" :data-score="getPasswordStrength"></div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-  import { ref } from 'vue'
   import { zxcvbn } from '@zxcvbn-ts/core';
   export default defineComponent({
     name: 'PasswordCard',
     props: {
-      value: String,
+      value: {
+        type: String,
+        default: ''
+      },
       showInput: {
         type: Boolean,
         default: true
       },
-      disabled: Boolean,
+      disabled: {
+        type: Boolean,
+        default: false
+      },
+      placeholder: {
+        type: String,
+        default: ''
+      }
     },
     emits: ['score-change', 'change'],
     setup(props, { emit }) {
-      const innerValueRef = ref('')
+      const { value, disabled } = toRefs(props);
+      const innerValueRef = ref(value.value || '')
       const getPasswordStrength = computed(() => {
-        const { disabled } = props;
-        if (disabled) return -1;
-        const innerValue = unref(innerValueRef);
-        const score = innerValue ? zxcvbn(unref(innerValueRef)).score : -1;
+        if (disabled.value) return -1;
+        const score = innerValueRef.value ? zxcvbn(innerValueRef.value).score : -1;
         emit('score-change', score);
         return score;
       });
       function handleChange(e) {
-        innerValueRef.value = e;
+        emit('change', e);
       }
-      watchEffect(() => {
-        innerValueRef.value = props.value || '';
-      });
-      watch(
-        () => unref(innerValueRef),
-        (val) => {
-          emit('change', val);
-        },
-      );
-      return {innerValueRef, getPasswordStrength, handleChange}
+      return {
+        innerValueRef,
+        getPasswordStrength,
+        handleChange
+      }
     }
   })
 </script>
 
 <style lang="scss" scoped>
-  // @prefix-cls: ~'@{namespace}-strength-meter';
-  .prefixCls {
+  .toimc {
+    :deep(.el-input__inner:focus) {
+      box-shadow: none !important;
+    }
+    :deep(input:disabled) {
+      cursor: not-allowed;
+    }
     &-bar {
       position: relative;
       height: 6px;
       margin: 10px auto 6px;
-      background-color: grey;
+      background-color: #00000040;
       border-radius: 6px;
       &::before,
       &::after {
@@ -71,7 +82,7 @@
         width: 20%;
         height: inherit;
         background-color: transparent;
-        border-color: white;
+        border-color: #fff;
         border-style: solid;
         border-width: 0 5px;
         content: '';
@@ -82,7 +93,7 @@
       &::after {
         right: 20%;
       }
-      &--fill {
+      .toimc-bar--fill {
         position: absolute;
         width: 0;
         height: inherit;
@@ -91,23 +102,23 @@
         transition: width 0.5s ease-in-out, background 0.25s;
         &[data-score='0'] {
           width: 20%;
-          background-color: darken(red, 10%);
+          background-color: darken(#e74242, 10%);
         }
         &[data-score='1'] {
           width: 40%;
-          background-color: red;
+          background-color: #ed6f6f;
         }
         &[data-score='2'] {
           width: 60%;
-          background-color: yellow;
+          background-color: #efbd47;
         }
         &[data-score='3'] {
           width: 80%;
-          background-color: fade(green, 50%);
+          background-color: #55d18780;
         }
         &[data-score='4'] {
           width: 100%;
-          background-color: green;
+          background-color: #55d187;
         }
       }
     }

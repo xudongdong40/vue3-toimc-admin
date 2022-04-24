@@ -389,7 +389,7 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
             meta: {
               title: t('menu.component.password-comp.password')
             },
-            component: () => import('@/views/components/password-components/password.vue')
+            component: () => import('@/views/components/password-components/index.vue')
           }
         ]
       }
