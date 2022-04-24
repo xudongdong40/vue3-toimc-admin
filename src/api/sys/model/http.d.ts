@@ -1,6 +1,6 @@
 interface HttpResponse {
   code?: number
-  result?: any
+  data?: any
   message?: string
   type?: 'success' | 'error'
 }
