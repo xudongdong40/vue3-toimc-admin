@@ -17,24 +17,8 @@ export const getMenuList = () => {
       authorization: 'Bearer ' + localStorage.getItem('token')
     }
     axios.get(Api.list, { headers }).then((res) => {
-      console.log('================', res.data)
       resolve(res.data)
     })
-
-    //为了兼容mock和接口数据
-    // defHttp.request({
-    //   method: 'get',
-    //   baseURL:'/api',
-    //   url: Api.GetMenuList
-    // }).then((res) => {
-    //   if(Array.isArray(res)){
-    //     resolve(res)
-    //   }else{
-    //     resolve(res['menu'])
-    //   }
-    // }).catch((err) => {
-    //   console.log(err)
-    // });
   })
 }
 

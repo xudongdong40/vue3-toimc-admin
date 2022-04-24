@@ -1,93 +1,89 @@
 <template>
   <!--菜单组织机构树-->
-  <el-tree :data="treeData" :props="defaultProps" node-key="id" :default-checked-keys="checkedKeys" show-checkbox
-    default-expand-all @check="onCheck">
+  <el-tree
+    :data="treeData"
+    :props="defaultProps"
+    node-key="id"
+    :default-checked-keys="checkedKeys"
+    show-checkbox
+    default-expand-all
+    @check="onCheck"
+  >
   </el-tree>
 
   <div class="form-footer flex justify-end">
     <el-button type="primary" @click="saveInfo">保存</el-button>
   </div>
-
 </template>
-
-
 <script lang="ts">
-import { ref } from 'vue';
-import { getMenuList } from '@/api/sys/menu';
-import { saveOrUpdateDepartPermission } from '@/api/sys/depart';
-let tempIds: any = []
-export default defineComponent({
-  props: {
-    // 部门树列表数据默认选中的节点
-    defaultKeys: {
-      type: Array, default: () => []
+  import { ref } from 'vue'
+  import { getMenuList } from '@/api/sys/menu'
+  import { saveOrUpdateDepartPermission } from '@/api/sys/depart'
+  import { ElMessage } from 'element-plus'
+  let tempIds: any = []
+  export default defineComponent({
+    props: {
+      // 部门树列表数据默认选中的节点
+      defaultKeys: {
+        type: Array,
+        default: () => []
+      },
+      departId: {
+        type: String,
+        default: ''
+      }
     },
-    departId: {
-      type: String, default: ''
-    }
-  },
-  setup(props, { _emit }) {
-    let treeData = ref([])
-    const defaultProps = {
-      children: 'children',
-      label: 'name',
-      value: 'id'
-    }
-    //选中节点
-    const checkedKeys = ref([])
+    setup(props) {
+      let treeData = ref([])
+      const defaultProps = {
+        children: 'children',
+        label: 'name',
+        value: 'id'
+      }
+      //选中节点
+      const checkedKeys = ref([])
 
-    //check 事件 传递给 data 属性的数组中该节点所对应的对象、树目前的选中状态对象
-    const onCheck = (_data: any, checked: any) => {
-      checkedKeys.value = checked.checkedKeys
-
-    }
-
-    //获取菜单列表
-    const loadMenuTree = () => {
-      getMenuList().then((res: any) => {
-        treeData.value = res?.data
-      })
-    }
-
-    loadMenuTree();
-
-    //选中节点时把节点信息传给树回显  
-    const setCheckedKeys = (data: any) => {
-      console.log('setCheckedKeys', data)
-      tempIds = [...data]
-      checkedKeys.value = data
-    }
-    //保存信息
-    const saveInfo = () => {
-      let data = {
-        departId: props.departId,//部门id
-        lastpermissionIds: tempIds,//上次的权限
-        permissionIds: checkedKeys.value//本次的权限
+      //check 事件 传递给 data 属性的数组中该节点所对应的对象、树目前的选中状态对象
+      const onCheck = (_data: any, checked: any) => {
+        checkedKeys.value = checked.checkedKeys
       }
 
-      saveOrUpdateDepartPermission(data).then((res: any) => {
-        if (res.code === 200) {
-          //保存成功
-        } else {
-          ElMessage({
-            message: `${res.message}`,
-            type: 'error'
-          })
+      //获取菜单列表
+      const loadMenuTree = () => {
+        getMenuList().then((res: any) => {
+          treeData.value = res?.data
+        })
+      }
+
+      loadMenuTree()
+
+      //选中节点时把节点信息传给树回显
+      const setCheckedKeys = (data: any) => {
+        console.log('setCheckedKeys', data)
+        tempIds = [...data]
+        checkedKeys.value = data
+      }
+      //保存信息
+      const saveInfo = () => {
+        let data = {
+          departId: props.departId, //部门id
+          lastPermissionIds: tempIds, //上次的权限
+          permissionIds: checkedKeys.value //本次的权限
         }
-      })
+        saveOrUpdateDepartPermission(data).then((res: any) => {
+          if (res.code === 200) {
+            //保存成功
+          } else {
+            ElMessage({
+              message: `${res.message}`,
+              type: 'error'
+            })
+          }
+        })
+      }
+      return { props, defaultProps, checkedKeys, treeData, onCheck, setCheckedKeys, saveInfo }
     }
-    return { props, defaultProps, checkedKeys, treeData, onCheck, setCheckedKeys, saveInfo }
-  }
-})
-
-// watch, computed, inject, ref, unref, onMounted
-
-
-
+  })
 </script>
 
-  
-
-
-<style>
-</style>
+<style></style>
