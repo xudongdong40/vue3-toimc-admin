@@ -4,7 +4,7 @@
       <h4 class="divide-y divide-gray-500/50">{{ isUpdate ? '编辑菜单' : '新增菜单' }}</h4>
     </template>
     <template #default>
-      <div class="border-bg-gray-200 p-4 border overflow-auto">
+      <div class="border-bg-gray-200 p-4 border overflow-auto" style="max-height: 700px">
         <el-form
           ref="vForm"
           :model="formData"
@@ -155,7 +155,8 @@
                       type="text"
                       placeholder="点击搜索图标"
                       clearable
-                    ></el-input>
+                    >
+                    </el-input>
 
                     <div class="icon-container overflow-auto">
                       <icon-list
@@ -233,7 +234,7 @@
       </div>
     </template>
     <template #footer>
-      <div style="flex: auto;">
+      <div style="flex: auto">
         <el-button @click="cancelClick">取消</el-button>
         <el-button type="primary" @click="handleSubmit">确认</el-button>
       </div>
@@ -245,8 +246,7 @@
   import { ref, defineComponent, toRefs, reactive } from 'vue'
   import { IconData } from '@/components/Icon/data'
   import { Search } from '@element-plus/icons-vue' // 引入图标
-
-  // import { ClickOutside as vClickOutside } from 'element-plus'
+  import { IconTypes } from '@/components/Icon/types'
   export default defineComponent({
     props: {
       showDrawer: {
@@ -271,26 +271,20 @@
       const vForm = ref(null)
       const visibleRef = ref(false)
       const isEdit = ref(false)
-      const direction = ref('rtl')
-
+      const direction = ref()
+      direction.value = 'rtl'
       const searchIconKey = ref('')
-
-      const menuIconList = computed(() =>
-        IconData.filter((item) => item.toLowerCase().includes(searchIconKey.value.toLowerCase()))
+      const menuIconList = computed(
+        () =>
+          IconData.filter((item) =>
+            item.toLowerCase().includes(searchIconKey.value.toLowerCase())
+          ) as IconTypes[]
       )
-
       const treeProps = {
         label: 'name',
         value: 'id',
         children: 'children'
       }
-
-      // const buttonRef = ref()
-      // const popoverRef = ref()
-      // const onClickOutside = () => {
-      //   unref(popoverRef).popperRef?.delayHide?.()
-      // }
-
       function cancelClick() {
         ctx.emit('close')
       }
@@ -473,21 +467,6 @@
       }
 
       const show = computed(() => props.showDrawer)
-      // const isUpdate = computed(() => (props.isUpdate));
-      // watch(
-      //   () => props.showDrawer,
-      //   (newVal, oldVal) => {
-      //     if (newVal !== oldVal) visibleRef.value = newVal
-      //   },
-      //   { deep: true }
-      // )
-      // watch(
-      //   () => props.isUpdate,
-      //   (newVal, oldVal) => {
-      //     if (newVal !== oldVal) isEdit.value = newVal
-      //   },
-      //   { deep: true }
-      // )
       watch(
         () => props.obj,
         (newVal, oldVal) => {
@@ -521,9 +500,6 @@
         onPickIcon,
         menuIconList,
         searchIconKey,
-        // showDrawer,isUpdate,
-        // buttonRef,popoverRef,
-        // vClickOutside,onClickOutside,
         vForm,
         Search,
         visibleRef,
@@ -539,6 +515,9 @@
   })
 </script>
 <style scoped>
+  .el-drawer__header {
+    margin-bottom: 0;
+  }
   .icon-container {
     height: 300px;
   }

@@ -1,17 +1,19 @@
 <template>
-  <div class="p-4">
+  <div class="p-4 menuBox">
     <div class="flex">
       <el-button type="primary" icon="Plus" @click="addMenu"> 新增菜单</el-button>
       <el-dropdown
         v-if="multipleSelection.length > 0"
-        style="margin-left: 5px;"
+        style="margin-left: 5px"
         trigger="click"
         @command="handleCommand"
       >
         <span class="el-dropdown-link">
           <el-button plain icon=""
             >批量操作
-            <el-icon class="el-icon--right"><arrow-down /></el-icon>
+            <el-icon class="el-icon--right">
+              <arrow-down />
+            </el-icon>
           </el-button>
         </span>
         <template #dropdown>
@@ -22,23 +24,29 @@
       </el-dropdown>
     </div>
     <div class="info flex items-center content-center">
-      <el-icon class="mr-1 block" color="#409EFF"><info-filled /></el-icon>
+      <el-icon class="mr-1 block" color="#409EFF">
+        <info-filled />
+      </el-icon>
       <p class="border-gray-500">
         <span v-if="multipleSelection.length > 0"
           >已选中 {{ multipleSelection.length }} 条记录 |
-          <span class="cursor-pointer" @click="toggleSelection()">清空</span></span
+          <span class="cursor-pointer" @click="cleanSelection()">清空</span></span
         >
         <span v-else>未选中任何数据</span>
-      </p></div
-    >
+      </p>
+    </div>
+    <!-- :row-class-name="rowClassNameFun" -->
     <el-table
       ref="multipleTableRef"
+      :select-on-indeterminate="true"
+      :header-row-class-name="rowClassNameFun"
       :data="tableData"
       border
       stripe
-      style="width: 100%;"
+      style="width: 100%"
       lazy
       row-key="id"
+      @select-all="handleSelectAll"
       @selection-change="handleSelectionChange"
     >
       <el-table-column type="selection" min-width="55" />
@@ -58,8 +66,10 @@
         align="center"
       >
         <template #default="scope">
-          <el-icon v-if="scope.row.icon" :name="scope.row.icon"><box /></el-icon>
-          <span v-else class="iconify m-auto" data-icon="null"></span>
+          <el-icon v-if="scope.row.icon" :name="scope.row.icon">
+            <box />
+          </el-icon>
+          <span v-else class="icon-ify m-auto" data-icon="null"></span>
         </template>
       </el-table-column>
       <el-table-column property="component" label="组件" min-width="150" />
@@ -71,7 +81,9 @@
           <el-dropdown @command="handleMoreCommand">
             <span class="el-dropdown-link ml-2">
               <el-button type="text"
-                >更多<el-icon class="el-icon--right"><arrow-down /></el-icon>
+                >更多<el-icon class="el-icon--right">
+                  <arrow-down />
+                </el-icon>
               </el-button>
             </span>
             <template #dropdown>
@@ -98,10 +110,11 @@
 </template>
 <script lang="ts">
   import { defineComponent, onMounted, ref, onUnmounted } from 'vue'
-  import { ElMessage } from 'element-plus'
+  import { ElMessage, ElMessageBox, ElTable } from 'element-plus'
   import MenuDrawer from './MenuDrawer.vue'
-  import { getMenuList, saveOrUpdateMenu, deleteMenu } from '@/api/sys/menu'
+  import { getMenuList, saveOrUpdateMenu, deleteMenu, deleteMenus } from '@/api/sys/menu'
   import { MenuItem } from '@/api/sys/model/menuModel'
+  import { HttpResponse } from '@/api/sys/model/http'
   export default defineComponent({
     name: 'MenusPage',
     components: {
@@ -114,13 +127,34 @@
         obj: {},
         menuALL: [] as MenuItem[]
       })
+      const multipleTableRef = ref<InstanceType<typeof ElTable>>()
       const multipleSelection = ref<Array<MenuItem>>([])
       const tableData = ref<Array<MenuItem>>([])
+      const allCheckId = ref<Array<number>>([])
 
       const handleCommand = (command: string | number | object) => {
-        ElMessage(`click on item ${command}`)
-      }
+        // ElMessage(`click on item ${command}`)
 
+        if (typeof command === 'string') {
+          if (command === 'del') {
+            // 删除
+            ElMessageBox.confirm('确定删除吗？', '温馨提示')
+              .then(() => {
+                let ids = multipleSelection.value.map((item) => item.id)
+                console.log('ids', ids)
+                deleteMenus({ ids: ids }).then((res: HttpResponse) => {
+                  ElMessage({
+                    message: `${res.message}`,
+                    type: 'error'
+                  })
+                })
+              })
+              .catch(() => {
+                // 取消
+              })
+          }
+        }
+      }
       interface MenuCommand {
         index: 0
         row: MenuItem
@@ -141,32 +175,96 @@
         } else {
           //删除
           console.log('click on del item ', command)
-
-          deleteMenu({ id: command.row.id }).then((res) => {
-            const { message } = res as HttpResponse
-            ElMessage({
-              message: `${message}` || '删除成功',
-              type: 'error'
+          ElMessageBox.confirm('确定删除吗？', '温馨提示')
+            .then(() => {
+              deleteMenu({ id: command.row.id }).then((res: HttpResponse) => {
+                ElMessage({
+                  message: `${res.message}`,
+                  type: 'error'
+                })
+              })
             })
-          })
+            .catch(() => {
+              // 取消
+            })
         }
       }
-      const handleSelectionChange = (val: Array<MenuItem>) => {
-        // todo 菜单联动效果
-        // console.log('🚀 ~ file: index.vue ~ line 155 ~ handleSelectionChange ~ val', val)
-        multipleSelection.value = val
+      enum CheckStatus {
+        unChecked = 0,
+        halfChecked = 1,
+        allChecked = 2
       }
+      let checkFlag = false
+      let checkStatus = CheckStatus.unChecked
+      // 全选\取消全选
+      const handleSelectAll = () => {
+        checkFlag = !checkFlag
+        checkChildren(tableData.value, checkFlag)
+      }
+      //选中监听
+      const handleSelectionChange = (val: Array<MenuItem>) => {
+        //查看val中是否children是否为空，不为空则递归children设为选中状态
+        multipleSelection.value = val
+        checkStatus = checkOutUserAll()
+      }
+
+      //判断是否全选所有的菜单
+      const checkOutUserAll = () => {
+        let userCheckIds = multipleSelection.value.map((item) => item.id)
+        let status = CheckStatus.unChecked
+        if (userCheckIds.length == 0) {
+          status = CheckStatus.unChecked
+        } else {
+          if (allCheckId.value.length == userCheckIds.length) {
+            status = CheckStatus.allChecked
+          } else {
+            status = CheckStatus.halfChecked
+          }
+        }
+        return status
+      }
+
+      //选中子类
+      const checkChildren = (data, flag) => {
+        data.forEach((row) => {
+          // el-table里绑定的ref
+          multipleTableRef.value!.toggleRowSelection(row, flag)
+          //子节点的数据
+          let children = row.children
+          if (children != null) {
+            checkChildren(children, flag)
+          }
+        })
+      }
+      //获取所有的菜单的id
+      const getAllMenuId = (data) => {
+        data.forEach((row) => {
+          allCheckId.value.push(row.id)
+          let children = row.children
+          if (children != null) {
+            getAllMenuId(children)
+          }
+        })
+      }
+      // 选中状态
+      const rowClassNameFun = () => {
+        if (checkStatus == CheckStatus.halfChecked) {
+          return 'indeterminate'
+        }
+        return ''
+      }
+      //添加菜单
       const addMenu = () => {
         ;(data.isUpdate = false), (data.showDrawer = true) // 显示抽屉
         data.obj = { menuType: 0, route: true, permsType: '1', status: '1' }
       }
+      //菜单保存添加确认事件
       const onConfirm = (obj: any) => {
         console.log('onConfirm obj is:', obj)
         data.showDrawer = false
-        saveOrUpdateMenu(obj, data.isUpdate).then((res) => {
-          const { message } = res as HttpResponse
+        saveOrUpdateMenu(obj, data.isUpdate).then((res: HttpResponse) => {
           ElMessage({
-            message: `${message}` || '保存成功',
+            message: `${res.message}`,
             type: 'error'
           })
         })
@@ -177,17 +275,19 @@
         data.showDrawer = true
         data.obj = row
       }
-      // 取消全选
-      const toggleSelection = () => {
+      //清除选中的数据
+      const cleanSelection = () => {
+        multipleTableRef.value!.clearSelection()
         multipleSelection.value = []
       }
-
       onMounted(() => {
         console.log('onMounted')
         // console.log("onMounted",http)
         getMenuList()
-          .then((res: any) => {
+          .then((res: HttpResponse) => {
             tableData.value = res.data || []
+            allCheckId.value = []
+            getAllMenuId(tableData.value)
             data.menuALL = res.data || []
           })
           .catch((err) => {
@@ -202,30 +302,62 @@
         multipleSelection,
         tableData,
         data,
+        multipleTableRef,
+        checkStatus,
         addMenu,
         onConfirm,
+        handleSelectAll,
         handleSelectionChange,
+        checkOutUserAll,
+        rowClassNameFun,
         handleCommand,
         handleMoreCommand,
         handleEdit,
-        toggleSelection
+        cleanSelection
       }
     }
   })
 </script>
-<style lang="scss">
-  .info {
-    padding: 5px;
-    margin: 10px auto;
-    color: #333;
-    background: #f1f1f1;
-  }
+<style lang="scss" scoped>
+  $color-primary: #409eff;
+  .menuBox {
+    :deep .indeterminate {
+      .el-checkbox__input {
+        .el-checkbox__inner {
+          background-color: $color-primary !important;
+          border-color: $color-primary !important;
+          color: #fff !important;
+          &::after {
+            border-color: #c0c4cc !important;
+            background-color: #c0c4cc;
+            content: '';
+            position: absolute;
+            display: block;
+            background-color: #fff;
+            height: 2px;
+            transform: scale(0.5);
+            left: 0;
+            right: 0;
+            top: 5px;
+            width: auto !important;
+          }
+        }
+      }
+    }
 
-  span.iconify {
-    display: block;
-    width: 1em;
-    height: 1em;
-    background-color: #5551;
-    border-radius: 100%;
+    .info {
+      padding: 5px;
+      margin: 10px auto;
+      color: #333;
+      background: #f1f1f1;
+    }
+
+    span.icon-ify {
+      display: block;
+      width: 1em;
+      height: 1em;
+      background-color: #5551;
+      border-radius: 100%;
+    }
   }
 </style>
