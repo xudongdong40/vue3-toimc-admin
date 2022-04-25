@@ -1,6 +1,6 @@
 <template>
   <div class="transition-all duration-300" :style="{ width: menuWidth }">
-    <div class="flex items-center justify-center py-3 px-3 h-60px">
+    <div class="flex items-center justify-center py-3 px-3 h-60px bg-[#282c34]">
       <img class="max-h-full" src="@/assets/images/logo.png" />
     </div>
     <div class="flex flex-row h-[calc(100%-60px)]">
