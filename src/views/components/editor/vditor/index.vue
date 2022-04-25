@@ -18,7 +18,11 @@
               <el-button type="success" @click="() => handleSetValue()">设置Value</el-button>
               <el-button type="success" @click="() => handleUpdateValue()">更新Value</el-button>
               <!-- <el-button type="success" @click="() => handleSetPreviewMode()">设置预览模式</el-button> -->
+              <el-button type="success" @click="() => handleShowTips()">显示提示信息</el-button>
+              <el-button type="success" @click="() => handleSetTheme('dark')">设置黑暗主题</el-button>
+              <el-button type="success" @click="() => handleSetTheme('classic')">设置传统主题</el-button>
               <el-button type="danger" @click="() => handleDeleteValue()">删除选中内容</el-button>
+              <el-button type="danger" @click="() => handleDestroy()">销毁实例</el-button>
             </el-row>
           </template>
         </basic-form>
@@ -184,6 +188,15 @@
       const handleUpdateValue = () => {
         vditorIns.value.updateValue('更新的数据')
       }
+      const handleShowTips = () => {
+        vditorIns.value.tip('我的提示信息', 1000)
+      }
+      const handleSetTheme = (theme) => {
+        vditorIns.value.setTheme(theme)
+      }
+      const handleDestroy = () => {
+        vditorIns.value.destroy()
+      }
       // const handleSetPreviewMode = () => {
       //   vditorIns.value.setPreviewMode('both')
       // }
@@ -205,9 +218,18 @@
         handleEnable,
         handleSetValue,
         handleDeleteValue,
-        handleUpdateValue
+        handleUpdateValue,
+        handleShowTips,
+        handleSetTheme,
+        handleDestroy
         // handleSetPreviewMode
       }
     }
   })
 </script>
+
+<style lang="scss" scoped>
+:deep(.el-button+.el-button) {
+  margin-bottom: 12px;
+}
+</style>
