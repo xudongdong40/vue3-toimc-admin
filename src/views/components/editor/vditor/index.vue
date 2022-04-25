@@ -55,7 +55,7 @@
 
       let form = reactive({
         mode: 'ir' as ModeType,
-        value: 'hello',
+        // value: 'hello',
         lang: 'zh_CN' as LangType,
         minHeight: 100,
         width: 'auto',
