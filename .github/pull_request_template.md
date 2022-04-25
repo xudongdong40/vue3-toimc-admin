@@ -1,34 +1,61 @@
-### `General`
+<!--
+First of all, thank you for your contribution! 😄
 
-> ✏️ Mark the necessary items without changing the structure of the PR template.
+New feature please send a pull request to feature branch, and rest to master branch.
+Pull requests will be merged after one of the collaborators approve.
+Please makes sure that these forms are filled before submitting your pull request, thank you!
+-->
 
-- [ ] Pull request template structure not broken
+[[中文版模板 / Chinese template](https://github.com/toimc-team/vue3-toimc-admin/blob/main/.github/PULL_REQUEST_TEMPLATE/pr_cn.md)]
 
-### `Type`
+### 🤔 This is a ...
 
-> ℹ️ What types of changes does your code introduce?
+- [ ] New feature
+- [ ] Bug fix
+- [ ] Site / documentation update
+- [ ] Demo update
+- [ ] Component style update
+- [ ] TypeScript definition update
+- [ ] Bundle size optimization
+- [ ] Performance optimization
+- [ ] Enhancement feature
+- [ ] Internationalization
+- [ ] Refactoring
+- [ ] Code style optimization
+- [ ] Test Case
+- [ ] Branch merge
+- [ ] Other (about what?)
 
-> 👉 _Put an `x` in the boxes that apply_
+### 🔗 Related issue link
 
-- [ ] Bug fix (non-breaking change which fixes an issue)
-- [ ] New feature (non-breaking change which adds functionality)
-- [ ] Breaking change (fix or feature that would cause existing functionality to not work as expected)
-- [ ] This change requires a documentation update
+<!--
+1. Describe the source of requirement, like related issue link.
+-->
 
-### `Checklist`
+### 💡 Background and solution
 
-> ℹ️ Check all checkboxes - this will indicate that you have done everything in accordance with the rules in [CONTRIBUTING](contributing.md).
+<!--
+1. Describe the problem and the scenario.
+2. GIF or snapshot should be provided if includes UI/interactive modification.
+3. How to fix the problem, and list final API implementation and usage sample if that is a new feature.
+-->
 
-> 👉 _Put an `x` in the boxes that apply._
+### 📝 Changelog
 
-- [ ] My code follows the style guidelines of this project
-- [ ] Is the code format correct
-- [ ] Is the git submission information standard?
-- [ ] My code follows the style guidelines of this project
-- [ ] I have performed a self-review of my own code
-- [ ] I have commented my code, particularly in hard-to-understand areas
-- [ ] I have made corresponding changes to the documentation
-- [ ] My changes generate no new warnings
-- [ ] I have added tests that prove my fix is effective or that my feature works
-- [ ] New and existing unit tests pass locally with my changes
-- [ ] Any dependent changes have been merged and published in downstream modules
+<!--
+Describe changes from the user side, and list all potential break changes or other risks.
+--->
+
+| Language   | Changelog |
+| ---------- | --------- |
+| 🇺🇸 English |           |
+| 🇨🇳 Chinese |           |
+
+### ☑️ Self Check before Merge
+
+⚠️ Please check all items below before review. ⚠️
+
+- [ ] Doc is updated/provided or not needed
+- [ ] Demo is updated/provided or not needed
+- [ ] TypeScript definition is updated/provided or not needed
+- [ ] Changelog is provided or not needed
