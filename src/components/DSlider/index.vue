@@ -4,10 +4,10 @@
     v-bind="$attrs"
     v-model="value"
     :format-tooltip="formatTooltip"
-    @change="handleChange"
-    @input="handleInput"
     :style="style"
     :class="{ 'el-rainbow': rainbow }"
+    @change="handleChange"
+    @input="handleInput"
   ></el-slider>
 </template>
 
