@@ -24,7 +24,9 @@
       },
       "editor": {
         "title": "Editor",
-        "toast-ui": "ToastUI"
+        "toast-ui": "ToastUI",
+        "vditor": "Vditor",
+        "milkdown": "MilkDown"
       },
       "form": {
         "basic": "Basic Form",
