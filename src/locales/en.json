@@ -85,7 +85,7 @@
       "detail": {
         "title": "Details page",
         "basic": "Basic details page",
-        "high": "High details page"
+        "senior": "Senior details page"
       },
       "errors": {
         "default": "Default Exception ",
