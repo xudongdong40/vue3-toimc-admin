@@ -198,7 +198,12 @@
       let checkStatus = CheckStatus.unChecked
       // 全选\取消全选
       const handleSelectAll = () => {
-        checkFlag = !checkFlag
+        if (rowClassNameFun() == 'indeterminate') {
+          //半选
+          checkFlag = true
+        } else {
+          checkFlag = !checkFlag
+        }
         checkChildren(tableData.value, checkFlag)
       }
       //选中监听

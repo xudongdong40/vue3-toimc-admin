@@ -130,6 +130,7 @@
       const opened = () => {
         formData.departName = ''
         formData.parentId = props.parentId
+        formData.orgCategory = props.parentId ? '2' : '1' // 部门类型
         formData.departOrder = 0
         formData.mobile = ''
         formData.address = ''

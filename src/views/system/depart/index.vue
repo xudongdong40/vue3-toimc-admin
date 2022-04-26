@@ -1,7 +1,7 @@
 .<template>
-  <el-row :gutter="10" :class="['p-4']">
+  <el-row class="p-4">
     <!-- 部门树节点 -->
-    <el-col :xl="12" :lg="24" :md="24">
+    <el-col :md="8" :sm="24" :xl="6">
       <DepartLeftTree
         ref="leftTree"
         :loading="loading"
@@ -10,7 +10,7 @@
       />
     </el-col>
     <!-- 部门对应的基本信息及权限 -->
-    <el-col :xl="12" :lg="24" :md="24">
+    <t-card header="部门详情" class="ml-2 flex-1">
       <el-tabs v-show="hasCheckNode" v-model="activeName" class="depart-tabs">
         <el-tab-pane label="基本信息" name="info">
           <DepartInfo ref="departInfoRef" :tree-data="treeData" @on-save="onSave" />
@@ -20,7 +20,7 @@
         </el-tab-pane>
       </el-tabs>
       <div v-show="hasCheckNode == false" class="pt-10">尚未选择部门</div>
-    </el-col>
+    </t-card>
   </el-row>
 </template>
 
