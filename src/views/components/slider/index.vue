@@ -72,8 +72,21 @@
       </div>
 
       <div class="slider-demo">
+        <span>按钮大小</span>
+        <d-slider v-model="values.v9" :button-size="30"></d-slider>
+      </div>
+      <div class="slider-demo">
+        <span>背景色</span>
+        <el-color-picker v-model="color" />
+        <d-slider v-model="values.v10" :color="color"></d-slider>
+      </div>
+      <div class="slider-demo">
+        <span>彩虹色</span>
+        <d-slider v-model="values.v11" rainbow></d-slider>
+      </div>
+      <div class="slider-demo">
         <span>垂直</span>
-        <d-slider v-model="values.v9" vertical height="200px" show-stops :step="10"></d-slider>
+        <d-slider v-model="values.v12" vertical height="200px" show-stops :step="10"></d-slider>
       </div>
     </el-card>
   </div>
@@ -94,7 +107,10 @@
         v6: 60,
         v7: [20, 80],
         v8: 37,
-        v9: 70
+        v9: 70,
+        v10: 70,
+        v11: 70,
+        v12: 70
       })
 
       const size = reactive({
@@ -129,7 +145,9 @@
       const formatTemperature = (value: number) => {
         return `${value}°C`
       }
-      return { values, formatTooltip, size, marks, formatTemperature }
+
+      const color = ref('#ff0000')
+      return { values, formatTooltip, size, marks, formatTemperature, color }
     }
   })
 </script>
