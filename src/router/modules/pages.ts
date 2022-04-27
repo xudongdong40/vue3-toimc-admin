@@ -41,11 +41,19 @@ const pagesRoutes: Array<AppRouteRecordRaw> = [
         },
         children: [
           {
-            name: 'BasicDetailPages',
+            name: 'BasicDetailPage',
             path: 'basic',
             component: () => import('@/views/pages/details/basic.vue'),
             meta: {
               title: t('menu.pages.detail.basic')
+            }
+          },
+          {
+            name: 'SeniorDetailPage',
+            path: 'senior',
+            component: () => import('@/views/pages/details/senior.vue'),
+            meta: {
+              title: t('menu.pages.detail.senior')
             }
           }
         ]
