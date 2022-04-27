@@ -1,24 +1,29 @@
 <template>
-  <el-drawer :model-value="show" direction="rtl" size="800px" @close="onClose">
+  <el-drawer :model-value="show" direction="rtl" size="930px" @close="onClose">
     <template #title>
       <h4 class="divide-y divide-gray-500/50">角色用户 {{ roleId }}</h4>
     </template>
     <template #default>
-      <div class="p-4 overflow-auto" style="max-height: 700px; width: 100%">
+      <div class="overflow-auto" style="max-height: 700px; width: 100%">
         <!-- 条件查询 -->
         <el-form :inline="true" :model="formInline" class="demo-form-inline">
           <el-form-item label="用户账号">
             <el-input v-model="formInline.username" placeholder="请输入用户账号" />
           </el-form-item>
+          <el-form-item label="用户姓名">
+            <el-input v-model="formInline.realname" placeholder="请输入用户账号" />
+          </el-form-item>
+          <el-form-item label="所属部门">
+            <el-input v-model="formInline.departName" placeholder="请输入所属部门" />
+          </el-form-item>
           <el-form-item>
             <el-button type="primary" :icon="Search" @click="onSubmit">查询</el-button>
             <el-button :icon="Refresh" @click="onRestForm">重置</el-button>
+            <el-button type="primary" @click="onAddOrEditUser(null)">新增用户</el-button>
+            <el-button v-if="multipleSelection.length > 0" @click="onDelUser">取消关联</el-button>
           </el-form-item>
         </el-form>
-        <div class="flex mb-2">
-          <el-button type="primary" @click="onAddOrEditUser(null)">新增用户</el-button>
-          <el-button v-if="multipleSelection.length > 0" @click="onDelUser">取消关联</el-button>
-        </div>
+
         <!-- 用户列表表格数据 -->
         <el-table
           ref="multipleTableRef"
@@ -105,7 +110,9 @@
     emits: ['close'],
     setup(props, ctx) {
       const formInline = reactive({
-        username: ''
+        username: '',
+        realname: '',
+        departName: ''
       })
       const userInfo = ref<UserItem>({})
       const loading = ref(false)
@@ -116,7 +123,9 @@
         pageNo: 1,
         pageSize: 10,
         roleId: props.roleId,
-        user: formInline.username
+        realname: '',
+        departName: '',
+        username: ''
       })
       //取消关联用户
       const onDelUser = () => {
@@ -170,12 +179,14 @@
       const onSubmit = () => {
         formData.pageNo = 1
         formData.pageSize = 10
-        formData.user = formInline.username
         getTableDatas()
       }
       //查询用户列表
       const getTableDatas = () => {
         formData.roleId = props.roleId
+        formData.username = formInline.username
+        formData.departName = '*' + formInline.departName + '*'
+        formData.realname = '*' + formInline.realname + '*'
         loading.value = true
         queryRoleUserList(formData).then((res: HttpResponse) => {
           console.log('res', res)
