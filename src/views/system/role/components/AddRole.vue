@@ -11,7 +11,6 @@
         <template #action="{ form, model }">
           <span class="dialog-footer flex justify-end">
             <el-button @click="close">取消</el-button>
-            <!-- @click="submitForm(form)" -->
             <el-button type="primary" :loading="loading" @click="submitForm(form, model)"
               >确认</el-button
             >

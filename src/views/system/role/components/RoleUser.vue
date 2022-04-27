@@ -16,7 +16,7 @@
           </el-form-item>
         </el-form>
         <div class="flex mb-2">
-          <el-button type="primary" @click="showAddEditRoleUser = true">新增用户</el-button>
+          <el-button type="primary" @click="onAddOrEditUser(null)">新增用户</el-button>
           <el-button v-if="multipleSelection.length > 0" @click="onDelUser">取消关联</el-button>
         </div>
         <!-- 用户列表表格数据 -->
@@ -32,10 +32,13 @@
           <el-table-column type="selection" width="55" />
           <el-table-column property="username" label="用户账号" align="center" />
           <el-table-column property="realname" label="用户姓名" align="center" />
+          <el-table-column property="departIds_dictText" label="部门" align="center" />
           <el-table-column property="status_dictText" label="状态" width="80" align="center" />
           <el-table-column label="操作" width="120" align="center">
             <template #default="scope">
-              <el-button type="text" size="small">编辑</el-button>
+              <el-button type="text" size="small" @click="onAddOrEditUser(scope.row)"
+                >编辑</el-button
+              >
               <el-popconfirm
                 title="是否确认取消关联?"
                 confirm-button-text="确认"
@@ -64,12 +67,15 @@
     </template>
   </el-drawer>
   <!-- 添加编辑用户 -->
-  <add-edit-role-user
+  <!-- 编辑 新增用户 -->
+  <add-or-edit-user
+    ref="addOrEditUserRef"
     :show="showAddEditRoleUser"
-    :user="null"
+    :user="userInfo"
     :role-id="roleId"
     @close="showAddEditRoleUser = false"
-  ></add-edit-role-user>
+  >
+  </add-or-edit-user>
 </template>
 
 <script lang="ts">
@@ -78,12 +84,12 @@
   import { HttpResponse } from '@/api/sys/model/http'
   import { UserItem } from '@/api/sys/model/userModel'
   import { ElMessage, ElMessageBox } from 'element-plus'
-  import AddEditRoleUser from './AddEditRoleUser.vue'
+  import AddOrEditUser from '../../user/components/AddOrEditUser.vue'
 
   import { Search, Refresh } from '@element-plus/icons-vue'
   export default defineComponent({
     components: {
-      AddEditRoleUser
+      AddOrEditUser
     },
     props: {
       show: {
@@ -101,6 +107,7 @@
       const formInline = reactive({
         username: ''
       })
+      const userInfo = ref<UserItem>({})
       const loading = ref(false)
       const showAddEditRoleUser = ref(false)
       const multipleSelection = ref<UserItem[]>([])
@@ -190,6 +197,17 @@
         multipleSelection.value = val
       }
 
+      const onAddOrEditUser = (row) => {
+        console.log('editUser')
+        if (row) {
+          //编辑用户
+          userInfo.value = row
+        } else {
+          userInfo.value = {}
+        }
+        showAddEditRoleUser.value = true
+      }
+
       // 弹窗关闭
       const onClose = () => {
         ctx.emit('close')
@@ -207,12 +225,14 @@
       return {
         Search,
         Refresh,
+        userInfo,
         loading,
         formInline,
         tableData,
         formData,
         multipleSelection,
         showAddEditRoleUser,
+        onAddOrEditUser,
         handleSelectionChange,
         handleCurrentChange,
         confirmDelEvent,
@@ -224,8 +244,8 @@
     }
   })
 </script>
-<style scoped>
-  ::v-deep .el-drawer__header {
+<style scoped lang="scss">
+  v-deep .el-drawer__header {
     margin-bottom: 0;
   }
 </style>

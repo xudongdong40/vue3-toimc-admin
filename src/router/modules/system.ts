@@ -20,7 +20,7 @@ const systemRoutes: Array<AppRouteRecordRaw> = [
         meta: {
           title: t('menu.system.user')
         },
-        component: () => import('@/views/system/user.vue')
+        component: () => import('@/views/system/user/index.vue')
       },
       {
         name: 'RolesPage',

@@ -5,8 +5,10 @@ enum Api {
   save = '/api/sys/role/add',
   edit = '/api/sys/role/edit',
   delete = '/api/sys/role/delete',
+  deleteBatch = '/api/sys/role/deleteBatch',
   saveRolePermission = '/api/sys/permission/saveRolePermission',
-  queryRolePermission = '/api/sys/permission/queryRolePermission'
+  queryRolePermission = '/api/sys/permission/queryRolePermission',
+  all = '/api/sys/role/queryAll'
 }
 //请求头
 const headers = {
@@ -33,13 +35,22 @@ export const queryRolePermission = (roleId?: string) => {
     })
   })
 }
-
+/**
+ *  获取所有角色列表
+ */
+export const queryAllRoleList = () => {
+  return new Promise((resolve) => {
+    axios.get(Api.all, { headers }).then((res) => {
+      resolve(res.data)
+    })
+  })
+}
 /**
  *  获取角色列表
  */
-export const queryRoleList = () => {
+export const queryRoleList = (params) => {
   return new Promise((resolve) => {
-    axios.get(Api.list, { headers }).then((res) => {
+    axios.get(Api.list, { params, headers }).then((res) => {
       resolve(res.data)
     })
   })
@@ -50,6 +61,17 @@ export const queryRoleList = () => {
 export const deleteRole = (data) => {
   return new Promise((resolve) => {
     axios.delete(Api.delete, { data, headers }).then((res) => {
+      resolve(res.data)
+    })
+  })
+}
+
+/**
+ * 批量删除角色
+ */
+export const deleteBatchRole = (data) => {
+  return new Promise((resolve) => {
+    axios.delete(Api.deleteBatch, { data, headers }).then((res) => {
       resolve(res.data)
     })
   })

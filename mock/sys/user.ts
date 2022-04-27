@@ -52,24 +52,26 @@ const fakeCodeList: any = {
   '2': ['2000', '4000', '6000']
 }
 
+//随机生成正则匹配的手机号
+const fakePhone = /^1[3456789]\d{9}$/
 const userList = (() => {
   const result: any[] = []
   for (let index = 0; index < 10; index++) {
     result.push({
       id: /^1[000][1-9]\d{4}/, //主键id
-      username: 'qinfeng', //账号
+      username: '@first', //账号
       realname: '@cword(2,6)', //真实姓名
-      departIds: '57197590443c44f083d42ae24ef26a2c,2ea16c76c6e14d7d80e734af209916d3', //所属部门id
-      avatar: '', //头像
-      birthday: null, //生日
-      sex: 2,
+      departIds: '21001,1', //所属部门id
+      departIds_dictText: '华南分部,市场部', //所属部门id_dictText
+      avatar: '@Image("80*80")', //头像
+      birthday: '@datetime', //生日
+      sex: '2',
       sex_dictText: '女',
       email: '11111@163.com', //邮箱
-      phone: '13426111111', //手机号
-      telephone: '', //座机
+      phone: fakePhone, //手机号
       workNo: '200', //工号
 
-      status: 1,
+      status: '1',
       status_dictText: '正常',
 
       createBy: 'admin', //创建人
@@ -92,9 +94,41 @@ export default [
     }
   },
   {
+    url: `${baseUrl}/sys/user/queryUserRole`,
+    type: 'get',
+    response: () => {
+      const roleIds = ['10000', '10001', '10002']
+      return resultSuccess(roleIds)
+    }
+  },
+  {
     url: `${baseUrl}/sys/user/deleteUserRoleBatch`,
     timeout: 1000,
     method: 'delete',
+    response: () => {
+      return resultError('没有权限，请联系管理员授权')
+    }
+  },
+  {
+    url: `${baseUrl}/sys/user/list`,
+    timeout: 1000,
+    method: 'get',
+    response: () => {
+      return resultPageSuccess(1, 10, userList)
+    }
+  },
+  {
+    url: `${baseUrl}/sys/user/deleteBatch`,
+    timeout: 1000,
+    method: 'delete',
+    response: () => {
+      return resultError('没有权限，请联系管理员授权')
+    }
+  },
+  {
+    url: `${baseUrl}/sys/user/edit`,
+    timeout: 1000,
+    method: 'put',
     response: () => {
       return resultError('没有权限，请联系管理员授权')
     }

@@ -1,5 +1,5 @@
 export interface RoleItem {
-  id?: string //主键id
+  id: string //主键id
   roleCode?: string //角色编码
   roleName?: string //角色名称
   createTime?: string //创建时间

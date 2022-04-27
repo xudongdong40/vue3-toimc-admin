@@ -52,7 +52,8 @@ const roleList = (() => {
 
   for (let index = 0; index < 3; index++) {
     result.push({
-      id: /^1[000][1-9]\d{4}/,
+      // id: /^1[000][1-9]\d{4}/,
+      id: '1000' + index,
       roleCode: ['third_role', 'hr', 'admin', 'test'][index],
       roleName: ['第三方登录角色', '人力资源角色', '管理员', '临时角色'][index],
       createTime: '@datetime',
@@ -80,6 +81,14 @@ export default [
     method: 'get',
     response: () => {
       return resultPageSuccess(1, 10, roleList)
+    }
+  },
+  {
+    url: `${baseUrl}/sys/role/queryAll`,
+    timeout: 4000,
+    method: 'get',
+    response: () => {
+      return resultPageSuccess(1, 10000, roleList)
     }
   },
 
@@ -128,6 +137,14 @@ export default [
   },
   {
     url: `${baseUrl}/sys/role/delete`,
+    timeout: 1000,
+    method: 'delete',
+    response: () => {
+      return resultError('没有权限，请联系管理员授权')
+    }
+  },
+  {
+    url: `${baseUrl}/sys/role/deleteBatch`,
     timeout: 1000,
     method: 'delete',
     response: () => {
