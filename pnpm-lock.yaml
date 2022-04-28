@@ -21,7 +21,7 @@ specifiers:
   '@milkdown/plugin-math': 6.0.0-next.1
   '@milkdown/plugin-menu': 6.0.0-next.1
   '@milkdown/plugin-prism': 6.0.0-next.1
-  '@milkdown/plugin-slash': 6.0.0-next.1
+  '@milkdown/plugin-slash': 6.0.0
   '@milkdown/plugin-tooltip': 6.0.0-next.1
   '@milkdown/plugin-upload': 6.0.0-next.1
   '@milkdown/preset-commonmark': 6.0.0-next.1
@@ -97,6 +97,7 @@ specifiers:
   vite-plugin-windicss: ^1.8.4
   vue: ^3.2.33
   vue-echarts: ^6.0.2
+  vue-eslint-parser: ^8.3.0
   vue-i18n: 9.2.0-beta.35
   vue-router: ^4.0.14
   vue-tsc: ^0.34.10
@@ -116,7 +117,7 @@ dependencies:
   '@milkdown/plugin-math': 6.0.0-next.1_aca0fa86fe28faf65d542314fb48fb50
   '@milkdown/plugin-menu': 6.0.0-next.1_aca0fa86fe28faf65d542314fb48fb50
   '@milkdown/plugin-prism': 6.0.0-next.1_aca0fa86fe28faf65d542314fb48fb50
-  '@milkdown/plugin-slash': 6.0.0-next.1_aca0fa86fe28faf65d542314fb48fb50
+  '@milkdown/plugin-slash': 6.0.0_aca0fa86fe28faf65d542314fb48fb50
   '@milkdown/plugin-tooltip': 6.0.0-next.1_aca0fa86fe28faf65d542314fb48fb50
   '@milkdown/plugin-upload': 6.0.0-next.1_aca0fa86fe28faf65d542314fb48fb50
   '@milkdown/preset-commonmark': 6.0.0-next.1_aca0fa86fe28faf65d542314fb48fb50
@@ -203,6 +204,7 @@ devDependencies:
   vite-plugin-mock: 2.9.6_822ccf435f995ca1e98d9919e603f6e6
   vite-plugin-svg-icons: 2.0.1_vite@2.9.5
   vite-plugin-windicss: 1.8.4_vite@2.9.5
+  vue-eslint-parser: 8.3.0_eslint@8.14.0
   vue-tsc: 0.34.10_typescript@4.6.3
   windicss: 3.5.1
 
@@ -1023,6 +1025,12 @@ packages:
       - '@babel/core'
       - '@milkdown/exception'
 
+  /@milkdown/exception/6.0.0:
+    resolution: {integrity: sha512-dM/E6LrGmyNn9X6aygQ2fRoowhSxvAddVIdpMhxUM5bcMefVAvCRyKJutXmcN1KUUcP9kKw5W64b3Dp/83g77g==}
+    dependencies:
+      tslib: 2.4.0
+    dev: false
+
   /@milkdown/exception/6.0.0-next.1:
     resolution: {integrity: sha512-1nGKHVDWMh4PH7qya0n1KZsEb6m5sRSKXB0P+9/K23VcA3EEex6xn21nwPYuiH3Tv2ZZIhLaz8lKCXhDOFFdOg==}
     dependencies:
@@ -1167,15 +1175,15 @@ packages:
       tslib: 2.4.0
     dev: false
 
-  /@milkdown/plugin-slash/6.0.0-next.1_aca0fa86fe28faf65d542314fb48fb50:
-    resolution: {integrity: sha512-C4sNtIaC29nnC+7uuT8RZ87ICggL5fcHNI471/hNFzYhoBSBUyufzhi/N3pWNRdMZUy9pLQjWB/zCmMLrNg70w==}
+  /@milkdown/plugin-slash/6.0.0_aca0fa86fe28faf65d542314fb48fb50:
+    resolution: {integrity: sha512-mzuYprZsFa3W+F6UKM8e2byVaPwAQt8bc+6Br+2+uORyM2j8m6nMaqnfJLKKAc/6YKFtzp2i2DyEH+Wv097ZkA==}
     peerDependencies:
       '@milkdown/core': ^6.0.0-next.0
       '@milkdown/prose': ^6.0.0-next.0
     dependencies:
       '@milkdown/core': 6.0.0-next.1_71f882dafd0e311d7feeb10821ed5618
       '@milkdown/prose': 6.0.0-next.1
-      '@milkdown/utils': 6.0.0-next.1_aca0fa86fe28faf65d542314fb48fb50
+      '@milkdown/utils': 6.0.0_aca0fa86fe28faf65d542314fb48fb50
       smooth-scroll-into-view-if-needed: 1.1.33
       tslib: 2.4.0
     dev: false
@@ -1308,6 +1316,18 @@ packages:
     dependencies:
       '@milkdown/core': 6.0.0-next.1_71f882dafd0e311d7feeb10821ed5618
       '@milkdown/exception': 6.0.0-next.1
+      '@milkdown/prose': 6.0.0-next.1
+      tslib: 2.4.0
+    dev: false
+
+  /@milkdown/utils/6.0.0_aca0fa86fe28faf65d542314fb48fb50:
+    resolution: {integrity: sha512-KVQNSBT6KKkgqAJxTI/BSKG62nL/mjnwcpeJDdq1WOhmdX54K0zxWbmV94xpiDSydlxs8FIDxDyW1o0A86iI3Q==}
+    peerDependencies:
+      '@milkdown/core': ^6.0.0-next.0
+      '@milkdown/prose': ^6.0.0-next.0
+    dependencies:
+      '@milkdown/core': 6.0.0-next.1_71f882dafd0e311d7feeb10821ed5618
+      '@milkdown/exception': 6.0.0
       '@milkdown/prose': 6.0.0-next.1
       tslib: 2.4.0
     dev: false

@@ -4,7 +4,7 @@
   import { Editor, rootCtx, defaultValueCtx, createCmdKey } from '@milkdown/core'
   import { nord } from '@milkdown/theme-nord'
   import { VueEditor, useEditor } from '@milkdown/vue'
-  import { commonmark } from '@milkdown/preset-commonmark'
+  // import { commonmark } from '@milkdown/preset-commonmark'
   import { clipboard } from '@milkdown/plugin-clipboard'
   import { cursor } from '@milkdown/plugin-cursor'
   import { diagram } from '@milkdown/plugin-diagram'
@@ -19,6 +19,7 @@
   import { tooltip } from '@milkdown/plugin-tooltip'
   import { upload } from '@milkdown/plugin-upload'
   import { useMilkDownConfig } from './config'
+  import { gfm } from '@milkdown/preset-gfm'
 
   import 'katex/dist/katex.min.css'
 
@@ -83,7 +84,8 @@
               })
           })
           .use(nord)
-          .use(commonmark)
+          .use(gfm)
+          // .use(commonmark)
           .use(clipboard)
           .use(cursor)
           .use(history)
@@ -116,15 +118,15 @@
 <style lang="scss">
   /* fallback */
   @font-face {
-    font-family: "Material Icons Outlined";
+    font-family: 'Material Icons Outlined';
     font-style: normal;
     font-weight: 400;
-    src: url("./material-icons-outlined.woff2") format("woff2");
+    src: url('./material-icons-outlined.woff2') format('woff2');
   }
 
   .material-icons-outlined {
     display: inline-block;
-    font-family: "Material Icons Outlined";
+    font-family: 'Material Icons Outlined';
     font-size: 24px;
     -webkit-font-smoothing: antialiased;
     font-style: normal;
@@ -135,6 +137,42 @@
     word-wrap: normal;
     white-space: nowrap;
     direction: ltr;
-    font-feature-settings: "liga";
+    font-feature-settings: 'liga';
+  }
+
+  @media only screen and (min-width: 72rem) {
+    .milkdown .editor {
+      max-width: 57.375rem;
+      padding: 3.125rem !important;
+    }
+  }
+
+  .loading {
+    padding: 3.125rem 1.25rem;
+  }
+
+  @media only screen and (min-width: 72rem) {
+    .loading {
+      padding: 3.125rem;
+    }
+  }
+
+  .milkdown-menu-wrapper {
+    max-width: 72rem !important;
+  }
+
+  .milkdown-menu-wrapper .milkdown {
+    overflow: auto;
+    height: calc(100vh - 19rem);
+  }
+
+  ul {
+    display: block;
+    list-style-type: disc;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 40px;
   }
 </style>

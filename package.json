@@ -36,7 +36,7 @@
     "@milkdown/plugin-math": "6.0.0-next.1",
     "@milkdown/plugin-menu": "6.0.0-next.1",
     "@milkdown/plugin-prism": "6.0.0-next.1",
-    "@milkdown/plugin-slash": "6.0.0-next.1",
+    "@milkdown/plugin-slash": "6.0.0",
     "@milkdown/plugin-tooltip": "6.0.0-next.1",
     "@milkdown/plugin-upload": "6.0.0-next.1",
     "@milkdown/preset-commonmark": "6.0.0-next.1",
@@ -123,6 +123,7 @@
     "vite-plugin-mock": "^2.9.6",
     "vite-plugin-svg-icons": "^2.0.1",
     "vite-plugin-windicss": "^1.8.4",
+    "vue-eslint-parser": "^8.3.0",
     "vue-tsc": "^0.34.10",
     "windicss": "^3.5.1"
   },
