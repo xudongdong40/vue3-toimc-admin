@@ -6,7 +6,9 @@ enum Api {
   list = '/api/sys/user/list',
   deleteBatch = '/api/sys/user/deleteBatch',
   queryUserRole = '/api/sys/user/queryUserRole',
-  edit = '/api/sys/user/edit'
+  edit = '/api/sys/user/edit',
+  resetPassword = '/api/sys/user/resetPassword',
+  frozenBatch = '/api/sys/user/frozenBatch'
 }
 //请求头
 const headers = {
@@ -62,6 +64,26 @@ export const deleteBatchUser = (data) => {
 export const editUser = (data) => {
   return new Promise((resolve) => {
     axios.put(Api.edit, data, { headers }).then((res) => {
+      resolve(res.data)
+    })
+  })
+}
+/**
+ *  重置用户密码
+ */
+export const resetPassword = (data) => {
+  return new Promise((resolve) => {
+    axios.put(Api.resetPassword, data, { headers }).then((res) => {
+      resolve(res.data)
+    })
+  })
+}
+/**
+ *  冻结用户
+ */
+export const frozenBatch = (data) => {
+  return new Promise((resolve) => {
+    axios.put(Api.frozenBatch, data, { headers }).then((res) => {
       resolve(res.data)
     })
   })

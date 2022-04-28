@@ -1,7 +1,7 @@
 <template>
   <el-drawer :model-value="show" direction="rtl" size="930px" @close="onClose">
     <template #title>
-      <h4 class="divide-y divide-gray-500/50">角色用户 {{ roleId }}</h4>
+      <h4 class="divide-y divide-gray-500/50">角色用户【{{ roleId }}】</h4>
     </template>
     <template #default>
       <div class="overflow-auto" style="max-height: 700px; width: 100%">

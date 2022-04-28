@@ -51,6 +51,21 @@
         <el-table-column label="操作" width="180" align="center">
           <template #default="scope">
             <el-button type="text" size="small" @click="editUserInfo(scope.row)">编辑</el-button>
+            <el-button type="text" size="small" @click="resetPwd(scope.row)">密码</el-button>
+
+            <!-- sys/user/frozenBatch -->
+
+            <el-popconfirm
+              title="是否确认冻结?"
+              confirm-button-text="确认"
+              cancel-button-text="取消"
+              @confirm="confirmFrozenEvent(scope.row)"
+            >
+              <template #reference>
+                <el-button type="text" size="small">冻结</el-button>
+              </template>
+            </el-popconfirm>
+
             <el-popconfirm
               title="是否确认删除?"
               confirm-button-text="确认"
@@ -74,6 +89,14 @@
       @close="isShowEditDrawer = false"
     >
     </add-or-edit-user>
+    <!-- 重置密码 -->
+    <reset-pwd
+      ref="resetPwdRef"
+      :show="isShowResetPwdDrawer"
+      :username="username"
+      @close="isShowResetPwdDrawer = false"
+    >
+    </reset-pwd>
   </div>
 </template>
 
@@ -82,13 +105,15 @@
   import { ElMessage, ElMessageBox } from 'element-plus'
   import { UserItem } from '@/api/sys/model/userModel'
   import { HttpResponse } from '@/api/sys/model/http'
-  import { queryUserList, deleteBatch } from '@/api/sys/user'
+  import { queryUserList, deleteBatch, frozenBatch } from '@/api/sys/user'
   import { Search, Refresh, Delete } from '@element-plus/icons-vue'
   import AddOrEditUser from './components/AddOrEditUser.vue'
+  import ResetPwd from './components/ResetPwd.vue'
 
   export default defineComponent({
     components: {
-      AddOrEditUser
+      AddOrEditUser,
+      ResetPwd
     },
     setup() {
       const loading = ref(false)
@@ -96,6 +121,8 @@
       const multipleSelection = ref<UserItem[]>([])
       const userInfo = ref<UserItem>({})
       const isShowEditDrawer = ref(false)
+      const isShowResetPwdDrawer = ref(false)
+      const username = ref('')
       const formInline = reactive({
         username: '',
         realname: '',
@@ -139,9 +166,25 @@
       }
       // 默认请求一次
       onSubmit()
-
       const handleSelectionChange = (val: UserItem[]) => {
         multipleSelection.value = val
+      }
+      //冻结用户
+      const confirmFrozenEvent = (row: UserItem) => {
+        let data = {
+          ids: row.id,
+          status: 2
+        }
+        frozenBatch(data).then((res: HttpResponse) => {
+          console.log('res', res)
+          if (res.code === 0) {
+            ElMessage.success(res.message)
+            //重新查询用户列表
+            onSubmit()
+          } else {
+            ElMessage.error(res.message)
+          }
+        })
       }
       // 表格操作区删除用户
       const confirmDelEvent = (row) => {
@@ -173,7 +216,7 @@
           if (res.code === 0) {
             ElMessage({
               type: 'success',
-              message: '取消成功'
+              message: '删除成功'
             })
             //重新查询用户列表
             onSubmit()
@@ -184,6 +227,12 @@
             })
           }
         })
+      }
+      // 编辑用户密码
+      const resetPwd = (row) => {
+        console.log('row', row)
+        username.value = row.username
+        isShowResetPwdDrawer.value = true
       }
       // 编辑用户
       const editUserInfo = (row) => {
@@ -196,7 +245,9 @@
         Refresh,
         Delete,
         isShowEditDrawer,
+        isShowResetPwdDrawer,
         multipleSelection,
+        username,
         formInline,
         loading,
         tableData,
@@ -206,7 +257,9 @@
         onDelUser,
         handleSelectionChange,
         confirmDelEvent,
-        editUserInfo
+        confirmFrozenEvent,
+        editUserInfo,
+        resetPwd
       }
     }
   })

@@ -12,7 +12,7 @@ export interface UserItem {
   phone?: string //手机号
   workNo?: string //工号
 
-  status?: string //1 正常 0 冻结
+  status?: string //1 正常 2 冻结
   status_dictText?: string
 
   createBy?: string //创建人

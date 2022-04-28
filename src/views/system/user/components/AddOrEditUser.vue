@@ -21,6 +21,19 @@
               placeholder="请输入用户账号"
             />
           </el-form-item>
+          <!-- 新增用户设置密码 -->
+          <template v-if="!user.id">
+            <el-form-item label="登录密码" prop="password">
+              <el-input v-model="formData.password" type="password" placeholder="请输入登录密码" />
+            </el-form-item>
+            <el-form-item label="确认密码" prop="confirmPassword">
+              <el-input
+                v-model="formData.confirmPassword"
+                type="password"
+                placeholder="请输入确认密码"
+              />
+            </el-form-item>
+          </template>
           <el-form-item label="用户姓名" prop="realname">
             <el-input v-model="formData.realname" placeholder="请输入用户姓名" />
           </el-form-item>
@@ -146,11 +159,15 @@
       const ruleFormRef = ref<FormInstance>()
       const showPickDepart = ref(false)
       interface UserInfo extends UserItem {
+        password?: string
+        confirmPassword?: string
         roleIdsArr: string[]
         departIdsArr: string[]
       }
       const formData = ref<UserInfo>({
         username: '',
+        password: '',
+        confirmPassword: '',
         realname: '',
         avatar: '',
         phone: '',
@@ -175,11 +192,25 @@
         })
       }
       getRoleList()
-
+      const validatePass = (_rule: any, value: any, callback: any) => {
+        if (value === '') {
+          callback(new Error('请再次输入密码'))
+        } else if (value !== formData.value.password) {
+          callback(new Error('两次输入的密码不匹配!'))
+        } else {
+          callback()
+        }
+      }
       const rules = reactive<FormRules>({
         username: [
           { required: true, message: '请输入用户账号', trigger: 'blur' },
           { min: 3, max: 10, message: '长度在3-10之间', trigger: 'blur' }
+        ],
+
+        password: [{ required: true, message: '请输入登录密码', trigger: 'blur' }],
+        confirmPassword: [
+          { required: true, message: '请再次输入密码', trigger: 'blur' },
+          { validator: validatePass, trigger: 'blur' }
         ],
         realname: [{ required: true, message: '请输入用户姓名', trigger: 'blur' }],
         phone: [{ required: true, message: '请输入手机号', trigger: 'blur' }],

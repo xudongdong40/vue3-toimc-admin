@@ -133,6 +133,22 @@ export default [
       return resultError('没有权限，请联系管理员授权')
     }
   },
+  {
+    url: `${baseUrl}/sys/user/resetPassword`,
+    timeout: 1000,
+    method: 'put',
+    response: () => {
+      return resultError('没有权限，请联系管理员授权')
+    }
+  },
+  {
+    url: `${baseUrl}/sys/user/frozenBatch`,
+    timeout: 1000,
+    method: 'put',
+    response: () => {
+      return resultError('没有权限，请联系管理员授权')
+    }
+  },
 
   // ----------------------------------------------------------
   {
