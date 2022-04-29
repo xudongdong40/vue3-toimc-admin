@@ -185,6 +185,7 @@
           console.log('res', res)
           tableData.value = res.data.records as UserItem[]
           loading.value = false
+          tableTotal.value = res.data.total
         })
       }
       // 默认请求一次

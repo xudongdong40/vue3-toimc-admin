@@ -64,7 +64,7 @@
             background
             :page-size="formData.pageSize"
             layout="prev, pager, next"
-            :total="1000"
+            :total="tableTotal"
             @current-change="handleCurrentChange"
           />
         </div>
@@ -119,6 +119,7 @@
       const showAddEditRoleUser = ref(false)
       const multipleSelection = ref<UserItem[]>([])
       const tableData = ref<UserItem[]>([])
+      const tableTotal = ref(0)
       const formData = reactive({
         pageNo: 1,
         pageSize: 10,
@@ -179,10 +180,10 @@
       const onSubmit = () => {
         formData.pageNo = 1
         formData.pageSize = 10
-        getTableDatas()
+        getTableList()
       }
       //查询用户列表
-      const getTableDatas = () => {
+      const getTableList = () => {
         formData.roleId = props.roleId
         formData.username = formInline.username
         formData.departName = '*' + formInline.departName + '*'
@@ -192,12 +193,13 @@
           console.log('res', res)
           tableData.value = res.data.records as UserItem[]
           loading.value = false
+          tableTotal.value = res.data.total
         })
       }
       // 分页变化
       const handleCurrentChange = (val: number) => {
         formData.pageNo = val
-        getTableDatas()
+        getTableList()
       }
       //重置
       const onRestForm = () => {
@@ -240,6 +242,7 @@
         loading,
         formInline,
         tableData,
+        tableTotal,
         formData,
         multipleSelection,
         showAddEditRoleUser,
