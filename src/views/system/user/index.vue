@@ -1,36 +1,36 @@
 <template>
   <div class="p-4">
-    <!-- 条件查询 -->
-    <div class="bg-white p-4">
-      <el-form :inline="true" :model="formInline" class="demo-form-inline">
-        <el-form-item label="用户账号">
-          <el-input v-model="formInline.username" placeholder="请输入用户账号" />
-        </el-form-item>
-        <el-form-item label="性别">
-          <el-select v-model="formInline.sex" placeholder="请选择性别">
-            <el-option label="请选择" value="0" />
-            <el-option label="男" value="1" />
-            <el-option label="女" value="2" />
-          </el-select>
-        </el-form-item>
-        <el-form-item label="真实姓名">
-          <el-input v-model="formInline.realname" placeholder="请输入真实姓名" />
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" :icon="Search" @click="onSubmit">查询</el-button>
-          <el-button :icon="Refresh" @click="onRestForm">重置</el-button>
-          <el-button
-            v-if="multipleSelection.length > 0"
-            :icon="Delete"
-            type="danger"
-            @click="onDelUser"
-            >批量删除</el-button
-          >
-        </el-form-item>
-      </el-form>
-    </div>
-    <!-- 用户列表表格数据 -->
-    <div class="p-1 bg-white">
+    <el-card>
+      <!-- 条件查询 -->
+      <div class="mb-2">
+        <el-form :inline="true" :model="formInline" class="demo-form-inline">
+          <el-form-item label="用户账号">
+            <el-input v-model="formInline.username" placeholder="请输入用户账号" />
+          </el-form-item>
+          <el-form-item label="性别">
+            <el-select v-model="formInline.sex" placeholder="请选择性别">
+              <el-option label="请选择" value="0" />
+              <el-option label="男" value="1" />
+              <el-option label="女" value="2" />
+            </el-select>
+          </el-form-item>
+          <el-form-item label="真实姓名">
+            <el-input v-model="formInline.realname" placeholder="请输入真实姓名" />
+          </el-form-item>
+          <el-form-item>
+            <el-button type="primary" :icon="Search" @click="onSubmit">查询</el-button>
+            <el-button :icon="Refresh" @click="onRestForm">重置</el-button>
+            <el-button
+              v-if="multipleSelection.length > 0"
+              :icon="Delete"
+              type="danger"
+              @click="onDelUser"
+              >批量删除</el-button
+            >
+          </el-form-item>
+        </el-form>
+      </div>
+      <!-- 用户列表表格数据 -->
       <el-table
         ref="multipleTableRef"
         v-loading="loading"
@@ -40,12 +40,16 @@
         @selection-change="handleSelectionChange"
       >
         <el-table-column type="selection" width="55" />
-        <el-table-column property="username" label="用户账号" align="center" />
-        <el-table-column property="realname" label="用户姓名" align="center" />
-        <el-table-column property="avatar" label="头像" align="center" />
-        <el-table-column property="sex_dictText" label="性别" align="center" />
-        <el-table-column property="birthday" label="生日" align="center" />
-        <el-table-column property="phone" label="手机号" align="center" />
+        <el-table-column property="username" label="用户账号" align="center" width="120" />
+        <el-table-column property="realname" label="用户姓名" align="center" width="120" />
+        <el-table-column property="avatar" label="头像" align="center" width="80">
+          <template #default="scope">
+            <el-avatar shape="square" :size="42" :src="scope.row.avatar" />
+          </template>
+        </el-table-column>
+        <el-table-column property="sex_dictText" label="性别" align="center" width="60" />
+        <el-table-column property="birthday" label="生日" align="center" width="180" />
+        <el-table-column property="phone" label="手机号" align="center" width="120" />
         <el-table-column property="departIds_dictText" label="部门" align="center" />
         <el-table-column property="status_dictText" label="状态" width="80" align="center" />
         <el-table-column label="操作" width="180" align="center">
@@ -79,7 +83,19 @@
           </template>
         </el-table-column>
       </el-table>
-    </div>
+
+      <!-- 分页 -->
+      <div class="mt-4 flex justify-end">
+        <el-pagination
+          v-model:currentPage="formData.pageNo"
+          background
+          :page-size="formData.pageSize"
+          layout="prev, pager, next"
+          :total="tableTotal"
+          @current-change="handleCurrentChange"
+        />
+      </div>
+    </el-card>
 
     <!-- 编辑 新增用户 -->
     <add-or-edit-user
@@ -117,6 +133,7 @@
     },
     setup() {
       const loading = ref(false)
+      const tableTotal = ref(0)
       const tableData = ref<UserItem[]>([])
       const multipleSelection = ref<UserItem[]>([])
       const userInfo = ref<UserItem>({})
@@ -138,6 +155,12 @@
         realname: formInline.realname,
         sex: formInline.sex
       })
+
+      //页数改变
+      const handleCurrentChange = (page: number) => {
+        formData.pageNo = page
+        getTableList()
+      }
       //条件查询用户
       const onSubmit = () => {
         formData.pageNo = 1
@@ -145,7 +168,7 @@
         formData.username = '*' + formInline.username + '*'
         formData.realname = '*' + formInline.realname + '*'
         formData.sex = formInline.sex
-        getTableDatas()
+        getTableList()
       }
 
       //重置
@@ -156,7 +179,7 @@
       }
 
       //查询用户列表
-      const getTableDatas = () => {
+      const getTableList = () => {
         loading.value = true
         queryUserList(formData).then((res: HttpResponse) => {
           console.log('res', res)
@@ -248,13 +271,16 @@
         isShowResetPwdDrawer,
         multipleSelection,
         username,
+        formData,
         formInline,
+        tableTotal,
         loading,
         tableData,
         userInfo,
         onSubmit,
         onRestForm,
         onDelUser,
+        handleCurrentChange,
         handleSelectionChange,
         confirmDelEvent,
         confirmFrozenEvent,

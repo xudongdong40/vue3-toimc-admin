@@ -1,34 +1,38 @@
 <template>
   <div class="p-4">
-    <!-- 条件查询 -->
-    <div class="bg-white p-4">
-      <el-form :inline="true" :model="formData" class="demo-form-inline">
-        <el-form-item label="角色名称">
-          <el-input v-model="formData.roleName" placeholder="请输入角色名称" />
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" :icon="Search" @click="onGetTableData">查询</el-button>
-          <el-button :icon="Refresh" @click="onRestForm">重置</el-button>
-          <el-button v-if="checkedKeys.length > 0" :icon="Delete" type="danger" @click="onDelRole"
-            >批量删除</el-button
-          >
-        </el-form-item>
-      </el-form>
-    </div>
-    <div class="flex my-2">
-      <el-button type="primary" icon="Plus" @click="addRole"> 新增角色</el-button>
-    </div>
     <!-- 角色列表 -->
     <basic-table
       ref="tableRef"
-      :border="false"
+      :border="true"
       :data="tableData"
       :columns="columns"
-      :pagination="pagination"
       :loading="loading"
       :default-sort="{ prop: 'date' }"
-      height="680px"
     >
+      <template #header>
+        <!-- 条件查询 -->
+        <div class="mb-2">
+          <el-form :inline="true" :model="formData" class="demo-form-inline">
+            <el-form-item label="角色名称">
+              <el-input v-model="formData.roleName" placeholder="请输入角色名称" />
+            </el-form-item>
+            <el-form-item>
+              <el-button type="primary" :icon="Search" @click="onGetTableData">查询</el-button>
+              <el-button :icon="Refresh" @click="onRestForm">重置</el-button>
+              <el-button
+                v-if="checkedKeys.length > 0"
+                :icon="Delete"
+                type="danger"
+                @click="onDelRole"
+                >批量删除</el-button
+              >
+            </el-form-item>
+          </el-form>
+        </div>
+        <div class="flex mb-2">
+          <el-button type="primary" icon="Plus" @click="addRole"> 新增角色</el-button>
+        </div>
+      </template>
       <template #action="{ row }">
         <el-button type="text" @click="findUser(row)">用户</el-button>
         <el-dropdown @command="handleMoreCommand">
@@ -48,7 +52,21 @@
           </template>
         </el-dropdown>
       </template>
+      <!-- 分页 -->
+      <template #footer-with-pagination>
+        <div class="mt-4 flex justify-end">
+          <el-pagination
+            v-model:currentPage="formData.pageNo"
+            background
+            :page-size="formData.pageSize"
+            layout="prev, pager, next"
+            :total="tableTotal"
+            @current-change="handleCurrentChange"
+          />
+        </div>
+      </template>
     </basic-table>
+
     <!-- 拥有权限 -->
     <has-role :show-drawer="showDrawer" :role-id="roleId" @close="showDrawer = false"></has-role>
     <!-- 添加编辑角色 -->
@@ -66,7 +84,7 @@
 
 <script lang="ts">
   import { HttpResponse } from '@/api/sys/model/http'
-  import { ColumnOptions, PaginationProps } from '@/components/Table/types'
+  import { ColumnOptions } from '@/components/Table/types'
   import { ElMessage, ElMessageBox } from 'element-plus'
   import { queryRoleList, deleteRole, deleteBatchRole } from '@/api/sys/role'
   import { RoleItem } from '@/api/sys/model/roleModel'
@@ -84,6 +102,7 @@
     },
     setup() {
       const tableRef = ref()
+      const tableTotal = ref(0)
       const tableData = ref<RoleItem[]>([])
       const roleId = ref<string>('')
 
@@ -137,16 +156,10 @@
         column: 'createTime',
         order: 'desc'
       })
-      const pagination: PaginationProps = {
-        currentPage: 1,
-        events: {
-          //页数改变
-          'on-change': (page: number) => {
-            formData.value.pageNo = page
-            getTableList()
-          }
-        },
-        total: 3
+      //页数改变
+      const handleCurrentChange = (page: number) => {
+        formData.value.pageNo = page
+        getTableList()
       }
 
       //条件查询用户
@@ -168,7 +181,7 @@
           loading.value = false
           if (res.code === 0) {
             tableData.value = res.data.records as RoleItem[]
-            pagination.total = res.data.total
+            tableTotal.value = res.data.total
           } else {
             ElMessage.error(res.message)
           }
@@ -271,15 +284,16 @@
         loading,
         tableRef,
         formData,
+        tableTotal,
         columns,
         tableData,
-        pagination,
         roleId,
         showDrawer,
         showRoleUser,
         showDialog,
         isEdit,
         editRoleInfo,
+        handleCurrentChange,
         addRole,
         onDelRole,
         addOrUpdateRoleSuccess,
