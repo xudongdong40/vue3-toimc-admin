@@ -43,7 +43,7 @@
     </el-form-item>
   </el-form>
 
-  <div class="form-footer flex justify-end">
+  <div class="form-footer flex justify-end pr-2">
     <el-button @click="resetInfo">重置</el-button>
     <el-button type="primary" @click="saveInfo">保存</el-button>
   </div>

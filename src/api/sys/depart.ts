@@ -1,6 +1,6 @@
 import axios from 'axios'
 enum Api {
-  roleQueryTreeList = '/api/sys/role/queryTreeList',
+  roleQueryTreeList = '/api/sys/depart/queryTreeList',
   save = '/api/sys/sysDepart/add',
   edit = '/api/sys/sysDepart/edit',
   delete = '/api/sys/sysDepart/delete',

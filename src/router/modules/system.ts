@@ -20,7 +20,7 @@ const systemRoutes: Array<AppRouteRecordRaw> = [
         meta: {
           title: t('menu.system.user')
         },
-        component: () => import('@/views/system/user.vue')
+        component: () => import('@/views/system/user/index.vue')
       },
       {
         name: 'RolesPage',
@@ -28,7 +28,7 @@ const systemRoutes: Array<AppRouteRecordRaw> = [
         meta: {
           title: t('menu.system.role')
         },
-        component: () => import('@/views/system/role.vue')
+        component: () => import('@/views/system/role/index.vue')
       },
       {
         name: 'MenusPage',
@@ -45,7 +45,7 @@ const systemRoutes: Array<AppRouteRecordRaw> = [
           title: t('menu.system.department')
         },
         component: () => import('@/views/system/depart/index.vue')
-      }, 
+      },
       {
         name: 'LogsPage',
         path: 'logs',

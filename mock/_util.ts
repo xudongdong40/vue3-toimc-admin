@@ -20,7 +20,7 @@ export function resultPageSuccess<T = any>(
   return {
     ...resultSuccess({
       records: pageData,
-      total: list.length
+      total: 100
     }),
     message
   }

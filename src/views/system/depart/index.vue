@@ -9,6 +9,7 @@
         @on-node-click="onTreeSelect"
       />
     </el-col>
+    <!-- 部门对应的基本信息及权限 -->
     <t-card header="部门详情" class="ml-2 flex-1">
       <el-tabs v-show="hasCheckNode" v-model="activeName" class="depart-tabs">
         <el-tab-pane label="基本信息" name="info">
@@ -20,7 +21,6 @@
       </el-tabs>
       <div v-show="hasCheckNode == false" class="pt-10">尚未选择部门</div>
     </t-card>
-    <!-- 部门对应的基本信息及权限 -->
   </el-row>
 </template>
 

@@ -1,17 +1,19 @@
 <template>
   <!--菜单组织机构树-->
-  <el-tree
-    :data="treeData"
-    :props="defaultProps"
-    node-key="id"
-    :default-checked-keys="checkedKeys"
-    show-checkbox
-    default-expand-all
-    @check="onCheck"
-  >
-  </el-tree>
+  <div style="min-height: 360px">
+    <el-tree
+      :data="treeData"
+      :props="defaultProps"
+      node-key="id"
+      :default-checked-keys="checkedKeys"
+      show-checkbox
+      default-expand-all
+      @check="onCheck"
+    >
+    </el-tree>
+  </div>
 
-  <div class="form-footer flex justify-end">
+  <div class="form-footer flex justify-end mr-2">
     <el-button type="primary" @click="saveInfo">保存</el-button>
   </div>
 </template>

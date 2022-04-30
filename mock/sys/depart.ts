@@ -49,7 +49,7 @@ const deptList = (() => {
 
 export default [
   {
-    url: `${baseUrl}/sys/role/queryTreeList`,
+    url: `${baseUrl}/sys/depart/queryTreeList`,
     timeout: 4000,
     method: 'get',
     response: () => {
