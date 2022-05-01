@@ -1,103 +1,117 @@
 <template>
   <div class="p-4 menuBox">
-    <div class="flex">
-      <el-button type="primary" icon="Plus" @click="addMenu"> 新增菜单</el-button>
-      <el-dropdown
-        v-if="multipleSelection.length > 0"
-        style="margin-left: 5px"
-        trigger="click"
-        @command="handleCommand"
-      >
-        <span class="el-dropdown-link">
-          <el-button plain icon=""
-            >批量操作
-            <el-icon class="el-icon--right">
-              <arrow-down />
-            </el-icon>
-          </el-button>
-        </span>
-        <template #dropdown>
-          <el-dropdown-menu>
-            <el-dropdown-item command="del">删除</el-dropdown-item>
-          </el-dropdown-menu>
-        </template>
-      </el-dropdown>
-    </div>
-    <div class="info flex items-center content-center">
-      <el-icon class="mr-1 block" color="#409EFF">
-        <info-filled />
-      </el-icon>
-      <p class="border-gray-500">
-        <span v-if="multipleSelection.length > 0"
-          >已选中 {{ multipleSelection.length }} 条记录 |
-          <span class="cursor-pointer" @click="cleanSelection()">清空</span></span
+    <el-card>
+      <div class="flex">
+        <el-button type="primary" icon="Plus" @click="addMenu"> 新增菜单</el-button>
+        <el-dropdown
+          v-if="multipleSelection.length > 0"
+          style="margin-left: 5px"
+          trigger="click"
+          @command="handleCommand"
         >
-        <span v-else>未选中任何数据</span>
-      </p>
-    </div>
-    <!-- :row-class-name="rowClassNameFun" -->
-    <el-table
-      ref="multipleTableRef"
-      :select-on-indeterminate="true"
-      :header-row-class-name="rowClassNameFun"
-      :data="tableData"
-      border
-      stripe
-      style="width: 100%"
-      lazy
-      row-key="id"
-      @select-all="handleSelectAll"
-      @selection-change="handleSelectionChange"
-    >
-      <el-table-column type="selection" min-width="55" />
-      <el-table-column property="name" label="菜单名称" min-width="200"> </el-table-column>
-      <el-table-column property="菜单类型" label="菜单类型" min-width="150" align="center">
-        <template #default="scope">
-          <span v-if="scope.row.menuType == 0">一级菜单</span>
-          <span v-else-if="scope.row.menuType == 1">子菜单</span>
-          <span v-else-if="scope.row.menuType == 2">按钮/权限</span>
-        </template>
-      </el-table-column>
-      <el-table-column
-        property="icon"
-        label="图标"
-        show-overflow-tooltip
-        min-width="50"
-        align="center"
+          <span class="el-dropdown-link">
+            <el-button plain icon=""
+              >批量操作
+              <el-icon class="el-icon--right">
+                <arrow-down />
+              </el-icon>
+            </el-button>
+          </span>
+          <template #dropdown>
+            <el-dropdown-menu>
+              <el-dropdown-item command="del">删除</el-dropdown-item>
+            </el-dropdown-menu>
+          </template>
+        </el-dropdown>
+      </div>
+      <div class="info flex items-center content-center">
+        <el-icon class="mr-1 block" color="#409EFF">
+          <info-filled />
+        </el-icon>
+        <p class="border-gray-500">
+          <span v-if="multipleSelection.length > 0"
+            >已选中 {{ multipleSelection.length }} 条记录 |
+            <span class="cursor-pointer" @click="cleanSelection()">清空</span></span
+          >
+          <span v-else>未选中任何数据</span>
+        </p>
+      </div>
+      <!-- :row-class-name="rowClassNameFun" -->
+      <el-table
+        ref="multipleTableRef"
+        :select-on-indeterminate="true"
+        :header-row-class-name="rowClassNameFun"
+        :data="tableData"
+        border
+        stripe
+        style="width: 100%"
+        lazy
+        row-key="id"
+        @select-all="handleSelectAll"
+        @selection-change="handleSelectionChange"
       >
-        <template #default="scope">
-          <el-icon v-if="scope.row.icon" :name="scope.row.icon">
-            <box />
-          </el-icon>
-          <span v-else class="icon-ify m-auto" data-icon="null"></span>
-        </template>
-      </el-table-column>
-      <el-table-column property="component" label="组件" min-width="150" />
-      <el-table-column property="url" label="路径" min-width="150" />
-      <el-table-column property="sortNo" label="排序" min-width="50" align="center" />
-      <el-table-column label="操作" min-width="150" align="center">
-        <template #default="scope">
-          <el-button type="text" @click="handleEdit(scope.row)">编辑</el-button>
-          <el-dropdown @command="handleMoreCommand">
-            <span class="el-dropdown-link ml-2">
-              <el-button type="text"
-                >更多<el-icon class="el-icon--right">
-                  <arrow-down />
-                </el-icon>
-              </el-button>
-            </span>
-            <template #dropdown>
-              <el-dropdown-menu>
-                <el-dropdown-item :command="{ index: 0, row: scope.row }"
-                  >添加下级</el-dropdown-item
-                >
-                <el-dropdown-item :command="{ index: 1, row: scope.row }">删除</el-dropdown-item>
-              </el-dropdown-menu>
-            </template>
-          </el-dropdown>
-        </template>
-      </el-table-column>
-    </el-table>
+        <el-table-column type="selection" min-width="55" />
+        <el-table-column property="name" label="菜单名称" min-width="200"> </el-table-column>
+        <el-table-column property="菜单类型" label="菜单类型" min-width="150" align="center">
+          <template #default="scope">
+            <span v-if="scope.row.menuType == 0">一级菜单</span>
+            <span v-else-if="scope.row.menuType == 1">子菜单</span>
+            <span v-else-if="scope.row.menuType == 2">按钮/权限</span>
+          </template>
+        </el-table-column>
+        <el-table-column
+          property="icon"
+          label="图标"
+          show-overflow-tooltip
+          min-width="50"
+          align="center"
+        >
+          <template #default="scope">
+            <el-icon v-if="scope.row.icon" :name="scope.row.icon">
+              <box />
+            </el-icon>
+            <span v-else class="icon-ify m-auto" data-icon="null"></span>
+          </template>
+        </el-table-column>
+        <el-table-column property="component" label="组件" min-width="150" />
+        <el-table-column property="url" label="路径" min-width="150" />
+        <el-table-column property="sortNo" label="排序" min-width="50" align="center" />
+        <el-table-column label="操作" min-width="150" align="center">
+          <template #default="scope">
+            <el-button type="text" @click="handleEdit(scope.row)">编辑</el-button>
+            <el-dropdown @command="handleMoreCommand">
+              <span class="el-dropdown-link ml-2">
+                <el-button type="text"
+                  >更多<el-icon class="el-icon--right">
+                    <arrow-down />
+                  </el-icon>
+                </el-button>
+              </span>
+              <template #dropdown>
+                <el-dropdown-menu>
+                  <el-dropdown-item :command="{ index: 0, row: scope.row }"
+                    >添加下级</el-dropdown-item
+                  >
+                  <el-dropdown-item :command="{ index: 1, row: scope.row }">删除</el-dropdown-item>
+                </el-dropdown-menu>
+              </template>
+            </el-dropdown>
+          </template>
+        </el-table-column>
+      </el-table>
+
+      <!-- 分页 -->
+      <div class="mt-4 flex justify-end">
+        <el-pagination
+          v-model:currentPage="formData.pageNo"
+          background
+          :page-size="formData.pageSize"
+          layout="prev, pager, next"
+          :total="tableTotal"
+          @current-change="handleCurrentChange"
+        />
+      </div>
+    </el-card>
     <menu-drawer
       :show-drawer="data.showDrawer"
       :obj="data.obj"
@@ -121,6 +135,8 @@
       MenuDrawer
     },
     setup() {
+      const tableTotal = ref(0)
+      const loading = ref(false)
       let data = reactive({
         isUpdate: false,
         showDrawer: false,
@@ -162,8 +178,8 @@
       const handleMoreCommand = (command: MenuCommand) => {
         if (command.index == 0) {
           console.log('click add item ', command)
-          //添加下级
-          ;(data.isUpdate = false), (data.showDrawer = true) // 显示抽屉
+          data.isUpdate = false
+          data.showDrawer = true // 显示抽屉
           data.obj = {
             parentId: command.row.id,
             parentName: command.row.name,
@@ -260,7 +276,8 @@
       }
       //添加菜单
       const addMenu = () => {
-        ;(data.isUpdate = false), (data.showDrawer = true) // 显示抽屉
+        data.isUpdate = false
+        data.showDrawer = true // 显示抽屉
         data.obj = { menuType: 0, route: true, permsType: '1', status: '1' }
       }
       //菜单保存添加确认事件
@@ -285,25 +302,62 @@
         multipleTableRef.value!.clearSelection()
         multipleSelection.value = []
       }
+
+      // 查询接口字段
+      const formData = reactive({
+        pageNo: 1,
+        pageSize: 10,
+        column: 'createTime',
+        order: 'desc'
+      })
+
+      //页数改变
+      const handleCurrentChange = (page: number) => {
+        formData.pageNo = page
+        getTableList()
+      }
+
+      //查询用户列表
+      const getTableList = () => {
+        loading.value = true
+        getMenuList(formData).then((res: HttpResponse) => {
+          console.log('res', res)
+          loading.value = false
+          tableData.value = res.data.records
+          allCheckId.value = []
+          getAllMenuId(tableData.value)
+          data.menuALL = tableData.value || []
+          tableTotal.value = res.data.total
+        })
+      }
+
       onMounted(() => {
         console.log('onMounted')
+        getTableList()
         // console.log("onMounted",http)
-        getMenuList()
-          .then((res: HttpResponse) => {
-            tableData.value = res.data || []
-            allCheckId.value = []
-            getAllMenuId(tableData.value)
-            data.menuALL = res.data || []
-          })
-          .catch((err) => {
-            console.log('err', err)
-            ElMessage.error(err)
-          })
+        // getMenuList(formData)
+        //   .then((res: HttpResponse) => {
+        //     tableData.value = res.data || []
+        //     allCheckId.value = []
+        //     getAllMenuId(tableData.value)
+        //     data.menuALL = res.data || []
+
+        //     // tableData.value = res.data.records as UserItem[]
+        //     // loading.value = false
+        //     tableTotal.value = res.data.total
+        //   })
+        //   .catch((err) => {
+        //     console.log('err', err)
+        //     ElMessage.error(err)
+        //   })
       })
       onUnmounted(() => {
         console.log('unmount')
       })
       return {
+        formData,
+        tableTotal,
+        loading,
         multipleSelection,
         tableData,
         data,
@@ -313,6 +367,7 @@
         onConfirm,
         handleSelectAll,
         handleSelectionChange,
+        handleCurrentChange,
         checkOutUserAll,
         rowClassNameFun,
         handleCommand,
