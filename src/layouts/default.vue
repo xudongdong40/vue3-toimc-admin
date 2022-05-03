@@ -15,11 +15,14 @@
               @show-theme-setting="handleShowThemeSetting"
             ></custom-header>
           </div>
-          <div class="tabs">
+          <div v-if="tabPage" class="tabs">
             <multi-tabs></multi-tabs>
           </div>
         </div>
-        <div class="layout-main mt-110px" :class="{ 'h-[calc(100%-110px)]': fixHeader === true }">
+        <div
+          :class="['layout-main', { [`h-[calc(100%-${headerHeight})]`]: fixHeader === true }]"
+          :style="{ 'margin-top': `${headerHeight}` }"
+        >
           <el-scrollbar class="custom-scroll">
             <router-view></router-view>
           </el-scrollbar>
@@ -46,11 +49,12 @@
     },
     setup() {
       const store = useSettingsStore()
-      const { layout, fixHeader } = storeToRefs(store)
+      const { layout, fixHeader, tabPage } = storeToRefs(store)
       const isCollapse = ref(false)
       const isShowThemeSetting = ref(false)
 
       const layoutMode = computed(() => (layout.value === 'top' ? 'column' : 'row'))
+      const headerHeight = computed(() => (tabPage.value ? '110px' : '60px'))
 
       function handleShowThemeSetting() {
         isShowThemeSetting.value = true
@@ -63,6 +67,8 @@
         asyncRoutes,
         isCollapse,
         isShowThemeSetting,
+        tabPage,
+        headerHeight,
         handleShowThemeSetting
       }
     }

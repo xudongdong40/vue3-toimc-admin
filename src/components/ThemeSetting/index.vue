@@ -2,8 +2,10 @@
   <div>
     <el-drawer :model-value="showSetting" title="主题设置" :size="320" @closed="handleClosed">
       <el-form :model="form" label-position="left">
-        <el-form-item label="主题">
-          <el-select v-model="form.theme">
+        <el-form-item label="主题色">
+          <span :style="{ color: form.theme, 'margin-right': '10px' }">{{ form.theme }}</span>
+          <el-color-picker v-model="form.theme" @change="handleChangeThemeColor" />
+          <!-- <el-select v-model="form.theme">
             <el-option label="蓝黑" :value="1" />
             <el-option label="蓝白" :value="2" />
             <el-option label="绿黑" :value="3" />
@@ -12,10 +14,10 @@
             <el-option label="紫白" :value="6" />
             <el-option label="红黑" :value="7" />
             <el-option label="红白" :value="8" />
-          </el-select>
+          </el-select> -->
         </el-form-item>
         <el-form-item label="暗黑模式">
-          <el-switch v-model="form.darkMode" />
+          <el-switch v-model="form.darkMode" @change="handleChangeDark" />
         </el-form-item>
         <el-form-item label="菜单背景" class="menu-bg-custom">
           <navigation-bg></navigation-bg>
@@ -27,22 +29,22 @@
           ></navigation-type>
         </el-form-item>
         <el-form-item label="菜单宽度">
-          <el-select v-model="form.menuWidth">
+          <el-select v-model="form.menuWidth" @change="handleChangeMenuWidth">
             <el-option label="266px" value="266px" />
             <el-option label="277px" value="277px" />
             <el-option label="288px" value="288px" />
           </el-select>
         </el-form-item>
-        <el-form-item label="菜单可拖拽">
+        <!-- <el-form-item label="菜单可拖拽">
           <el-switch v-model="form.sidebarResize" />
-        </el-form-item>
+        </el-form-item> -->
         <el-form-item label="头部固定">
           <el-switch v-model="form.fixedHead" @change="handleChangeFixedHead" />
         </el-form-item>
         <el-form-item label="标签页">
-          <el-switch v-model="form.tabPage" />
+          <el-switch v-model="form.tabPage" @change="handleChangeTabPage" />
         </el-form-item>
-        <el-form-item label="标签图标">
+        <!-- <el-form-item label="标签图标">
           <el-switch v-model="form.tabPageIcon" />
         </el-form-item>
         <el-form-item label="标签风格">
@@ -51,14 +53,14 @@
             <el-option label="灵动" value="normal" />
             <el-option label="圆滑" value="round" />
           </el-select>
-        </el-form-item>
-        <el-form-item label="显示面包屑">
+        </el-form-item> -->
+        <!-- <el-form-item label="显示面包屑">
           <el-switch v-model="form.showCrumbs" />
-        </el-form-item>
+        </el-form-item> -->
         <el-form-item label="显示Logo">
           <el-switch v-model="form.showLogo" />
         </el-form-item>
-        <el-form-item label="加载进度条">
+        <!-- <el-form-item label="加载进度条">
           <el-switch v-model="form.progress" />
         </el-form-item>
         <el-form-item label="切换loading">
@@ -66,7 +68,7 @@
         </el-form-item>
         <el-form-item label="切换动画">
           <el-switch v-model="form.changeAnimate" />
-        </el-form-item>
+        </el-form-item> -->
       </el-form>
       <template #footer>
         <el-button type="primary">保存</el-button>
@@ -94,13 +96,13 @@
       const showSetting = ref(show)
 
       const form = reactive({
-        theme: '',
-        darkMode: false,
+        theme: store.primaryColor || '#409eff',
+        darkMode: store.darkMode || false,
         navigationMode: store.layout,
-        menuWidth: '266px',
+        menuWidth: store.menuWidth || '266px',
         sidebarResize: false,
         fixedHead: true,
-        tabPage: false,
+        tabPage: store.tabPage,
         tabPageIcon: false,
         tabPageStyle: 'card',
         showCrumbs: false,
@@ -113,13 +115,23 @@
       const handleClosed = () => {
         emit('update:show', false)
       }
-
       const handleChangeLayout = (layout) => {
         store.setLayout(layout)
       }
-
       const handleChangeFixedHead = (value) => {
-        store.$state.fixHeader = value
+        store.setFixHeader(value)
+      }
+      const handleChangeDark = (value) => {
+        store.setDarkMode(value)
+      }
+      const handleChangeMenuWidth = (value) => {
+        store.setMenuWidth(value)
+      }
+      const handleChangeThemeColor = (color) => {
+        store.setPrimaryColor(color)
+      }
+      const handleChangeTabPage = (value) => {
+        store.setTabPage(value)
       }
 
       return {
@@ -127,7 +139,11 @@
         showSetting,
         handleClosed,
         handleChangeLayout,
-        handleChangeFixedHead
+        handleChangeFixedHead,
+        handleChangeDark,
+        handleChangeMenuWidth,
+        handleChangeThemeColor,
+        handleChangeTabPage
       }
     }
   })
