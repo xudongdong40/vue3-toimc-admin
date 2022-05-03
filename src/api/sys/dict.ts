@@ -9,10 +9,6 @@ enum Api {
   deleteConf = '/api/sys/dictItem/delete',
   saveConf = '/api/sys/dictItem/add',
   editConf = '/api/sys/dictItem/edit'
-
-  // saveRolePermission = '/api/sys/permission/saveRolePermission',
-  // queryRolePermission = '/api/sys/permission/queryRolePermission',
-  // all = '/api/sys/role/queryAll'
 }
 //请求头
 const headers = {
