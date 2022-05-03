@@ -3,7 +3,6 @@
   <div
     class="flex"
     :class="['menu-mode-' + mode, mode === 'horizontal' ? 'flex-row flex-1 pr-50px' : 'flex-col']"
-    :style="{ width: menuWidth }"
   >
     <div class="flex items-center flex-shrink-0">
       <slot></slot>
@@ -50,15 +49,15 @@
       },
       backgroundColor: {
         type: String,
-        default: 'transparent'
+        default: ''
       },
       textColor: {
         type: String,
-        default: '#303133'
+        default: ''
       },
       activeTextColor: {
         type: String,
-        default: '#303133'
+        default: ''
       },
       defaultOpeneds: {
         type: Array,
@@ -70,33 +69,12 @@
       }
     },
     emits: ['menuClick'],
-    setup(props) {
-      const { mode, width } = toRefs(props)
-      const menuWidth = computed(() => (mode.value === 'vertical' ? width.value : 'auto'))
-      return {
-        menuWidth
-      }
-    }
+    setup() {}
   })
 </script>
 
 <style lang="scss" scoped>
-  .menu-mode-horizontal {
-    :deep(.el-menu--horizontal > .el-menu-item.is-active) {
-      color: #1890ff !important;
-      border-bottom: 2px solid #1890ff;
-    }
-
-    :deep(.el-menu-item:not(.is-disabled):hover) {
-      color: #1890ff;
-      background-color: transparent;
-    }
-  }
-
-  .menu-mode-vertical {
-    :deep(.el-menu-item.is-active) {
-      color: #fff;
-      background-color: #1890ff;
-    }
+  .el-menu {
+    --el-menu-item-height: 50px;
   }
 </style>

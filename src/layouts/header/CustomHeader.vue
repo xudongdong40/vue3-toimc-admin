@@ -1,6 +1,6 @@
 <template>
   <!-- header -->
-  <el-header class="nav flex justify-between items-center bg-white">
+  <el-header class="nav flex justify-between items-center">
     <!-- fix no menu -->
     <div v-show="layout === 'top'" class="fix-no-menu-block"></div>
     <!-- Expand Btn -->
@@ -11,13 +11,7 @@
     </el-row>
     <!-- Menu -->
     <el-row class="flex-1">
-      <Menu
-        v-if="['top', 'mix'].includes(layout)"
-        :menus="showMenu"
-        mode="horizontal"
-        :text-color="layout === 'top' ? '#ffffffb3' : '#515a6e'"
-        :background-color="layout === 'top' ? '#303133' : ''"
-      >
+      <Menu v-if="['top', 'mix'].includes(layout)" :menus="showMenu" mode="horizontal">
         <img v-if="layout === 'top'" style="height: 30px" src="@/assets/images/logo.png" />
       </Menu>
     </el-row>
@@ -32,6 +26,7 @@
       <span class="items" @click="handleShowThemeSetting">
         <icon collection="ri" type="brush-2-line" size="20px" />
       </span>
+      <change-dark class="items"></change-dark>
       <change-locale class="items"></change-locale>
       <full-screen class="items"></full-screen>
       <repo-badge class="items"></repo-badge>
@@ -50,14 +45,17 @@
 
 <script lang="ts">
   import { useStore } from '@/store/modules/menu'
+  import { useSettingsStore } from '@/store/modules/settings'
   import _ from 'lodash-es'
-  import { FullScreen, ChangeLocale, RepoBadge } from './components'
+  import { storeToRefs } from 'pinia'
+  import { FullScreen, ChangeLocale, RepoBadge, ChangeDark } from './components'
   export default defineComponent({
     name: 'CustomHeader',
     components: {
       FullScreen,
       ChangeLocale,
-      RepoBadge
+      RepoBadge,
+      ChangeDark
     },
     props: {
       collapse: {
@@ -85,6 +83,8 @@
         })
       })
       const showMenu = computed(() => (layout.value === 'top' ? allMenu.value : topMenu.value))
+      const settingsStore = useSettingsStore()
+      const { darkMode, primaryColor } = storeToRefs(settingsStore)
 
       function handleClick(flag: boolean) {
         emit('update:collapse', !flag)
@@ -93,6 +93,30 @@
       function handleShowThemeSetting() {
         emit('show-theme-setting')
       }
+
+      watch(
+        [darkMode, primaryColor],
+        ([newValue]) => {
+          const themeColor = settingsStore.getThemeColors()
+          document.getElementById('custom-theme')?.remove()
+          let currentTheme = themeColor[newValue ? 'dark' : 'light']
+          let styleEl = document.createElement('style')
+          styleEl.setAttribute('id', 'custom-theme')
+          currentTheme['color-scheme'] = newValue
+          styleEl.innerHTML =
+            ':root' +
+            JSON.stringify(currentTheme)
+              .replace(/\"\,\"/g, '";"')
+              .replace(/\"/g, '')
+          document.head.append(styleEl)
+          document
+            .getElementsByTagName('html')[0]
+            .setAttribute('data-theme', newValue ? 'dark' : 'light')
+        },
+        {
+          immediate: true
+        }
+      )
 
       return {
         showMenu,
@@ -104,6 +128,10 @@
 </script>
 
 <style lang="scss" scoped>
+  .nav {
+    background-color: var(--el-bg-color);
+    color: var(--el-text-color-primary);
+  }
   .items {
     @apply flex items-center cursor-pointer mr-4;
   }

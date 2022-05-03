@@ -1,9 +1,9 @@
 <template>
-  <div class="w-full h-screen bg-content-bg overflow-hidden">
+  <div class="layout-wrap w-full h-screen overflow-hidden">
     <div :class="['layout-' + layout, 'layout-mode-' + layoutMode, 'h-full']">
       <sider-bar v-if="layoutMode === 'row'" :collapse="isCollapse"></sider-bar>
       <div
-        class="flex-1 h-full"
+        class="layout-header-wrap relative overflow-hidden flex-1 h-full"
         :class="{ 'overflow-auto': fixHeader !== true, 'w-0': layout !== 'top' }"
       >
         <div class="layout-header">
@@ -15,11 +15,11 @@
               @show-theme-setting="handleShowThemeSetting"
             ></custom-header>
           </div>
-          <div class="tabs bg-white">
+          <div class="tabs">
             <multi-tabs></multi-tabs>
           </div>
         </div>
-        <div class="layout-main" :class="{ 'h-[calc(100%-84px)]': fixHeader === true }">
+        <div class="layout-main mt-110px" :class="{ 'h-[calc(100%-110px)]': fixHeader === true }">
           <el-scrollbar class="custom-scroll">
             <router-view></router-view>
           </el-scrollbar>
@@ -70,6 +70,23 @@
 </script>
 
 <style lang="scss" scoped>
+  .layout-wrap {
+    background-color: var(--el-bg-page);
+  }
+  .layout-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1;
+    box-shadow: var(--el-box-shadow-light);
+    background-color: var(--el-bg-color);
+  }
+  .tabs {
+    background-color: var(--el-bg-color);
+    border-top: 1px solid var(--el-border-color);
+    user-select: none;
+  }
   :deep(.el-menu) {
     border: none;
   }
@@ -81,16 +98,10 @@
   }
 
   .layout-mode-column {
-    .layout-header {
-      .nav {
-        color: #ffffffb3;
-        background-color: #282c34;
-      }
-    }
-
     .layout-main {
       width: 92%;
-      margin: auto;
+      margin-left: auto;
+      margin-right: auto;
     }
   }
 </style>

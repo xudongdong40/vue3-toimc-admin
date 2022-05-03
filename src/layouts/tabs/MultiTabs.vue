@@ -21,7 +21,7 @@
     </el-tabs>
 
     <el-dropdown class="flex justify-center items-center w-40px" @command="handleCommand">
-      <span style="cursor: pointer;">
+      <span style="cursor: pointer">
         <Icon icon="mdi:view-grid" size="18px" />
       </span>
       <template #dropdown>
@@ -206,11 +206,6 @@
 </script>
 
 <style lang="scss" scoped>
-  .layout-tabs {
-    border-top: 1px solid #f6f6f6;
-    user-select: none;
-  }
-
   :deep(.el-tabs__header) {
     margin-bottom: 0;
     border-bottom: 0;
@@ -228,7 +223,7 @@
       height: 34px;
       margin-right: 5px;
       line-height: 34px;
-      border: 1px solid #dcdfe6 !important;
+      border: 1px solid var(--el-border-color) !important;
       border-radius: 4px;
       box-sizing: border-box;
       transition: padding 0.3s cubic-bezier(0.645, 0.045, 0.355, 1) !important;

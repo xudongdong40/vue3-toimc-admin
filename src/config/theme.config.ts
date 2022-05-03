@@ -6,6 +6,10 @@ const sysTheme = {
   layout: 'siderbar',
   // 固定头部
   fixHeader: true,
+  // 暗黑模式
+  darkMode: false,
+  // 主题颜色
+  primaryColor: '#409eff',
   // 菜单宽度
   menuWidth: '266px'
 }

@@ -1,31 +1,21 @@
 <template>
   <div class="transition-all duration-300" :style="{ width: menuWidth }">
-    <div class="flex items-center justify-center py-3 px-3 h-60px bg-[#282c34]">
+    <div class="logo-wrap flex items-center justify-center py-3 px-3 h-60px">
       <img class="max-h-full" src="@/assets/images/logo.png" />
     </div>
     <div class="flex flex-row h-[calc(100%-60px)]">
-      <el-scrollbar class="top-side-menu">
+      <el-scrollbar class="side-top-menu-wrap">
         <Menu
           v-if="layout === 'mixbar'"
           width="64px"
           :menus="topMenu"
           :collapse="false"
-          text-color="#fff"
           :default-active="defaultActive"
           :is-top="true"
         ></Menu>
       </el-scrollbar>
-      <el-scrollbar
-        class="sub-side-menu"
-        :style="{ 'background-color': backgroundColor, width: mainMenuWidth }"
-      >
-        <Menu
-          :menus="mainMenu"
-          :width="mainMenuWidth"
-          :default-active="defaultSubActive"
-          :text-color="textColor"
-          :collapse="collapse"
-        ></Menu>
+      <el-scrollbar class="px-5" :class="menuClassName" :style="{ width: mainMenuWidth }">
+        <Menu :menus="mainMenu" :default-active="defaultSubActive" :collapse="collapse"></Menu>
       </el-scrollbar>
     </div>
   </div>
@@ -63,6 +53,14 @@
           }
         } else {
           return ''
+        }
+      })
+
+      const menuClassName = computed(() => {
+        if (layout.value === 'siderbar' || layout.value === 'mix') {
+          return 'side-main-menu-wrap'
+        } else if (layout.value === 'mixbar') {
+          return 'side-sub-menu-wrap'
         }
       })
 
@@ -115,22 +113,6 @@
 
       const defaultActive = computed(() => defaultSubActive.value?.split('-')[0])
 
-      const backgroundColor = computed(() => {
-        if (layout.value === 'siderbar' || layout.value === 'mix') {
-          return '#282c34'
-        } else {
-          return '#fff'
-        }
-      })
-
-      const textColor = computed(() => {
-        if (layout.value === 'siderbar' || layout.value === 'mix') {
-          return '#fff'
-        } else {
-          return '#303133'
-        }
-      })
-
       return {
         menuWidth,
         mainMenuWidth,
@@ -140,32 +122,87 @@
         allMenu,
         topMenu,
         mainMenu,
-        backgroundColor,
-        textColor
+        menuClassName
       }
     }
   })
 </script>
 
 <style lang="scss" scoped>
-  .top-side-menu {
-    background-color: #282c34;
+  .logo-wrap {
+    background-color: var(--logo-bg-color);
+  }
+  .side-top-menu-wrap {
+    background-color: var(--topside-menu-bg-color);
+    :deep(.el-menu) {
+      background-color: var(--topside-menu-bg-color);
+      color: var(--topside-menu-text-color);
+      padding: 0 3px;
+      .el-menu-item {
+        color: var(--topside-menu-text-color);
+        padding: 0 6px !important;
+        font-size: 14px;
+        line-height: unset;
+        flex-direction: column;
+        justify-content: center;
+        border-radius: 4px;
 
-    :deep(.el-menu-item) {
-      padding: 0 6px !important;
-      font-size: 14px;
-      line-height: unset;
-      flex-direction: column;
-      justify-content: center;
-
-      .menu-icon {
-        margin-right: 0;
-        margin-bottom: 1px;
+        .menu-icon {
+          margin-right: 0;
+          margin-bottom: 1px;
+        }
+        &:hover {
+          background-color: var(--side-main-menu-bg-hover-color);
+          color: var(--side-main-menu-text-hover-color);
+        }
+        &.is-active {
+          background-color: var(--side-main-menu-active-bg-color);
+          color: var(--side-main-menu-active-text-color);
+        }
       }
     }
   }
 
-  .sub-side-menu {
-    background-color: #fff;
+  .side-main-menu-wrap {
+    background-color: var(--side-main-menu-bg-color);
+    :deep(.el-menu) {
+      background-color: var(--side-main-menu-bg-color);
+      color: var(--side-main-menu-text-color);
+      .el-menu-item,
+      .el-sub-menu__title {
+        background-color: var(--side-main-menu-bg-hover-color);
+        color: var(--side-main-menu-text-color);
+        &:hover {
+          color: var(--side-main-menu-text-hover-color);
+        }
+        &.is-active {
+          background-color: var(--side-main-menu-active-bg-color);
+          color: var(--side-main-menu-active-text-color);
+        }
+      }
+    }
+  }
+
+  .side-sub-menu-wrap {
+    background-color: var(--side-sub-menu-bg-color);
+    :deep(.el-menu) {
+      background-color: var(--side-sub-menu-bg-color);
+      color: var(--side-sub-menu-text-color);
+      .el-menu-item,
+      .el-sub-menu__title {
+        background-color: var(--side-sub-menu-bg-hover-color);
+        color: var(--side-sub-menu-text-color);
+        &:hover {
+          color: var(--side-sub-menu-text-hover-color);
+        }
+        &.is-active {
+          background-color: var(--side-sub-menu-active-bg-color);
+          color: var(--side-sub-menu-active-text-color);
+          border-radius: 5px;
+          padding: 0;
+          min-width: unset;
+        }
+      }
+    }
   }
 </style>
