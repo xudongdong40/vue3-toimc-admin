@@ -47,6 +47,14 @@ const systemRoutes: Array<AppRouteRecordRaw> = [
         component: () => import('@/views/system/depart/index.vue')
       },
       {
+        name: 'DictPage',
+        path: 'dict',
+        meta: {
+          title: t('menu.system.dict')
+        },
+        component: () => import('@/views/system/dict/index.vue')
+      },
+      {
         name: 'LogsPage',
         path: 'logs',
         meta: {

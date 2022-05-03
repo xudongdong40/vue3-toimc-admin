@@ -122,7 +122,8 @@
       "menu": "Menus",
       "role": "Roles",
       "title": "System Settings",
-      "user": "Users"
+      "user": "Users",
+      "dict": "Dictionaries"
     },
     "guide": {
       "guide": "Guide",
