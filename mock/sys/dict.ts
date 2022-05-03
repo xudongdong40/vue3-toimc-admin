@@ -1,4 +1,4 @@
-import { resultSuccess, resultError, resultPageSuccess, baseUrl } from '../_util'
+import { resultError, resultPageSuccess, baseUrl } from '../_util'
 import { MockMethod } from 'vite-plugin-mock'
 
 const dictList = (() => {
