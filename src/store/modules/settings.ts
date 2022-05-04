@@ -39,7 +39,7 @@ export const useSettingsStore = defineStore('settings', {
     darkMode: darkMode || false,
     menuWidth: menuWidth || '266px',
     primaryColor: primaryColor || '#409eff',
-    tabPage: tabPage
+    tabPage: tabPage || true
   }),
   getters: {
     getLayout: (state) => state.layout
@@ -83,6 +83,9 @@ export const useSettingsStore = defineStore('settings', {
     setTabPage(tabPage){
       this.tabPage = tabPage
       saveThemeSetting(JSON.stringify(this.$state)) 
+    },
+    resetSetting(){
+      this.$reset()
     }
   }
 })

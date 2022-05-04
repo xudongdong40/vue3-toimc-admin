@@ -71,8 +71,8 @@
         </el-form-item> -->
       </el-form>
       <template #footer>
-        <el-button type="primary">保存</el-button>
-        <el-button>恢复默认</el-button>
+        <el-button type="primary" @click="handleCopySetting">复制配置</el-button>
+        <el-button @click="handleRestoreDefault">恢复默认</el-button>
       </template>
     </el-drawer>
   </div>
@@ -80,6 +80,10 @@
 
 <script lang="ts">
   import { useSettingsStore } from '@/store/modules/settings'
+  import { storeToRefs } from 'pinia'
+  import { useClipboard } from '@vueuse/core'
+  import { ElMessage } from 'element-plus'
+
   export default defineComponent({
     name: 'ThemeSetting',
     props: {
@@ -90,19 +94,21 @@
     },
     emits: ['update:show'],
     setup(props, { emit }) {
+      const { copy } = useClipboard()
       const store = useSettingsStore()
+      const { layout, fixHeader, darkMode, menuWidth, primaryColor, tabPage } = storeToRefs(store)
 
       let { show } = toRefs(props)
       const showSetting = ref(show)
 
-      const form = reactive({
-        theme: store.primaryColor || '#409eff',
-        darkMode: store.darkMode || false,
-        navigationMode: store.layout,
-        menuWidth: store.menuWidth || '266px',
+      let form = reactive({
+        theme: primaryColor || '#409eff',
+        darkMode: darkMode || false,
+        navigationMode: layout,
+        menuWidth: menuWidth || '266px',
         sidebarResize: false,
-        fixedHead: true,
-        tabPage: store.tabPage,
+        fixedHead: fixHeader,
+        tabPage: tabPage,
         tabPageIcon: false,
         tabPageStyle: 'card',
         showCrumbs: false,
@@ -134,6 +140,18 @@
         store.setTabPage(value)
       }
 
+      const handleRestoreDefault = () => {
+        store.resetSetting()
+      }
+      const handleCopySetting = () => {
+        copy(JSON.stringify(store.$state, null, 2))
+        ElMessage({
+          message: '复制成功',
+          type: 'success'
+        })
+        emit('update:show', false)
+      }
+
       return {
         form,
         showSetting,
@@ -143,7 +161,9 @@
         handleChangeDark,
         handleChangeMenuWidth,
         handleChangeThemeColor,
-        handleChangeTabPage
+        handleChangeTabPage,
+        handleRestoreDefault,
+        handleCopySetting
       }
     }
   })

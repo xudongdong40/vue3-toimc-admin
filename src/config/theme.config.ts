@@ -11,7 +11,9 @@ const sysTheme = {
   // 主题颜色
   primaryColor: '#409eff',
   // 菜单宽度
-  menuWidth: '266px'
+  menuWidth: '266px',
+  // 显示tab page
+  tabPage: true
 }
 
 export default sysTheme
