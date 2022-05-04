@@ -1,4 +1,4 @@
-import { resultSuccess, resultError, getRequestToken, requestParams, baseUrl } from '../_util'
+import { resultPageSuccess, resultError, getRequestToken, requestParams, baseUrl } from '../_util'
 
 import { MockMethod } from 'vite-plugin-mock'
 
@@ -126,7 +126,7 @@ const demoMenu = [
 
 export default [
   {
-    url: `${baseUrl}/sys/permission/list`, 
+    url: `${baseUrl}/sys/permission/list`,
     timeout: 1000,
     method: 'get',
     response: (request: requestParams) => {
@@ -154,13 +154,13 @@ export default [
           menu = []
       }
 
-      return resultSuccess(menu)
+      return resultPageSuccess(1, 10, menu)
     }
   },
   {
-    url: `${baseUrl}/sys/permission/add`, 
+    url: `${baseUrl}/sys/permission/add`,
     timeout: 1000,
-    method: 'post', 
+    method: 'post',
     response: (request: requestParams) => {
       const token = getRequestToken(request)
       if (!token) {
@@ -172,14 +172,14 @@ export default [
       }
       if (!checkUser) {
         return resultError('Invalid user token!')
-      }  
+      }
       return resultError('没有权限，请联系管理员授权')
     }
   },
   {
-    url: `${baseUrl}/sys/permission/edit`, 
+    url: `${baseUrl}/sys/permission/edit`,
     timeout: 1000,
-    method: 'post', 
+    method: 'post',
     response: (request: requestParams) => {
       const token = getRequestToken(request)
       if (!token) {
@@ -191,14 +191,14 @@ export default [
       }
       if (!checkUser) {
         return resultError('Invalid user token!')
-      }  
+      }
       return resultError('没有权限，请联系管理员授权')
     }
   },
   {
-    url: `${baseUrl}/sys/permission/delete`, 
+    url: `${baseUrl}/sys/permission/delete`,
     timeout: 1000,
-    method: 'delete', 
+    method: 'delete',
     response: (request: requestParams) => {
       const token = getRequestToken(request)
       if (!token) {
@@ -210,14 +210,14 @@ export default [
       }
       if (!checkUser) {
         return resultError('Invalid user token!')
-      }  
+      }
       return resultError('没有权限，请联系管理员授权')
     }
   },
   {
-    url: `${baseUrl}/sys/permission/deleteBatch`, 
+    url: `${baseUrl}/sys/permission/deleteBatch`,
     timeout: 1000,
-    method: 'delete', 
+    method: 'delete',
     response: (request: requestParams) => {
       const token = getRequestToken(request)
       if (!token) {
@@ -229,7 +229,7 @@ export default [
       }
       if (!checkUser) {
         return resultError('Invalid user token!')
-      }  
+      }
       return resultError('没有权限，请联系管理员授权')
     }
   }

@@ -123,7 +123,7 @@ export const queryUserList = (params) => {
 // workNo: '123'
 export const addUser = (data) => {
   return new Promise((resolve) => {
-    axios.post(Api.add, { data, headers }).then((res) => {
+    axios.post(Api.add, data, { headers }).then((res) => {
       resolve(res.data)
     })
   })

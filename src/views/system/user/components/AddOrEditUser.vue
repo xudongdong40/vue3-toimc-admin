@@ -127,7 +127,7 @@
   import { RoleItem } from '@/api/sys/model/roleModel'
   import { DepartItem } from '@/api/sys/model/departModel'
   import { queryAllRoleList } from '@/api/sys/role'
-  import { queryUserRole, editUser } from '@/api/sys/user'
+  import { queryUserRole, editUser, addUser } from '@/api/sys/user'
   import { HttpResponse } from '@/api/sys/model/http'
   import { UserItem } from '@/api/sys/model/userModel'
   import type { FormRules, FormInstance, UploadProps } from 'element-plus'
@@ -287,12 +287,12 @@
           id: props.user.id,
           username: props.user.username,
           realname: props.user.realname,
-          avatar: props.user.avatar,
+          avatar: props.user.avatar || '',
           phone: props.user.phone,
           workNo: props.user.workNo,
           roleIds: '',
           roleIdsArr: [],
-          departIds: props.user.departIds,
+          departIds: props.user.departIds || '',
           departIdsArr: props.user.departIds ? props.user.departIds.split(',') : [],
           sex: props.user.sex ? props.user.sex : 0,
           status: props.user.status
@@ -306,7 +306,11 @@
         await formEl.validate((valid, fields) => {
           if (valid) {
             console.log('submit!')
-            updateUserInfo()
+            if (props.user.id) {
+              updateUserInfo()
+            } else {
+              addUserInfo()
+            }
           } else {
             console.log('error submit!', fields)
           }
@@ -314,8 +318,23 @@
       }
 
       const isEditLoading = ref(false)
+      //新增用户
+      const addUserInfo = () => {
+        if (isEditLoading.value) return
+        const data = { ...formData.value }
+        isEditLoading.value = true
+        addUser(data).then((res: HttpResponse) => {
+          isEditLoading.value = false
+          if (res.code === 0) {
+            ElMessage.success('添加成功')
+          } else {
+            ElMessage.error(res.message)
+          }
+        })
+      }
       // 更新用户信息
       const updateUserInfo = () => {
+        if (isEditLoading.value) return
         const data = { ...formData.value }
         isEditLoading.value = true
         editUser(data).then((res: HttpResponse) => {

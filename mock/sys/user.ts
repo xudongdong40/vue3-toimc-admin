@@ -125,6 +125,15 @@ export default [
       return resultError('没有权限，请联系管理员授权')
     }
   },
+
+  {
+    url: `${baseUrl}/sys/user/add`,
+    timeout: 1000,
+    method: 'post',
+    response: () => {
+      return resultError('没有权限，请联系管理员授权')
+    }
+  },
   {
     url: `${baseUrl}/sys/user/edit`,
     timeout: 1000,

@@ -11,12 +11,12 @@ enum Api {
  * @description: Get user menu based on id
  */
 
-export const getMenuList = () => {
+export const getMenuList = (params) => {
   return new Promise((resolve) => {
     const headers = {
       authorization: 'Bearer ' + localStorage.getItem('token')
     }
-    axios.get(Api.list, { headers }).then((res) => {
+    axios.get(Api.list, { params, headers }).then((res) => {
       resolve(res.data)
     })
   })

@@ -34,7 +34,16 @@
               <el-input v-model="formData.name" type="text" clearable></el-input>
             </el-form-item>
             <el-form-item label="上级菜单：" prop="parentId" class="required">
-              <el-input v-model="formData.parentId" type="text" clearable></el-input>
+              <!-- <el-input v-model="formData.parentId" type="text" clearable></el-input> -->
+              <el-tree-select
+                v-model="formData.parentId"
+                :render-after-expand="false"
+                :current-node-key="formData.parentId"
+                node-key="id"
+                :props="treeProps"
+                :data="menus"
+                check-strictly
+              />
             </el-form-item>
             <el-form-item label="授权标识：" prop="perms" class="required">
               <el-input

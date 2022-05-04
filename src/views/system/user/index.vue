@@ -30,6 +30,10 @@
           </el-form-item>
         </el-form>
       </div>
+
+      <div class="flex mb-2">
+        <el-button type="primary" icon="Plus" @click="addUser"> 新增用户</el-button>
+      </div>
       <!-- 用户列表表格数据 -->
       <el-table
         ref="multipleTableRef"
@@ -264,6 +268,10 @@
         userInfo.value = row
         isShowEditDrawer.value = true
       }
+      const addUser = () => {
+        userInfo.value = {}
+        isShowEditDrawer.value = true
+      }
       return {
         Search,
         Refresh,
@@ -286,6 +294,7 @@
         confirmDelEvent,
         confirmFrozenEvent,
         editUserInfo,
+        addUser,
         resetPwd
       }
     }
