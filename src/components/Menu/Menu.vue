@@ -60,7 +60,7 @@
         default: ''
       },
       defaultOpeneds: {
-        type: Array,
+        type: Array as PropType<string[]>,
         default: () => []
       },
       defaultActive: {

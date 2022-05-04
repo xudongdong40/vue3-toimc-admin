@@ -15,7 +15,7 @@ const iframeRoutes: Array<AppRouteRecordRaw> = [
     redirect: '/iframe',
     children: [
       {
-        name: 'Iframe',
+        name: 'IframeIndex',
         path: 'iframe',
         component: () => import('@/views/iframe/index.vue'),
         meta: {
