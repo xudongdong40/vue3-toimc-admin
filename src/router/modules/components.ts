@@ -388,6 +388,14 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
               title: t('menu.component.small-comp.weather')
             },
             component: () => import('@/views/components/small-components/weather.vue')
+          },
+          {
+            name: 'CountDown',
+            path: 'countdown',
+            meta: {
+              title: t('menu.component.small-comp.countDown')
+            },
+            component: () => import('@/views/components/small-components/number.vue')
           }
         ]
       }
