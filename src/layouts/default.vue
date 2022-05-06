@@ -3,8 +3,8 @@
     <div :class="['layout-' + layout, 'layout-mode-' + layoutMode, 'h-full']">
       <sider-bar v-if="layoutMode === 'row'" :collapse="isCollapse"></sider-bar>
       <div
-        class="layout-header-wrap relative overflow-hidden flex-1 h-full"
-        :class="{ 'overflow-auto': fixHeader !== true, 'w-0': layout !== 'top' }"
+        class="layout-main-wrap relative  flex-1 h-full"
+        :class="[fixHeader !== true ? 'overflow-auto':'overflow-hidden', { 'w-0': layout !== 'top' }]"
       >
         <div class="layout-header">
           <div class="nav">
@@ -19,10 +19,7 @@
             <multi-tabs></multi-tabs>
           </div>
         </div>
-        <div
-          :class="['layout-main', { [`h-[calc(100%-${headerHeight})]`]: fixHeader === true }]"
-          :style="{ 'margin-top': `${headerHeight}` }"
-        >
+        <div :class="['layout-main', { 'fixed-header-main': fixHeader === true }]">
           <el-scrollbar class="custom-scroll">
             <router-view></router-view>
           </el-scrollbar>
@@ -78,6 +75,12 @@
 <style lang="scss" scoped>
   .layout-wrap {
     background-color: var(--el-bg-page);
+  }
+  .layout-main-wrap > .layout-main {
+    margin-top: v-bind(headerHeight);
+    &.fixed-header-main{
+      height: calc(100% - (v-bind(headerHeight)))
+    }
   }
   .layout-header {
     position: absolute;
