@@ -32,7 +32,6 @@
   import { defineComponent } from 'vue'
   import logoImg from '@/assets/images/brian.jpg'
   import { QrCodeActionType } from '@/components/QrCode/types'
-  import copy from 'copy-to-clipboard'
   import { ElMessage } from 'element-plus'
 
   export default defineComponent({
@@ -47,6 +46,7 @@
       }
 
       function copyText(val) {
+        const { copy } = useClipboard()
         copy(val)
         ElMessage.success('复制成功')
       }

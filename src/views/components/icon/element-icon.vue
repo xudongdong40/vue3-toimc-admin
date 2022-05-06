@@ -39,8 +39,6 @@
 
   import { ElMessage } from 'element-plus'
 
-  import copy from 'copy-to-clipboard'
-
   export default defineComponent({
     setup() {
       const showIcon = ref(true)
@@ -48,7 +46,8 @@
       const copyAll = ref(true)
 
       function handleCopy(item: string) {
-        copyAll.value ? copy(item) : copy(`<icon type="${item}"></icon>`)
+        const { copy } = useClipboard()
+        copy(copyAll.value ? item : `<icon type="${item}"></icon>`)
         ElMessage({
           message: `复制 ${item} 成功！`,
           type: 'success'
