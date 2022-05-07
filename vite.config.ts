@@ -48,7 +48,8 @@ export default ({ mode }: ConfigEnv): UserConfig => {
   // loadEnv读取的布尔类型是一个字符串。这个函数可以转换为布尔类型
   const viteEnv = wrapperEnv(env)
 
-  const { VITE_PORT, VITE_PUBLIC_PATH, VITE_PROXY, VITE_DROP_CONSOLE, VITE_HTTPS } = viteEnv
+  const { VITE_PORT, VITE_PUBLIC_PATH, VITE_PROXY, VITE_DROP_CONSOLE, VITE_HTTPS, VITE_USE_MOCK } =
+    viteEnv
 
   // const isBuild = command === 'build'
   const lifecycle = process.env.npm_lifecycle_event
@@ -89,7 +90,8 @@ export default ({ mode }: ConfigEnv): UserConfig => {
       }),
       viteMockServe({
         mockPath: './mock',
-        supportTs: true
+        supportTs: true,
+        prodEnabled: VITE_USE_MOCK
       }),
       createSvgIconsPlugin({
         // 指定需要缓存的图标文件夹
