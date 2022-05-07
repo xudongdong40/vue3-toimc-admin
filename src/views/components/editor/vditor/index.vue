@@ -48,6 +48,7 @@
   import { LangType, ModeType, ThemeType, IconType } from '@/components/Editor/vditor/types'
   import { defineComponent } from 'vue'
   import { ElMessageBox } from 'element-plus'
+  import exampleMd from './example.md?raw'
   export default defineComponent({
     setup() {
       const editor = ref()
@@ -55,7 +56,7 @@
 
       let form = reactive({
         mode: 'ir' as ModeType,
-        // value: 'hello',
+        value: exampleMd,
         lang: 'zh_CN' as LangType,
         minHeight: 100,
         width: 'auto',
