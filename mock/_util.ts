@@ -1,4 +1,5 @@
 // Interface data format used to return a unified format
+import { getAppEnvConfig } from '../src/utils/env'
 
 export function resultSuccess<T = Recordable>(data: T, { message = 'ok' } = {}) {
   return {
@@ -58,6 +59,9 @@ export interface requestParams {
 export function getRequestToken({ headers }: requestParams): string | undefined {
   return headers?.authorization
 }
+
+// const envs = getAppEnvConfig()
+// console.log('🚀 ~ file: _util.ts ~ line 64 ~ envs', envs)
 
 //TODO 接口父路径（写死不够灵活）
 export const baseUrl = '/api'
