@@ -37,7 +37,9 @@
       ></el-avatar>
       <span class="text-sm mr-4">管理员</span>
       <el-divider direction="vertical"></el-divider>
-      <span class="text-sm pr-1">{{ $t('Header.CustomHeader.quit') }}</span>
+      <span class="text-sm pr-1 cursor-pointer" @click="quit">{{
+        $t('Header.CustomHeader.quit')
+      }}</span>
       <icon type="SwitchButton" size="20px" />
     </el-row>
   </el-header>
@@ -46,9 +48,11 @@
 <script lang="ts">
   import { useStore } from '@/store/modules/menu'
   import { useSettingsStore } from '@/store/modules/settings'
+  import { useTabsStore } from '@/store/modules/tabsbar'
   import _ from 'lodash-es'
   import { storeToRefs } from 'pinia'
   import { FullScreen, ChangeLocale, RepoBadge, ChangeDark } from './components'
+
   export default defineComponent({
     name: 'CustomHeader',
     components: {
@@ -73,6 +77,8 @@
     },
     emits: ['update:collapse', 'show-theme-setting'],
     setup(props, { emit }) {
+      const store = useTabsStore()
+      const router = useRouter()
       const { layout } = toRefs(props)
       const menuStore = useStore()
       const allMenu = computed(() => menuStore.menus)
@@ -118,10 +124,17 @@
         }
       )
 
+      const quit = () => {
+        localStorage.clear()
+        store.visitedRoutes = []
+        router.push('/')
+      }
+
       return {
         showMenu,
         handleClick,
-        handleShowThemeSetting
+        handleShowThemeSetting,
+        quit
       }
     }
   })

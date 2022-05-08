@@ -171,6 +171,8 @@
       watch(
         () => route.path,
         () => {
+          // TODO 这里需要优化
+          if (route.path.indexOf('login') !== -1) return
           const affixtabs = filterAffixtabs(menuStore.menus)
           for (const tag of affixtabs) {
             if (tag.name) {

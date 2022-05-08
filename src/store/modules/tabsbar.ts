@@ -10,7 +10,7 @@ export const useTabsStore = defineStore('tabsbar', {
     visitedRoutes: visitedPages as AppRouteRecordRaw[]
   }),
   actions: {
-    saveTabs(){
+    saveTabs() {
       localStorage.setItem('toimc-admin-visited-page', JSON.stringify(this.visitedRoutes))
     },
     addVisitedRoute(route) {
