@@ -13,7 +13,7 @@
   import { indent } from '@milkdown/plugin-indent'
   import { listener, listenerCtx } from '@milkdown/plugin-listener'
   import { math } from '@milkdown/plugin-math'
-  import { menu } from '@milkdown/plugin-menu'
+  import { menuPlugin } from '@milkdown/plugin-menu'
   import { prism } from '@milkdown/plugin-prism'
   import { slash } from '@milkdown/plugin-slash'
   import { tooltip } from '@milkdown/plugin-tooltip'
@@ -90,21 +90,16 @@
           .use(cursor)
           .use(history)
           .use(listener)
-          .use(emoji())
+          .use(emoji)
           .use(prism)
           .use(indent)
 
-        enableKey('diagram') && instance.use(diagram())
-        enableKey('tooltip') && instance.use(tooltip())
+        enableKey('diagram') && instance.use(diagram)
+        enableKey('tooltip') && instance.use(tooltip)
         enableKey('math') && instance.use(math)
         enableKey('upload') && instance.use(upload)
         enableKey('slash') && instance.use(slash)
-        enableKey('menu') &&
-          instance.use(
-            menu({
-              config
-            })
-          )
+        enableKey('menu') && instance.use(menuPlugin({ config }))
         return instance
       })
 
