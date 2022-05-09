@@ -148,6 +148,7 @@
         clearInterval(ctrl)
 
         status.value = true
+        let durationCount = 0
 
         // 放大dot的对应的点数
         let times
@@ -175,16 +176,23 @@
         // 计算定时器的倍率
         const rate = bigInt(duration.value).divide(setupDuration)
 
-        // 计算step, 并加入随机性，这样就不会有很多0
+        // 计算step
         let step = rate.compareAbs(bigInt.zero) !== 0 ? target.minus(origin).divide(rate) : target
 
         ctrl = setInterval(() => {
-          if (step.compareAbs(bigInt.zero) === 1) {
-            const len = step.toString().length
-            step = bigInt(rand(len))
-          } else {
-            step = bigInt(1)
-          }
+          // bug: 如果随机性加的太小，可能时间会超，或者时间太短；
+          // if (step.compareAbs(bigInt.zero) === 1) {
+          //   const len = step.toString().length
+          //   if (len > 3) {
+          //     const stepBy = bigInt(rand(len - 3))
+          //     step = step.add(stepBy)
+          //   }
+          //   // step = bigInt(rand(len))
+          // } else {
+          //   step = bigInt(1)
+          // }
+          durationCount += setupDuration
+          // 加入随机性，这样就不会有很多0
           // 暂停
           if (pauseFlag.value) return
           origin = origin.add(step)
@@ -203,8 +211,8 @@
 
           tmp = isFunction(props.format) ? props.format(tmp) : tmp
           result.value = formatWithSeperator(tmp, props.split)
-          // 如果达到目标值cvb'，则停止
-          if (origin.compareAbs(target) === 1) {
+          // 如果达到目标值，则停止
+          if (origin.compareAbs(target) === 1 || durationCount >= duration.value) {
             result.value = format(end.value, dot.value)
             status.value = false
             clearInterval(ctrl)

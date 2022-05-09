@@ -9,6 +9,7 @@
             </el-row>
           </template>
         </basic-form>
+        <div>计时：{{ counter }}s</div>
       </el-row>
       <div class="text-center py-6 break-words">
         <d-numbers
@@ -45,6 +46,15 @@
   export default defineComponent({
     setup() {
       const ctrl = ref()
+      const counter = ref(0)
+      const { pause, resume } = useIntervalFn(
+        () => {
+          /* your function */
+          counter.value += 1
+        },
+        1000,
+        { immediate: false }
+      )
 
       let form = reactive({
         begin: 1.12312,
@@ -112,10 +122,13 @@
       ] as FormSchema[])
 
       function handleStart() {
+        counter.value = 0
+        resume()
         ctrl.value?.start()
       }
 
       function handlePause() {
+        pause()
         ctrl.value?.pause()
       }
 
@@ -161,7 +174,8 @@
         handleReset,
         handleTerminate,
         handleChange,
-        handleFormReset
+        handleFormReset,
+        counter
       }
     }
   })
