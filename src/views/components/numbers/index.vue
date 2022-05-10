@@ -28,6 +28,22 @@
           <template #suffix>{{ form.suffix }}</template>
         </d-numbers>
       </div>
+      <p class="pt-3">使用useTransition的案例：</p>
+      <div class="text-left py-6 text-4xl">
+        <count-to
+          ref="ctrl1"
+          :end-val="form.end"
+          :start-val="form.begin"
+          :decimals="form.dot"
+          :duration="form.duration"
+          :autoplay="form.auto"
+          :classes="'d-text'"
+          separator=","
+          :prefix="form.prefix"
+          :suffix="form.suffix"
+        >
+        </count-to>
+      </div>
       <el-row>
         <el-button type="primary" @click="handleStart">开始</el-button>
         <el-button @click="handlePause">暂停</el-button>
@@ -46,6 +62,7 @@
   export default defineComponent({
     setup() {
       const ctrl = ref()
+      const ctrl1 = ref()
       const counter = ref(0)
 
       let form = reactive({
@@ -129,6 +146,8 @@
         counter.value = 0
         resume()
         ctrl.value?.start()
+        // count-to案例
+        ctrl1.value?.start()
       }
 
       function handlePause() {
@@ -145,6 +164,8 @@
         counter.value = 0
         pause()
         ctrl.value?.reset()
+        // count-to案例
+        ctrl1.value?.reset()
       }
 
       function handleTerminate() {
@@ -175,6 +196,7 @@
 
       return {
         ctrl,
+        ctrl1,
         formSchema,
         form,
         handleStart,
