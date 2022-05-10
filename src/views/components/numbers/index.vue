@@ -47,14 +47,6 @@
     setup() {
       const ctrl = ref()
       const counter = ref(0)
-      const { pause, resume } = useIntervalFn(
-        () => {
-          /* your function */
-          counter.value += 1
-        },
-        1000,
-        { immediate: false }
-      )
 
       let form = reactive({
         begin: 1.12312,
@@ -66,6 +58,18 @@
         prefix: '',
         suffix: ''
       })
+
+      const { pause, resume } = useIntervalFn(
+        () => {
+          /* your function */
+          counter.value += 1
+          if (counter.value >= form.duration / 1000) {
+            pause()
+          }
+        },
+        1000,
+        { immediate: false }
+      )
 
       const formSchema: FormSchema[] = reactive([
         {
@@ -133,14 +137,19 @@
       }
 
       function handleResume() {
+        resume()
         ctrl.value?.resume()
       }
 
       function handleReset() {
+        counter.value = 0
+        pause()
         ctrl.value?.reset()
       }
 
       function handleTerminate() {
+        pause()
+        counter.value = 0
         ctrl.value?.terminate()
       }
 

@@ -174,28 +174,37 @@
         target = getTimesNum(end.value, times)
 
         // 计算定时器的倍率
-        const rate = bigInt(duration.value).divide(setupDuration)
+        let rate = bigInt(duration.value).divide(setupDuration)
+        console.log('🚀 ~ file: DNumbers.vue ~ line 178 ~ init ~ rate', rate)
 
         // 计算step
         let step = rate.compareAbs(bigInt.zero) !== 0 ? target.minus(origin).divide(rate) : target
 
         ctrl = setInterval(() => {
-          // bug: 如果随机性加的太小，可能时间会超，或者时间太短；
-          // if (step.compareAbs(bigInt.zero) === 1) {
-          //   const len = step.toString().length
-          //   if (len > 3) {
-          //     const stepBy = bigInt(rand(len - 3))
-          //     step = step.add(stepBy)
-          //   }
-          //   // step = bigInt(rand(len))
-          // } else {
-          //   step = bigInt(1)
-          // }
-          durationCount += setupDuration
-          // 加入随机性，这样就不会有很多0
           // 暂停
           if (pauseFlag.value) return
-          origin = origin.add(step)
+          // 总时间计时
+          durationCount += setupDuration
+
+          let tempStep = step
+          // TODO 加入ease
+          if (step.compareAbs(bigInt.zero) === 1) {
+            const len = step.toString().length
+            // 加入随机性，这样就不会有很多0
+            if (Math.random() > 0.5) {
+              if (len > 3) {
+                tempStep = bigInt(tempStep).add(bigInt(rand(len - 3)))
+              }
+            }
+            tempStep = bigInt(tempStep)
+              .multiply(Math.floor(Math.random() * 11) + 95)
+              .divide(100)
+            // step = bigInt(rand(len))
+          } else {
+            tempStep = bigInt(1)
+          }
+
+          origin = origin.add(tempStep)
 
           // format
           let divide = origin.divmod(times)
