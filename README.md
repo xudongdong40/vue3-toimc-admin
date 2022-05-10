@@ -9,7 +9,7 @@
 >
 > 丰富的基础组件与业务功能组件，工作效率提升 100%
 
-[![license](https://img.shields.io/github/license/toimc-team/vue3-toimc-admin.svg)](LICENSE) ![GitHub package.json version](https://img.shields.io/github/package-json/v/toimc-team/vue3-toimc-admin) ![Github issues](https://img.shields.io/github/issues/toimc-team/vue3-toimc-admin) ![](https://img.shields.io/badge/Vue-%5E3.2.31-brightgreen) ![element-plus](https://img.shields.io/badge/element--plus-2.x-orange) ![vite](https://img.shields.io/badge/vite-%5E2.9.0-yellowgreen)
+[![license](https://img.shields.io/github/license/toimc-team/vue3-toimc-admin.svg)](LICENSE) ![GitHub package.json version](https://img.shields.io/github/package-json/v/toimc-team/vue3-toimc-admin) ![Github issues](https://img.shields.io/github/issues/toimc-team/vue3-toimc-admin) ![](https://img.shields.io/badge/Vue-%5E3.2.31-brightgreen) ![element-plus](https://img.shields.io/badge/element--plus-2.x-orange) ![vite](https://img.shields.io/badge/vite-%5E2.9.5-yellowgreen)
 
 Hello，小伙伴们，我们是 toimc 开源项目团队，本文我们将简单介绍下现阶段我们开源项目的规划，帮助大家来了解我们的开源计划，了解我们团队。
 
@@ -127,8 +127,6 @@ npm run build
 - 测试
 - 运营：文案、抖音、社群
 
-<img src="public/assets/640.png" alt="640" style="width: 50%;" />
-
 ## 如何贡献
 
 - 加入微信群
@@ -153,3 +151,7 @@ npm run build
 <img src="https://toimc-online.obs.cn-east-3.myhuaweicloud.com/vue-toimc-admin/payme.jpg" alt="payme" style="zoom:30%;" />
 
 Paypal：[https://paypal.me/toimc](https://paypal.me/toimc)
+
+## 更新日志
+
+日志参见：[CHANGELOG](./CHANGELOG.md)。
