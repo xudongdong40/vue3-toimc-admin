@@ -109,6 +109,14 @@ const pagesRoutes: Array<AppRouteRecordRaw> = [
         meta: {
           title: t('menu.pages.lists.title')
         }
+      },
+      {
+        name: 'ExcelPages',
+        path: 'excel',
+        component: () => import('@/views/excel/Index.vue'),
+        meta: {
+          title: 'Excel处理'
+        }
       }
     ]
   }
