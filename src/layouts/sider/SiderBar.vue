@@ -14,7 +14,7 @@
           :is-top="true"
         ></Menu>
       </el-scrollbar>
-      <el-scrollbar class="px-5" :class="menuClassName" :style="{ width: mainMenuWidth }">
+      <el-scrollbar :class="menuClassName" :style="{ width: mainMenuWidth }">
         <Menu :menus="mainMenu" :default-active="defaultSubActive" :collapse="collapse"></Menu>
       </el-scrollbar>
     </div>
@@ -57,11 +57,14 @@
       })
 
       const menuClassName = computed(() => {
+        const classList: string[] = []
         if (layout.value === 'siderbar' || layout.value === 'mix') {
-          return 'side-main-menu-wrap'
+          classList.push('side-main-menu-wrap')
         } else if (layout.value === 'mixbar') {
-          return 'side-sub-menu-wrap'
+          classList.push('side-sub-menu-wrap')
+          classList.push(props.collapse ? 'px-0' : 'px-2')
         }
+        return classList
       })
 
       const mainMenuWidth = computed(() => {
@@ -185,6 +188,7 @@
 
   .side-sub-menu-wrap {
     background-color: var(--side-sub-menu-bg-color);
+
     :deep(.el-menu) {
       background-color: var(--side-sub-menu-bg-color);
       color: var(--side-sub-menu-text-color);
