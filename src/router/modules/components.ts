@@ -370,6 +370,14 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
               title: t('menu.component.display.calendar')
             },
             component: () => import('@/views/components/display/calendar.vue')
+          },
+          {
+            name: 'WaterFall',
+            path: 'waterfall',
+            meta: {
+              title: '瀑布流'
+            },
+            component: () => import('@/views/components/display/waterfall.vue')
           }
         ]
       },
