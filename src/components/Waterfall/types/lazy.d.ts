@@ -1,14 +1,18 @@
-/*
- * @Author: Yaowen Liu
- * @Date: 2022-03-18 14:11:45
- * @LastEditors: Yaowen Liu
- * @LastEditTime: 2022-03-23 16:30:06
- */
 export interface LazyOptions {
   error?: string
   loading?: string
   observerOptions?: IntersectionObserverInit
   log?: boolean
+}
+
+export interface CallbackParams {
+  width?: number
+  height?: number
+}
+
+export interface LoadedEmitParams extends CallbackParams {
+  dom?: HTMLImageElement
+  src?: string
 }
 
 export interface ValueFormatterObject {
@@ -28,7 +32,11 @@ export default class Lazy {
   config(options = {}): void
 
   // mount
-  mount(el: HTMLImageElement, binding: string | ValueFormatterObject, callback: () => void): void
+  mount(
+    el: HTMLImageElement,
+    binding: string | ValueFormatterObject,
+    callback: (params?: CallbackParams) => void
+  ): void
 
   // update
   // update(el, binding, callback) {
@@ -43,7 +51,7 @@ export default class Lazy {
   // unmount
   unmount(el: HTMLElement): void
 
-  resize(el: HTMLElement, callback: () => void): void
+  resize(el: HTMLElement, callback: (params?: CallbackParams) => void): void
 
   /**
    * 设置img的src
@@ -53,7 +61,12 @@ export default class Lazy {
    * @param {*} callback - 完成的回调函数，通知组件刷新布局
    * @returns
    */
-  _setImageSrc(el: HTMLImageElement, src: string, callback: () => void, error?: string): void
+  _setImageSrc(
+    el: HTMLImageElement,
+    src: string,
+    callback: (params?: CallbackParams) => void,
+    error?: string
+  ): void
 
   _isOpenLazy(): boolean
 

@@ -1,4 +1,4 @@
-import type { LazyOptions, ValueFormatterObject } from '../types/lazy'
+import type { LazyOptions, CallbackParams, ValueFormatterObject } from '../types/lazy'
 import type { CssStyleObject } from '../types/util.d'
 import { assign, hasIntersectionObserver, isObject } from './util'
 import { loadImage } from './loader'
@@ -42,7 +42,11 @@ export default class Lazy {
   }
 
   // mount
-  mount(el: HTMLImageElement, binding: string | ValueFormatterObject, callback: () => void): void {
+  mount(
+    el: HTMLImageElement,
+    binding: string | ValueFormatterObject,
+    callback: (params?: CallbackParams) => void
+  ): void {
     const { src, loading, error } = this._valueFormatter(binding)
     el.setAttribute('lazy', LifecycleEnum.LOADING)
     el.setAttribute('src', loading || DEFAULT_LOADING)
@@ -50,6 +54,7 @@ export default class Lazy {
       this._setImageSrc(el, src, callback, error)
     } else {
       if (!hasIntersectionObserver) {
+        debugger
         this._setImageSrc(el, src, callback, error)
         this._log(() => {
           throw new Error('Not support IntersectionObserver!')
@@ -60,18 +65,20 @@ export default class Lazy {
   }
 
   // resize
-  resize(el: HTMLImageElement, callback: () => void) {
+  resize(el: HTMLImageElement, callback: (params?: CallbackParams) => void) {
     const lazy = el.getAttribute('lazy')
     const src = el.getAttribute('src')
     if (lazy && lazy === LifecycleEnum.LOADED && src) {
       loadImage(src).then((image) => {
         const { width, height } = image
         const curHeight = (this.colWidth / width) * height
-        console.log('🚀 ~ file: Lazy.ts ~ line 69 ~ Lazy ~ loadImage ~ curHeight', curHeight)
         el.height = curHeight
         const style = el.style as CssStyleObject
         style.height = `${curHeight}px`
-        callback()
+        callback({
+          width,
+          height
+        })
       })
     }
   }
@@ -91,7 +98,12 @@ export default class Lazy {
    * @param {*} callback - 完成的回调函数，通知组件刷新布局
    * @returns
    */
-  _setImageSrc(el: HTMLImageElement, src: string, callback: () => void, error?: string): void {
+  _setImageSrc(
+    el: HTMLImageElement,
+    src: string,
+    callback: (params?: CallbackParams) => void,
+    error?: string
+  ): void {
     if (!src) return
 
     const preSrc = el.getAttribute('src')
@@ -108,7 +120,10 @@ export default class Lazy {
         el.height = curHeight
         const style = el.style as CssStyleObject
         style.height = `${curHeight}px`
-        callback()
+        callback({
+          width,
+          height
+        })
       })
       .catch(() => {
         const imgItem = this._realObserver(el)
@@ -140,7 +155,7 @@ export default class Lazy {
   _initIntersectionObserver(
     el: HTMLImageElement,
     src: string,
-    callback: () => void,
+    callback: (params?: CallbackParams) => void,
     error?: string
   ): void {
     const observerOptions = this.options.observerOptions

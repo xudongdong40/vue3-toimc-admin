@@ -18,26 +18,15 @@
         :lazyload="options.lazyload"
         :load-props="options.loadProps"
       >
-        <template #item="{ item }">
-          <div
-            class="bg-gray-900 rounded-lg shadow-md overflow-hidden transition-all duration-300 ease-linear hover:shadow-lg hover:shadow-gray-600 group"
-          >
-            <div class="overflow-hidden">
-              <lazy-img
-                :url="item.url"
-                class="cursor-pointer transition-all duration-300 ease-linear group-hover:scale-105"
-              />
-            </div>
-          </div>
-        </template>
       </waterfall-box>
 
-      <!-- <div class="flex justify-center py-10 bg-gray-900">
+      <div class="flex justify-center py-10 bg-gray-900">
         <button
           class="px-5 py-2 rounded-full bg-gray-700 text-md text-white cursor-pointer hover:bg-gray-800 transition-all duration-300"
           @click="handleLoadMore"
-        >加载更多</button>
-      </div>-->
+          >加载更多</button
+        >
+      </div>
     </div>
   </div>
 </template>
@@ -45,15 +34,8 @@
 <script lang="ts">
   import { defineComponent } from 'vue'
   import axios, { AxiosResponse } from 'axios'
-
-  interface ViewCard {
-    url: any
-    id?: string
-    name?: string
-    star?: boolean
-    backgroundColor?: string
-    [attr: string]: any
-  }
+  import { ViewCard } from '@/components/Waterfall/types/waterfall'
+  import loading from '@/assets/images/loading.png'
 
   interface Item {
     id?: number
@@ -122,11 +104,11 @@
           imgSelector: 'src.original',
           // 加载配置
           loadProps: {
-            // loading,
+            loading
             // error
           },
           // 是否懒加载
-          lazyload: false
+          lazyload: true
         })
 
         onMounted(async () => {
@@ -137,10 +119,7 @@
           const res = await getData()
           res.map((item) => {
             list.value.push({
-              url: item,
-              id: '',
-              name: '',
-              star: false
+              src: item
             })
           })
         }
@@ -152,7 +131,6 @@
       }
 
       const { list, options, handleLoadMore } = useWaterfall()
-      console.log('🚀 ~ file: waterfall.vue ~ line 157 ~ setup ~ options', options)
 
       return {
         list,

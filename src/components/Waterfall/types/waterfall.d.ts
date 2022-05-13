@@ -1,15 +1,15 @@
-/*
- * @Author: Yaowen Liu
- * @Date: 2022-03-17 14:41:05
- * @LastEditors: Yaowen Liu
- * @LastEditTime: 2022-03-23 14:44:20
- */
 export interface ViewCard {
   src: any
   id?: string
-  name?: string
-  star?: boolean
   backgroundColor?: string
+  ref?: Ref<HTMLElement>
+  dom?: HTMLImageElement
+  width?: number
+  height?: number
+  curWidth?: number
+  curHeight?: number
+  style?: CssStyleObject
+  cls?: string
   [attr: string]: any
 }
 

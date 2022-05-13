@@ -1,10 +1,4 @@
 import type { CssStyleObject } from '../types/util'
-/*
- * @Author: Yaowen Liu
- * @Date: 2022-03-11 15:47:34
- * @LastEditors: Yaowen Liu
- * @LastEditTime: 2022-03-18 14:10:01
- */
 
 export function hasClass(el: HTMLElement, className: string) {
   const reg = new RegExp(`(^|\\s)${className}(\\s|$)`)

@@ -1,9 +1,3 @@
-<!--
- * @Author: Yaowen Liu
- * @Date: 2022-03-09 10:29:50
- * @LastEditors: Yaowen Liu
- * @LastEditTime: 2022-03-23 17:10:53
--->
 <template>
   <div class="lazy__box">
     <img ref="lazyRef" class="lazy__img" />
@@ -14,6 +8,7 @@
   // import type { Ref } from 'vue'
   import { defineComponent, inject, onMounted, onUnmounted, ref } from 'vue'
   import type Lazy from './types/lazy'
+  import { CallbackParams, LoadedEmitParams } from './types/lazy'
   import type { Nullable } from './types/util'
 
   export default defineComponent({
@@ -27,16 +22,10 @@
         default: '100%'
       }
     },
-
-    setup(props) {
-      // const sizeChangeTime = inject('sizeChangeTime') as Ref<number>
-      const imgLoaded = inject('imgLoaded') as () => void
+    emits: ['loaded'],
+    setup(props, { emit }) {
       const lazy = inject('lazy') as Lazy
       const lazyRef = ref<Nullable<HTMLImageElement>>(null)
-
-      // watch(sizeChangeTime, () => {
-      //   resize()
-      // })
 
       onMounted(() => {
         render()
@@ -49,8 +38,14 @@
       function render() {
         if (!lazyRef.value) return
 
-        lazy.mount(lazyRef.value, props.url, () => {
-          imgLoaded()
+        lazy.mount(lazyRef.value, props.url, (params) => {
+          const { height, width } = params as CallbackParams
+          emit('loaded', {
+            dom: lazyRef.value,
+            src: props.url,
+            width,
+            height
+          } as LoadedEmitParams)
         })
       }
 
@@ -59,15 +54,6 @@
 
         lazy.unmount(lazyRef.value)
       }
-
-      // function resize() {
-      //   if (!lazyRef.value)
-      //     return
-
-      //   lazy.resize(lazyRef.value, () => {
-      //     imgLoaded()
-      //   })
-      // }
 
       return {
         lazyRef

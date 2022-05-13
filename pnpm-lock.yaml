@@ -16,6 +16,7 @@ specifiers:
   '@vitejs/plugin-vue-jsx': ^1.3.9
   '@vue/runtime-core': ^3.2.31
   '@vueuse/core': ^8.2.4
+  animate.css: ^4.1.1
   autoprefixer: ^10.4.4
   axios: ^0.26.1
   big-integer: ^1.6.51
@@ -66,7 +67,7 @@ specifiers:
   vite-plugin-windicss: ^1.8.3
   vue: ^3.2.31
   vue-i18n: '9'
-  vue-router: 4.0.13
+  vue-router: ^4.0.14
   vue-tsc: ^0.33.9
   windicss: ^3.5.1
 
@@ -76,6 +77,7 @@ dependencies:
   '@toast-ui/editor-plugin-code-syntax-highlight': 3.0.0
   '@vue/runtime-core': 3.2.31
   '@vueuse/core': 8.2.4_vue@3.2.31
+  animate.css: 4.1.1
   axios: 0.26.1
   big-integer: 1.6.51
   copy-to-clipboard: 3.3.1
@@ -93,7 +95,7 @@ dependencies:
   qrcode: 1.5.0
   vue: 3.2.31
   vue-i18n: 9.1.9_vue@3.2.31
-  vue-router: 4.0.13_vue@3.2.31
+  vue-router: 4.0.15_vue@3.2.31
 
 devDependencies:
   '@commitlint/cli': 16.2.3
@@ -1450,6 +1452,10 @@ packages:
       uri-js: 4.4.1
     dev: true
 
+  /animate.css/4.1.1:
+    resolution: {integrity: sha512-+mRmCTv6SbCmtYJCN4faJMNFVNN5EuCTTprDTAo7YzIGji2KADmakjVA3+8mVDkZ2Bf09vayB35lSQIex2+QaQ==}
+    dev: false
+
   /ansi-escapes/3.2.0:
     resolution: {integrity: sha512-cBhpre4ma+U0T1oM5fXg7Dy1Jw7zzwv7lt/GoCpr+hDQJoYnKVPLL4dCvSEFMmQurOQvSrwT7SL/DAlhBI97RQ==}
     engines: {node: '>=4'}
@@ -1815,7 +1821,7 @@ packages:
       normalize-path: 3.0.0
       readdirp: 3.6.0
     optionalDependencies:
-      fsevents: 2.3.2
+      fsevents: mirrors.tencent.com/fsevents/2.3.2
     dev: true
 
   /chownr/2.0.0:
@@ -2504,15 +2510,6 @@ packages:
     dev: true
     optional: true
 
-  /esbuild-freebsd-arm64/0.14.31:
-    resolution: {integrity: sha512-t85bS6jbRpmdjr4pdr/FY/fpx8lo1vv9S7BAs2EsXKJQhRDMIiC3QW+k2acYJoRuqirlvJcJVFQGCq/PfyC1kA==}
-    engines: {node: '>=12'}
-    cpu: [arm64]
-    os: [freebsd]
-    requiresBuild: true
-    dev: true
-    optional: true
-
   /esbuild-linux-32/0.14.31:
     resolution: {integrity: sha512-XYtOk/GodSkv+UOYVwryGpGPuFnszsMvRMKq6cIUfFfdssHuKDsU9IZveyCG44J106J39ABenQ5EetbYtVJHUw==}
     engines: {node: '>=12'}
@@ -2656,7 +2653,7 @@ packages:
       esbuild-darwin-64: 0.14.31
       esbuild-darwin-arm64: 0.14.31
       esbuild-freebsd-64: 0.14.31
-      esbuild-freebsd-arm64: 0.14.31
+      esbuild-freebsd-arm64: mirrors.tencent.com/esbuild-freebsd-arm64/0.14.31
       esbuild-linux-32: 0.14.31
       esbuild-linux-64: 0.14.31
       esbuild-linux-arm: 0.14.31
@@ -3146,14 +3143,6 @@ packages:
 
   /fs.realpath/1.0.0:
     resolution: {integrity: sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw==}
-
-  /fsevents/2.3.2:
-    resolution: {integrity: sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==}
-    engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
-    os: [darwin]
-    requiresBuild: true
-    dev: true
-    optional: true
 
   /function-bind/1.1.1:
     resolution: {integrity: sha512-yIovAzMX49sF8Yl58fSCWJ5svSLuaibPxXQJFLmBObTuCr0Mf1KiPopGM9NiFjiYBCbfaa2Fh6breQ6ANVTI0A==}
@@ -3843,7 +3832,7 @@ packages:
   /jsonfile/4.0.0:
     resolution: {integrity: sha512-m6F1R3z8jjlf2imQHS2Qez5sjKWQzbuuhuJ/FKYFRZvPE3PuHcSMVZzfsLhGVOkfd20obL5SWEBew5ShlquNxg==}
     optionalDependencies:
-      graceful-fs: 4.2.9
+      graceful-fs: mirrors.tencent.com/graceful-fs/4.2.9
     dev: true
 
   /jsonfile/6.1.0:
@@ -3851,7 +3840,7 @@ packages:
     dependencies:
       universalify: 2.0.0
     optionalDependencies:
-      graceful-fs: 4.2.9
+      graceful-fs: mirrors.tencent.com/graceful-fs/4.2.9
     dev: true
 
   /jsonparse/1.3.1:
@@ -5048,7 +5037,7 @@ packages:
     engines: {node: '>=10.0.0'}
     hasBin: true
     optionalDependencies:
-      fsevents: 2.3.2
+      fsevents: mirrors.tencent.com/fsevents/2.3.2
     dev: true
 
   /rope-sequence/1.3.2:
@@ -6176,7 +6165,7 @@ packages:
       rollup: 2.70.1
       sass: 1.49.11
     optionalDependencies:
-      fsevents: 2.3.2
+      fsevents: mirrors.tencent.com/fsevents/2.3.2
     dev: true
 
   /vscode-jsonrpc/8.0.0-next.7:
@@ -6242,8 +6231,8 @@ packages:
       vue: 3.2.31
     dev: false
 
-  /vue-router/4.0.13_vue@3.2.31:
-    resolution: {integrity: sha512-LmXrC+BkDRLak+d5xTMgUYraT3Nj0H/vCbP+7usGvIl9Viqd1UP6AsP0i69pSbn9O0dXK/xCdp4yPw21HqV9Jw==}
+  /vue-router/4.0.15_vue@3.2.31:
+    resolution: {integrity: sha512-xa+pIN9ZqORdIW1MkN2+d9Ui2pCM1b/UMgwYUCZOiFYHAvz/slKKBDha8DLrh5aCG/RibtrpyhKjKOZ85tYyWg==}
     peerDependencies:
       vue: ^3.2.0
     dependencies:
@@ -6444,3 +6433,31 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
     dev: true
+
+  mirrors.tencent.com/esbuild-freebsd-arm64/0.14.31:
+    resolution: {integrity: sha512-t85bS6jbRpmdjr4pdr/FY/fpx8lo1vv9S7BAs2EsXKJQhRDMIiC3QW+k2acYJoRuqirlvJcJVFQGCq/PfyC1kA==, registry: https://mirrors.cloud.tencent.com/npm/, tarball: http://mirrors.tencent.com/npm/esbuild-freebsd-arm64/-/esbuild-freebsd-arm64-0.14.31.tgz}
+    name: esbuild-freebsd-arm64
+    version: 0.14.31
+    engines: {node: '>=12'}
+    cpu: [arm64]
+    os: [freebsd]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  mirrors.tencent.com/fsevents/2.3.2:
+    resolution: {integrity: sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==, registry: https://mirrors.cloud.tencent.com/npm/, tarball: https://mirrors.tencent.com/npm/fsevents/-/fsevents-2.3.2.tgz}
+    name: fsevents
+    version: 2.3.2
+    engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
+    os: [darwin]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  mirrors.tencent.com/graceful-fs/4.2.9:
+    resolution: {integrity: sha512-NtNxqUcXgpW2iMrfqSfR73Glt39K+BLwWsPs94yR63v45T0Wbej7eRmL5cWfwEgqXnmjQp3zaJTshdRW/qC2ZQ==, registry: https://mirrors.cloud.tencent.com/npm/, tarball: https://mirrors.tencent.com/npm/graceful-fs/-/graceful-fs-4.2.9.tgz}
+    name: graceful-fs
+    version: 4.2.9
+    dev: true
+    optional: true

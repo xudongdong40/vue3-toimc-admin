@@ -1,9 +1,3 @@
-/*
- * @Author: Yaowen Liu
- * @Date: 2022-03-17 15:58:16
- * @LastEditors: Yaowen Liu
- * @LastEditTime: 2022-03-18 14:12:02
- */
 import type { ItemWidthProps } from '../types/waterfall'
 
 /**

@@ -24,6 +24,7 @@
     "@toast-ui/editor-plugin-code-syntax-highlight": "^3.0.0",
     "@vue/runtime-core": "^3.2.31",
     "@vueuse/core": "^8.2.4",
+    "animate.css": "^4.1.1",
     "axios": "^0.26.1",
     "big-integer": "^1.6.51",
     "copy-to-clipboard": "^3.3.1",
