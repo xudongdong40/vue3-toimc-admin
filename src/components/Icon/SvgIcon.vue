@@ -1,5 +1,5 @@
 <template>
-  <div v-if="isExternal" :style="styleExternalIcon" class="svg-external-icon svg-icon" />
+  <div v-if="isExternal" :style="styleExternalIcon" :class="['svg-external-icon svg-icon']" />
   <svg
     v-else
     :class="svgClass"
@@ -14,22 +14,27 @@
   export default defineComponent({
     name: 'SvgIcon',
     props: {
+      // 图标类名
       iconClass: {
         type: String,
         required: true
       },
+      // svg图标的类名
       className: {
         type: String,
         default: ''
       },
+      // 宽度
       width: {
         type: [Number, String],
         default: ''
       },
+      // 高度
       height: {
         type: [Number, String],
         default: ''
       },
+      // 如果设置了size，可以不用设置width和height
       size: {
         type: [Number, String],
         default: ''
@@ -37,16 +42,17 @@
     },
     setup(props) {
       const isExternal = /^(https?:|mailto:|tel:)/.test(props.iconClass)
+
       const iconName = `#icon-${props.iconClass}`
       const svgClass = props.className ? `svg-icon ${props.className}` : 'svg-icon '
-      const styleExternalIcon = () => {
+      const styleExternalIcon = computed(() => {
         return {
           mask: `url(${props.iconClass}) no-repeat 50% 50%`,
           '-webkit-mask': `url(${props.iconClass}) no-repeat 50% 50%`,
           width: props.width || props.size,
           height: props.height || props.size
         }
-      }
+      })
       return {
         isExternal,
         iconName,
@@ -57,12 +63,9 @@
   })
 </script>
 
-<style lang="postcss" scoped>
+<style lang="scss" scoped>
   .svg-icon {
     overflow: hidden;
-
-    /* width: 100%;
-  height: 100%; */
     vertical-align: -0.15em;
     fill: currentcolor;
   }
