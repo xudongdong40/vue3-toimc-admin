@@ -30,30 +30,37 @@
   export default defineComponent({
     name: 'IconPicker',
     props: {
+      // 当前选中的图标
       choose: {
         type: [String, Number],
         default: ''
       },
+      // 标题
       title: {
         type: String,
         default: '选择图标'
       },
+      // 图标庥
       items: {
         type: Array as PropType<IconTypes[]>,
         default: () => IconData
       },
+      // 是否显示图标
       showIcon: {
         type: Boolean,
         default: true
       },
+      // 是否显示文字
       showText: {
         type: Boolean,
         default: false
       },
+      // 是否显示控制按钮
       footer: {
         type: Boolean,
         default: false
       },
+      // 设置图标列表的类名
       classes: {
         type: String,
         default: 'p-1'
