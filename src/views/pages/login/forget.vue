@@ -1,5 +1,6 @@
 <template>
   <div class="w-full p-1 custom-login">
+    <!-- 右上角扫码登陆部分，若不需要，可直接注释 -->
     <div class="flex items-center justify-end">
       <div class="px-3 py-2 rounded-md mr-2 flex items-center bg-[#ECFAF3]">
         <span class="we inline-block pr-2 bg-contain"></span>
@@ -9,6 +10,7 @@
         <img class="relative cursor-pointer" src="@/assets/images/qr.png" />
       </router-link>
     </div>
+    <!-- 忘记密码主体部分，可按需进行修改 -->
     <div class="my-10 mx-auto max-w-96">
       <div class="text-3xl pb-6">忘记密码</div>
       <basic-form :schemas="regForm" label-width="0" class="pt-4">
@@ -48,6 +50,7 @@
 
   export default defineComponent({
     setup() {
+      // 注册表单配置，作为配置参数传递给basic-form组件
       const regForm = [
         {
           component: 'input',
@@ -81,6 +84,7 @@
         }
       ] as FormSchema[]
 
+      // 验证码处理，state 为状态，sendCode为处理发送的函数，leftCount为重发时间
       const { state, sendCode, leftCount } = sendUtils()
 
       return {
