@@ -73,7 +73,8 @@
       "small-comp": {
         "title": "小组件",
         "calendar": "日历卡片",
-        "weather": "天气"
+        "weather": "天气",
+        "countDown": "倒计时"
       },
       "password-comp": {
         "title": "密码强度"

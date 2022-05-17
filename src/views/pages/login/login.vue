@@ -15,7 +15,9 @@
         <el-tab-pane label="密码登录" name="pwd">
           <basic-form :schemas="loginForm" label-width="0" class="pt-4">
             <template #action>
-              <el-button type="primary" size="large" class="w-full">登录</el-button>
+              <el-button type="primary" size="large" class="w-full" @click="loginHandler"
+                >登录</el-button
+              >
             </template>
           </basic-form>
         </el-tab-pane>
@@ -38,7 +40,9 @@
               >
             </template>
             <template #action>
-              <el-button type="primary" size="large" class="w-full">登录</el-button>
+              <el-button type="primary" size="large" class="w-full" @click="loginHandler"
+                >登录</el-button
+              >
             </template>
           </basic-form>
         </el-tab-pane>
@@ -59,9 +63,10 @@
   import { TabsPaneContext } from 'element-plus'
   import { defineComponent } from 'vue'
   import sendUtils from '@/utils/sendCode'
-
+  import { useRouter } from 'vue-router'
   export default defineComponent({
     setup() {
+      const { push } = useRouter()
       const activeName = ref('pwd')
       const handleClick = (tab: TabsPaneContext, event: Event) => {
         console.log(tab, event)
@@ -71,6 +76,8 @@
         {
           component: 'input',
           class: 'py-1',
+          prop: 'username',
+          value: 'admin',
           attrs: {
             placeholder: '请输入手机号/账号',
             size: 'large',
@@ -80,6 +87,8 @@
         {
           component: 'input',
           class: 'py-1',
+          prop: 'password',
+          value: '123456',
           attrs: {
             placeholder: '请输入密码',
             type: 'password',
@@ -93,6 +102,8 @@
         {
           component: 'input',
           class: 'py-1',
+          prop: 'mobile',
+          value: '13400001234',
           attrs: {
             placeholder: '请输入手机号',
             size: 'large',
@@ -102,17 +113,23 @@
         {
           component: 'input',
           class: 'py-1',
+          prop: 'code',
+          value: '622233',
           attrs: {
             placeholder: '请输入验证码',
             size: 'large',
             prefixIcon: 'Lock'
           },
-          itemSlot: 'suffix',
-          slot: 'suffix'
+          itemSlot: { suffix: 'suffix' }
         }
       ] as FormSchema[]
 
       const { state, sendCode, leftCount } = sendUtils()
+
+      const loginHandler = () => {
+        push('/home')
+      }
+
       return {
         activeName,
         handleClick,
@@ -120,7 +137,8 @@
         codeLoginForm,
         state,
         sendCode,
-        leftCount
+        leftCount,
+        loginHandler
       }
     }
   })
@@ -130,7 +148,7 @@
   .we {
     width: 19px;
     height: 19px;
-    background: url("@/assets/images/security.png") no-repeat center center;
+    background: url('@/assets/images/security.png') no-repeat center center;
   }
 
   .custom-login {

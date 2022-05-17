@@ -9,6 +9,7 @@
             </el-row>
           </template>
         </basic-form>
+        <div>计时：{{ counter }}s</div>
       </el-row>
       <div class="text-center py-6 break-words">
         <d-numbers
@@ -26,6 +27,22 @@
           <template #prefix>{{ form.prefix }}</template>
           <template #suffix>{{ form.suffix }}</template>
         </d-numbers>
+      </div>
+      <p class="pt-3">使用useTransition的案例：</p>
+      <div class="text-left py-6 text-4xl">
+        <count-to
+          ref="ctrl1"
+          :end-val="form.end"
+          :start-val="form.begin"
+          :decimals="form.dot"
+          :duration="form.duration"
+          :autoplay="form.auto"
+          :classes="'d-text'"
+          separator=","
+          :prefix="form.prefix"
+          :suffix="form.suffix"
+        >
+        </count-to>
       </div>
       <el-row>
         <el-button type="primary" @click="handleStart">开始</el-button>
@@ -45,6 +62,8 @@
   export default defineComponent({
     setup() {
       const ctrl = ref()
+      const ctrl1 = ref()
+      const counter = ref(0)
 
       let form = reactive({
         begin: 1.12312,
@@ -56,6 +75,18 @@
         prefix: '',
         suffix: ''
       })
+
+      const { pause, resume } = useIntervalFn(
+        () => {
+          /* your function */
+          counter.value += 1
+          if (counter.value >= form.duration / 1000) {
+            pause()
+          }
+        },
+        1000,
+        { immediate: false }
+      )
 
       const formSchema: FormSchema[] = reactive([
         {
@@ -112,22 +143,34 @@
       ] as FormSchema[])
 
       function handleStart() {
+        counter.value = 0
+        resume()
         ctrl.value?.start()
+        // count-to案例
+        ctrl1.value?.start()
       }
 
       function handlePause() {
+        pause()
         ctrl.value?.pause()
       }
 
       function handleResume() {
+        resume()
         ctrl.value?.resume()
       }
 
       function handleReset() {
+        counter.value = 0
+        pause()
         ctrl.value?.reset()
+        // count-to案例
+        ctrl1.value?.reset()
       }
 
       function handleTerminate() {
+        pause()
+        counter.value = 0
         ctrl.value?.terminate()
       }
 
@@ -153,6 +196,7 @@
 
       return {
         ctrl,
+        ctrl1,
         formSchema,
         form,
         handleStart,
@@ -161,7 +205,8 @@
         handleReset,
         handleTerminate,
         handleChange,
-        handleFormReset
+        handleFormReset,
+        counter
       }
     }
   })

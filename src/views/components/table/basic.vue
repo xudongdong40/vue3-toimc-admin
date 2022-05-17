@@ -5,7 +5,6 @@
     :columns="columns"
     :pagination="pagination"
     :default-sort="{ prop: 'date', order: 'descending' }"
-    height="100%"
   >
     <template #address="{ row }">{{ row }}</template>
   </basic-table>

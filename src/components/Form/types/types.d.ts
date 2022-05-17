@@ -24,20 +24,30 @@ export type ComponentType =
   | 'editor'
 
 export type UploadComponent = {
+  // 上传链接
   action?: string
+  // 请求头
   headers?: object
+  // 请求方式
   method?: 'post' | 'put' | 'patch'
+  // 是否多文件
   multiple?: boolean
+  // 数据
   data?: any
+  // 文件名
   name?: string
   withCredentials?: boolean
   showFileList?: boolean
+  // 拖拽功能是否开户
   drag?: boolean
+  // 接受的文件类型
   accept?: string
+  // 文件列表
   fileList?: any[]
   listType?: 'text' | 'picture' | 'picture-card'
   autoUpload?: boolean
   disabled?: boolean
+  // 限制文件数量
   limit?: number
   type?: 'button' | 'icon'
   btnType?: 'primary' | 'success' | 'warning' | 'danger' | 'info' | 'text'
@@ -62,19 +72,33 @@ export type UploadComponent = {
 }
 
 export type FormSchema = {
+  // 三种类型
   component: ComponentType | 'innerText' | Component
+  // 默认值
   value?: any
+  // 标签文本
   label?: string
+  // 属性
   prop: string
+  // 用于栅栏结构
   span?: number
+  // element组件 slot，可以定义多个
   slot?: string | string[]
+  // 当前组件的slot -> 针对 input 组件重新设计
   itemSlot?: string | { [key: string]: string }
+  // 校验规则
   rules?: RuleItem[]
+  // 额外绑定到item上的属性
   attrs?: any
+  // 子组件
   children?: Partial<FormSchema>[]
+  // item上的事件绑定
   events?: any
+  // 额外的class
   class?: string
+  // 额外的style属性
   style?: CSSProperties
+  // 上传组件
   upload?: UploadComponent
 }
 

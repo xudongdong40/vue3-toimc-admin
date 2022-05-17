@@ -10,7 +10,7 @@ export const useTabsStore = defineStore('tabsbar', {
     visitedRoutes: visitedPages as AppRouteRecordRaw[]
   }),
   actions: {
-    saveTabs(){
+    saveTabs() {
       localStorage.setItem('toimc-admin-visited-page', JSON.stringify(this.visitedRoutes))
     },
     addVisitedRoute(route) {
@@ -19,7 +19,9 @@ export const useTabsStore = defineStore('tabsbar', {
         if (route.fullPath !== target.fullPath) Object.assign(target, route)
         return
       }
-      this.visitedRoutes.push(Object.assign({}, route))
+      const saveRoute = Object.assign({}, route)
+      saveRoute.matched && delete saveRoute.matched
+      this.visitedRoutes.push(saveRoute)
       this.saveTabs()
     },
     delVisitedRoute(route) {

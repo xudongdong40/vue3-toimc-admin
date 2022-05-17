@@ -19,6 +19,15 @@ Object.keys(modules).forEach((key) => {
 // 公共路由
 const publicRoutes = [
   {
+    name: 'default',
+    path: '/',
+    redirect: '/login',
+    meta: {
+      title: '',
+      hideMenu: true
+    }
+  },
+  {
     name: 'RegisterLoginsPages',
     path: '/login',
     redirect: '/login/pwd',

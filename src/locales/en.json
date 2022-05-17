@@ -73,7 +73,8 @@
       "small-comp": {
         "calendar": "CalendarCard",
         "title": "Widgets",
-        "weather": "Weather"
+        "weather": "Weather",
+        "countDown": "CountDown"
       },
       "password-comp": {
         "title": "Password strength",

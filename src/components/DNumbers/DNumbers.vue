@@ -148,6 +148,7 @@
         clearInterval(ctrl)
 
         status.value = true
+        let durationCount = 0
 
         // 放大dot的对应的点数
         let times
@@ -173,21 +174,37 @@
         target = getTimesNum(end.value, times)
 
         // 计算定时器的倍率
-        const rate = bigInt(duration.value).divide(setupDuration)
+        let rate = bigInt(duration.value).divide(setupDuration)
+        console.log('🚀 ~ file: DNumbers.vue ~ line 178 ~ init ~ rate', rate)
 
-        // 计算step, 并加入随机性，这样就不会有很多0
+        // 计算step
         let step = rate.compareAbs(bigInt.zero) !== 0 ? target.minus(origin).divide(rate) : target
 
         ctrl = setInterval(() => {
-          if (step.compareAbs(bigInt.zero) === 1) {
-            const len = step.toString().length
-            step = bigInt(rand(len))
-          } else {
-            step = bigInt(1)
-          }
           // 暂停
           if (pauseFlag.value) return
-          origin = origin.add(step)
+          // 总时间计时
+          durationCount += setupDuration
+
+          let tempStep = step
+          // TODO 加入ease
+          if (step.compareAbs(bigInt.zero) === 1) {
+            const len = step.toString().length
+            // 加入随机性，这样就不会有很多0
+            if (Math.random() > 0.5) {
+              if (len > 3) {
+                tempStep = bigInt(tempStep).add(bigInt(rand(len - 3)))
+              }
+            }
+            tempStep = bigInt(tempStep)
+              .multiply(Math.floor(Math.random() * 11) + 95)
+              .divide(100)
+            // step = bigInt(rand(len))
+          } else {
+            tempStep = bigInt(1)
+          }
+
+          origin = origin.add(tempStep)
 
           // format
           let divide = origin.divmod(times)
@@ -203,8 +220,8 @@
 
           tmp = isFunction(props.format) ? props.format(tmp) : tmp
           result.value = formatWithSeperator(tmp, props.split)
-          // 如果达到目标值cvb'，则停止
-          if (origin.compareAbs(target) === 1) {
+          // 如果达到目标值，则停止
+          if (origin.compareAbs(target) === 1 || durationCount >= duration.value) {
             result.value = format(end.value, dot.value)
             status.value = false
             clearInterval(ctrl)

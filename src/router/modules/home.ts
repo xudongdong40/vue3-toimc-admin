@@ -10,13 +10,13 @@ const homeRoutes: Array<AppRouteRecordRaw> = [
       order: 10,
       icon: 'House'
     },
-    path: '/',
+    path: '/home',
     component: LayoutsDefault,
-    redirect: '/dashboard',
+    redirect: '/home/dashboard',
     children: [
       {
         name: 'DashBoard',
-        path: '/dashboard',
+        path: 'dashboard',
         component: () => import('@/views/dashboard/welcome/index.vue'),
         meta: {
           title: t('menu.overview'),

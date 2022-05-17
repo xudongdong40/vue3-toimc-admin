@@ -370,6 +370,14 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
               title: t('menu.component.display.calendar')
             },
             component: () => import('@/views/components/display/calendar.vue')
+          },
+          {
+            name: 'WaterFall',
+            path: 'waterfall',
+            meta: {
+              title: '瀑布流'
+            },
+            component: () => import('@/views/components/display/waterfall.vue')
           }
         ]
       },
@@ -396,6 +404,14 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
               title: t('menu.component.small-comp.weather')
             },
             component: () => import('@/views/components/small-components/weather.vue')
+          },
+          {
+            name: 'CountDown',
+            path: 'countdown',
+            meta: {
+              title: t('menu.component.small-comp.countDown')
+            },
+            component: () => import('@/views/components/small-components/number.vue')
           }
         ]
       }

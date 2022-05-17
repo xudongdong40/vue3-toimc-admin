@@ -6,7 +6,8 @@ export function mixPics() {
     const result = Random.pick(['image', 'pic'])
     mockData.push(
       `https://toimc-online.obs.cn-east-3.myhuaweicloud.com/vue-toimc-admin/shotcuts/${result}` +
-        (result === 'pic' ? Random.integer(1, 100) : Random.integer(1, 626) + '.jpg')
+        (result === 'pic' ? Random.integer(1, 100) : Random.integer(1, 626)) +
+        '.jpg'
     )
   }
   return mockData
