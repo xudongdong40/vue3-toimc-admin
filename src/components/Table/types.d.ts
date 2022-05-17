@@ -1,14 +1,20 @@
 export interface ColumnOptions {
+  // 列名
   label: string
+  // 数据对应的key
   prop?: string
   width?: string | number
   height?: string | number
   align?: 'left' | 'right' | 'center'
+  // 插槽名
   slot?: string
   fixed?: boolean | 'left' | 'right'
+  // 操作列 -> 可以支持icon与button
   actionItems?: ActionType[]
   type?: ColumnTypes
+  // 数据格式化
   format?: (value: any, row: any) => any
+  // 额外属性
   attrs?: any
 }
 
