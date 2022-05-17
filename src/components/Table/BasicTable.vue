@@ -1,5 +1,5 @@
 <template>
-  <el-card>
+  <el-card v-if="isCard">
     <slot name="header"></slot>
     <el-table
       ref="tableRef"
@@ -25,7 +25,13 @@
           :align="item.align"
           :width="item.width"
           :fixed="item.fixed"
-        ></el-table-column>
+        >
+        </el-table-column>
+        <el-table-column v-else-if="['expand'].includes(item.type || '')" type="expand">
+          <template v-if="item.slot" #default="scope">
+            <slot :name="item.slot || 'default'" v-bind="scope"></slot>
+          </template>
+        </el-table-column>
         <el-table-column
           v-else
           :label="item.label"
@@ -33,6 +39,7 @@
           :prop="item.prop"
           :width="item.width"
           :fixed="item.fixed"
+          :show-overflow-tooltip="item.showOverflowTooltip || false"
           v-bind="item.attrs"
         >
           <template v-if="item.actionItems && item.actionItems.length" #default="scope">
@@ -127,6 +134,141 @@
     </slot>
     <slot name="footer-with-pagination"></slot>
   </el-card>
+  <template v-else>
+    <slot name="header"></slot>
+    <el-table
+      ref="tableRef"
+      v-loading="loading"
+      :data="data"
+      :border="border"
+      :stripe="stripe"
+      :show-header="showHeader"
+      :size="size"
+      :height="height"
+      :element-loading-text="loadingProps.text"
+      :element-loading-spinner="loadingProps.spinner"
+      :element-loading-svg="loadingProps.svg"
+      :element-loading-background="loadingProps.background"
+      v-bind="$attrs"
+    >
+      <template v-for="(item, index) in columns" :key="index">
+        <el-table-column
+          v-if="['index', 'selection'].includes(item.type || '')"
+          :key="index"
+          :type="item.type"
+          :label="item.label"
+          :align="item.align"
+          :width="item.width"
+          :fixed="item.fixed"
+        >
+        </el-table-column>
+        <el-table-column v-else-if="['expand'].includes(item.type || '')" type="expand">
+          <template v-if="item.slot" #default="scope">
+            <slot :name="item.slot || 'default'" v-bind="scope"></slot>
+          </template>
+        </el-table-column>
+        <el-table-column
+          v-else
+          :label="item.label"
+          :align="item.align"
+          :prop="item.prop"
+          :width="item.width"
+          :fixed="item.fixed"
+          :show-overflow-tooltip="item.showOverflowTooltip || false"
+          v-bind="item.attrs"
+        >
+          <template v-if="item.actionItems && item.actionItems.length" #default="scope">
+            <div
+              v-for="(action, idx) in item.actionItems"
+              :key="idx"
+              :class="action.class || 'inline-flex pr-2'"
+            >
+              <el-button
+                v-if="action.type === 'button'"
+                v-bind="action.attrs"
+                @click="() => action.click(scope)"
+                >{{ action.text }}</el-button
+              >
+              <icon
+                v-else-if="action.type === 'icon'"
+                :icon="action.icon"
+                v-bind="action.attrs"
+                @click="() => action.click(scope)"
+              ></icon>
+            </div>
+          </template>
+          <template v-else-if="item.slot" #default="scope">
+            <slot :name="item.slot || 'default'" v-bind="scope"></slot>
+          </template>
+          <template v-else-if="item.type" #default="scope">
+            <el-tag v-if="item.type === 'tag'" v-bind="item.attrs">{{
+              scope.row[item.prop]
+            }}</el-tag>
+            <el-progress
+              v-if="item.type === 'progress'"
+              :percentage="scope.row[item.prop]"
+              :format="(val) => item?.format && item?.format(val, scope.row)"
+              v-bind="item.attrs"
+            ></el-progress>
+            <template v-if="item.type === 'avatar'">
+              <el-avatar
+                v-if="!item?.attrs?.icon"
+                :src="scope.row[item.prop]"
+                v-bind="item.attrs"
+              ></el-avatar>
+              <icon v-else :icon="scope.row[item.prop]" v-bind="omit(item.attrs, ['icon'])" />
+            </template>
+            <template v-if="item.type === 'rate'">
+              <el-rate v-model="scope.row[item.prop]" disabled></el-rate>
+            </template>
+            <template v-if="item.type === 'link'">
+              <el-link
+                :href="scope.row[item.prop]"
+                :underline="false"
+                :type="'primary'"
+                v-bind="item.attrs"
+                target="_blank"
+                >{{ item.attrs?.text || '点击预览' }}</el-link
+              >
+            </template>
+            <template v-if="item.type === 'badge'">
+              <el-badge :value="scope.row[item.prop]" v-bind="item.attrs">
+                {{ item.attrs?.text || item.label }}
+              </el-badge>
+            </template>
+            <template v-if="item.type === 'image'">
+              <el-image :src="scope.row[item.prop]" v-bind="item.attrs"></el-image>
+            </template>
+          </template>
+        </el-table-column>
+      </template>
+    </el-table>
+    <slot name="footer">
+      <div class="pt-4">
+        <el-pagination
+          v-bind="pagination"
+          :layout="pagination.layout?.join(',') || 'total, ->, sizes, prev,  pager, next'"
+          :total="pagination.total"
+          :small="pagination.small"
+          :background="pagination.background"
+          :page-size="pagination.pageSize"
+          :default-page-size="pagination.defaultPageSize"
+          :page-count="pagination.pageCount"
+          :pager-count="pagination.pagerCount"
+          :current-page="pagination.currentPage"
+          :default-current-page="pagination.defaultCurrentPage"
+          :page-sizes="pagination.pageSizeOptions"
+          :popper-class="pagination.popperClass"
+          :prev-text="pagination.prevText"
+          :next-text="pagination.nextText"
+          :disabled="pagination.disabled"
+          :hide-on-single-page="pagination.hideOnSinglePage"
+          v-on="pagination.events"
+        />
+      </div>
+    </slot>
+    <slot name="footer-with-pagination"></slot>
+  </template>
 </template>
 
 <script lang="ts">
@@ -137,6 +279,10 @@
   export default defineComponent({
     name: 'BasicTable',
     props: {
+      isCard: {
+        type: Boolean,
+        default: true
+      },
       // tableRef: {
       //   type: Object as PropType<InstanceType<typeof ElTable>>,
       //   default: () => ({})

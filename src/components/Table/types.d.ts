@@ -4,6 +4,7 @@ export interface ColumnOptions {
   width?: string | number
   height?: string | number
   align?: 'left' | 'right' | 'center'
+  showOverflowTooltip?: boolean
   slot?: string
   fixed?: boolean | 'left' | 'right'
   actionItems?: ActionType[]
@@ -12,7 +13,16 @@ export interface ColumnOptions {
   attrs?: any
 }
 
-export type ColumnTypes = '' | 'index' | 'tag' | 'progress' | 'avatar' | 'rate' | 'link' | 'image'
+export type ColumnTypes =
+  | ''
+  | 'index'
+  | 'tag'
+  | 'progress'
+  | 'avatar'
+  | 'rate'
+  | 'link'
+  | 'image'
+  | 'expand'
 
 export interface ActionType {
   type?: 'button' | 'icon'
