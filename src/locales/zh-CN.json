@@ -92,7 +92,9 @@
         "senior": "高级详情页"
       },
       "result": {
-        "title": "结果页"
+        "title": "结果页",
+        "success": "成功页",
+        "fail": "失败页"
       },
       "users": {
         "title": "个人页"
@@ -154,7 +156,8 @@
         "test": "测试文字1",
         "5zpfmf": "测试文字2",
         "c2am9h": "方法"
-      }
+      },
+      "splitpanel": "切割面板"
     },
     "editor": {
       "milkdown": {

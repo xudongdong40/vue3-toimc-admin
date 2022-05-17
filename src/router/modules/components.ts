@@ -302,6 +302,14 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
               title: t('menu.component.function.watermark')
             },
             component: () => import('@/views/components/tools/watermark.vue')
+          },
+          {
+            name: 'splitpanel',
+            path: 'splitpanel',
+            meta: {
+              title: t('components.tools.splitpanel')
+            },
+            component: () => import('@/views/components/tools/split-panel.vue')
           }
         ]
       },
