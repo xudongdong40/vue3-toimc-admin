@@ -12,7 +12,7 @@ const pagesRoutes: Array<AppRouteRecordRaw> = [
     },
     path: '/page',
     component: LayoutsDefault,
-    redirect: '/pages/form',
+    redirect: '/page/form/default',
     children: [
       {
         name: 'FormPages',
@@ -62,6 +62,7 @@ const pagesRoutes: Array<AppRouteRecordRaw> = [
         name: 'ResultPages',
         path: 'result',
         component: () => import('@/views/pages/result/index.vue'),
+        redirect:'/page/result/success',
         meta: {
           title: t('menu.pages.result.title')
         },
