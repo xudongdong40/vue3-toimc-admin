@@ -58,6 +58,7 @@
 <script lang="ts">
   import { useStore } from '@/store/modules/menu'
   import { useSettingsStore } from '@/store/modules/settings'
+  import { useTabsStore } from '@/store/modules/tabsbar'
   import { useUserStore } from '@/store/modules/user'
   import _ from 'lodash-es'
   import { storeToRefs } from 'pinia'
@@ -96,6 +97,7 @@
           return item
         })
       })
+      const store = useTabsStore()
       // 用户信息
       const userStore = useUserStore()
       const { username, avatar } = userStore.getUserInfo
@@ -115,6 +117,7 @@
       // quit
       function handleClickQuit() {
         userStore.clearUserInfo()
+        store.visitedRoutes = []
         router.push('/login/pwd')
       }
 
