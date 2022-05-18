@@ -112,28 +112,29 @@
 
 <style lang="scss">
   /* fallback */
-  @font-face {
-    font-family: 'Material Icons Outlined';
-    font-style: normal;
-    font-weight: 400;
-    src: url('./material-icons-outlined.woff2') format('woff2');
-  }
+  // @font-face {
+  //   font-family: 'Material Icons Outlined';
+  //   font-style: normal;
+  //   font-weight: 400;
+  //   src: url('https://fonts.gstatic.com/s/materialiconsoutlined/v103/gok-H7zzDkdnRel8-DQ6KAXJ69wP1tGnf4ZGhUcel5euIg.woff2')
+  //     format('woff2');
+  // }
 
-  .material-icons-outlined {
-    display: inline-block;
-    font-family: 'Material Icons Outlined';
-    font-size: 24px;
-    -webkit-font-smoothing: antialiased;
-    font-style: normal;
-    font-weight: normal;
-    line-height: 1;
-    letter-spacing: normal;
-    text-transform: none;
-    word-wrap: normal;
-    white-space: nowrap;
-    direction: ltr;
-    font-feature-settings: 'liga';
-  }
+  // .material-icons-outlined {
+  //   display: inline-block;
+  //   font-family: 'Material Icons Outlined';
+  //   font-size: 24px;
+  //   -webkit-font-smoothing: antialiased;
+  //   font-style: normal;
+  //   font-weight: normal;
+  //   line-height: 1;
+  //   letter-spacing: normal;
+  //   text-transform: none;
+  //   word-wrap: normal;
+  //   white-space: nowrap;
+  //   direction: ltr;
+  //   font-feature-settings: 'liga';
+  // }
 
   @media only screen and (min-width: 72rem) {
     .milkdown .editor {
