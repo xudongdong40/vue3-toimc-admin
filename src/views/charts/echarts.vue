@@ -48,6 +48,7 @@
 
   export default defineComponent({
     setup() {
+      // 折线图选项
       const lineOptions = ref<any>({
         grid: {
           top: 20,
@@ -68,6 +69,7 @@
         }
       })
 
+      // 饼图选项
       const pieOptions = ref<any>({
         grid: {
           top: 20,
@@ -113,6 +115,7 @@
         ]
       })
 
+      // 柱状图选项
       const barOptions = ref<any>({
         xAxis: {
           type: 'category',
@@ -128,7 +131,7 @@
           }
         ]
       })
-
+      // 雷达图选项
       const radarOptions = ref<any>({
         radar: {
           indicator: [

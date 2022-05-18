@@ -21,8 +21,13 @@ import { setupPlugins } from './utils/index'
 import { setupDirectives } from './directive'
 import { setupI18n } from './locales/setupI18n'
 
+import 'xe-utils'
+import VXETable from 'vxe-table'
+import 'vxe-table/lib/style.css'
+
 async function bootstrap() {
   const app = createApp(App)
+  app.use(VXETable)
 
   // Configure store
   setupStore(app)

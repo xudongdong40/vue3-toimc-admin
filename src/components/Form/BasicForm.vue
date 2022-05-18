@@ -164,6 +164,9 @@
     ElTransfer,
     ElUpload
   } from 'element-plus'
+  import { ValidateFieldsError } from './types/rule'
+  import { Arrayable } from 'element-plus/es/utils'
+  import { FormItemProp } from 'element-plus/lib/components'
 
   export default defineComponent({
     name: 'DForm',
@@ -221,7 +224,7 @@
       }
     },
     emits: ['change', 'submit', 'reset', 'error'],
-    setup(props, { emit }) {
+    setup(props, { emit, expose }) {
       // console.log('🚀 ~ file: BasicForm.vue ~ line 224 ~ setup ~ props', props)
       const form = ref<FormInstance>()
 
@@ -315,16 +318,39 @@
         return false
       }
 
+      expose({
+        validate: async function (
+          callback?: (isValid: boolean, invalidFields?: ValidateFieldsError) => void
+        ) {
+          return form.value?.validate(callback)
+        },
+        validateField: function (
+          props?: Arrayable<FormItemProp>,
+          callback?: (isValid: boolean, invalidFields?: ValidateFieldsError) => void
+        ) {
+          return form.value?.validateField(props, callback)
+        },
+        clearValidate: function (props?: Arrayable<FormItemProp>) {
+          return form.value?.clearValidate(props)
+        },
+        scrollToField: function (prop: FormItemProp) {
+          return form.value?.scrollToField(prop)
+        }
+      })
+
       return {
         model,
         rules,
         form,
         submitForm,
         resetForm,
+        resetFields: resetForm,
         showSlot,
         getSlotName,
         getSlotItemNames,
-        isElemComp
+        isElemComp,
+        getFieldsValue: () => model.value,
+        getFieldValue: (field) => model.value[field] || undefined
       }
     }
   })

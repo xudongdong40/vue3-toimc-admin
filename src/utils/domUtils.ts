@@ -179,3 +179,5 @@ export function useRafThrottle<T extends FunctionArgs>(fn: T): T {
     })
   }
 }
+
+export const phoneReg = /^(?:(?:\+|00)86)?1[3-9]\d{9}$/

@@ -101,7 +101,9 @@
         "title": "List Page"
       },
       "result": {
-        "title": "Results Page"
+        "title": "Results Page",
+        "success": "Success Page",
+        "fail": "Fail Page"
       },
       "settings": {
         "title": "Settings Page"
@@ -151,7 +153,8 @@
         "test": "test words1",
         "5zpfmf": "test words 2",
         "c2am9h": "xxxx"
-      }
+      },
+      "splitpanel": "Split Panel"
     },
     "editor": {
       "milkdown": {

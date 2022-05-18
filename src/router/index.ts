@@ -82,6 +82,23 @@ const router = createRouter({
   scrollBehavior: () => ({ left: 0, top: 0 })
 })
 
+router.beforeEach((to, _, next) => {
+  const isAuth = localStorage.getItem('userInfo')
+  if (isAuth) {
+    if (to.path.startsWith('/login')) {
+      next({ path: '/home' })
+    } else {
+      next()
+    }
+  } else {
+    if (to.path.startsWith('/login')) {
+      next()
+    } else {
+      next({ path: '/login' })
+    }
+  }
+})
+
 // config router
 export function setupRouter(app: App<Element>) {
   app.use(router)

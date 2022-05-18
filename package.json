@@ -1,7 +1,7 @@
 {
   "name": "vue-toimc-admin",
   "private": true,
-  "version": "1.0.0-alpha.1",
+  "version": "1.0.0-alpha.2",
   "author": {
     "name": "toimc",
     "email": "brian@toimc.com",
@@ -50,8 +50,8 @@
     "@vueuse/core": "^8.4.2",
     "@zxcvbn-ts/core": "^2.0.1",
     "@zxcvbn-ts/language-common": "^2.0.1",
-    "axios": "^0.27.2",
     "animate.css": "^4.1.1",
+    "axios": "^0.27.2",
     "big-integer": "^1.6.51",
     "cropperjs": "^1.5.12",
     "crypto-js": "^4.1.1",
@@ -77,6 +77,8 @@
     "vue-echarts": "^6.0.2",
     "vue-i18n": "9.2.0-beta.35",
     "vue-router": "^4.0.15",
+    "vxe-table": "^4.2.4-beta.2",
+    "xe-utils": "^3.5.4",
     "xlsx": "^0.18.5"
   },
   "devDependencies": {

@@ -1,5 +1,6 @@
 <template>
   <div class="w-full p-1 custom-login">
+    <!-- 右上角扫码部分，若不需要，可直接注销 -->
     <div class="flex items-center justify-end">
       <div class="px-3 py-2 rounded-md mr-2 flex items-center bg-[#ECFAF3]">
         <span class="we inline-block pr-2 bg-contain"></span>
@@ -9,20 +10,33 @@
         <img class="relative cursor-pointer" src="@/assets/images/qr.png" />
       </router-link>
     </div>
+    <!-- 登陆表单主体部分，可按需进行修改 -->
     <div class="my-10 mx-auto max-w-96">
       <div class="text-3xl pb-6">toimc管理系统</div>
       <el-tabs v-model="activeName" class="pt-5" @tab-click="handleClick">
+        <!-- 密码登陆 -->
         <el-tab-pane label="密码登录" name="pwd">
           <basic-form :schemas="loginForm" label-width="0" class="pt-4">
-            <template #action>
-              <el-button type="primary" size="large" class="w-full" @click="loginHandler"
-                >登录</el-button
-              >
+            <template #action="{ validate, model }">
+              <el-button
+                type="primary"
+                size="large"
+                class="w-full"
+                @click="handleLogin(validate, model, 'pwd')"
+                >登录
+              </el-button>
             </template>
           </basic-form>
         </el-tab-pane>
+        <!-- 验证码登陆 -->
         <el-tab-pane label="验证码登录" name="code">
-          <basic-form :schemas="codeLoginForm" label-width="0" class="pt-4">
+          <basic-form
+            ref="form"
+            :schemas="codeLoginForm"
+            label-width="0"
+            class="pt-4"
+            @change="handleChange"
+          >
             <template #suffix>
               <el-link
                 v-if="!state.sending"
@@ -30,7 +44,7 @@
                 :underline="false"
                 class="mr-2"
                 href="javascript:;"
-                @click="sendCode"
+                @click="onSendCode"
                 >获取验证码</el-link
               >
               <span
@@ -39,10 +53,14 @@
                 >重发{{ leftCount }}秒</span
               >
             </template>
-            <template #action>
-              <el-button type="primary" size="large" class="w-full" @click="loginHandler"
-                >登录</el-button
-              >
+            <template #action="{ validate, model }">
+              <el-button
+                type="primary"
+                size="large"
+                class="w-full"
+                @click="handleLogin(validate, model, 'code')"
+                >登录
+              </el-button>
             </template>
           </basic-form>
         </el-tab-pane>
@@ -60,85 +78,145 @@
 
 <script lang="ts">
   import { FormSchema } from '@/components/Form/types/types'
-  import { TabsPaneContext } from 'element-plus'
+  import { ElMessage, TabsPaneContext } from 'element-plus'
   import { defineComponent } from 'vue'
   import sendUtils from '@/utils/sendCode'
-  import { useRouter } from 'vue-router'
+  import { phoneReg } from '@/utils/domUtils'
+  import { loginPwd, loginSMS } from '@/api/page/login'
+  import { useUserStore } from '@/store/modules/user'
+  import { HttpResponse } from '@/api/sys/model/http'
+
+  export type LoginType = 'pwd' | 'code'
+
   export default defineComponent({
     setup() {
-      const { push } = useRouter()
+      const { replace } = useRouter()
+      const userStore = useUserStore()
+      // 默认为密码登陆，将pwd改成code，将默认为验证码登陆
       const activeName = ref('pwd')
+      const codeLogin = ref()
+      const mobilePhone = ref()
+      // 验证码处理，state 为状态，sendCode为处理发送的函数，leftCount为重发时间
+      const { state, handleSendCode, leftCount } = sendUtils()
+
+      // switch login type
       const handleClick = (tab: TabsPaneContext, event: Event) => {
         console.log(tab, event)
       }
+      const form = ref()
 
-      const loginForm = [
+      // 登陆表单配置，作为配置参数传递给basic-form组件
+      const loginForm = reactive([
         {
           component: 'input',
           class: 'py-1',
           prop: 'username',
-          value: 'admin',
           attrs: {
             placeholder: '请输入手机号/账号',
             size: 'large',
             prefixIcon: 'Avatar'
-          }
+          },
+          value: 'admin',
+          rules: [
+            { required: true, message: '请输入手机号/账号', trigger: 'blur' },
+            { min: 4, max: 32, message: '长度在 4 到 32 个字符', trigger: 'blur' }
+          ]
         },
         {
           component: 'input',
           class: 'py-1',
           prop: 'password',
-          value: '123456',
           attrs: {
             placeholder: '请输入密码',
             type: 'password',
             size: 'large',
             prefixIcon: 'Lock'
-          }
+          },
+          value: '123456',
+          rules: [
+            { required: true, message: '密码不能为空', trigger: 'blur' },
+            { min: 6, max: 18, message: '长度在 6 到 18 个字符', trigger: 'blur' }
+          ]
         }
-      ] as FormSchema[]
+      ]) as FormSchema[]
 
-      const codeLoginForm = [
+      // 验证码登陆配置，作为配置参数传递给basic-form组件
+      const codeLoginForm = reactive([
         {
           component: 'input',
           class: 'py-1',
-          prop: 'mobile',
-          value: '13400001234',
+          prop: 'phone',
           attrs: {
             placeholder: '请输入手机号',
             size: 'large',
             prefixIcon: 'Avatar'
-          }
+          },
+          rules: [
+            { required: true, message: '请输入手机号', trigger: 'blur' },
+            { pattern: phoneReg, message: '请输入正确的手机号', trigger: 'blur' }
+          ]
         },
         {
           component: 'input',
           class: 'py-1',
           prop: 'code',
-          value: '622233',
           attrs: {
             placeholder: '请输入验证码',
             size: 'large',
             prefixIcon: 'Lock'
           },
-          itemSlot: { suffix: 'suffix' }
+          itemSlot: { suffix: 'suffix' },
+          rules: [{ required: true, message: '请输入验证码', trigger: 'blur' }]
         }
-      ] as FormSchema[]
+      ]) as FormSchema[]
 
-      const { state, sendCode, leftCount } = sendUtils()
+      // 登陆成功后的跳转
+      const handleLogin = async (validate, model, type: LoginType) => {
+        if (!validate) return
+        let res: any
+        // 账号登录
+        if (type === 'pwd') {
+          res = (await loginPwd(model)) as HttpResponse
+        } else {
+          // 验证码登录
+          res = (await loginSMS(model)) as HttpResponse
+        }
+        if (res.code !== 0) {
+          ElMessage.error(res.message)
+          return
+        }
+        const data = res.data
+        // 存储用户信息
+        userStore.setUserInfo(data)
+        console.log('res:', res)
+        replace('/home')
+        // go(-1)
+      }
 
-      const loginHandler = () => {
-        push('/home')
+      const onSendCode = () => {
+        form.value.validateField('phone').then(() => {
+          console.log('validateField')
+          handleSendCode(mobilePhone.value)
+        })
+      }
+
+      const handleChange = (event) => {
+        mobilePhone.value = event.phone
       }
 
       return {
+        form,
         activeName,
         handleClick,
         loginForm,
         codeLoginForm,
+        codeLogin,
+        handleLogin,
         state,
-        sendCode,
         leftCount,
-        loginHandler
+        handleSendCode,
+        handleChange,
+        onSendCode
       }
     }
   })

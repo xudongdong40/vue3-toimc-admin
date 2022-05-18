@@ -1,5 +1,5 @@
 <template>
-  <el-card>
+  <component :is="outter">
     <slot name="header"></slot>
     <el-table
       ref="tableRef"
@@ -25,7 +25,13 @@
           :align="item.align"
           :width="item.width"
           :fixed="item.fixed"
-        ></el-table-column>
+        >
+        </el-table-column>
+        <el-table-column v-else-if="['expand'].includes(item.type || '')" type="expand">
+          <template v-if="item.slot" #default="scope">
+            <slot :name="item.slot || 'default'" v-bind="scope"></slot>
+          </template>
+        </el-table-column>
         <el-table-column
           v-else
           :label="item.label"
@@ -33,6 +39,7 @@
           :prop="item.prop"
           :width="item.width"
           :fixed="item.fixed"
+          :show-overflow-tooltip="item.showOverflowTooltip || false"
           v-bind="item.attrs"
         >
           <template v-if="item.actionItems && item.actionItems.length" #default="scope">
@@ -126,17 +133,25 @@
       </div>
     </slot>
     <slot name="footer-with-pagination"></slot>
-  </el-card>
+  </component>
 </template>
 
 <script lang="ts">
   import { ColumnOptions, LoadingProps, PaginationProps } from './types'
   import { omit } from 'lodash-es'
   import { ElTable } from 'element-plus'
+  import TCard from '../Card/TCard.vue'
 
   export default defineComponent({
     name: 'BasicTable',
+    components: {
+      TCard
+    },
     props: {
+      wrapper: {
+        type: [String, Boolean],
+        default: true
+      },
       // tableRef: {
       //   type: Object as PropType<InstanceType<typeof ElTable>>,
       //   default: () => ({})
@@ -257,7 +272,10 @@
 
       return {
         omit,
-        tableRef
+        tableRef,
+        outter: computed(() =>
+          typeof _props.wrapper === 'string' ? _props.wrapper : _props.wrapper ? 'TCard' : 'div'
+        )
       }
     }
   })

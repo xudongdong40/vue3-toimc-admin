@@ -1,3 +1,5 @@
+import { phoneReg } from './domUtils'
+
 export function isDef<T = unknown>(val?: T): val is T {
   return typeof val !== 'undefined'
 }
@@ -23,4 +25,13 @@ export function isUrl(path: string): boolean {
   const reg =
     /(((^https?:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+(?::\d+)?|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)$/
   return reg.test(path)
+}
+
+/**
+ * @description 判断是否为电话号码
+ * @param phoneNumber 手机号
+ * @returns 布尔值
+ */
+export function isPhoneNumber(phoneNumber: string): boolean {
+  return phoneReg.test(phoneNumber)
 }
