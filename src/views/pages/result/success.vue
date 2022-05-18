@@ -34,7 +34,7 @@
         <el-step title="部门初审">
           <template #description>
             <p class="flex items-center">
-              timoc
+              toimc
               <span
                 role="img"
                 aria-label="dingding"
