@@ -324,7 +324,9 @@
         showSlot,
         getSlotName,
         getSlotItemNames,
-        isElemComp
+        isElemComp,
+        getFieldsValue: () => model.value,
+        getFieldValue: (field) => model.value[field] || undefined
       }
     }
   })

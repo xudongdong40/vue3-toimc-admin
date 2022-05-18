@@ -95,9 +95,9 @@ export default ({ mode }: ConfigEnv): UserConfig => {
         prodEnabled: VITE_USE_MOCK,
         // 相当于在src/main.ts中inject下面的代码，所以注意文件的路径问题
         injectCode: `
-          import { setupProdMockServer } from '../mock/_createProductionServer';
-          setupProdMockServer();
-        `
+    import { setupProdMockServer } from '../mock/_createProductionServer';
+    setupProdMockServer();
+  `
       }),
       createSvgIconsPlugin({
         // 指定需要缓存的图标文件夹
