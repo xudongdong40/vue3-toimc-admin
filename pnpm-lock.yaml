@@ -103,7 +103,9 @@ specifiers:
   vue-i18n: 9.2.0-beta.35
   vue-router: ^4.0.15
   vue-tsc: ^0.34.12
+  vxe-table: ^4.2.4-beta.2
   windicss: ^3.5.2
+  xe-utils: ^3.5.4
   xlsx: ^0.18.5
 
 dependencies:
@@ -161,6 +163,8 @@ dependencies:
   vue-echarts: 6.0.3_echarts@5.3.2+vue@3.2.33
   vue-i18n: 9.2.0-beta.35_vue@3.2.33
   vue-router: 4.0.15_vue@3.2.33
+  vxe-table: 4.2.4-beta.2_vue@3.2.33+xe-utils@3.5.4
+  xe-utils: 3.5.4
   xlsx: 0.18.5
 
 devDependencies:
@@ -7405,6 +7409,16 @@ packages:
       '@vue/shared': 3.2.33
     dev: false
 
+  /vxe-table/4.2.4-beta.2_vue@3.2.33+xe-utils@3.5.4:
+    resolution: {integrity: sha512-Y7GHafjzwueFq9Qv8pTA1I60DmG7CuUZnUh4uFvmGnvd7Wbd8xVSJjFcAt783Zz9l/BqSOPScuU7twvJ0Uyubg==}
+    peerDependencies:
+      vue: ^3.2.2
+      xe-utils: ^3.5.0
+    dependencies:
+      vue: 3.2.33
+      xe-utils: 3.5.4
+    dev: false
+
   /w3c-keyname/2.2.4:
     resolution: {integrity: sha512-tOhfEwEzFLJzf6d1ZPkYfGj+FWhIpBux9ppoP3rlclw3Z0BZv3N7b7030Z1kYth+6rDuAsXUFr+d0VE6Ed1ikw==}
     dev: false
@@ -7479,6 +7493,10 @@ packages:
       imurmurhash: mirrors.tencent.com/imurmurhash/0.1.4
       signal-exit: mirrors.tencent.com/signal-exit/3.0.7
     dev: true
+
+  /xe-utils/3.5.4:
+    resolution: {integrity: sha512-oH7VOgvHv34pn198dhKPVKnuEHV22Q06YpCTVnAS3JuutylmZj/rtJGvn0BxxWQ37w2LgCknoebLA4uIGXwFtw==}
+    dev: false
 
   /xlsx/0.18.5:
     resolution: {integrity: sha512-dmg3LCjBPHZnQp5/F/+nnTa+miPJxUXB6vtk42YjBBKayDNagxGEeIdWApkYPOf3Z3pm3k62Knjzp7lMeTEtFQ==}
