@@ -5,9 +5,10 @@
     <div v-show="layout === 'top'" class="fix-no-menu-block"></div>
     <!-- Expand Btn -->
     <el-row v-show="layout !== 'top'">
-      <div @click="() => handleClick(collapse)">
+      <div class="items" @click="() => handleClick(collapse)">
         <icon :type="collapse ? 'Expand' : 'Fold'" size="24px" />
       </div>
+      <Breadcrumb />
     </el-row>
     <!-- Menu -->
     <el-row class="flex-1">
@@ -62,14 +63,16 @@
   import { useUserStore } from '@/store/modules/user'
   import _ from 'lodash-es'
   import { storeToRefs } from 'pinia'
-  import { FullScreen, ChangeLocale, RepoBadge, ChangeDark } from './components'
+  import { FullScreen, ChangeLocale, RepoBadge, ChangeDark, Breadcrumb } from './components'
+
   export default defineComponent({
     name: 'CustomHeader',
     components: {
       FullScreen,
       ChangeLocale,
       RepoBadge,
-      ChangeDark
+      ChangeDark,
+      Breadcrumb
     },
     props: {
       collapse: {

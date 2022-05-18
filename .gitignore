@@ -1,4 +1,5 @@
 *.local
+.npmrc
 
 # Logs
 logs

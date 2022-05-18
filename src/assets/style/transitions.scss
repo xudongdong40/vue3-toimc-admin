@@ -212,7 +212,7 @@
 // Speed: 1x
 .fade-top-enter-active,
 .fade-top-leave-active {
-  transition: opacity 0.2s, transform 0.25s;
+  transition: opacity 0.2s, transform 0.3s;
 }
 
 .fade-top-enter-from {
@@ -223,4 +223,24 @@
 .fade-top-leave-to {
   opacity: 0;
   transform: translateY(-8%);
+}
+
+/* breadcrumb transition */
+.breadcrumb-enter-active,
+.breadcrumb-leave-active {
+  transition: all 0.5s;
+}
+
+.breadcrumb-enter-from,
+.breadcrumb-leave-active {
+  opacity: 0;
+  transform: translateX(20px);
+}
+
+.breadcrumb-move {
+  transition: all 0.8s;
+}
+
+.breadcrumb-leave-active {
+  position: absolute;
 }
