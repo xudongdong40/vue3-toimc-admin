@@ -14,15 +14,25 @@
       <el-tabs v-model="activeName" class="pt-5" @tab-click="handleClick">
         <el-tab-pane label="密码登录" name="pwd">
           <basic-form :schemas="loginForm" label-width="0" class="pt-4">
-            <template #action>
-              <el-button type="primary" size="large" class="w-full" @click="loginHandler"
-                >登录</el-button
-              >
+            <template #action="{ validate, model }">
+              <el-button
+                type="primary"
+                size="large"
+                class="w-full"
+                @click="handleLogin(validate, model, 'pwd')"
+                >登录
+              </el-button>
             </template>
           </basic-form>
         </el-tab-pane>
         <el-tab-pane label="验证码登录" name="code">
-          <basic-form ref="form" :schemas="codeLoginForm" label-width="0" class="pt-4">
+          <basic-form
+            ref="form"
+            :schemas="codeLoginForm"
+            label-width="0"
+            class="pt-4"
+            @change="handleChange"
+          >
             <template #suffix>
               <el-link
                 v-if="!state.sending"
@@ -30,7 +40,7 @@
                 :underline="false"
                 class="mr-2"
                 href="javascript:;"
-                @click="sendCodeHandle"
+                @click="onSendCode"
                 >获取验证码</el-link
               >
               <span
@@ -39,10 +49,14 @@
                 >重发{{ leftCount }}秒</span
               >
             </template>
-            <template #action>
-              <el-button type="primary" size="large" class="w-full" @click="loginHandler"
-                >登录</el-button
-              >
+            <template #action="{ validate, model }">
+              <el-button
+                type="primary"
+                size="large"
+                class="w-full"
+                @click="handleLogin(validate, model, 'code')"
+                >登录
+              </el-button>
             </template>
           </basic-form>
         </el-tab-pane>
@@ -60,14 +74,27 @@
 
 <script lang="ts">
   import { FormSchema } from '@/components/Form/types/types'
-  import { TabsPaneContext } from 'element-plus'
+  import { ElMessage, TabsPaneContext } from 'element-plus'
   import { defineComponent } from 'vue'
   import sendUtils from '@/utils/sendCode'
-  import { useRouter } from 'vue-router'
+  import { phoneReg } from '@/utils/domUtils'
+  import { loginPwd, loginSMS } from '@/api/page/login'
+  import { useUserStore } from '@/store/modules/user'
+  import { HttpResponse } from '@/api/sys/model/http'
+
+  export type LoginType = 'pwd' | 'code'
+
   export default defineComponent({
     setup() {
-      const { push } = useRouter()
+      const { replace } = useRouter()
+      const userStore = useUserStore()
       const activeName = ref('pwd')
+      const codeLogin = ref()
+      const mobilePhone = ref()
+
+      const { state, handleSendCode, leftCount } = sendUtils()
+
+      // switch login type
       const handleClick = (tab: TabsPaneContext, event: Event) => {
         console.log(tab, event)
       }
@@ -78,24 +105,32 @@
           component: 'input',
           class: 'py-1',
           prop: 'username',
-          value: 'admin',
           attrs: {
             placeholder: '请输入手机号/账号',
             size: 'large',
             prefixIcon: 'Avatar'
-          }
+          },
+          value: 'admin',
+          rules: [
+            { required: true, message: '请输入手机号/账号', trigger: 'blur' },
+            { min: 4, max: 32, message: '长度在 4 到 32 个字符', trigger: 'blur' }
+          ]
         },
         {
           component: 'input',
           class: 'py-1',
           prop: 'password',
-          value: '123456',
           attrs: {
             placeholder: '请输入密码',
             type: 'password',
             size: 'large',
             prefixIcon: 'Lock'
-          }
+          },
+          value: '123456',
+          rules: [
+            { required: true, message: '密码不能为空', trigger: 'blur' },
+            { min: 6, max: 18, message: '长度在 6 到 18 个字符', trigger: 'blur' }
+          ]
         }
       ]) as FormSchema[]
 
@@ -103,43 +138,62 @@
         {
           component: 'input',
           class: 'py-1',
-          prop: 'mobile',
-          value: '13400001234',
-          rules: [{ required: true, message: '请输入手机号' }],
+          prop: 'phone',
           attrs: {
             placeholder: '请输入手机号',
             size: 'large',
             prefixIcon: 'Avatar'
-          }
+          },
+          rules: [
+            { required: true, message: '请输入手机号', trigger: 'blur' },
+            { pattern: phoneReg, message: '请输入正确的手机号', trigger: 'blur' }
+          ]
         },
         {
           component: 'input',
           class: 'py-1',
           prop: 'code',
-          value: '622233',
           attrs: {
             placeholder: '请输入验证码',
             size: 'large',
             prefixIcon: 'Lock'
           },
-          itemSlot: { suffix: 'suffix' }
+          itemSlot: { suffix: 'suffix' },
+          rules: [{ required: true, message: '请输入验证码', trigger: 'blur' }]
         }
       ]) as FormSchema[]
 
-      const { state, sendCode, leftCount } = sendUtils()
-
-      const loginHandler = () => {
-        push('/home')
+      const handleLogin = async (validate, model, type: LoginType) => {
+        if (!validate) return
+        let res: any
+        // 账号登录
+        if (type === 'pwd') {
+          res = (await loginPwd(model)) as HttpResponse
+        } else {
+          // 验证码登录
+          res = (await loginSMS(model)) as HttpResponse
+        }
+        if (res.code !== 0) {
+          ElMessage.error(res.message)
+          return
+        }
+        const data = res.data
+        // 存储用户信息
+        userStore.setUserInfo(data)
+        console.log('res:', res)
+        replace('/home')
+        // go(-1)
       }
-      const sendCodeHandle = () => {
-        sendCode()
-        console.log(form.value)
-        form.value.validate((isValid, fields) => {
-          console.log('🚀 ~ file: login.vue ~ line 137 ~ form.value.validate ~ fields', fields)
-          console.log('🚀 ~ file: login.vue ~ line 137 ~ form.value.validate ~ isValid', isValid)
+
+      const onSendCode = () => {
+        form.value.validateField('phone').then(() => {
+          console.log('validateField')
+          handleSendCode(mobilePhone.value)
         })
-        // console.log(form.value?.getFieldsValue())
-        // console.log(form.value?.getFieldValue('mobile'))
+      }
+
+      const handleChange = (event) => {
+        mobilePhone.value = event.phone
       }
 
       return {
@@ -148,11 +202,13 @@
         handleClick,
         loginForm,
         codeLoginForm,
+        codeLogin,
+        handleLogin,
         state,
-        sendCode,
-        sendCodeHandle,
         leftCount,
-        loginHandler
+        handleSendCode,
+        handleChange,
+        onSendCode
       }
     }
   })

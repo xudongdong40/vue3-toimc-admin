@@ -47,6 +47,7 @@ class AxiosHttpRequest implements BaseType {
     const env = loadEnv(mode, root)
     // loadEnv读取的布尔类型是一个字符串。这个函数可以转换为布尔类型
     const viteEnv = wrapperEnv(env)
+    console.log('viteEnv:', viteEnv)
 
     const { VITE_PROXY } = viteEnv
     this.baseURL = VITE_PROXY[0][0]
