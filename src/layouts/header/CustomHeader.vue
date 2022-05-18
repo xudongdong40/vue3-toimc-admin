@@ -31,16 +31,26 @@
       <full-screen class="items"></full-screen>
       <repo-badge class="items"></repo-badge>
       <el-divider direction="vertical"></el-divider>
-      <el-avatar
-        :size="20"
-        src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
-      ></el-avatar>
-      <span class="text-sm mr-4">管理员</span>
+      <!-- <el-avatar :size="20" src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
+      <span class="text-sm mr-4">{{ username }}</span>
       <el-divider direction="vertical"></el-divider>
-      <span class="text-sm pr-1 cursor-pointer" @click="quit">{{
-        $t('Header.CustomHeader.quit')
-      }}</span>
-      <icon type="SwitchButton" size="20px" />
+      <span class="text-sm pr-1">{{ $t('Header.CustomHeader.quit') }}</span>
+      <icon type="SwitchButton" size="20px" /> -->
+      <el-dropdown class="items" :hide-on-click="false">
+        <div class="flex">
+          <el-avatar :size="24" :src="avatar" />
+          <span class="text-base">{{ username }}</span>
+        </div>
+        <template #dropdown>
+          <el-dropdown-menu>
+            <el-dropdown-item>
+              <el-button text type="primary" @click="handleClickQuit">{{
+                $t('Header.CustomHeader.quit')
+              }}</el-button>
+            </el-dropdown-item>
+          </el-dropdown-menu>
+        </template>
+      </el-dropdown>
     </el-row>
   </el-header>
 </template>
@@ -48,11 +58,10 @@
 <script lang="ts">
   import { useStore } from '@/store/modules/menu'
   import { useSettingsStore } from '@/store/modules/settings'
-  import { useTabsStore } from '@/store/modules/tabsbar'
+  import { useUserStore } from '@/store/modules/user'
   import _ from 'lodash-es'
   import { storeToRefs } from 'pinia'
   import { FullScreen, ChangeLocale, RepoBadge, ChangeDark } from './components'
-
   export default defineComponent({
     name: 'CustomHeader',
     components: {
@@ -77,7 +86,6 @@
     },
     emits: ['update:collapse', 'show-theme-setting'],
     setup(props, { emit }) {
-      const store = useTabsStore()
       const router = useRouter()
       const { layout } = toRefs(props)
       const menuStore = useStore()
@@ -88,6 +96,10 @@
           return item
         })
       })
+      // 用户信息
+      const userStore = useUserStore()
+      const { username, avatar } = userStore.getUserInfo
+
       const showMenu = computed(() => (layout.value === 'top' ? allMenu.value : topMenu.value))
       const settingsStore = useSettingsStore()
       const { darkMode, primaryColor } = storeToRefs(settingsStore)
@@ -98,6 +110,12 @@
 
       function handleShowThemeSetting() {
         emit('show-theme-setting')
+      }
+
+      // quit
+      function handleClickQuit() {
+        userStore.clearUserInfo()
+        router.push('/login/pwd')
       }
 
       watch(
@@ -124,17 +142,13 @@
         }
       )
 
-      const quit = () => {
-        localStorage.clear()
-        store.visitedRoutes = []
-        router.push('/')
-      }
-
       return {
         showMenu,
         handleClick,
         handleShowThemeSetting,
-        quit
+        username,
+        avatar,
+        handleClickQuit
       }
     }
   })
@@ -145,6 +159,7 @@
     background-color: var(--el-bg-color);
     color: var(--el-text-color-primary);
   }
+
   .items {
     @apply flex items-center cursor-pointer mr-4;
   }
