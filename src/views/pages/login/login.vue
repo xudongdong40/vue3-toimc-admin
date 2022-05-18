@@ -105,6 +105,7 @@
           class: 'py-1',
           prop: 'mobile',
           value: '13400001234',
+          rules: [{ required: true, message: '请输入手机号' }],
           attrs: {
             placeholder: '请输入手机号',
             size: 'large',
@@ -133,8 +134,12 @@
       const sendCodeHandle = () => {
         sendCode()
         console.log(form.value)
-        console.log(form.value?.getFieldsValue())
-        console.log(form.value?.getFieldValue('mobile'))
+        form.value.validate((isValid, fields) => {
+          console.log('🚀 ~ file: login.vue ~ line 137 ~ form.value.validate ~ fields', fields)
+          console.log('🚀 ~ file: login.vue ~ line 137 ~ form.value.validate ~ isValid', isValid)
+        })
+        // console.log(form.value?.getFieldsValue())
+        // console.log(form.value?.getFieldValue('mobile'))
       }
 
       return {
