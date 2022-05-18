@@ -1,5 +1,9 @@
 <template>
-  <div v-if="isExternal" :style="styleExternalIcon" :class="['svg-external-icon svg-icon']" />
+  <i
+    v-if="isExternal"
+    :style="{ height: height || size, width: width || size }"
+    :class="[iconClass, className].join(' ')"
+  />
   <svg
     v-else
     :class="svgClass"
@@ -11,16 +15,23 @@
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue'
+  const customCache = new Set<string>()
   export default defineComponent({
     name: 'SvgIcon',
     props: {
       // 图标类名
       iconClass: {
         type: String,
-        required: true
+        required: true,
+        default: 'iconfont'
       },
       // svg图标的类名
       className: {
+        type: String,
+        default: ''
+      },
+      // iconfont url链接
+      url: {
         type: String,
         default: ''
       },
@@ -41,23 +52,27 @@
       }
     },
     setup(props) {
-      const isExternal = /^(https?:|mailto:|tel:)/.test(props.iconClass)
+      function loadUrl(url: string): void {
+        if (/^(https?:|mailto:|tel:)/.test(url)) {
+          const link = document.createElement('link')
+          link.href = url
+          link.rel = 'stylesheet'
+          customCache.add(url)
+          document.body.appendChild(link)
+        }
+      }
+      // props.iconClass 为 url类型，说明为iconfont引用
+      const isExternal = /^(https?:|mailto:|tel:)/.test(props.url) && !customCache.has(props.url)
+      // 加载iconfont字体
+      isExternal && loadUrl(props.url)
 
       const iconName = `#icon-${props.iconClass}`
       const svgClass = props.className ? `svg-icon ${props.className}` : 'svg-icon '
-      const styleExternalIcon = computed(() => {
-        return {
-          mask: `url(${props.iconClass}) no-repeat 50% 50%`,
-          '-webkit-mask': `url(${props.iconClass}) no-repeat 50% 50%`,
-          width: props.width || props.size,
-          height: props.height || props.size
-        }
-      })
+
       return {
         isExternal,
         iconName,
-        svgClass,
-        styleExternalIcon
+        svgClass
       }
     }
   })
@@ -68,11 +83,5 @@
     overflow: hidden;
     vertical-align: -0.15em;
     fill: currentcolor;
-  }
-
-  .svg-external-icon {
-    display: inline-block;
-    background-color: currentcolor;
-    mask-size: cover !important;
   }
 </style>

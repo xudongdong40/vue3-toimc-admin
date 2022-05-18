@@ -22,7 +22,7 @@
           </basic-form>
         </el-tab-pane>
         <el-tab-pane label="验证码登录" name="code">
-          <basic-form :schemas="codeLoginForm" label-width="0" class="pt-4">
+          <basic-form ref="form" :schemas="codeLoginForm" label-width="0" class="pt-4">
             <template #suffix>
               <el-link
                 v-if="!state.sending"
@@ -30,7 +30,7 @@
                 :underline="false"
                 class="mr-2"
                 href="javascript:;"
-                @click="sendCode"
+                @click="sendCodeHandle"
                 >获取验证码</el-link
               >
               <span
@@ -71,8 +71,9 @@
       const handleClick = (tab: TabsPaneContext, event: Event) => {
         console.log(tab, event)
       }
+      const form = ref()
 
-      const loginForm = [
+      const loginForm = reactive([
         {
           component: 'input',
           class: 'py-1',
@@ -96,9 +97,9 @@
             prefixIcon: 'Lock'
           }
         }
-      ] as FormSchema[]
+      ]) as FormSchema[]
 
-      const codeLoginForm = [
+      const codeLoginForm = reactive([
         {
           component: 'input',
           class: 'py-1',
@@ -122,21 +123,29 @@
           },
           itemSlot: { suffix: 'suffix' }
         }
-      ] as FormSchema[]
+      ]) as FormSchema[]
 
       const { state, sendCode, leftCount } = sendUtils()
 
       const loginHandler = () => {
         push('/home')
       }
+      const sendCodeHandle = () => {
+        sendCode()
+        console.log(form.value)
+        console.log(form.value?.getFieldsValue())
+        console.log(form.value?.getFieldValue('mobile'))
+      }
 
       return {
+        form,
         activeName,
         handleClick,
         loginForm,
         codeLoginForm,
         state,
         sendCode,
+        sendCodeHandle,
         leftCount,
         loginHandler
       }
