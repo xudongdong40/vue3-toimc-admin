@@ -304,12 +304,12 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
             component: () => import('@/views/components/tools/watermark.vue')
           },
           {
-            name: 'splitpanel',
-            path: 'splitpanel',
+            name: 'verify',
+            path: 'verify',
             meta: {
-              title: t('components.tools.splitpanel')
+              title: t('menu.component.display.verify')
             },
-            component: () => import('@/views/components/tools/split-panel.vue')
+            component: () => import('@/views/components/verify/index.vue')
           }
         ]
       },
@@ -386,6 +386,14 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
               title: '瀑布流'
             },
             component: () => import('@/views/components/display/waterfall.vue')
+          },
+          {
+            name: 'splitpanel',
+            path: 'splitpanel',
+            meta: {
+              title: t('components.tools.splitpanel')
+            },
+            component: () => import('@/views/components/tools/split-panel.vue')
           }
         ]
       },

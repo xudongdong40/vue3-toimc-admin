@@ -68,7 +68,8 @@
         "title": "展示",
         "desc": "详情面板",
         "card": "卡片",
-        "calendar": "日历"
+        "calendar": "日历",
+        "verify": "验证组件"
       },
       "small-comp": {
         "title": "小组件",
@@ -167,6 +168,13 @@
         "small-heading": "三级标题",
         "plain-text": "正文"
       }
+    },
+    "verify": {
+      "error": "验证失败！",
+      "time": "验证校验成功,耗时{time}秒！",
+      "redoTip": "点击图片可刷新",
+      "dragText": "请按住滑块拖动",
+      "successText": "验证通过"
     }
   },
   "test": "测试文字"
