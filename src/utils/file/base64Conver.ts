@@ -39,3 +39,43 @@ export function urlToBase64(url: string, mineType?: string): Promise<string> {
     img.src = url
   })
 }
+
+// img url转blob
+export function imageToBlob(imageURL) {
+  const canvas = document.createElement('canvas') as Nullable<HTMLCanvasElement>
+  const ctx = canvas!.getContext('2d')
+  const img = new Image()
+  // img.crossOrigin = ''
+  img.crossOrigin = 'anonymous'
+  img.src = imageURL
+  return new Promise((resolve, reject) => {
+    img.onload = function () {
+      if (!canvas || !ctx) {
+        return reject()
+      }
+      canvas.width = img.width
+      canvas.height = img.height
+      ctx.drawImage(img, 0, 0)
+      canvas.toBlob(
+        (blob) => {
+          // here the image is a blob
+          resolve(blob)
+        },
+        'image/png',
+        1
+      )
+    }
+  })
+}
+
+export async function copyImage(imageURL) {
+  const blob = await imageToBlob(imageURL)
+  return new Promise((resolve, reject) => {
+    if (blob) {
+      const item = new ClipboardItem({ 'image/png': blob as Blob })
+      navigator.clipboard.write([item])
+      resolve('复制成功')
+    }
+    reject('复制失败')
+  })
+}
