@@ -132,7 +132,7 @@
 .hover-shadow {
   &:hover {
     transition: all .2s;
-    box-shadow: 0 0 15px #979797;;
+    box-shadow: 0 0 15px #b3b3b3;;
   }
 }
 .dashboard-title {
