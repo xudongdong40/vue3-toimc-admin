@@ -56,7 +56,8 @@
         "download": "文件下载",
         "print": "打印",
         "i18n": "国际化",
-        "watermark": "水印"
+        "watermark": "水印",
+        "copy-image": "复制图片"
       },
       "editor": {
         "title": "编辑器",
