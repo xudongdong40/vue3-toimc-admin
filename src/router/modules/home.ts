@@ -22,6 +22,15 @@ const homeRoutes: Array<AppRouteRecordRaw> = [
           title: t('menu.overview'),
           affix: true
         }
+      }, 
+      {
+        name: 'DashBoard1',
+        path: 'dashboard1',
+        component: () => import('@/views/dashboard/index.vue'),
+        meta: {
+          title: t('menu.dashboard'),
+          affix: true
+        }
       }
     ]
   }
