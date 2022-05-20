@@ -1,60 +1,96 @@
-import { Canceler } from 'axios'
-import { debounce, throttle } from 'lodash-es'
-import { Options, Service } from './types'
-import { useQueries } from './useQueries'
+import { debounce, throttle, isFunction } from 'lodash-es';
+import { Options, Service, IRequestResult, ErrorData } from './types';
+
+const defaultQuerise = Symbol('default');
 
 export function useRequest<T, P extends any[]>(
   service: Service<T, P>,
   options: Options<T, P> = {}
 ) {
-  const { manual = false, defaultParams = [] as unknown as P } = options
+  const {
+    manual = false,
+    defaultParams = ([] as unknown as P),
+    repeatCancel = false,
+    refreshDeps = null,
+    refreshDepsParams = null,
+    debounceWait,
+    debounceLeading,
+    debounceTrailing,
+    throttleWait,
+    throttleLeading,
+    throttleTrailing,
+    queryKey = null
+  } = options;
 
-  const loading = ref(false)
-  const data = ref<T>()
-  const cancel = ref<Canceler>()
-  const { queries, queriesBefore, queriesAfter, queriesFinally, setCancel } = useQueries<T>()
+  const querise = reactive<Record<string | symbol, IRequestResult<T>>>({
+    [defaultQuerise]: {
+      data: null,
+      loading: false,
+      cancel: () => null,
+      err: undefined
+    }
+  });
 
   const serviceFn = async (...args: P) => {
-    let key = ''
-    if (options.queryKey) {
-      key = options.queryKey(...args)
+    const key = queryKey ? queryKey(...args) : defaultQuerise;
+    if(!querise[key]) {
+      querise[key] = {} as any;
     }
-    queriesBefore(key)
-    loading.value = true
-
-    const { instance, cancel: c } = service(...args)
-    setCancel(key, c.value as Canceler)
-    cancel.value = c.value
+    if(!queryKey && repeatCancel) {
+      querise[key].cancel();
+    }
+    querise[key].loading = true;
+    const { instance, cancel } = service(...args);
+    querise[key].cancel = cancel as any;
     instance
       .then((res) => {
-        data.value = res.data.data
-        queriesAfter(key, res)
+        querise[key].data = res.data.data;
+        querise[key].err = undefined;
+        if(isFunction(options.onSuccess)) {
+          options.onSuccess(res, args);
+        }
+      })
+      .catch((err: ErrorData) => {
+        querise[key].err = err;
+        if(isFunction(options.onError)) {
+          options.onError(err, args);
+        }
       })
       .finally(() => {
-        loading.value = false
-        queriesFinally(key)
+        querise[key].loading = false;
       })
   }
 
-  let run = serviceFn
-  if (options.throttleWait) {
-    run = throttle(serviceFn, options.throttleWait)
+  let run = serviceFn;
+
+  if(throttleWait) {
+    run = throttle(serviceFn, throttleWait, {
+      leading: throttleLeading || true,
+      trailing: throttleTrailing || true
+    }) as any;
   }
-  if (options.debounceWait) {
-    run = debounce(serviceFn, options.debounceWait, {
-      leading: options.debounceLeading || true,
-      trailing: options.debounceTrailing || false
+
+  if(debounceWait) {
+    run = debounce(serviceFn, debounceWait, {
+      leading: debounceLeading || true,
+      trailing: debounceTrailing || true
     })
   }
 
-  if (!manual) {
-    run(...defaultParams)
+  if(refreshDeps) {
+    watch(refreshDeps, () => {
+      run(...(refreshDepsParams?.value || ([] as unknown as P)));
+    }, { deep: true });
+  }
+
+  
+  if(!manual) {
+    run(...defaultParams);
   }
 
   return {
     run,
-    loading,
-    queries,
-    cancel
+    querise,
+    ...toRefs(querise[defaultQuerise])
   }
 }

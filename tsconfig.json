@@ -41,6 +41,6 @@
     "vite.config.ts",
     "components.d.ts",
     "auto-imports.d.ts"
-, "src/views/excel/ModalUpdateRow.jsx"  ],
+  ],
   "exclude": ["node_modules", "tests/server/**/*.ts", "dist", "**/*.js"]
 }
