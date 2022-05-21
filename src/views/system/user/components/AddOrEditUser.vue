@@ -384,7 +384,7 @@
   })
 </script>
 <style scoped lang="scss">
-  v-deep .el-drawer__header {
+  :deep(.el-drawer__header) {
     margin-bottom: 0;
   }
   .avatar-uploader {

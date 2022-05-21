@@ -53,9 +53,9 @@ declare global {
     VITE_HTTPS: boolean
     VITE_BUILD_COMPRESS: 'gzip' | 'brotli' | 'none'
     VITE_BUILD_COMPRESS_DELETE_ORIGIN_FILE: boolean
-    VITE_LEGACY: boolean
     VITE_USE_IMAGEMIN: boolean
     VITE_GENERATE_UI: string
+    VITE_GLOB_APP_OUTPUT_DIR: string
   }
 
   namespace JSX {

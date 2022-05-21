@@ -157,12 +157,12 @@
     margin: 0 10px;
     background-color: transparent;
     box-sizing: border-box;
-    ::v-deep .el-card {
+    :deep(.el-card) {
       height: 100%;
     }
   }
   .no-border {
-    ::v-deep .el-card {
+    :deep(.el-card) {
       border: none;
     }
   }
