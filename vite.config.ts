@@ -1,22 +1,19 @@
 import type { UserConfig, ConfigEnv } from 'vite'
 
 import { resolve } from 'path'
+
 // plugins
 import vue from '@vitejs/plugin-vue'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
-
+import { createHtmlPlugin } from 'vite-plugin-html'
 import WindiCSS from 'vite-plugin-windicss'
-
 import vueJsx from '@vitejs/plugin-vue-jsx'
-
 import Icons from 'unplugin-icons/vite'
 import IconsResolver from 'unplugin-icons/resolver'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
-
 import vueI18n from '@intlify/vite-plugin-vue-i18n'
-
 import { visualizer } from 'rollup-plugin-visualizer'
 
 // vitejs
@@ -40,7 +37,7 @@ const __APP_INFO__ = {
 }
 
 // https://vitejs.dev/config/
-export default ({ mode }: ConfigEnv): UserConfig => {
+export default ({ mode, command }: ConfigEnv): UserConfig => {
   const root = process.cwd()
 
   const env = loadEnv(mode, root)
@@ -48,11 +45,26 @@ export default ({ mode }: ConfigEnv): UserConfig => {
   // loadEnv读取的布尔类型是一个字符串。这个函数可以转换为布尔类型
   const viteEnv = wrapperEnv(env)
 
-  const { VITE_PORT, VITE_PUBLIC_PATH, VITE_PROXY, VITE_DROP_CONSOLE, VITE_HTTPS, VITE_USE_MOCK } =
-    viteEnv
+  const {
+    VITE_PORT,
+    VITE_PUBLIC_PATH,
+    VITE_PROXY,
+    VITE_DROP_CONSOLE,
+    VITE_HTTPS,
+    VITE_USE_MOCK,
+    VITE_GLOB_APP_TITLE,
+    VITE_GLOB_CONFIG_FILE_NAME
+  } = viteEnv
 
-  // const isBuild = command === 'build'
+  const isBuild = command === 'build'
   const lifecycle = process.env.npm_lifecycle_event
+
+  const path = VITE_PUBLIC_PATH.endsWith('/') ? VITE_PUBLIC_PATH : `${VITE_PUBLIC_PATH}/`
+
+  const getAppConfigSrc = () => {
+    return `${path || '/'}${VITE_GLOB_CONFIG_FILE_NAME}?v=${pkg.version}-${new Date().getTime()}`
+  }
+
   return {
     base: VITE_PUBLIC_PATH,
     root,
@@ -112,6 +124,27 @@ export default ({ mode }: ConfigEnv): UserConfig => {
 
         // you need to set i18n resource including paths !
         include: pathResolve('src/locales/**')
+      }),
+      // html定制化
+      createHtmlPlugin({
+        minify: isBuild,
+        inject: {
+          // Inject data into ejs template
+          data: {
+            title: VITE_GLOB_APP_TITLE
+          },
+          // Embed the generated app.config.js file
+          tags: isBuild
+            ? [
+                {
+                  tag: 'script',
+                  attrs: {
+                    src: getAppConfigSrc()
+                  }
+                }
+              ]
+            : []
+        }
       }),
       // 打包分析
       lifecycle === 'report'
