@@ -18,7 +18,7 @@ interface CreateConfigParams {
 function createConfig(params: CreateConfigParams) {
   const { configName, config, configFileName } = params
   try {
-    const { VITE_GLOB_APP_OUTPUT_DIR } = config as ViteEnv
+    const { VITE_APP_OUTPUT_DIR } = config as ViteEnv
     const windowConf = `window.${configName}`
     // Ensure that the variable will not be modified
     const configStr = `${windowConf}=${JSON.stringify(config)};
@@ -28,11 +28,11 @@ function createConfig(params: CreateConfigParams) {
         writable: false,
       });
     `.replace(/\s/g, '')
-    fs.mkdirp(getRootPath(VITE_GLOB_APP_OUTPUT_DIR))
-    writeFileSync(getRootPath(`${VITE_GLOB_APP_OUTPUT_DIR}/${configFileName}`), configStr)
+    fs.mkdirp(getRootPath(VITE_APP_OUTPUT_DIR))
+    writeFileSync(getRootPath(`${VITE_APP_OUTPUT_DIR}/${configFileName}`), configStr)
 
     console.log(colors.cyan(`✨ [${pkg.name}]`) + ' - configuration file is build successfully:')
-    console.log(colors.gray(VITE_GLOB_APP_OUTPUT_DIR + '/' + colors.green(configFileName)) + '\n')
+    console.log(colors.gray(VITE_APP_OUTPUT_DIR + '/' + colors.green(configFileName)) + '\n')
   } catch (error) {
     console.log(colors.red('configuration file configuration file failed to package:\n' + error))
   }

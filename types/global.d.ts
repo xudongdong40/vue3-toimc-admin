@@ -55,7 +55,7 @@ declare global {
     VITE_BUILD_COMPRESS_DELETE_ORIGIN_FILE: boolean
     VITE_USE_IMAGEMIN: boolean
     VITE_GENERATE_UI: string
-    VITE_GLOB_APP_OUTPUT_DIR: string
+    VITE_APP_OUTPUT_DIR: string
   }
 
   namespace JSX {
