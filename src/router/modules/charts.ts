@@ -12,7 +12,7 @@ const chartsRoutes: Array<AppRouteRecordRaw> = [
     },
     path: '/charts',
     component: LayoutsDefault,
-    redirect: '/charts/user',
+    redirect: '/charts/baidu',
     children: [
       {
         name: 'BaiduCharts',
@@ -38,14 +38,15 @@ const chartsRoutes: Array<AppRouteRecordRaw> = [
         },
         component: () => import('@/views/charts/tencent.vue')
       },
-      {
-        name: '谷歌地图',
-        path: 'google',
-        meta: {
-          title: t('menu.charts.google')
-        },
-        component: () => import('@/views/charts/google.vue')
-      },
+      // 国内无法访问
+      // {
+      //   name: '谷歌地图',
+      //   path: 'google',
+      //   meta: {
+      //     title: t('menu.charts.google')
+      //   },
+      //   component: () => import('@/views/charts/google.vue')
+      // },
       {
         name: 'Echarts',
         path: 'echarts',
