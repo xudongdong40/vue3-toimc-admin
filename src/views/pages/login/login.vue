@@ -1,5 +1,6 @@
 <template>
   <div class="w-full p-1 custom-login">
+    <!-- 右上角扫码部分，若不需要，可直接注销 -->
     <div class="flex items-center justify-end">
       <div class="px-3 py-2 rounded-md mr-2 flex items-center bg-[#ECFAF3]">
         <span class="we inline-block pr-2 bg-contain"></span>
@@ -9,9 +10,11 @@
         <img class="relative cursor-pointer" src="@/assets/images/qr.png" />
       </router-link>
     </div>
+    <!-- 登陆表单主体部分，可按需进行修改 -->
     <div class="my-10 mx-auto max-w-96">
       <div class="text-3xl pb-6">toimc管理系统</div>
       <el-tabs v-model="activeName" class="pt-5" @tab-click="handleClick">
+        <!-- 密码登陆 -->
         <el-tab-pane label="密码登录" name="pwd">
           <basic-form :schemas="loginForm" label-width="0" class="pt-4">
             <template #action="{ validate, model }">
@@ -25,6 +28,7 @@
             </template>
           </basic-form>
         </el-tab-pane>
+        <!-- 验证码登陆 -->
         <el-tab-pane label="验证码登录" name="code">
           <basic-form
             ref="form"
@@ -88,6 +92,7 @@
     setup() {
       const { replace } = useRouter()
       const userStore = useUserStore()
+      // 默认为密码登陆，将pwd改成code，将默认为验证码登陆
       const activeName = ref('pwd')
       const codeLogin = ref()
       const mobilePhone = ref()
@@ -100,6 +105,7 @@
       }
       const form = ref()
 
+      // 登陆表单配置，作为配置参数传递给basic-form组件
       const loginForm = reactive([
         {
           component: 'input',
@@ -134,6 +140,7 @@
         }
       ]) as FormSchema[]
 
+      // 验证码登陆配置，作为配置参数传递给basic-form组件
       const codeLoginForm = reactive([
         {
           component: 'input',
@@ -163,6 +170,7 @@
         }
       ]) as FormSchema[]
 
+      // 验证码处理，state 为状态，sendCode为处理发送的函数，leftCount为重发时间
       const handleLogin = async (validate, model, type: LoginType) => {
         if (!validate) return
         let res: any
@@ -181,6 +189,7 @@
         // 存储用户信息
         userStore.setUserInfo(data)
         console.log('res:', res)
+        // 登陆成功后的跳转
         replace('/home')
         // go(-1)
       }
