@@ -13,12 +13,12 @@ interface CreateConfigParams {
   configName: string
   config: any
   configFileName?: string
+  outputDir?: string
 }
 
 function createConfig(params: CreateConfigParams) {
-  const { configName, config, configFileName } = params
+  const { configName, config, configFileName, outputDir = 'dist' } = params
   try {
-    const { VITE_APP_OUTPUT_DIR } = config as ViteEnv
     const windowConf = `window.${configName}`
     // Ensure that the variable will not be modified
     const configStr = `${windowConf}=${JSON.stringify(config)};
@@ -28,22 +28,24 @@ function createConfig(params: CreateConfigParams) {
         writable: false,
       });
     `.replace(/\s/g, '')
-    fs.mkdirp(getRootPath(VITE_APP_OUTPUT_DIR))
-    writeFileSync(getRootPath(`${VITE_APP_OUTPUT_DIR}/${configFileName}`), configStr)
+    fs.mkdirp(getRootPath(outputDir))
+    writeFileSync(getRootPath(`${outputDir}/${configFileName}`), configStr)
 
     console.log(colors.cyan(`✨ [${pkg.name}]`) + ' - configuration file is build successfully:')
-    console.log(colors.gray(VITE_APP_OUTPUT_DIR + '/' + colors.green(configFileName)) + '\n')
+    console.log(colors.gray(outputDir + '/' + colors.green(configFileName)) + '\n')
   } catch (error) {
     console.log(colors.red('configuration file configuration file failed to package:\n' + error))
   }
 }
 
 export function runBuildConfig() {
-  const config = getEnvConfig() as ViteEnv
+  const config = getEnvConfig()
+  const appConfig = getEnvConfig('VITE_APP_') as ViteEnv
   const configFileName = getConfigFileName(config)
   createConfig({
     config,
     configName: configFileName,
-    configFileName: config.VITE_GLOB_CONFIG_FILE_NAME
+    configFileName: appConfig.VITE_APP_CONFIG_FILE_NAME,
+    outputDir: appConfig.VITE_APP_OUTPUT_DIR
   })
 }

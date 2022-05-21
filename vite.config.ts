@@ -53,7 +53,7 @@ export default ({ mode, command }: ConfigEnv): UserConfig => {
     VITE_HTTPS,
     VITE_USE_MOCK,
     VITE_GLOB_APP_TITLE,
-    VITE_GLOB_CONFIG_FILE_NAME
+    VITE_APP_CONFIG_FILE_NAME
   } = viteEnv
 
   const isBuild = command === 'build'
@@ -62,7 +62,7 @@ export default ({ mode, command }: ConfigEnv): UserConfig => {
   const path = VITE_PUBLIC_PATH.endsWith('/') ? VITE_PUBLIC_PATH : `${VITE_PUBLIC_PATH}/`
 
   const getAppConfigSrc = () => {
-    return `${path || '/'}${VITE_GLOB_CONFIG_FILE_NAME}?v=${pkg.version}-${new Date().getTime()}`
+    return `${path || '/'}${VITE_APP_CONFIG_FILE_NAME}?v=${pkg.version}-${new Date().getTime()}`
   }
 
   return {
@@ -107,9 +107,9 @@ export default ({ mode, command }: ConfigEnv): UserConfig => {
         prodEnabled: VITE_USE_MOCK,
         // 相当于在src/main.ts中inject下面的代码，所以注意文件的路径问题
         injectCode: `
-    import { setupProdMockServer } from '../mock/_createProductionServer';
-    setupProdMockServer();
-  `
+          import { setupProdMockServer } from '../mock/_createProductionServer';
+          setupProdMockServer();
+        `
       }),
       createSvgIconsPlugin({
         // 指定需要缓存的图标文件夹
@@ -133,7 +133,7 @@ export default ({ mode, command }: ConfigEnv): UserConfig => {
           data: {
             title: VITE_GLOB_APP_TITLE
           },
-          // Embed the generated app.config.js file
+          // Embed the generated _app.config.js file, 使用esno编译，npm run build:post
           tags: isBuild
             ? [
                 {
