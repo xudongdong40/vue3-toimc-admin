@@ -96,7 +96,7 @@ const pagesRoutes: Array<AppRouteRecordRaw> = [
       {
         name: 'SettingsPages',
         path: 'settings',
-        component: () => import('@/views/pages/form/index.vue'),
+        component: () => import('@/views/pages/user/setting.vue'),
         meta: {
           title: t('menu.pages.settings.title')
         }
