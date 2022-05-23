@@ -1,6 +1,6 @@
 <template>
-  <div class="inline-flex items-center">
-    <div class="text-sm mr-1" :style="{ color: getTextColor() || 'auto' }">
+  <component :is="wrapper" :class="['inline-flex items-center', cls]">
+    <div v-if="text" class="text-sm mr-1" :style="{ color: getTextColor() || 'auto' }">
       <slot>{{ text }}</slot>
     </div>
     <template v-if="icon">
@@ -23,7 +23,7 @@
         :color="trendsColors[1] ? trendsColors[1] : 'gray'"
       />
     </template>
-  </div>
+  </component>
 </template>
 
 <script lang="ts">
@@ -42,6 +42,14 @@
   export default defineComponent({
     name: 'Trend',
     props: {
+      wrapper: {
+        type: String,
+        default: 'div'
+      },
+      cls: {
+        type: String,
+        default: ''
+      },
       type: {
         type: String as PropType<TrendTypes>,
         default: TrendDirection.Equal

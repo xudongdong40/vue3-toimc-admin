@@ -288,7 +288,7 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
             component: () => import('@/views/components/tools/print.vue')
           },
           {
-            name: 'i18n',
+            name: 'I18n',
             path: 'i18n',
             meta: {
               title: t('menu.component.function.i18n')
@@ -296,7 +296,7 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
             component: () => import('@/views/components/tools/i18n.vue')
           },
           {
-            name: 'watermark',
+            name: 'Watermark',
             path: 'watermark',
             meta: {
               title: t('menu.component.function.watermark')
@@ -304,12 +304,20 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
             component: () => import('@/views/components/tools/watermark.vue')
           },
           {
-            name: 'splitpanel',
-            path: 'splitpanel',
+            name: 'VerifyComponents',
+            path: 'verify',
             meta: {
-              title: t('components.tools.splitpanel')
+              title: t('menu.component.display.verify')
             },
-            component: () => import('@/views/components/tools/split-panel.vue')
+            component: () => import('@/views/components/verify/index.vue')
+          },
+          {
+            name: 'CopyImageToClipBoard',
+            path: 'copy-image',
+            meta: {
+              title: t('menu.component.function.copy-image')
+            },
+            component: () => import('@/views/components/tools/copy-image-clipboard.vue')
           }
         ]
       },
@@ -386,6 +394,14 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
               title: '瀑布流'
             },
             component: () => import('@/views/components/display/waterfall.vue')
+          },
+          {
+            name: 'splitpanel',
+            path: 'splitpanel',
+            meta: {
+              title: t('components.tools.splitpanel')
+            },
+            component: () => import('@/views/components/display/split-panel.vue')
           }
         ]
       },

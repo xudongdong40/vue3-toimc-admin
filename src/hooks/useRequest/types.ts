@@ -1,5 +1,5 @@
 import { AxiosResponse, Canceler } from 'axios'
-import { Ref } from 'vue'
+import { ComputedRef, Ref, WatchSource } from 'vue'
 
 export interface Response<T> {
   status: number
@@ -22,9 +22,15 @@ export interface Options<T, P extends any[]> {
   // 默认参数
   defaultParams?: P
 
+  // 关闭重复请求
+  repeatCancel?: boolean;
+  // 依赖更新
+  refreshDeps?: WatchSource<any>[];
+  // 依赖更新时的参数
+  refreshDepsParams?: ComputedRef<P>;
+  
   // 防抖时间
   debounceWait?: number
-
   // leading  防抖部分 决定延迟前后如何触发, true-先调用后等待
   debounceLeading?: boolean
   // trailing 防抖部分 决定延迟前后如何触发, true-先等待后调用
@@ -37,10 +43,23 @@ export interface Options<T, P extends any[]> {
   throttleTrailing?: boolean
 
   queryKey?: (...args: P) => string
+
+  // 成功回调
+  onSuccess?: (response: AxiosResponse<Response<T>>, params: P) => void;
+
+  // 失败回调
+  onError?: (err: ErrorData, params: P) => void;
 }
 
-export interface IExpose<T> {
-  data: T
-  loading: boolean
-  cancel: Ref<Canceler>
+export interface IRequestResult<T> {
+  data: T | null;
+  loading: boolean;
+  cancel: Canceler;
+  err?: ErrorData;
+}
+
+export interface ErrorData<T = any> {
+  code: number | string;
+  data: T;
+  msg: string;
 }
