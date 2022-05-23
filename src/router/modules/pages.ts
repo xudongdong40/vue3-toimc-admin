@@ -62,11 +62,11 @@ const pagesRoutes: Array<AppRouteRecordRaw> = [
         name: 'ResultPages',
         path: 'result',
         component: () => import('@/views/pages/result/index.vue'),
-        redirect:'/page/result/success',
+        redirect: '/page/result/success',
         meta: {
           title: t('menu.pages.result.title')
         },
-         children: [
+        children: [
           {
             name: 'ResultSuccessPage',
             path: 'success',
@@ -88,7 +88,7 @@ const pagesRoutes: Array<AppRouteRecordRaw> = [
       {
         name: 'UsersPages',
         path: 'users',
-        component: () => import('@/views/pages/form/index.vue'),
+        component: () => import('@/views/pages/user/index.vue'),
         meta: {
           title: t('menu.pages.users.title')
         }
