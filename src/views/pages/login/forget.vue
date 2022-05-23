@@ -51,6 +51,7 @@
 
   export default defineComponent({
     setup() {
+      // 注册表单配置，作为配置参数传递给basic-form组件
       const form = ref()
       const mobilePhone = ref()
       // 注册表单配置，作为配置参数传递给basic-form组件

@@ -170,7 +170,7 @@
         }
       ]) as FormSchema[]
 
-      // 登陆成功后的跳转
+      // 验证码处理，state 为状态，sendCode为处理发送的函数，leftCount为重发时间
       const handleLogin = async (validate, model, type: LoginType) => {
         if (!validate) return
         let res: any
@@ -189,6 +189,7 @@
         // 存储用户信息
         userStore.setUserInfo(data)
         console.log('res:', res)
+        // 登陆成功后的跳转
         replace('/home')
         // go(-1)
       }

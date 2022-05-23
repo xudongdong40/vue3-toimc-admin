@@ -127,8 +127,7 @@ Talent requirements.
 - Testing
 - Operation: copywriting, shake, community
 
-<img src="public/assets/640.png" alt="640" style="width: 50%;" />
-
+mail: admin@wayearn.com
 ## How to contribute
 
 - Join the WeChat group
