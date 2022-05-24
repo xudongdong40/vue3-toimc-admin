@@ -59,7 +59,51 @@
         />
       </el-col>
     </el-row>
-    <echarts-board />
+    <el-row>
+      <el-col :span="12">
+        <echarts-board
+          title="趋势"
+          type="line"
+          :data="{
+            line1: [1401, 2322, 1015, 2143, 1304, 3401, 2505, 3015, 2922, 2811, 3233, 4361],
+            line2: [1201, 2822, 1113, 2345, 2204, 2806, 3107, 3002, 3510, 2155, 3881, 3511]
+          }"
+        />
+      </el-col>
+      <el-col :span="6">
+        <echarts-board
+          title="分布"
+          type="pie"
+          :data="{
+            pie: [
+              { value: 1048, name: '搜索引擎' },
+              { value: 735, name: '直接访问' },
+              { value: 580, name: '邮件营销' },
+              { value: 484, name: '联盟广告' },
+              { value: 300, name: '视频广告' }
+            ]
+          }"
+        />
+      </el-col>
+      <el-col :span="6">
+        <echarts-board
+          title="消费排行"
+          type="bar"
+          :data="{
+            bar: [
+              ['小明', 314],
+              ['小红', 351],
+              ['小李', 287],
+              ['小王', 219],
+              ['小刚', 253],
+              ['小强', 165],
+              ['小凯', 318],
+              ['小林', 366]
+            ]
+          }"
+        />
+      </el-col>
+    </el-row>
   </div>
 </template>
 
@@ -96,5 +140,11 @@
   width: 100%;
   padding: 20px;
   background: #f6f8f9;
+  :deep(.el-row) {
+    margin-bottom: 0.5rem;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <t-card
-    header="分布"
+    :header="title"
     :class="{
       'dashboard-card': true,
       'no-border': !haveBorder,
@@ -9,7 +9,9 @@
     :body-style="{ ...bodyStyle, height: '100%' }"
     shadow="never"
   >
-    <div id="echartsMain"></div>
+    <div v-if="type === 'pie'" id="pieMain"></div>
+    <div v-if="type === 'line'" id="lineMain"></div>
+    <div v-if="type === 'bar'" id="barMain"></div>
   </t-card>
 </template>
 
@@ -21,6 +23,18 @@
   export default defineComponent({
     name: 'EchartsBoard',
     props: {
+      title: {
+        type: String,
+        default: ''
+      },
+      type: {
+        type: String,
+        default: 'line'
+      },
+      data: {
+        type: Object,
+        default: () => ({})
+      },
       haveBorder: {
         type: Boolean,
         default: true
@@ -34,9 +48,99 @@
         default: () => ({})
       }
     },
-    setup() {
-      const drawImg = () => {
-        const chartDom: HTMLElement = document.getElementById('echartsMain') as HTMLElement;
+    setup(props) {
+      const drawLine = () => {
+        const chartDom: HTMLElement = document.getElementById('lineMain') as HTMLElement;
+        const myChart = echarts.init(chartDom);
+        const option = {
+          color: ['#80FFA5', '#00DDFF'],
+          tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+              type: 'cross',
+              label: {
+                backgroundColor: '#6a7985'
+              }
+            }
+          },
+          grid: {
+            left: '1%',
+            right: '1%',
+            bottom: '1%',
+            top: '3%',
+            containLabel: true
+          },
+          xAxis: [
+            {
+              type: 'category',
+              boundaryGap: false,
+              data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月']
+            }
+          ],
+          yAxis: [
+            {
+              type: 'value'
+            }
+          ],
+          series: [
+            {
+              name: '签单',
+              type: 'line',
+              smooth: true,
+              lineStyle: {
+                width: 3
+              },
+              showSymbol: false,
+              areaStyle: {
+                opacity: 0.6,
+                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                  {
+                    offset: 0,
+                    color: 'rgb(128, 255, 165)'
+                  },
+                  {
+                    offset: 1,
+                    color: 'rgb(1, 191, 236)'
+                  }
+                ])
+              },
+              emphasis: {
+                focus: 'series'
+              },
+              data: props.data.line1
+            },
+            {
+              name: '回款',
+              type: 'line',
+              smooth: true,
+              lineStyle: {
+                width: 3
+              },
+              showSymbol: false,
+              areaStyle: {
+                opacity: 0.6,
+                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                  {
+                    offset: 0,
+                    color: 'rgb(0, 221, 255)'
+                  },
+                  {
+                    offset: 1,
+                    color: 'rgb(77, 119, 255)'
+                  }
+                ])
+              },
+              emphasis: {
+                focus: 'series'
+              },
+              data: props.data.line2
+            }
+          ]
+        };
+        option && myChart.setOption(option);
+      }
+      const drawPie = () => {
+        const chartDom: HTMLElement = document.getElementById('pieMain') as HTMLElement;
         const myChart = echarts.init(chartDom);
         const option = {
           tooltip: {
@@ -55,25 +159,89 @@
               },
               labelLine:{
                 show: true,
-                normal: {
-                  length: 20
-                }
+                length: 8
               },
-              data: [
-                { value: 1048, name: '搜索引擎' },
-                { value: 735, name: '直接访问' },
-                { value: 580, name: '邮件营销' },
-                { value: 484, name: '联盟广告' },
-                { value: 300, name: '视频广告' }
-              ]
+              data: props.data.pie
             }
           ]
         };
         option && myChart.setOption(option);
       }
+      const drawBar = () => {
+        const chartDom: HTMLElement = document.getElementById('barMain') as HTMLElement;
+        const myChart = echarts.init(chartDom);
+        const option = {
+          color: '#4e53df',
+          tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+              type: 'cross',
+              label: {
+                backgroundColor: '#6a7985'
+              }
+            }
+          },
+          dataset: [
+            {
+              dimensions: ['name', 'score'],
+              source: props.data.bar
+            },
+            {
+              transform: {
+                type: 'sort',
+                config: { dimension: 'score', order: 'desc' }
+              }
+            }
+          ],
+          grid: {
+            left: '1%',
+            right: '5%',
+            bottom: '1%',
+            top: '1%',
+            containLabel: true
+          },
+          xAxis: {
+            axisLine: {
+              show: false
+            },
+            axisTick:{
+              show: false
+            }
+          },
+          yAxis: {
+            axisLine: {
+              show: false
+            },
+            axisTick:{
+              show: false
+            },
+            type: 'category',
+            inverse: true,
+            axisLabel: { interval: 0, rotate: 0 }
+          },
+          series: {
+            type: 'bar',
+            encode: { x: 'score', y: 'name' },
+            datasetIndex: 1,
+            itemStyle: {
+              borderRadius: 30
+            }
+          }
+        };
+        option && myChart.setOption(option);
+      }
       
       onMounted(() => {
-        drawImg()
+        const { type } = props;
+        if (type === 'line') {
+          drawLine()
+        }
+        if (type === 'pie') {
+          drawPie()
+        }
+        if (type === 'bar') {
+          drawBar()
+        }
       })
       return {}
     }
@@ -81,9 +249,13 @@
 </script>
 
 <style scoped lang="scss">
-  #echartsMain {
-    width: 500px;
-    height: 300px;
+  #lineMain, #pieMain {
+    width: 100%;
+    height: 200px;
+  }
+  #barMain {
+    width: 100%;
+    height: 200px;
   }
   .dashboard-card {
     margin: 0 5px;
