@@ -1,6 +1,7 @@
+// vitejs
 import type { UserConfig, ConfigEnv } from 'vite'
-
-import { resolve } from 'path'
+import { loadEnv } from 'vite'
+import { wrapperEnv } from './build/utils'
 
 // plugins
 import vue from '@vitejs/plugin-vue'
@@ -15,18 +16,16 @@ import IconsResolver from 'unplugin-icons/resolver'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 import vueI18n from '@intlify/vite-plugin-vue-i18n'
 import { visualizer } from 'rollup-plugin-visualizer'
-
-// vitejs
-import { loadEnv } from 'vite'
-import { viteMockServe } from 'vite-plugin-mock'
-import { wrapperEnv } from './build/utils'
-
-import pkg from './package.json'
-import dayjs from 'dayjs'
+import legacy from '@vitejs/plugin-legacy'
 import { createProxy } from './build/proxy'
 import { configCompressPlugin } from './build/compress'
 import { configImageminPlugin } from './build/imagemin'
 import { configPwaConfig } from './build/pwa'
+import { viteMockServe } from 'vite-plugin-mock'
+
+import { resolve } from 'path'
+import pkg from './package.json'
+import dayjs from 'dayjs'
 
 function pathResolve(dir: string) {
   return resolve(process.cwd(), '.', dir)
@@ -59,7 +58,8 @@ export default ({ mode, command }: ConfigEnv): UserConfig => {
     VITE_APP_CONFIG_FILE_NAME,
     VITE_BUILD_COMPRESS,
     VITE_BUILD_COMPRESS_DELETE_ORIGIN_FILE,
-    VITE_USE_IMAGEMIN
+    VITE_USE_IMAGEMIN,
+    VITE_LEGACY
   } = viteEnv
 
   const isBuild = command === 'build'
@@ -78,7 +78,9 @@ export default ({ mode, command }: ConfigEnv): UserConfig => {
         // 图片压缩
         VITE_USE_IMAGEMIN && configImageminPlugin(),
         // pwd应用
-        configPwaConfig(viteEnv)
+        configPwaConfig(viteEnv),
+        // 浏览器兼容
+        VITE_LEGACY && legacy()
       ]
     : []
 

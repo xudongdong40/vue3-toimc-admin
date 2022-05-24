@@ -52,6 +52,7 @@ declare global {
     VITE_USE_CDN: boolean
     VITE_DROP_CONSOLE: boolean
     VITE_HTTPS: boolean
+    VITE_LEGACY: boolean
     VITE_BUILD_COMPRESS: 'gzip' | 'brotli' | 'none'
     VITE_BUILD_COMPRESS_DELETE_ORIGIN_FILE: boolean
     VITE_USE_IMAGEMIN: boolean
