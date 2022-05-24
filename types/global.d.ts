@@ -58,6 +58,7 @@ declare global {
     VITE_GENERATE_UI: string
     VITE_APP_CONFIG_FILE_NAME: string
     VITE_APP_OUTPUT_DIR: string
+    VITE_APP_ROUTE_MODE: 'hash' | 'html5'
   }
 
   namespace JSX {

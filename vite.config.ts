@@ -24,6 +24,9 @@ import { wrapperEnv } from './build/utils'
 import pkg from './package.json'
 import dayjs from 'dayjs'
 import { createProxy } from './build/proxy'
+import { configCompressPlugin } from './build/compress'
+import { configImageminPlugin } from './build/imagemin'
+import { configPwaConfig } from './build/pwa'
 
 function pathResolve(dir: string) {
   return resolve(process.cwd(), '.', dir)
@@ -53,7 +56,10 @@ export default ({ mode, command }: ConfigEnv): UserConfig => {
     VITE_HTTPS,
     VITE_USE_MOCK,
     VITE_GLOB_APP_TITLE,
-    VITE_APP_CONFIG_FILE_NAME
+    VITE_APP_CONFIG_FILE_NAME,
+    VITE_BUILD_COMPRESS,
+    VITE_BUILD_COMPRESS_DELETE_ORIGIN_FILE,
+    VITE_USE_IMAGEMIN
   } = viteEnv
 
   const isBuild = command === 'build'
@@ -64,6 +70,17 @@ export default ({ mode, command }: ConfigEnv): UserConfig => {
   const getAppConfigSrc = () => {
     return `${path || '/'}${VITE_APP_CONFIG_FILE_NAME}?v=${pkg.version}-${new Date().getTime()}`
   }
+
+  const buildPlugins = isBuild
+    ? [
+        // gzip,brotli压缩输出，生产有效
+        configCompressPlugin(VITE_BUILD_COMPRESS, VITE_BUILD_COMPRESS_DELETE_ORIGIN_FILE),
+        // 图片压缩
+        VITE_USE_IMAGEMIN && configImageminPlugin(),
+        // pwd应用
+        configPwaConfig(viteEnv)
+      ]
+    : []
 
   return {
     base: VITE_PUBLIC_PATH,
@@ -146,15 +163,15 @@ export default ({ mode, command }: ConfigEnv): UserConfig => {
             : []
         }
       }),
+      ...buildPlugins,
       // 打包分析
-      lifecycle === 'report'
-        ? visualizer({
-            filename: './node_modules/.cache/visualizer/stats.html',
-            open: true,
-            gzipSize: true,
-            brotliSize: true
-          })
-        : null
+      lifecycle === 'report' &&
+        visualizer({
+          filename: './node_modules/.cache/visualizer/stats.html',
+          open: true,
+          gzipSize: true,
+          brotliSize: true
+        })
     ],
     json: {
       stringify: true

@@ -2,7 +2,7 @@ import type { App } from 'vue'
 import type { AppRouteRecordRaw } from './types'
 
 import type { RouteRecordRaw } from 'vue-router'
-import { createRouter, createWebHashHistory } from 'vue-router'
+import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router'
 
 import { sortMenu } from '@/utils'
 
@@ -75,8 +75,10 @@ const publicRoutes = [
 
 export const asyncRoutes = sortMenu([...publicRoutes, ...routeModuleList])
 
+const isHash = import.meta.env?.VITE_APP_ROUTE_MODE === 'hash'
+
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: isHash ? createWebHashHistory() : createWebHistory(),
   routes: asyncRoutes as unknown as RouteRecordRaw[],
   strict: true,
   scrollBehavior: () => ({ left: 0, top: 0 })
