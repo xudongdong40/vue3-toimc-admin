@@ -96,7 +96,7 @@
       const activeName = ref('pwd')
       const codeLogin = ref()
       const mobilePhone = ref()
-      // 验证码处理，state 为状态，sendCode为处理发送的函数，leftCount为重发时间
+
       const { state, handleSendCode, leftCount } = sendUtils()
 
       // switch login type
