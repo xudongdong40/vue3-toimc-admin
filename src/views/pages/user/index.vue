@@ -9,7 +9,7 @@
         <div class="flex">
           <img
             class="h-24 w-24 rounded-full ring-4 ring-white sm:h-32 sm:w-32"
-            :src="profile.imageUrl"
+            :src="header"
             alt=""
           />
         </div>
@@ -49,6 +49,11 @@
   import UserInfo from '@/views/pages/user/components/UserInfo.vue'
   import UserArticle from '@/views/pages/user/components/UserArticle.vue'
   import UserProject from '@/views/pages/user/components/UserProject.vue'
+
+  import header from '@/assets/images/brian.jpg'
+
+  import { Random } from 'mockjs'
+
   export default defineComponent({
     components: {
       UserInfo,
@@ -58,10 +63,10 @@
     setup() {
       const profile = {
         name: '张三',
-        imageUrl:
-          'https://images.unsplash.com/photo-1463453091185-61582044d556?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80',
         coverImageUrl:
-          'https://images.unsplash.com/photo-1444628838545-ac4016a5418a?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80'
+          'https://toimc-online.obs.cn-east-3.myhuaweicloud.com/vue-toimc-admin/shotcuts/pic' +
+          Random.integer(1, 100) +
+          '.jpg'
       }
       const activeName = ref('info')
 
@@ -70,6 +75,7 @@
       }
       return {
         profile,
+        header,
         activeName,
         handleClick
       }
