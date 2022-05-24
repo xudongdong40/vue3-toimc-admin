@@ -17,7 +17,7 @@ const pagesRoutes: Array<AppRouteRecordRaw> = [
       {
         name: 'FormPages',
         path: 'form',
-        component: () => import('@/views/pages/form/index.vue'),
+        component: () => import('@/views/pages/index.vue'),
         meta: {
           title: t('menu.pages.form.title')
         },
@@ -35,7 +35,7 @@ const pagesRoutes: Array<AppRouteRecordRaw> = [
       {
         name: 'DetailPages',
         path: 'detail',
-        component: () => import('@/views/pages/details/index.vue'),
+        component: () => import('@/views/pages/index.vue'),
         meta: {
           title: t('menu.pages.detail.title')
         },
@@ -61,7 +61,7 @@ const pagesRoutes: Array<AppRouteRecordRaw> = [
       {
         name: 'ResultPages',
         path: 'result',
-        component: () => import('@/views/pages/result/index.vue'),
+        component: () => import('@/views/pages/index.vue'),
         redirect: '/page/result/success',
         meta: {
           title: t('menu.pages.result.title')
@@ -86,25 +86,36 @@ const pagesRoutes: Array<AppRouteRecordRaw> = [
         ]
       },
       {
-        name: 'UsersPages',
-        path: 'users',
-        component: () => import('@/views/pages/user/index.vue'),
+        name: 'UserCenter',
+        path: 'center',
+        component: () => import('@/views/pages/index.vue'),
         meta: {
-          title: t('menu.pages.users.title')
-        }
-      },
-      {
-        name: 'SettingsPages',
-        path: 'settings',
-        component: () => import('@/views/pages/user/setting.vue'),
-        meta: {
-          title: t('menu.pages.settings.title')
-        }
+          title: '个人中心'
+        },
+        redirect: '/page/center/users',
+        children: [
+          {
+            name: 'UsersPages',
+            path: 'users',
+            component: () => import('@/views/pages/user/index.vue'),
+            meta: {
+              title: t('menu.pages.users.title')
+            }
+          },
+          {
+            name: 'SettingsPages',
+            path: 'settings',
+            component: () => import('@/views/pages/user/setting.vue'),
+            meta: {
+              title: t('menu.pages.settings.title')
+            }
+          }
+        ]
       },
       {
         name: 'ErrorsPages',
         path: 'errors',
-        component: () => import('@/views/pages/errors/index.vue'),
+        component: () => import('@/views/pages/index.vue'),
         meta: {
           title: t('menu.pages.errors.title'),
           alone: false

@@ -38,20 +38,20 @@
   })
 </script>
 
-<style scoped lang="less">
-  @--el-border-color: #dcdfe6;
-  @--el-color-primary: #409eff;
+<style scoped lang="scss">
+  $--el-border-color: #dcdfe6;
+  $--el-color-primary: #409eff;
 
   .avatar-uploader {
     :deep(.el-upload) {
-      border: 1px dashed @--el-border-color;
+      border: 1px dashed $--el-border-color;
       border-radius: 6px;
       cursor: pointer;
       position: relative;
       overflow: hidden;
       transition: 0.2s;
       &:hover {
-        border-color: @--el-color-primary;
+        border-color: $--el-color-primary;
       }
       .el-icon.avatar-uploader-icon {
         font-size: 28px;

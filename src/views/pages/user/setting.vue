@@ -1,5 +1,5 @@
 <template>
-  <div class="p-4">
+  <t-card class="p-4">
     <!-- Tabs -->
     <el-tabs
       v-model="activeName"
@@ -15,7 +15,7 @@
         <setting-user-notify></setting-user-notify>
       </el-tab-pane>
     </el-tabs>
-  </div>
+  </t-card>
 </template>
 
 <script lang="ts">
@@ -49,4 +49,14 @@
   })
 </script>
 
-<style scoped></style>
+<style scoped lang="scss">
+  :deep(.el-tabs__nav-scroll) {
+    width: 180px;
+    .el-tabs__item {
+      text-align: left;
+      &.is-active {
+        background-color: var(--el-color-primary-light-9);
+      }
+    }
+  }
+</style>

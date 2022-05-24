@@ -1,5 +1,5 @@
 <template>
-  <div class="p-4">
+  <t-card class="p-4">
     <!-- Profile header -->
     <div>
       <img class="h-32 w-full object-cover lg:h-48" :src="profile.coverImageUrl" alt="" />
@@ -41,7 +41,7 @@
         <user-project></user-project>
       </el-tab-pane>
     </el-tabs>
-  </div>
+  </t-card>
 </template>
 
 <script lang="ts">
