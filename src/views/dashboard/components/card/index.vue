@@ -153,8 +153,7 @@
 
 <style scoped lang="scss">
   .dashboard-card {
-    width: 25%;
-    margin: 0 10px;
+    margin: 0 5px;
     background-color: transparent;
     box-sizing: border-box;
     :deep(.el-card) {
