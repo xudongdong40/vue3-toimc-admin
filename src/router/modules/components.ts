@@ -318,6 +318,15 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
               title: t('menu.component.function.copy-image')
             },
             component: () => import('@/views/components/tools/copy-image-clipboard.vue')
+          },
+          {
+            name: 'AudioPlayerDemo',
+            path: 'audio-player',
+            meta: {
+              // title: t('menu.component.function.copy-image')
+              title:'播放器'
+            },
+            component: () => import('@/views/components/player/audio.vue')
           }
         ]
       },
