@@ -1,11 +1,11 @@
 <template>
-  <ul :class="['flex', ...addCls]">
+  <ul :class="wrapperClass">
     <li
       v-for="(item, index) in newImages"
       :key="item"
       class="rounded-full flex border-white"
       :style="{
-        marginLeft: -gutter + 'px',
+        ...styles,
         borderColor,
         borderWidth,
         zIndex: reverse ? newImages.length - index : index
@@ -15,7 +15,7 @@
         <el-avatar :src="item" :size="size" @click="() => handleClick(item, index)"></el-avatar>
       </slot>
     </li>
-    <li v-if="num && showMore" class="ml-1">...</li>
+    <li v-if="num && showMore" class="more" :style="moreStyle">...</li>
   </ul>
 </template>
 
@@ -66,6 +66,11 @@
       reverse: {
         type: Boolean,
         default: true
+      },
+      // 是否是行内显示
+      inline: {
+        type: Boolean,
+        default: false
       }
     },
     emits: ['click'],
@@ -74,21 +79,64 @@
         emit('click', { item, index })
       }
 
-      const addCls = computed(() => {
+      const wrapperClass = computed(() => {
+        let cls = [] as string[]
+        // 方向
         if (props.direction === 'vertical') {
-          return ['flex-col', 'justify-center']
+          cls = [...cls, 'flex-col', 'justify-center']
         } else {
-          return ['flex-row', 'items-center']
+          cls = [...cls, 'flex-row', 'items-center']
         }
+        // 是否行内显示
+        if (props.inline) {
+          cls = ['inline', ...cls]
+        } else {
+          cls = ['flex', ...cls]
+        }
+        return cls
+      })
+
+      // 根据方向，设置单个头像的gutter的重叠值
+      const styles = computed(() => {
+        if (props.direction === 'horizontal') {
+          return {
+            marginRight: -props.gutter + 'px'
+          }
+        } else {
+          return {
+            marginBottom: -props.gutter + 'px'
+          }
+        }
+      })
+
+      // 省略符的样式
+      const moreStyle = computed(() => {
+        if (props.direction === 'horizontal') {
+          return { marginLeft: props.gutter + 3 + 'px' }
+        }
+        return { marginTop: props.gutter - 5 + 'px' }
       })
 
       return {
         newImages: computed(() => (props.num ? props.images.slice(0, props.num) : props.images)),
         handleClick,
-        addCls
+        wrapperClass,
+        styles,
+        moreStyle
       }
     }
   })
 </script>
 
-<style scoped></style>
+<style scoped lang="scss">
+  .inline {
+    @apply inline-flex;
+    li {
+      @apply inline-flex;
+    }
+    .more {
+      @apply self-center relative left-[-2px];
+      position: relative;
+    }
+  }
+</style>

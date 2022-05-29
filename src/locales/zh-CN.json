@@ -71,7 +71,8 @@
         "desc": "详情面板",
         "card": "卡片",
         "calendar": "日历",
-        "verify": "验证组件"
+        "verify": "验证组件",
+        "avatar": "头像列表"
       },
       "small-comp": {
         "title": "小组件",

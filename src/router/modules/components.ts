@@ -372,6 +372,14 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
             component: () => import('@/views/components/display/desc.vue')
           },
           {
+            name: 'AvatarList',
+            path: 'avatar',
+            meta: {
+              title: t('menu.component.display.avatar')
+            },
+            component: () => import('@/views/components/display/avatars.vue')
+          },
+          {
             name: 'Cards',
             path: 'cards',
             meta: {
