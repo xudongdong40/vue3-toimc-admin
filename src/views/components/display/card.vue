@@ -61,7 +61,7 @@
     </t-card>
     <t-card
       header="test"
-      :tips="{ content: '这里是tips', placement: 'top' }"
+      :tips="{ content: '这里是tips', placement: 'top', rawContent: true }"
       tips-icon="ant-design:alert-filled"
     >
       <p>tips示例, 更换icon</p>

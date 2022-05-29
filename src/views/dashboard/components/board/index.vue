@@ -1,14 +1,22 @@
 <template>
   <t-card
     :header="title"
+    tips="true"
     :class="{
       'dashboard-card': true,
       'no-border': !haveBorder,
       'hover-shadow': hoverShadow
     }"
+    content=""
+    placement="left-start"
     :body-style="{ ...bodyStyle, height: '100%' }"
     shadow="never"
   >
+    <template #tips>
+      <icon v-if="type === 'pie'" icon="ep:data-line"></icon>
+      <icon v-if="type === 'line'" icon="ep:pie-chart"></icon>
+      <icon v-if="type === 'bar'" icon="ep:histogram"></icon>
+    </template>
     <div v-if="type === 'pie'" id="pieMain"></div>
     <div v-if="type === 'line'" id="lineMain"></div>
     <div v-if="type === 'bar'" id="barMain"></div>
@@ -65,7 +73,7 @@
           },
           grid: {
             left: '1%',
-            right: '1%',
+            right: '3%',
             bottom: '1%',
             top: '3%',
             containLabel: true
@@ -150,7 +158,7 @@
             {
               name: '访问来源',
               type: 'pie',
-              radius: ['40%', '70%'],
+              radius: ['35%', '55%'],
               avoidLabelOverlap: true,
               itemStyle: {
                 borderRadius: 10,
