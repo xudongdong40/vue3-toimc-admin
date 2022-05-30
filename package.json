@@ -21,7 +21,11 @@
     "lint:prettier": "prettier --write --loglevel warn \"src/**/*.{js,json,tsx,css,less,scss,vue,html,md}\"",
     "lint:lint-staged": "lint-staged -c ./.husky/lintstagedrc.js",
     "lint:stylelint": "stylelint --cache --fix \"**/*.{vue,less,postcss,css,scss}\" --cache --cache-location node_modules/.cache/stylelint/",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "test": "vitest",
+    "test:dev": "vitest dev",
+    "test:watch": "vitest -w",
+    "coverage": "vitest run --coverage"
   },
   "dependencies": {
     "@element-plus/icons-vue": "^1.1.4",
@@ -107,6 +111,7 @@
     "esno": "^0.16.3",
     "fs-extra": "^10.1.0",
     "husky": "^8.0.1",
+    "jsdom": "^19.0.0",
     "lint-staged": "^12.4.1",
     "mockjs": "^1.1.0",
     "picocolors": "^1.0.0",
@@ -138,6 +143,7 @@
     "vite-plugin-pwa": "^0.12.0",
     "vite-plugin-svg-icons": "^2.0.1",
     "vite-plugin-windicss": "^1.8.4",
+    "vitest": "^0.12.9",
     "vue-eslint-parser": "^8.3.0",
     "vue-tsc": "^0.34.12",
     "windicss": "^3.5.2"

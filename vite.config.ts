@@ -1,6 +1,6 @@
 // vitejs
 import type { UserConfig, ConfigEnv } from 'vite'
-import { loadEnv } from 'vite'
+import { loadEnv, defineConfig } from 'vite'
 import { wrapperEnv } from './build/utils'
 
 // plugins
@@ -39,7 +39,7 @@ const __APP_INFO__ = {
 }
 
 // https://vitejs.dev/config/
-export default ({ mode, command }: ConfigEnv): UserConfig => {
+export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
   const root = process.cwd()
 
   const env = loadEnv(mode, root)
@@ -190,4 +190,4 @@ export default ({ mode, command }: ConfigEnv): UserConfig => {
       }
     }
   }
-}
+})

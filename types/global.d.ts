@@ -49,7 +49,6 @@ declare global {
     VITE_GLOB_APP_SHORT_NAME: string
     VITE_GLOB_CONFIG_FILE_NAME: string
     VITE_GLOB_API_URL: string
-    VITE_USE_CDN: boolean
     VITE_DROP_CONSOLE: boolean
     VITE_HTTPS: boolean
     VITE_LEGACY: boolean
