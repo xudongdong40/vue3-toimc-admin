@@ -1,17 +1,14 @@
 import { useI18n } from 'vue-i18n'
-import {
-  EditorState,
-  liftListItem,
-  MarkType,
-  redo,
-  setBlockType,
-  sinkListItem,
-  TextSelection,
-  undo,
-  wrapIn
-} from '@milkdown/prose'
+
+import { setBlockType, wrapIn } from '@milkdown/prose/commands'
+import { redo, undo } from '@milkdown/prose/history'
+import { MarkType } from '@milkdown/prose/model'
+import { liftListItem, sinkListItem } from '@milkdown/prose/schema-list'
+import { EditorState, TextSelection } from '@milkdown/prose/state'
+import { EditorView } from '@milkdown/prose/view'
+
 import { createCmdKey, CmdKey } from '@milkdown/core'
-import type { EditorView } from '@milkdown/prose'
+
 import type { Icon } from '@milkdown/design-system'
 
 export type CommonConfig = {

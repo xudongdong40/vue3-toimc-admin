@@ -1,6 +1,6 @@
 <template>
   <div class="inline-flex flex-col justify-center items-center">
-    <div class="mb-4 relative" @click="() => (show = true)">
+    <div class="mb-4 relative flex" @click="() => (show = true)">
       <el-avatar :src="src" :shape="shape" :size="size" :alt="alt" :fit="fit"></el-avatar>
       <span
         class="absolute left-0 top-0 w-full h-full flex items-center justify-center transition-opacity duration-500 bg-dark-600 rounded-1/2 bg-opacity-40 opacity-0 hover:opacity-100 cursor-pointer"

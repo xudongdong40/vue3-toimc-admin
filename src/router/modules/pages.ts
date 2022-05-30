@@ -90,7 +90,7 @@ const pagesRoutes: Array<AppRouteRecordRaw> = [
         path: 'center',
         component: () => import('@/views/pages/index.vue'),
         meta: {
-          title: '个人中心'
+          title: t('menu.pages.users.title')
         },
         redirect: '/page/center/users',
         children: [
@@ -99,7 +99,7 @@ const pagesRoutes: Array<AppRouteRecordRaw> = [
             path: 'users',
             component: () => import('@/views/pages/user/index.vue'),
             meta: {
-              title: t('menu.pages.users.title')
+              title: t('menu.pages.users.user')
             }
           },
           {
@@ -107,7 +107,7 @@ const pagesRoutes: Array<AppRouteRecordRaw> = [
             path: 'settings',
             component: () => import('@/views/pages/user/setting.vue'),
             meta: {
-              title: t('menu.pages.settings.title')
+              title: t('menu.pages.users.settings')
             }
           }
         ]
@@ -145,7 +145,7 @@ const pagesRoutes: Array<AppRouteRecordRaw> = [
         path: 'excel',
         component: () => import('@/views/excel/Index.vue'),
         meta: {
-          title: 'Excel处理'
+          title: t('menu.pages.excel')
         }
       }
     ]

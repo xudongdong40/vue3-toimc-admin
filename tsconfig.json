@@ -20,7 +20,7 @@
     "lib": ["dom", "esnext"],
     "noImplicitAny": false,
     "skipLibCheck": true,
-    "types": ["vite/client","element-plus/global","@intlify/vite-plugin-vue-i18n/client"],
+    "types": ["vite/client","element-plus/global","@intlify/vite-plugin-vue-i18n/client", "vitest/globals"],
     "removeComments": true,
     "paths": {
       "@/*": ["src/*"],
@@ -39,6 +39,7 @@
     "build/**/*.d.ts",
     "mock/**/*.ts",
     "vite.config.ts",
+    "vitest.config.ts",
     "components.d.ts",
     "auto-imports.d.ts"
   ],

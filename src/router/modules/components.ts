@@ -95,7 +95,7 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
             path: 'step-form',
             component: () => import('@/views/components/forms/step-form.vue'),
             meta: {
-              title: '分步表单'
+              title: t('menu.component.dynamic.step-form')
             }
           }
         ]
@@ -372,6 +372,14 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
             component: () => import('@/views/components/display/desc.vue')
           },
           {
+            name: 'AvatarList',
+            path: 'avatar',
+            meta: {
+              title: t('menu.component.display.avatar')
+            },
+            component: () => import('@/views/components/display/avatars.vue')
+          },
+          {
             name: 'Cards',
             path: 'cards',
             meta: {
@@ -391,7 +399,7 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
             name: 'WaterFall',
             path: 'waterfall',
             meta: {
-              title: '瀑布流'
+              title: t('menu.component.dynamic.waterfall')
             },
             component: () => import('@/views/components/display/waterfall.vue')
           },

@@ -42,7 +42,9 @@
         "trends": "趋势指示",
         "progress": "动态进度条",
         "numbers": "动态数字",
-        "slider": "滑块"
+        "slider": "滑块",
+        "waterfall": "瀑布流",
+        "step-form": "分步表单"
       },
       "notice": {
         "title": "通知&分享",
@@ -71,7 +73,8 @@
         "desc": "详情面板",
         "card": "卡片",
         "calendar": "日历",
-        "verify": "验证组件"
+        "verify": "验证组件",
+        "avatar": "头像列表"
       },
       "small-comp": {
         "title": "小组件",
@@ -80,7 +83,8 @@
         "countDown": "倒计时"
       },
       "password-comp": {
-        "title": "密码强度"
+        "title": "密码强度",
+        "password": "密码强度"
       }
     },
     "pages": {
@@ -100,10 +104,9 @@
         "fail": "失败页"
       },
       "users": {
-        "title": "个人页"
-      },
-      "settings": {
-        "title": "设置页"
+        "title": "个人中心",
+        "user": "个人页",
+        "settings": "设置页"
       },
       "errors": {
         "title": "异常页",
@@ -111,7 +114,8 @@
       },
       "lists": {
         "title": "列表页"
-      }
+      },
+      "excel": "Excel处理"
     },
     "charts": {
       "title": "图表",

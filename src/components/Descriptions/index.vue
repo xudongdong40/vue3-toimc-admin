@@ -19,7 +19,6 @@
     </el-row>
     <collapse-container :collapse="isCollapse">
       <el-descriptions
-        title
         :direction="direction"
         :size="size"
         :border="border"
@@ -35,7 +34,7 @@
             <icon
               v-if="item.icon"
               :type="item.icon"
-              :size="item.iconSize"
+              :size="item.iconSize + ''"
               :color="item.iconColor"
             />
             {{ item.label }}
