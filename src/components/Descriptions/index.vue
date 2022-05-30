@@ -19,7 +19,6 @@
     </el-row>
     <collapse-container :collapse="isCollapse">
       <el-descriptions
-        :title="title"
         :direction="direction"
         :size="size"
         :border="border"
