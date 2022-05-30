@@ -3,8 +3,11 @@
     <div :class="['layout-' + layout, 'layout-mode-' + layoutMode, 'h-full']">
       <sider-bar v-if="layoutMode === 'row'" :collapse="isCollapse"></sider-bar>
       <div
-        class="layout-main-wrap relative  flex-1 h-full"
-        :class="[fixHeader !== true ? 'overflow-auto':'overflow-hidden', { 'w-0': layout !== 'top' }]"
+        class="layout-main-wrap relative flex-1 h-full"
+        :class="[
+          fixHeader !== true ? 'overflow-auto' : 'overflow-hidden',
+          { 'w-0': layout !== 'top' }
+        ]"
       >
         <div class="layout-header">
           <div class="nav">
@@ -78,8 +81,8 @@
   }
   .layout-main-wrap > .layout-main {
     margin-top: v-bind(headerHeight);
-    &.fixed-header-main{
-      height: calc(100% - (v-bind(headerHeight)))
+    &.fixed-header-main {
+      height: calc(100% - (v-bind(headerHeight)));
     }
   }
   .layout-header {
@@ -111,6 +114,12 @@
       width: 92%;
       margin-left: auto;
       margin-right: auto;
+    }
+  }
+
+  .custom-scroll {
+    :deep(.el-scrollbar__view) {
+      height: 100%;
     }
   }
 </style>

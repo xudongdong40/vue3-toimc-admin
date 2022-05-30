@@ -95,7 +95,7 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
             path: 'step-form',
             component: () => import('@/views/components/forms/step-form.vue'),
             meta: {
-              title: '分步表单'
+              title: t('menu.component.dynamic.step-form')
             }
           }
         ]
@@ -399,7 +399,7 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
             name: 'WaterFall',
             path: 'waterfall',
             meta: {
-              title: '瀑布流'
+              title: t('menu.component.dynamic.waterfall')
             },
             component: () => import('@/views/components/display/waterfall.vue')
           },

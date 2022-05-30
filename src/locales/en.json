@@ -14,14 +14,18 @@
         "calendar": "Calendar",
         "card": "Card",
         "desc": "Details panel",
-        "title": "Exhibit"
+        "title": "Exhibit",
+        "avatar": "Avatar list",
+        "verify": "Validate components"
       },
       "dynamic": {
         "numbers": "Dynamic numbers",
         "progress": "Dynamic progress bar",
         "title": "Dynamic display",
         "trends": "Trend indicator",
-        "slider": "Slider"
+        "slider": "Slider",
+        "waterfall": "Waterfalls flow",
+        "step-form": "step-by-step form"
       },
       "editor": {
         "title": "Editor",
@@ -42,7 +46,8 @@
         "print": "Print",
         "title": "Function",
         "transition": "Transition Animation",
-        "watermark": "Watermark"
+        "watermark": "Watermark",
+        "copy-image": "copy image"
       },
       "icons": {
         "element": "Element icon",
@@ -105,11 +110,11 @@
         "success": "Success Page",
         "fail": "Fail Page"
       },
-      "settings": {
-        "title": "Settings Page"
-      },
+      "excel": "Excel processing",
       "users": {
-        "title": "Personal Page"
+        "settings": "Settings page",
+        "title": "personal center",
+        "user": "personal page"
       }
     },
     "charts": {
@@ -121,7 +126,12 @@
       "title": "Charts"
     },
     "nest-menus": {
-      "title": "Multi-level Menu"
+      "title": "Multi-level Menu",
+      "menu1": "Menu1",
+      "menu1-1": "Menus1-1",
+      "menu1-1-1": "Menus1-1-1",
+      "menu1-2": "Menu1-2",
+      "menu2": "Menu2"
     },
     "iframe": {
       "external": "External Link",
@@ -158,12 +168,19 @@
     },
     "editor": {
       "milkdown": {
-        "heading": "标题",
+        "heading": "Title",
         "large-heading": "Large Heading",
         "medium-heading": "Medium Heading",
         "small-heading": "Small Heading",
         "plain-text": "Plain Text"
       }
+    },
+    "verify": {
+      "dragText": "Please hold down the slider and drag",
+      "error": "verification failed!",
+      "redoTip": "Click image to refresh",
+      "successText": "Verified",
+      "time": "The verification is successful, it takes {time} seconds!"
     }
   },
   "test": "test"
