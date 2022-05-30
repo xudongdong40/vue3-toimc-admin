@@ -7,8 +7,6 @@
       'no-border': !haveBorder,
       'hover-shadow': hoverShadow
     }"
-    content=""
-    placement="left-start"
     :body-style="{ ...bodyStyle, height: '100%' }"
     shadow="never"
   >
@@ -257,11 +255,7 @@
 </script>
 
 <style scoped lang="scss">
-  #lineMain, #pieMain {
-    width: 100%;
-    height: 200px;
-  }
-  #barMain {
+  #lineMain, #pieMain, #barMain {
     width: 100%;
     height: 200px;
   }
