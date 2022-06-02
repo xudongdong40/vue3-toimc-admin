@@ -59,11 +59,7 @@
       <p>内容</p>
       <p>内容</p>
     </t-card>
-    <t-card
-      header="test"
-      :tips="{ content: '这里是tips', placement: 'top' }"
-      tips-icon="ant-design:alert-filled"
-    >
+    <t-card header="test" :tips="{ content: '这里是tips', placement: 'top' }" tips-icon="ant-design:alert-filled">
       <p>tips示例, 更换icon</p>
       <p>内容</p>
       <p>内容</p>
@@ -71,11 +67,38 @@
       <p>内容</p>
       <p>内容</p>
     </t-card>
-    <t-card header="test" :tips="true">
+    <t-card header="test" reverse :tips="true">
       <template #tips>
         <icon icon="ep:home-filled"></icon>
         <icon icon="ep:postcard"></icon>
         <icon icon="ep:user"></icon>
+      </template>
+      <p>tips示例, 更换成按钮组</p>
+      <p>内容</p>
+      <p>内容</p>
+      <p>内容</p>
+      <p>内容</p>
+      <p>内容</p>
+    </t-card>
+    <t-card header="test" reverse :tips="true">
+      <template #suffix>
+        <icon icon="ep:home-filled"></icon>
+        <icon icon="ep:postcard"></icon>
+        <icon icon="ep:user"></icon>
+      </template>
+      <p>tips示例, 更换成按钮组</p>
+      <p>内容</p>
+      <p>内容</p>
+      <p>内容</p>
+      <p>内容</p>
+      <p>内容</p>
+    </t-card>
+    <t-card header="test" reverse :tips="true">
+      <template #tips>
+        <icon icon="ep:user"></icon>
+      </template>
+      <template #suffix>
+        <el-tag type="success">这周心情不错</el-tag>
       </template>
       <p>tips示例, 更换成按钮组</p>
       <p>内容</p>
@@ -100,13 +123,14 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue'
+import { defineComponent } from 'vue'
 
-  export default defineComponent({
-    setup() {
-      return {}
-    }
-  })
+export default defineComponent({
+  setup() {
+    return {}
+  }
+})
 </script>
 
-<style scoped></style>
+<style scoped>
+</style>

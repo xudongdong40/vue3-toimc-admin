@@ -5,7 +5,7 @@
         <div :class="[headerClass, 'header']">
           <template v-if="header">
             <span class="flex items-center">
-              <span class="mr-2">{{ header }}</span>
+              <span v-if="!reverse" class="mr-2">{{ header }}</span>
               <template v-if="tips">
                 <slot name="tips">
                   <template v-if="typeof tips === 'string'">
@@ -13,16 +13,21 @@
                       <icon :icon="tipsIcon" class="text-gray-400"></icon>
                     </el-tooltip>
                   </template>
-                  <template v-else-if="tips.content !== ''">
+                  <template v-else-if="typeof tips !== 'boolean' && tips.content !== ''">
                     <el-tooltip v-bind="tips">
                       <icon :icon="tipsIcon" class="text-gray-400"></icon>
                     </el-tooltip>
                   </template>
                 </slot>
               </template>
+              <span v-if="reverse" class="mr-2">{{ header }}</span>
             </span>
           </template>
           <slot v-else name="header"></slot>
+          <!-- 增加头部suffix插槽 -->
+          <div v-if="showSlots('suffix')">
+            <slot name="suffix"></slot>
+          </div>
           <div v-if="collapse" @click="() => toggle(!isCollapse)">
             <slot name="collapse" :show="isCollapse">
               <icon icon="ep:arrow-up" :class="['rotate-icon', isCollapse && 'active']"></icon>
@@ -100,7 +105,7 @@ export default defineComponent({
       default: 'default'
     },
     tips: {
-      type: [String, Object] as PropType<string | ToolTipsType>,
+      type: [String, Boolean, Object] as PropType<string | boolean | ToolTipsType>,
       default: ''
     },
     layout: {
@@ -110,9 +115,15 @@ export default defineComponent({
     tipsIcon: {
       type: String,
       default: 'ep:info-filled'
+    },
+    // title与tips调换位置
+    reverse: {
+      type: Boolean,
+      default: false
     }
   },
   setup(_props, { slots }) {
+    console.log('🚀 ~ file: TCard.vue ~ line 126 ~ setup ~ _props', _props)
     const showSlots = (name: string): boolean => {
       const slot = slots[name]
       return !!(slot && slot())
