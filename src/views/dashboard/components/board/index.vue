@@ -1,6 +1,7 @@
 <template>
   <t-card
     :header="title"
+    tips="true"
     :class="{
       'dashboard-card': true,
       'no-border': !haveBorder,
@@ -9,6 +10,11 @@
     :body-style="{ ...bodyStyle, height: '100%' }"
     shadow="never"
   >
+    <template #tips>
+      <icon v-if="type === 'pie'" icon="ep:data-line"></icon>
+      <icon v-if="type === 'line'" icon="ep:pie-chart"></icon>
+      <icon v-if="type === 'bar'" icon="ep:histogram"></icon>
+    </template>
     <div v-if="type === 'pie'" id="pieMain"></div>
     <div v-if="type === 'line'" id="lineMain"></div>
     <div v-if="type === 'bar'" id="barMain"></div>
@@ -65,7 +71,7 @@
           },
           grid: {
             left: '1%',
-            right: '1%',
+            right: '3%',
             bottom: '1%',
             top: '3%',
             containLabel: true
@@ -150,7 +156,7 @@
             {
               name: '访问来源',
               type: 'pie',
-              radius: ['40%', '70%'],
+              radius: ['35%', '55%'],
               avoidLabelOverlap: true,
               itemStyle: {
                 borderRadius: 10,
@@ -249,11 +255,7 @@
 </script>
 
 <style scoped lang="scss">
-  #lineMain, #pieMain {
-    width: 100%;
-    height: 200px;
-  }
-  #barMain {
+  #lineMain, #pieMain, #barMain {
     width: 100%;
     height: 200px;
   }

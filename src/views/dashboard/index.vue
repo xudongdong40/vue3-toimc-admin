@@ -104,6 +104,11 @@
         />
       </el-col>
     </el-row>
+    <el-row>
+      <el-col :span="24">
+        <board-table />
+      </el-col>
+    </el-row>
   </div>
 </template>
 
@@ -111,14 +116,15 @@
   import { defineComponent } from 'vue'
   import DashboardCard from './components/card/index.vue'
   import EchartsBoard from './components/board/index.vue'
-  // import { DescItem } from '@/components/Descriptions/types'
+  import BoardTable from './components/table/index.vue'
   import Mock from 'mockjs'
 
   export default defineComponent({
     name: 'DashBoard',
     components: {
       DashboardCard,
-      EchartsBoard
+      EchartsBoard,
+      BoardTable
     },
     setup() {
       const end1 = Mock.mock('@float(100, 50000, 2, 2)')
