@@ -183,5 +183,8 @@
     "*.md": [
       "prettier --write"
     ]
+  },
+  "resolutions": {
+    "bin-wrapper": "npm:bin-wrapper-china"
   }
 }
