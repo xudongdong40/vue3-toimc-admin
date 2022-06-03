@@ -29,7 +29,7 @@
       const { dependencies, devDependencies, name, version } = pkg
 
       const schema: DescItem[] = []
-      
+
       const devSchema: DescItem[] = []
 
       const infoSchema: DescItem[] = [

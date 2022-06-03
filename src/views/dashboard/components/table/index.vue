@@ -10,7 +10,7 @@
   >
     <el-tabs v-model="activeName" class="demo-tabs">
       <el-tab-pane label="派件管理" name="first">
-        <el-table :data="tableData" border style="width: 100%;" table-layout="auto">
+        <el-table :data="tableData" border style="width: 100%" table-layout="auto">
           <el-table-column prop="date" label="日期" width="120" />
           <el-table-column label="派送信息">
             <el-table-column prop="name" label="姓名" width="120" />

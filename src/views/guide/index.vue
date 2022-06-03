@@ -9,7 +9,7 @@
           >
         </div>
       </template>
-      <el-button type="primary" style="margin-top: 10px;" @click.prevent.stop="guide">
+      <el-button type="primary" style="margin-top: 10px" @click.prevent.stop="guide">
         打开引导页
       </el-button>
     </el-card>

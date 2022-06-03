@@ -68,7 +68,7 @@
       width: 33%;
       height: 100%;
       background-color: #273352;
-      content: "";
+      content: '';
     }
 
     &.type-picker-siderbar::after {
@@ -78,7 +78,7 @@
       width: 100%;
       height: 25%;
       background-color: #fff;
-      content: "";
+      content: '';
     }
 
     &.type-picker-mix::before {
@@ -90,7 +90,7 @@
       height: 100%;
       background-color: #fff;
       border-radius: 4px 0 0 4px;
-      content: "";
+      content: '';
     }
 
     &.type-picker-mix::after {
@@ -101,7 +101,7 @@
       width: 100%;
       height: 25%;
       background-color: #273352;
-      content: "";
+      content: '';
     }
 
     &.type-picker-top::after {
@@ -111,7 +111,7 @@
       width: 100%;
       height: 25%;
       background-color: #273352;
-      content: "";
+      content: '';
     }
 
     &.type-picker-mixbar::before {
@@ -123,7 +123,7 @@
       height: 100%;
       background-color: #273352;
       border-right: 10px solid #fff;
-      content: "";
+      content: '';
     }
 
     &.type-picker-mixbar::after {
@@ -133,7 +133,7 @@
       width: 100%;
       height: 25%;
       background-color: #fff;
-      content: "";
+      content: '';
     }
   }
 </style>

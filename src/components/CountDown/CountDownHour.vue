@@ -3,14 +3,14 @@
     <div class="h-full" :style="{ backgroundColor }">
       <h2
         class="truncate flex flex-wrap justify-center items-center"
-        style=" height: 40%;font-size: 0.8em;"
+        style="height: 40%; font-size: 0.8em"
         :style="{ color: fontColor }"
       >
         {{ title }}
       </h2>
       <div
         class="flex justify-center"
-        style=" height: 40%;font-size: 1.6em; font-weight: 700;"
+        style="height: 40%; font-size: 1.6em; font-weight: 700"
         :style="{ color: fontColor }"
       >
         {{ result }}

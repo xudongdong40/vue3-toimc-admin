@@ -94,7 +94,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import "@/assets/style/variables.scss";
+  @import '@/assets/style/variables.scss';
 
   .actions {
     border-top: 1px solid $border-color-gray;

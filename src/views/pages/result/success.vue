@@ -37,7 +37,6 @@
               toimc
               <span
                 role="img"
-                aria-label="dingding"
                 class="anticon anticon-dingding cursor-pointer flex items-center cursor-pointer"
                 style="margin-left: 8px; color: rgb(0 160 233)"
               >

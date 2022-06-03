@@ -478,7 +478,6 @@
   .margin {
     margin: 20px;
   }
-
   .pagination-box {
     display: flex;
     justify-content: center;
@@ -499,10 +498,9 @@
     height: 40px !important;
     line-height: 40px !important;
   }
-
   .edit {
+    cursor: pointer;
     margin-left: 10px;
     font-size: 20px;
-    cursor: pointer;
   }
 </style>

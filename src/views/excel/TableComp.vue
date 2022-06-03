@@ -1,5 +1,5 @@
 <template>
-  <div style="position: relative;">
+  <div style="position: relative">
     <el-table
       ref="tableRef"
       :data="cloneData"
@@ -34,7 +34,7 @@
         <template v-if="isHeader" #header="scope">
           <slot
             :name="`${column.prop}Header`"
-            style="padding: 5px 0 4px 10px;"
+            style="padding: 5px 0 4px 10px"
             :column="scope.column"
           >
             {{ column.label }}
@@ -43,7 +43,7 @@
         <template #default="scope">
           <slot
             :name="column.prop"
-            style="padding-left: 10px;"
+            style="padding-left: 10px"
             :row="scope.row"
             :column="scope.column"
             :index="scope.$index"
@@ -76,7 +76,7 @@
       <el-checkbox
         v-if="isChoose"
         v-model="checked"
-        style="margin: 0 10px 0 20px;"
+        style="margin: 0 10px 0 20px"
         @change="onChange"
       >
         全选本页
@@ -95,6 +95,7 @@
     label: string
     prop: string
     minLength: number
+    width?: number
     fixed?: string
     sort?: boolean
     align?: string
@@ -391,52 +392,51 @@
   })
 </script>
 
-<style lang="scss">
-  .el-table .header {
-    height: 34px;
-    padding: 5px 0 !important;
-    font-size: 14px;
-    font-weight: normal;
-    line-height: 34px;
-    color: #707a8a;
-    background-color: #f5f5f5 !important;
-    border-bottom: none !important;
-  }
-
-  .el-table .header .cell {
-    height: 34px;
-    line-height: 34px;
-  }
-
-  .el-table .table-cell {
-    height: 64px;
-    line-height: 64px;
-  }
-
-  .el-table--enable-row-hover .el-table__body tr:hover > td {
-    background-color: #f5f5f5 !important;
-  }
-
-  .el-table {
+<style lang="scss" scoped>
+  :deep(.el-table) {
     font-size: 14px;
     color: #000;
-
     tr {
       display: table-row;
     }
+    .header {
+      height: 34px;
+      padding: 5px 0 !important;
+      font-size: 14px;
+      font-weight: normal;
+      line-height: 34px;
+      color: #707a8a;
+      background-color: #f5f5f5 !important;
+      border-bottom: none !important;
+      .cell {
+        height: 34px;
+        line-height: 34px;
+      }
+    }
+    .table-cell {
+      height: 64px;
+      line-height: 64px;
+    }
   }
 
-  .el-pagination .el-select .el-input.el-input--suffix {
-    height: 32px;
+  :deep(.el-table--enable-row-hover) {
+    .el-table__body tr:hover > td {
+      background-color: #f5f5f5 !important;
+    }
   }
 
-  .el-pagination .el-select .el-input.el-input--suffix .el-input__inner {
-    height: 32px;
-    line-height: 32px;
+  :deep(.el-pagination) {
+    .el-select {
+      .el-input.el-input--suffix {
+        height: 32px;
+        .el-input__inner {
+          height: 32px;
+          line-height: 32px;
+        }
+      }
+    }
   }
-</style>
 
-<style lang="scss" scoped>
   .pagination {
     display: flex;
     flex-direction: column;
@@ -463,7 +463,6 @@
     color: #f5cc23;
     cursor: pointer;
   }
-
   .grey {
     color: #b6bcc4;
     cursor: pointer;

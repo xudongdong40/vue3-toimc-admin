@@ -1,4 +1,4 @@
-[data-theme=light] {
+[data-theme='light'] {
   --logo-bg-color: #001529;
   --topside-menu-bg-color: #001529;
   --topside-menu-hover-bg-color: #000;
@@ -19,7 +19,7 @@
   --side-sub-menu-active-text-color: #fff;
 }
 
-[data-theme=dark] {
+[data-theme='dark'] {
   --logo-bg-color: #212121;
   --topside-menu-bg-color: #212121;
   --topside-menu-hover-bg-color: #fff;
@@ -39,4 +39,3 @@
   --side-sub-menu-active-bg-color: var(--el-color-primary-dark-2);
   --side-sub-menu-active-text-color: #fff;
 }
-

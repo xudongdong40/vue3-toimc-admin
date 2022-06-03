@@ -73,16 +73,16 @@
     display: block;
   }
 
-  .lazy__img[lazy="loading"] {
+  .lazy__img[lazy='loading'] {
     width: 48px;
     padding: 5em 0;
   }
 
-  .lazy__img[lazy="loaded"] {
+  .lazy__img[lazy='loaded'] {
     width: 100%;
   }
 
-  .lazy__img[lazy="error"] {
+  .lazy__img[lazy='error'] {
     width: 48px;
     padding: 5em 0;
   }

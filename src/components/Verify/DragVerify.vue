@@ -332,17 +332,16 @@
       top: 0;
       font-size: 12px;
       text-size-adjust: none;
-      background-color:
-        -webkit-gradient(
-          linear,
-          left top,
-          right top,
-          color-stop(0, #333),
-          color-stop(0.4, #333),
-          color-stop(0.5, #fff),
-          color-stop(0.6, #333),
-          color-stop(1, #333)
-        );
+      background-color: -webkit-gradient(
+        linear,
+        left top,
+        right top,
+        color-stop(0, #333),
+        color-stop(0.4, #333),
+        color-stop(0.5, #fff),
+        color-stop(0.6, #333),
+        color-stop(1, #333)
+      );
       animation: slidetounlock 3s infinite;
       background-clip: text;
       user-select: none;

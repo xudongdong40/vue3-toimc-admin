@@ -59,7 +59,11 @@
       <p>内容</p>
       <p>内容</p>
     </t-card>
-    <t-card header="test" :tips="{ content: '这里是tips', placement: 'top' }" tips-icon="ant-design:alert-filled">
+    <t-card
+      header="test"
+      :tips="{ content: '这里是tips', placement: 'top' }"
+      tips-icon="ant-design:alert-filled"
+    >
       <p>tips示例, 更换icon</p>
       <p>内容</p>
       <p>内容</p>
@@ -123,14 +127,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+  import { defineComponent } from 'vue'
 
-export default defineComponent({
-  setup() {
-    return {}
-  }
-})
+  export default defineComponent({
+    setup() {
+      return {}
+    }
+  })
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>
