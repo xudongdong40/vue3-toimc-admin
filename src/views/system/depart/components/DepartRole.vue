@@ -1,6 +1,6 @@
 <template>
   <!--菜单组织机构树-->
-  <div style="min-height: 360px">
+  <div style="min-height: 360px;">
     <el-tree
       :data="treeData"
       :props="defaultProps"

@@ -131,11 +131,14 @@
 <style scoped lang="scss">
   .inline {
     @apply inline-flex;
+
     li {
       @apply inline-flex;
     }
+
     .more {
       @apply self-center relative left-[-2px];
+
       position: relative;
     }
   }

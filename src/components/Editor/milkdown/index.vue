@@ -143,14 +143,14 @@
     }
   }
 
-  .loading {
-    padding: 3.125rem 1.25rem;
-  }
-
   @media only screen and (min-width: 72rem) {
     .loading {
       padding: 3.125rem;
     }
+  }
+
+  .loading {
+    padding: 3.125rem 1.25rem;
   }
 
   .milkdown-menu-wrapper {
@@ -158,8 +158,8 @@
   }
 
   .milkdown-menu-wrapper .milkdown {
-    overflow: auto;
     height: calc(100vh - 19rem);
+    overflow: auto;
   }
 
   ul {
@@ -167,8 +167,8 @@
     list-style-type: disc;
     margin-block-start: 1em;
     margin-block-end: 1em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
+    margin-inline-start: 0;
+    margin-inline-end: 0;
     padding-inline-start: 40px;
   }
 </style>

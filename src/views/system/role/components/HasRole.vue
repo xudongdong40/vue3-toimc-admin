@@ -5,7 +5,7 @@
     <template #title>
       <h4 class="divide-y divide-gray-500/50">角色权限配置</h4>
     </template>
-    <div style="min-height: 360px">
+    <div style="min-height: 360px;">
       <el-tree
         :data="treeData"
         :props="defaultProps"
@@ -18,7 +18,7 @@
       </el-tree>
     </div>
     <template #footer>
-      <div style="flex: auto">
+      <div style="flex: auto;">
         <el-button @click="cancelClick">取消</el-button>
         <el-button type="primary" :loading="btnLoading" @click="saveInfo(false)">仅保存</el-button>
         <el-button type="primary" :loading="btnLoading" @click="saveInfo(true)"

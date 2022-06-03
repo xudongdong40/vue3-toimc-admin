@@ -25,11 +25,11 @@
 
 <style lang="scss" scoped>
   .wrapper {
-    height: 100%;
     width: 100%;
+    height: 100%;
+    overflow: hidden;
     background-color: var(--bg-card);
     border-radius: 14px;
-    overflow: hidden;
     box-shadow: 0 0 10px 3px #0000001a;
 
     .content {

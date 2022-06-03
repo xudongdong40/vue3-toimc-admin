@@ -5,7 +5,7 @@
       v-model="activeName"
       class="mt-2"
       tab-position="left"
-      style="height: 600px"
+      style="height: 600px;"
       @tab-click="handleClick"
     >
       <el-tab-pane label="基本信息" name="info">
@@ -52,8 +52,10 @@
 <style scoped lang="scss">
   :deep(.el-tabs__nav-scroll) {
     width: 180px;
+
     .el-tabs__item {
       text-align: left;
+
       &.is-active {
         background-color: var(--el-color-primary-light-9);
       }

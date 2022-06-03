@@ -5,7 +5,7 @@
         <el-button type="primary" icon="Plus" @click="addMenu"> 新增菜单</el-button>
         <el-dropdown
           v-if="multipleSelection.length > 0"
-          style="margin-left: 5px"
+          style="margin-left: 5px;"
           trigger="click"
           @command="handleCommand"
         >
@@ -297,6 +297,7 @@
 </script>
 <style lang="scss" scoped>
   $color-primary: #409eff;
+
   .menuBox {
     .info {
       padding: 5px;
@@ -312,7 +313,8 @@
       background-color: #5551;
       border-radius: 100%;
     }
-    :deep(.vxe-checkbox--icon:before) {
+
+    :deep(.vxe-checkbox--icon::before) {
       border-width: 1px !important;
     }
   }

@@ -1,10 +1,10 @@
 <template>
-  <el-card class="box-card border-none" style="height: 100%">
-    <div class="flex" style="margin-bottom: 8px">
+  <el-card class="box-card border-none" style="height: 100%;">
+    <div class="flex" style="margin-bottom: 8px;">
       <el-button type="primary" @click="onAddDepart">新增</el-button>
       <el-button
         type="primary"
-        style="margin-right: 8px"
+        style="margin-right: 8px;"
         :disabled="modelParentId ? false : true"
         @click="onAddChildDepart(modelParentId)"
         >添加下级</el-button
@@ -19,7 +19,7 @@
       </el-dropdown>
     </div>
     <!-- 选中提示信息 -->
-    <el-alert show-icon type="info" :closable="false" style="margin-bottom: 8px">
+    <el-alert show-icon type="info" :closable="false" style="margin-bottom: 8px;">
       <template #default>
         <template v-if="checkedKeys.length > 0">
           <span>已选中 {{ checkedKeys.length }} 条记录</span>
@@ -33,7 +33,7 @@
     </el-alert>
     <!-- 部门树节点 -->
     <div v-loading="loading">
-      <el-input v-model="filterText" placeholder="按部门名称搜索…" style="margin-bottom: 10px" />
+      <el-input v-model="filterText" placeholder="按部门名称搜索…" style="margin-bottom: 10px;" />
       <!--组织机构树-->
       <!-- default-expand-all :filter-node-method="filterNode"  -->
       <el-tree
@@ -60,7 +60,7 @@
               <el-dropdown-menu>
                 <el-dropdown-item @click="onAddChildDepart(data.id)">添加子级</el-dropdown-item>
                 <el-dropdown-item @click="onDelDepart(data)">
-                  <span style="color: red">删除</span>
+                  <span style="color: red;">删除</span>
                 </el-dropdown-item>
               </el-dropdown-menu>
             </template>

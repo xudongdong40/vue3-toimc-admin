@@ -10,14 +10,14 @@
     >
       <template #expand="{ row }">
         <div class="px-6">
-          <div style="margin-bottom: 5px">
+          <div style="margin-bottom: 5px;">
             <el-badge
               is-dot
               type="success"
               class="item"
-              style="vertical-align: middle; display: inline-flex"
+              style="display: inline-flex; vertical-align: middle;"
             ></el-badge>
-            <span style="vertical-align: middle; margin-left: 4px"
+            <span style="margin-left: 4px; vertical-align: middle;"
               >请求方法:{{ row.method }}</span
             ></div
           >
@@ -26,9 +26,9 @@
               type="primary"
               is-dot
               class="item"
-              style="vertical-align: middle; display: inline-flex"
+              style="display: inline-flex; vertical-align: middle;"
             ></el-badge>
-            <span style="vertical-align: middle; margin-left: 4px"
+            <span style="margin-left: 4px; vertical-align: middle;"
               >请求参数:{{ row.requestParam }}</span
             ></div
           >

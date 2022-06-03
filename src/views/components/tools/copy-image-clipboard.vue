@@ -11,7 +11,7 @@
     <t-input v-model="inputValue" placeholder="请输入在线图片地址"></t-input>
     <p class="p-2">图片预览：</p>
     <div>
-      <el-image style="width: 300px; height: 300px" :src="img" fit="contain" />
+      <el-image style="width: 300px; height: 300px;" :src="img" fit="contain" />
     </div>
     <el-button type="primary" @click="handleCopyClick">复制图片</el-button>
     <p class="text-gray-400 pt-2 text-sm">复制成功后，可以在ppt中粘贴尝试！</p>

@@ -1,7 +1,7 @@
 <template>
   <el-dialog :model-value="show" title="选择部门" center width="400px" @close="close">
     <!--  :default-checked-keys="[]" -->
-    <div class="overflow-auto" style="height: 340px">
+    <div class="overflow-auto" style="height: 340px;">
       <el-tree
         ref="treeDepartRef"
         v-loading="loading"

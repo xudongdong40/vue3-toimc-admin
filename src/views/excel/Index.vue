@@ -4,7 +4,7 @@
       <el-input-number v-model="number" :min="5" :max="700" />
       <el-alert
         :title="`当前读取的${fileName}excel文件为${number}列（A列-${col}列）`"
-        style="margin-top: 20px"
+        style="margin-top: 20px;"
         type="info"
         :closable="false"
       />
@@ -51,11 +51,11 @@
                 <el-input
                   v-show="excelPageData[scope.index].isEdit && ele === editColumn"
                   v-model="scope.row[ele]"
-                  style="width: 140px"
+                  style="width: 140px;"
                 ></el-input>
                 <div
                   v-show="!excelPageData[scope.index].isEdit || ele !== editColumn"
-                  style="display: inline"
+                  style="display: inline;"
                 >
                   <span>{{ ele && scope.row[ele] }}</span>
                 </div>
@@ -478,26 +478,31 @@
   .margin {
     margin: 20px;
   }
+
   .pagination-box {
     display: flex;
     justify-content: center;
   }
+
   .flex-start {
     display: flex;
     justify-content: flex-start;
     margin-bottom: 20px;
   }
+
   .mr {
     margin-right: 20px;
   }
+
   .input {
     width: 300px;
     height: 40px !important;
     line-height: 40px !important;
   }
+
   .edit {
-    cursor: pointer;
     margin-left: 10px;
     font-size: 20px;
+    cursor: pointer;
   }
 </style>

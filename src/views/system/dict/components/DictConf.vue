@@ -4,7 +4,7 @@
       <h4 class="divide-y divide-gray-500/50">字典列表【{{ dictId }}】</h4>
     </template>
     <template #default>
-      <div class="overflow-auto" style="max-height: 700px; width: 100%">
+      <div class="overflow-auto" style="width: 100%; max-height: 700px;">
         <!-- 条件查询 -->
         <el-form :inline="true" :model="formInline" class="demo-form-inline">
           <el-form-item label="名称">
@@ -29,7 +29,7 @@
           ref="multipleTableRef"
           v-loading="loading"
           :data="tableData"
-          style="width: 100%"
+          style="width: 100%;"
           border
           align="center"
         >

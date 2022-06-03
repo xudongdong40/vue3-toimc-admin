@@ -13,7 +13,7 @@
     <el-descriptions
       :column="1"
       title="您提交的内容有如下错误："
-      style="background: rgb(250, 250, 250)"
+      style="background: rgb(250 250 250);"
       class="p-6 ml-10 mr-10"
     >
       <el-descriptions-item>
@@ -23,7 +23,7 @@
           <a
             href="javascript:void(0);"
             class="flex items-center"
-            style="color: var(--el-color-primary)"
+            style="color: var(--el-color-primary);"
           >
             立即解冻
             <icon icon="ant-design:right-outlined" size="18px" color="#3894ff" />
@@ -37,7 +37,7 @@
           <a
             href="javascript:void(0);"
             class="flex items-center"
-            style="color: var(--el-color-primary)"
+            style="color: var(--el-color-primary);"
           >
             立即升级
             <icon icon="ant-design:right-outlined" size="18px" color="#3894ff" />

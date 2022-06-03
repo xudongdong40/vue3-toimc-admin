@@ -18,12 +18,7 @@
   </div>
   <el-divider />
   <t-card>
-    <descriptions
-      :items="infoSchema"
-      :border="false"
-      :collapse="false"
-      :column="2"
-    />
+    <descriptions :items="infoSchema" :border="false" :collapse="false" :column="2" />
     <div class="sub-title">
       <span>流程进度</span>
       <el-divider />
@@ -40,52 +35,20 @@
       <span>用户信息</span>
       <el-divider />
     </div>
-    <descriptions
-      :items="userSchema"
-      :border="false"
-      :collapse="false"
-      style="padding: 0 20px"
-    />
+    <descriptions :items="userSchema" :border="false" :collapse="false" style="padding: 0 20px;" />
     <div class="bold-title">
       <span>信息组</span>
     </div>
-    <descriptions
-      :items="msgSchema"
-      :border="false"
-      :collapse="false"
-      style="padding: 0 20px"
-    />
-    <t-card
-      header="多层级信息组"
-      shadow="never"
-    >
-      <descriptions
-        title="组1"
-        :items="group1"
-        :border="false"
-        :collapse="false"
-      />
+    <descriptions :items="msgSchema" :border="false" :collapse="false" style="padding: 0 20px;" />
+    <t-card header="多层级信息组" shadow="never">
+      <descriptions title="组1" :items="group1" :border="false" :collapse="false" />
       <el-divider />
-      <descriptions
-        title="组2"
-        :items="group2"
-        :border="false"
-        :collapse="false"
-      />
+      <descriptions title="组2" :items="group2" :border="false" :collapse="false" />
       <el-divider />
-      <descriptions
-        title="组3"
-        :items="group3"
-        :border="false"
-        :collapse="false"
-        :column="1"
-      />
+      <descriptions title="组3" :items="group3" :border="false" :collapse="false" :column="1" />
     </t-card>
     <el-divider />
-    <t-card
-      header="用户近3个月来电记录"
-      shadow="never"
-    >
+    <t-card header="用户近3个月来电记录" shadow="never">
       <el-empty description="暂无数据" />
     </t-card>
     <el-divider />
@@ -99,7 +62,10 @@
           :label="item.lable ? item.lable : ''"
         >
           <template v-if="item.type === 'status'" #default="scope">
-            <span><icon style="vertical-align: middle;" type="SuccessFilled" color="green" /> {{ scope.row.status }}</span>
+            <span
+              ><icon style="vertical-align: middle;" type="SuccessFilled" color="green" />
+              {{ scope.row.status }}</span
+            >
           </template>
         </el-table-column>
       </el-table>
@@ -126,7 +92,7 @@
           },
           {
             label: '订购产品：',
-            'field|1': [ '手机', '电脑', '平板电脑', '蓝牙音箱' ]
+            'field|1': ['手机', '电脑', '平板电脑', '蓝牙音箱']
           },
           {
             label: '创建时间：',
@@ -183,7 +149,8 @@
           },
           {
             label: '身份证号：',
-            field: /^[1-9]\d{5}(18|19|20|(3\d))\d{2}((0[1-9])|(1[0-2]))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/
+            field:
+              /^[1-9]\d{5}(18|19|20|(3\d))\d{2}((0[1-9])|(1[0-2]))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/
           },
           {
             label: '联系方式：',
@@ -246,7 +213,8 @@
         list: [
           {
             label: '描述：',
-            field: 'vue-toimc-admin 管理后台项目是基于 Vue3.0+TypeScript+Vite+Element-plus 的管理后台项目'
+            field:
+              'vue-toimc-admin 管理后台项目是基于 Vue3.0+TypeScript+Vite+Element-plus 的管理后台项目'
           }
         ]
       }).list
@@ -348,12 +316,15 @@
     padding: 10px 20px 0;
     background-color: #fff;
   }
+
   .sub-title {
     margin-top: 20px;
+
     span {
       margin-left: 20px;
     }
   }
+
   .bold-title {
     span {
       margin-left: 20px;
@@ -361,11 +332,13 @@
       font-weight: bold;
     }
   }
+
   .el-card {
     &:last-child {
       margin-bottom: 40px;
     }
   }
+
   .el-divider--horizontal {
     margin: 12px 0;
   }

@@ -135,32 +135,37 @@
   .logo-wrap {
     background-color: var(--logo-bg-color);
   }
+
   .side-top-menu-wrap {
     background-color: var(--topside-menu-bg-color);
+
     :deep(.el-menu) {
-      background-color: var(--topside-menu-bg-color);
-      color: var(--topside-menu-text-color);
       padding: 0 3px;
+      color: var(--topside-menu-text-color);
+      background-color: var(--topside-menu-bg-color);
+
       .el-menu-item {
-        color: var(--topside-menu-text-color);
         padding: 0 6px !important;
         font-size: 14px;
         line-height: unset;
+        color: var(--topside-menu-text-color);
+        border-radius: 4px;
         flex-direction: column;
         justify-content: center;
-        border-radius: 4px;
 
         .menu-icon {
           margin-right: 0;
           margin-bottom: 1px;
         }
+
         &:hover {
-          background-color: var(--side-main-menu-bg-hover-color);
           color: var(--side-main-menu-text-hover-color);
+          background-color: var(--side-main-menu-bg-hover-color);
         }
+
         &.is-active {
-          background-color: var(--side-main-menu-active-bg-color);
           color: var(--side-main-menu-active-text-color);
+          background-color: var(--side-main-menu-active-bg-color);
         }
       }
     }
@@ -168,19 +173,23 @@
 
   .side-main-menu-wrap {
     background-color: var(--side-main-menu-bg-color);
+
     :deep(.el-menu) {
-      background-color: var(--side-main-menu-bg-color);
       color: var(--side-main-menu-text-color);
+      background-color: var(--side-main-menu-bg-color);
+
       .el-menu-item,
       .el-sub-menu__title {
-        background-color: var(--side-main-menu-bg-hover-color);
         color: var(--side-main-menu-text-color);
+        background-color: var(--side-main-menu-bg-hover-color);
+
         &:hover {
           color: var(--side-main-menu-text-hover-color);
         }
+
         &.is-active {
-          background-color: var(--side-main-menu-active-bg-color);
           color: var(--side-main-menu-active-text-color);
+          background-color: var(--side-main-menu-active-bg-color);
         }
       }
     }
@@ -190,21 +199,24 @@
     background-color: var(--side-sub-menu-bg-color);
 
     :deep(.el-menu) {
-      background-color: var(--side-sub-menu-bg-color);
       color: var(--side-sub-menu-text-color);
+      background-color: var(--side-sub-menu-bg-color);
+
       .el-menu-item,
       .el-sub-menu__title {
-        background-color: var(--side-sub-menu-bg-hover-color);
         color: var(--side-sub-menu-text-color);
+        background-color: var(--side-sub-menu-bg-hover-color);
+
         &:hover {
           color: var(--side-sub-menu-text-hover-color);
         }
+
         &.is-active {
-          background-color: var(--side-sub-menu-active-bg-color);
-          color: var(--side-sub-menu-active-text-color);
-          border-radius: 5px;
-          padding: 0;
           min-width: unset;
+          padding: 0;
+          color: var(--side-sub-menu-active-text-color);
+          background-color: var(--side-sub-menu-active-bg-color);
+          border-radius: 5px;
         }
       }
     }

@@ -4,7 +4,7 @@
       <h4 class="divide-y divide-gray-500/50">{{ isUpdate ? '编辑菜单' : '新增菜单' }}</h4>
     </template>
     <template #default>
-      <div class="border-bg-gray-200 p-4 border overflow-auto" style="max-height: 700px">
+      <div class="border-bg-gray-200 p-4 border overflow-auto" style="max-height: 700px;">
         <el-form
           ref="vForm"
           :model="formData"
@@ -243,7 +243,7 @@
       </div>
     </template>
     <template #footer>
-      <div style="flex: auto">
+      <div style="flex: auto;">
         <el-button @click="cancelClick">取消</el-button>
         <el-button type="primary" @click="handleSubmit">确认</el-button>
       </div>
@@ -527,6 +527,7 @@
   .el-drawer__header {
     margin-bottom: 0;
   }
+
   .icon-container {
     height: 300px;
   }

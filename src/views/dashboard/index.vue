@@ -142,15 +142,17 @@
 </script>
 
 <style scoped lang="scss">
-.dashboard-body {
-  width: 100%;
-  padding: 20px;
-  background: #f6f8f9;
-  :deep(.el-row) {
-    margin-bottom: 0.5rem;
-    &:last-child {
-      margin-bottom: 0;
+  .dashboard-body {
+    width: 100%;
+    padding: 20px;
+    background: #f6f8f9;
+
+    :deep(.el-row) {
+      margin-bottom: 0.5rem;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
     }
   }
-}
 </style>

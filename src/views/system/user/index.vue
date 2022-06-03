@@ -303,6 +303,6 @@
 
 <style scoped>
   .el-form-item {
-    margin-bottom: 0px;
+    margin-bottom: 0;
   }
 </style>

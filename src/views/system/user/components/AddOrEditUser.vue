@@ -61,7 +61,7 @@
               v-model="formData.roleIdsArr"
               multiple
               placeholder="请选择角色"
-              style="width: 100%"
+              style="width: 100%;"
             >
               <el-option
                 v-for="item in roleList"
@@ -75,7 +75,7 @@
           <el-form-item label="所属部门">
             <el-select
               v-model="formData.departIdsArr"
-              style="width: 340px; margin-right: 4px"
+              style="width: 340px; margin-right: 4px;"
               disabled
               multiple
               placeholder="请选择部门"
@@ -387,30 +387,33 @@
   :deep(.el-drawer__header) {
     margin-bottom: 0;
   }
+
   .avatar-uploader {
     .avatar {
+      display: block;
       width: 110px;
       height: 110px;
-      display: block;
     }
+
     .el-upload {
-      border: 1px dashed var(--el-border-color);
-      border-radius: 6px;
-      cursor: pointer;
       position: relative;
       overflow: hidden;
+      cursor: pointer;
+      border: 1px dashed var(--el-border-color);
+      border-radius: 6px;
       transition: var(--el-transition-duration-fast);
     }
+
     .el-upload:hover {
       border-color: var(--el-color-primary);
     }
   }
 
   .el-icon.avatar-uploader-icon {
-    font-size: 28px;
-    color: #8c939d;
     width: 110px;
     height: 110px;
+    font-size: 28px;
+    color: #8c939d;
     text-align: center;
   }
 </style>

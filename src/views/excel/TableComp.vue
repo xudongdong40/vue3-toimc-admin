@@ -1,5 +1,5 @@
 <template>
-  <div style="position: relative">
+  <div style="position: relative;">
     <el-table
       ref="tableRef"
       :data="cloneData"
@@ -34,7 +34,7 @@
         <template v-if="isHeader" #header="scope">
           <slot
             :name="`${column.prop}Header`"
-            style="padding: 5px 0 4px 10px"
+            style="padding: 5px 0 4px 10px;"
             :column="scope.column"
           >
             {{ column.label }}
@@ -43,7 +43,7 @@
         <template #default="scope">
           <slot
             :name="column.prop"
-            style="padding-left: 10px"
+            style="padding-left: 10px;"
             :row="scope.row"
             :column="scope.column"
             :index="scope.$index"
@@ -76,7 +76,7 @@
       <el-checkbox
         v-if="isChoose"
         v-model="checked"
-        style="margin: 0 10px 0 20px"
+        style="margin: 0 10px 0 20px;"
         @change="onChange"
       >
         全选本页
@@ -393,36 +393,43 @@
 
 <style lang="scss">
   .el-table .header {
-    background-color: #f5f5f5 !important;
-    padding: 5px 0 5px 0 !important;
+    height: 34px;
+    padding: 5px 0 !important;
+    font-size: 14px;
     font-weight: normal;
     line-height: 34px;
-    height: 34px;
-    font-size: 14px;
     color: #707a8a;
+    background-color: #f5f5f5 !important;
     border-bottom: none !important;
   }
+
   .el-table .header .cell {
-    line-height: 34px;
     height: 34px;
+    line-height: 34px;
   }
+
   .el-table .table-cell {
     height: 64px;
     line-height: 64px;
   }
+
   .el-table--enable-row-hover .el-table__body tr:hover > td {
     background-color: #f5f5f5 !important;
   }
+
   .el-table {
     font-size: 14px;
     color: #000;
+
     tr {
       display: table-row;
     }
   }
+
   .el-pagination .el-select .el-input.el-input--suffix {
     height: 32px;
   }
+
   .el-pagination .el-select .el-input.el-input--suffix .el-input__inner {
     height: 32px;
     line-height: 32px;
@@ -437,21 +444,26 @@
     margin-top: 20px;
     margin-bottom: 20px;
   }
+
   .pos {
     position: absolute;
     bottom: 0;
     left: 0;
   }
+
   .pos-r {
     position: relative;
   }
+
   .margin {
     margin-bottom: 0;
   }
+
   .yellow {
     color: #f5cc23;
     cursor: pointer;
   }
+
   .grey {
     color: #b6bcc4;
     cursor: pointer;
