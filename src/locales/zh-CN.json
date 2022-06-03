@@ -87,6 +87,15 @@
         "password": "密码强度"
       }
     },
+    "directive": {
+      "directive": "自定义指令",
+      "copyDirective": "复制指令",
+      "debounceDirective": "防抖指令",
+      "throttleDirective": "节流指令",
+      "draggableDirective": "拖拽指令",
+      "longPressDirective": "长按指令",
+      "waterMarkDirective": "水印指令"
+    },
     "pages": {
       "title": "页面",
       "form": {

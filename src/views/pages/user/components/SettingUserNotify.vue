@@ -38,28 +38,4 @@
   })
 </script>
 
-<style scoped lang="scss">
-  $--el-border-color: #dcdfe6;
-  $--el-color-primary: #409eff;
-
-  .avatar-uploader {
-    :deep(.el-upload) {
-      border: 1px dashed $--el-border-color;
-      border-radius: 6px;
-      cursor: pointer;
-      position: relative;
-      overflow: hidden;
-      transition: 0.2s;
-      &:hover {
-        border-color: $--el-color-primary;
-      }
-      .el-icon.avatar-uploader-icon {
-        font-size: 28px;
-        color: #8c939d;
-        width: 80px;
-        height: 80px;
-        text-align: center;
-      }
-    }
-  }
-</style>
+<style scoped lang="scss"></style>

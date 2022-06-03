@@ -78,15 +78,18 @@
     :deep(.el-input__inner:focus) {
       box-shadow: none !important;
     }
+
     :deep(input:disabled) {
       cursor: not-allowed;
     }
+
     &-bar {
       position: relative;
       height: 6px;
       margin: 10px auto 6px;
       background-color: #00000040;
       border-radius: 6px;
+
       &::before,
       &::after {
         position: absolute;
@@ -98,14 +101,17 @@
         border-color: #fff;
         border-style: solid;
         border-width: 0 5px;
-        content: '';
+        content: "";
       }
+
       &::before {
         left: 20%;
       }
+
       &::after {
         right: 20%;
       }
+
       .strength-meter-bar--fill {
         position: absolute;
         width: 0;
@@ -117,51 +123,65 @@
 
       &.fill-5 {
         .strength-meter-bar--fill {
-          &[data-score='0'] {
+          &[data-score="0"] {
             width: 20%;
-            background-color: darken(#e74242, 10%);
+
+            // background-color: darken(#e74242, 10%);
+            background-color: #e74242;
           }
-          &[data-score='1'] {
+
+          &[data-score="1"] {
             width: 40%;
             background-color: #ed6f6f;
           }
-          &[data-score='2'] {
+
+          &[data-score="2"] {
             width: 60%;
             background-color: #efbd47;
           }
-          &[data-score='3'] {
+
+          &[data-score="3"] {
             width: 80%;
             background-color: #55d18780;
           }
-          &[data-score='4'] {
+
+          &[data-score="4"] {
             width: 100%;
             background-color: #55d187;
           }
         }
       }
+
       &.fill-3 {
         &::before,
         &::after {
           width: 33.33%;
         }
+
         &::before {
           left: 33.33%;
         }
+
         &::after {
           right: 33.33%;
         }
+
         .strength-meter-bar--fill {
-          &[data-score='0'],
-          &[data-score='1'] {
+          &[data-score="0"],
+          &[data-score="1"] {
             width: 33.33%;
-            background-color: darken(#e74242, 10%);
+
+            // background-color: darken(#e74242, 10%);
+            background-color: #e74242;
           }
-          &[data-score='2'] {
+
+          &[data-score="2"] {
             width: 66.66%;
             background-color: #efbd47;
           }
-          &[data-score='3'],
-          &[data-score='4'] {
+
+          &[data-score="3"],
+          &[data-score="4"] {
             width: 100%;
             background-color: #55d187;
           }

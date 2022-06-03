@@ -15,9 +15,9 @@
       <icon v-if="type === 'line'" icon="ep:pie-chart"></icon>
       <icon v-if="type === 'bar'" icon="ep:histogram"></icon>
     </template>
-    <div v-if="type === 'pie'" id="pieMain"></div>
-    <div v-if="type === 'line'" id="lineMain"></div>
-    <div v-if="type === 'bar'" id="barMain"></div>
+    <div v-if="type === 'pie'" class="pieMain"></div>
+    <div v-if="type === 'line'" class="lineMain"></div>
+    <div v-if="type === 'bar'" class="barMain"></div>
   </t-card>
 </template>
 
@@ -56,8 +56,8 @@
     },
     setup(props) {
       const drawLine = () => {
-        const chartDom: HTMLElement = document.getElementById('lineMain') as HTMLElement;
-        const myChart = echarts.init(chartDom);
+        const chartDom: HTMLElement = document.getElementById('lineMain') as HTMLElement
+        const myChart = echarts.init(chartDom)
         const option = {
           color: ['#80FFA5', '#00DDFF'],
           tooltip: {
@@ -80,7 +80,20 @@
             {
               type: 'category',
               boundaryGap: false,
-              data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月']
+              data: [
+                '1月',
+                '2月',
+                '3月',
+                '4月',
+                '5月',
+                '6月',
+                '7月',
+                '8月',
+                '9月',
+                '10月',
+                '11月',
+                '12月'
+              ]
             }
           ],
           yAxis: [
@@ -142,12 +155,12 @@
               data: props.data.line2
             }
           ]
-        };
-        option && myChart.setOption(option);
+        }
+        option && myChart.setOption(option)
       }
       const drawPie = () => {
-        const chartDom: HTMLElement = document.getElementById('pieMain') as HTMLElement;
-        const myChart = echarts.init(chartDom);
+        const chartDom: HTMLElement = document.getElementById('pieMain') as HTMLElement
+        const myChart = echarts.init(chartDom)
         const option = {
           tooltip: {
             trigger: 'item'
@@ -163,19 +176,19 @@
                 borderColor: '#fff',
                 borderWidth: 2
               },
-              labelLine:{
+              labelLine: {
                 show: true,
                 length: 8
               },
               data: props.data.pie
             }
           ]
-        };
-        option && myChart.setOption(option);
+        }
+        option && myChart.setOption(option)
       }
       const drawBar = () => {
-        const chartDom: HTMLElement = document.getElementById('barMain') as HTMLElement;
-        const myChart = echarts.init(chartDom);
+        const chartDom: HTMLElement = document.getElementById('barMain') as HTMLElement
+        const myChart = echarts.init(chartDom)
         const option = {
           color: '#4e53df',
           tooltip: {
@@ -210,7 +223,7 @@
             axisLine: {
               show: false
             },
-            axisTick:{
+            axisTick: {
               show: false
             }
           },
@@ -218,7 +231,7 @@
             axisLine: {
               show: false
             },
-            axisTick:{
+            axisTick: {
               show: false
             },
             type: 'category',
@@ -233,12 +246,12 @@
               borderRadius: 30
             }
           }
-        };
-        option && myChart.setOption(option);
+        }
+        option && myChart.setOption(option)
       }
-      
+
       onMounted(() => {
-        const { type } = props;
+        const { type } = props
         if (type === 'line') {
           drawLine()
         }
@@ -255,27 +268,33 @@
 </script>
 
 <style scoped lang="scss">
-  #lineMain, #pieMain, #barMain {
+  .lineMain,
+  .pieMain,
+  .barMain {
     width: 100%;
     height: 200px;
   }
+
   .dashboard-card {
     margin: 0 5px;
     background-color: transparent;
     box-sizing: border-box;
+
     :deep(.el-card) {
       height: 100%;
     }
   }
+
   .no-border {
     :deep(.el-card) {
       border: none;
     }
   }
+
   .hover-shadow {
     &:hover {
-      transition: all 0.2s;
       box-shadow: 0 0 15px #b3b3b3;
+      transition: all 0.2s;
     }
   }
 </style>

@@ -159,5 +159,8 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/toimc-team/vue-toimc-admin.git"
+  },
+  "resolutions": {
+    "bin-wrapper": "npm:bin-wrapper-china"
   }
 }

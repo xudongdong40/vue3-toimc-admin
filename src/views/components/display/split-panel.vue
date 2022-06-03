@@ -32,23 +32,23 @@
 </script>
 
 <style lang="scss" scoped>
-  $W: 100%;
-  $H: 70vh;
   .split-panel {
     width: 70vw;
     height: $H;
-    text-align: center;
     font-size: 50px;
     color: #fff;
+    text-align: center;
     border: 1px solid #e5e6eb;
+
     .panel {
-      width: $W;
-      height: $W;
-      color: rgba($color: dodgerblue, $alpha: 0.8);
-      line-height: $H;
+      width: 100%;
+      height: 70vh;
+      line-height: 70vh;
+      color: rgba($color: dodgerblue, $alpha: 80%);
     }
+
     .dv-b {
-      color: rgba($color: #000, $alpha: 0.8);
+      color: rgba($color: #000, $alpha: 80%);
     }
   }
 </style>
