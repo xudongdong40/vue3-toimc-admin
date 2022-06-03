@@ -15,9 +15,9 @@
       <icon v-if="type === 'line'" icon="ep:pie-chart"></icon>
       <icon v-if="type === 'bar'" icon="ep:histogram"></icon>
     </template>
-    <div v-if="type === 'pie'" class="pieMain"></div>
-    <div v-if="type === 'line'" class="lineMain"></div>
-    <div v-if="type === 'bar'" class="barMain"></div>
+    <div v-if="type === 'pie'" id="pieer"></div>
+    <div v-if="type === 'line'" id="lineer"></div>
+    <div v-if="type === 'bar'" id="barer"></div>
   </t-card>
 </template>
 
@@ -56,7 +56,7 @@
     },
     setup(props) {
       const drawLine = () => {
-        const chartDom: HTMLElement = document.getElementById('lineMain') as HTMLElement
+        const chartDom: HTMLElement = document.getElementById('lineer') as HTMLElement
         const myChart = echarts.init(chartDom)
         const option = {
           color: ['#80FFA5', '#00DDFF'],
@@ -159,7 +159,7 @@
         option && myChart.setOption(option)
       }
       const drawPie = () => {
-        const chartDom: HTMLElement = document.getElementById('pieMain') as HTMLElement
+        const chartDom: HTMLElement = document.getElementById('pieer') as HTMLElement
         const myChart = echarts.init(chartDom)
         const option = {
           tooltip: {
@@ -187,7 +187,7 @@
         option && myChart.setOption(option)
       }
       const drawBar = () => {
-        const chartDom: HTMLElement = document.getElementById('barMain') as HTMLElement
+        const chartDom: HTMLElement = document.getElementById('barer') as HTMLElement
         const myChart = echarts.init(chartDom)
         const option = {
           color: '#4e53df',
@@ -268,9 +268,17 @@
 </script>
 
 <style scoped lang="scss">
-  .lineMain,
-  .pieMain,
-  .barMain {
+  #lineer {
+    width: 100%;
+    height: 200px;
+  }
+
+  #pieer {
+    width: 100%;
+    height: 200px;
+  }
+
+  #barer {
     width: 100%;
     height: 200px;
   }
