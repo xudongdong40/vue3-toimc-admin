@@ -4,16 +4,16 @@
       <div class="w-full h-full">
         <div
           class="flex flex-col justify-between items-center h-full w-full"
-          style="padding: 0.9em;"
+          style="padding: 0.9em"
         >
-          <div class="truncate" style="font-size: 0.6em;" :style="{ color: fontColor }">
+          <div class="truncate" style="font-size: 0.6em" :style="{ color: fontColor }">
             {{ title }}
           </div>
-          <p class="inline" style="font-size: 1.7em;" :style="{ color: fontColor }">
-            <span style="font-weight: 700;">{{ diff }}</span>
-            <i style="font-size: 12px; font-style: normal;"> 天 </i>
+          <p class="inline" style="font-size: 1.7em" :style="{ color: fontColor }">
+            <span style="font-weight: 700">{{ diff }}</span>
+            <i style="font-size: 12px; font-style: normal"> 天 </i>
           </p>
-          <p class="mt-1" style="font-size: 0.6em;" :style="{ color: fontColor }">{{ finalDate }}</p>
+          <p class="mt-1" style="font-size: 0.6em" :style="{ color: fontColor }">{{ finalDate }}</p>
         </div>
       </div>
     </div>

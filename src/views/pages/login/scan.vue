@@ -36,6 +36,6 @@
   .we {
     width: 19px;
     height: 19px;
-    background: url("@/assets/images/security.png") no-repeat center center;
+    background: url('@/assets/images/security.png') no-repeat center center;
   }
 </style>

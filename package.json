@@ -173,8 +173,8 @@
     ],
     "*.vue": [
       "eslint --fix",
-      "prettier --write",
-      "stylelint --fix"
+      "stylelint --fix",
+      "prettier --write"
     ],
     "*.{scss,less,styl,html,css}": [
       "stylelint --fix",

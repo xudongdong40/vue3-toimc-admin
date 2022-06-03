@@ -1,24 +1,14 @@
 <template>
   <t-card>
-    <descriptions
-      title="退款申请"
-      :items="infoSchema"
-      :border="false"
-      :collapse="false"
-    />
+    <descriptions title="退款申请" :items="infoSchema" :border="false" :collapse="false" />
   </t-card>
   <el-divider />
   <t-card>
-    <descriptions
-      title="用户信息"
-      :items="userSchema"
-      :border="false"
-      :collapse="false"
-    />
+    <descriptions title="用户信息" :items="userSchema" :border="false" :collapse="false" />
   </t-card>
   <el-divider />
   <el-card header="退货商品">
-    <el-table :data="tableData" stripe style="width: 100%;" table-layout="auto">
+    <el-table :data="tableData" stripe style="width: 100%" table-layout="auto">
       <el-table-column
         v-for="(item, index) in columns"
         :key="index"
@@ -35,7 +25,7 @@
   </el-card>
   <el-divider />
   <el-card header="退货进度">
-    <el-table :data="tableData2" stripe style="width: 100%;" table-layout="auto">
+    <el-table :data="tableData2" stripe style="width: 100%" table-layout="auto">
       <el-table-column
         v-for="(item, index) in columns2"
         :key="index"
@@ -44,7 +34,10 @@
         :label="item.lable ? item.lable : ''"
       >
         <template v-if="item.type === 'status'" #default="scope">
-          <span><icon style="vertical-align: middle;" type="SuccessFilled" color="green" /> {{ scope.row.status }}</span>
+          <span
+            ><icon style="vertical-align: middle" type="SuccessFilled" color="green" />
+            {{ scope.row.status }}</span
+          >
         </template>
       </el-table-column>
     </el-table>
@@ -66,7 +59,7 @@
           },
           {
             label: '状态：',
-            'field|1': [ '已取货', '未取货', '退款处理中', '退货中' ]
+            'field|1': ['已取货', '未取货', '退款处理中', '退货中']
           },
           {
             label: '销售单号：',
@@ -91,7 +84,7 @@
           },
           {
             label: '常用快递：',
-            'field|1': [ '菜鸟仓储', '申通', '圆通', '中通', '韵达', '顺丰', '极兔' ]
+            'field|1': ['菜鸟仓储', '申通', '圆通', '中通', '韵达', '顺丰', '极兔']
           },
           {
             label: '取货地址：',
@@ -103,7 +96,6 @@
           }
         ]
       }).list
-      
 
       const tableData = Mock.mock({
         list: [
@@ -216,7 +208,7 @@
           }
         ]
       }).list
-      
+
       const columns2 = [
         {
           prop: 'time',

@@ -20,7 +20,7 @@
 <style lang="scss" scoped>
   .bg {
     line-height: 45px;
-    background: url("@/assets/images/index1.jpg") no-repeat center center;
+    background: url('@/assets/images/index1.jpg') no-repeat center center;
     background-size: cover;
   }
 
@@ -32,7 +32,7 @@
     border-radius: 8px;
 
     .img {
-      background: url("@/assets/images/index.png") no-repeat center 70%;
+      background: url('@/assets/images/index.png') no-repeat center 70%;
       background-size: contain;
     }
   }

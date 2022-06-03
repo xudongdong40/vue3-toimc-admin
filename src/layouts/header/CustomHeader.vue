@@ -13,7 +13,7 @@
     <!-- Menu -->
     <el-row class="flex-1">
       <Menu v-if="['top', 'mix'].includes(layout)" :menus="showMenu" mode="horizontal">
-        <img v-if="layout === 'top'" style="height: 30px;" src="@/assets/images/logo.png" />
+        <img v-if="layout === 'top'" style="height: 30px" src="@/assets/images/logo.png" />
       </Menu>
     </el-row>
     <!-- Actions -->

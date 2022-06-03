@@ -175,7 +175,7 @@
   })
 </script>
 <style lang="scss">
-  $prefix-cls: "toimc-cropper-image";
+  $prefix-cls: 'toimc-cropper-image';
 
   .#{$prefix-cls} {
     &--circled {

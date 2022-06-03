@@ -8,8 +8,12 @@
               <el-button type="primary" @click="() => handleGetValue()">获取数据</el-button>
               <el-button type="primary" @click="() => handleGetHTML()">获取HTML</el-button>
               <el-button type="primary" @click="() => handleGetSelection()">获取选中内容</el-button>
-              <el-button type="primary" @click="() => handleGetCursorPosition()">获取当前坐标</el-button>
-              <el-button type="primary" @click="() => handleGetCurrentMode()">获取当前模式</el-button>
+              <el-button type="primary" @click="() => handleGetCursorPosition()"
+                >获取当前坐标</el-button
+              >
+              <el-button type="primary" @click="() => handleGetCurrentMode()"
+                >获取当前模式</el-button
+              >
               <el-button type="success" @click="() => handleInsertValue()">插入数据</el-button>
               <el-button type="success" @click="() => handleFocus()">聚焦</el-button>
               <el-button type="success" @click="() => handleBlur()">失焦</el-button>
@@ -19,8 +23,12 @@
               <el-button type="success" @click="() => handleUpdateValue()">更新Value</el-button>
               <!-- <el-button type="success" @click="() => handleSetPreviewMode()">设置预览模式</el-button> -->
               <el-button type="success" @click="() => handleShowTips()">显示提示信息</el-button>
-              <el-button type="success" @click="() => handleSetTheme('dark')">设置黑暗主题</el-button>
-              <el-button type="success" @click="() => handleSetTheme('classic')">设置传统主题</el-button>
+              <el-button type="success" @click="() => handleSetTheme('dark')"
+                >设置黑暗主题</el-button
+              >
+              <el-button type="success" @click="() => handleSetTheme('classic')"
+                >设置传统主题</el-button
+              >
               <el-button type="danger" @click="() => handleDeleteValue()">删除选中内容</el-button>
               <el-button type="danger" @click="() => handleDestroy()">销毁实例</el-button>
             </el-row>
@@ -52,7 +60,7 @@
   export default defineComponent({
     setup() {
       const editor = ref()
-      const vditorIns = computed(()=>editor.value.vditorIns)
+      const vditorIns = computed(() => editor.value.vditorIns)
 
       let form = reactive({
         mode: 'ir' as ModeType,
@@ -230,7 +238,7 @@
 </script>
 
 <style lang="scss" scoped>
-:deep(.el-button+.el-button) {
-  margin-bottom: 12px;
-}
+  :deep(.el-button + .el-button) {
+    margin-bottom: 12px;
+  }
 </style>

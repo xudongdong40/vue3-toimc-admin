@@ -1,5 +1,5 @@
 <template>
-  <div style="position: relative;">
+  <div style="position: relative">
     <el-table
       ref="tableRef"
       :data="cloneData"
@@ -34,7 +34,7 @@
         <template v-if="isHeader" #header="scope">
           <slot
             :name="`${column.prop}Header`"
-            style="padding: 5px 0 4px 10px;"
+            style="padding: 5px 0 4px 10px"
             :column="scope.column"
           >
             {{ column.label }}
@@ -43,7 +43,7 @@
         <template #default="scope">
           <slot
             :name="column.prop"
-            style="padding-left: 10px;"
+            style="padding-left: 10px"
             :row="scope.row"
             :column="scope.column"
             :index="scope.$index"
@@ -76,7 +76,7 @@
       <el-checkbox
         v-if="isChoose"
         v-model="checked"
-        style="margin: 0 10px 0 20px;"
+        style="margin: 0 10px 0 20px"
         @change="onChange"
       >
         全选本页
@@ -95,6 +95,7 @@
     label: string
     prop: string
     minLength: number
+    width?: number
     fixed?: string
     sort?: boolean
     align?: string
