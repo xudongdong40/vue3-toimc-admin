@@ -4,8 +4,11 @@
     :option="option"
     :style="style"
     :class="prefixClass"
+    :autoresize="autoresize"
+    :loading="loading"
     v-bind="$attrs"
-  ></v-chart>
+  >
+  </v-chart>
 </template>
 
 <script lang="ts">
@@ -50,13 +53,21 @@
         type: [String, Object],
         default: 'v-charts'
       },
+      autoresize: {
+        type: Boolean,
+        default: true
+      },
+      loading: {
+        type: Boolean,
+        default: false
+      },
       responsive: {
         type: Boolean,
         default: true
       }
     },
     setup(props) {
-      const { chartRef, chart } = useCharts(props.responsive)
+      const { chartRef, delegate } = useCharts()
 
       onBeforeMount(() => {
         // 注册组件
@@ -67,9 +78,34 @@
         ])
       })
 
-      // todo Expose
+      // https://www.npmjs.com/package/vue-echarts#Methods
+      const methodsMap = [
+        'setOption',
+        'getWidth',
+        'getHeight',
+        'getDom',
+        'getOption',
+        'resize',
+        'dispatchAction',
+        'convertToPixel',
+        'convertFromPixel',
+        'containPixel',
+        'showLoading',
+        'hideLoading',
+        'getDataURL',
+        'getConnectedDataURL',
+        'clear',
+        'dispose'
+      ]
 
-      return { chartRef, chart }
+      return {
+        chartRef,
+        // setOption: (options) => delegate('setOption', options)
+        ...methodsMap.reduce((prev, cur) => {
+          prev[cur] = (...args) => delegate(cur, ...args)
+          return prev
+        }, {})
+      }
     }
   })
 </script>

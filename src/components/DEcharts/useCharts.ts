@@ -1,30 +1,31 @@
 import type { ECharts } from 'echarts'
-import { debounce } from 'lodash-es'
+// import { debounce } from 'lodash-es'
 
-export function useCharts(responsive = true) {
-  const chartRef = ref<any>(null)
-  const chart = ref<ECharts | null>(null)
+export function useCharts() {
+  const chartRef = ref<ECharts | null>(null)
 
-  onMounted(() => {
-    if (responsive) {
-      window.addEventListener('resize', debounce(resize, 200))
-    }
-  })
+  // onMounted(() => {
+  //   if (responsive) {
+  //     window.addEventListener('resize', debounce(resize, 200))
+  //   }
+  // })
 
-  function resize() {
-    chart.value?.resize()
+  // function resize() {
+  //   chartRef.value?.resize()
+  // }
+
+  // function destroy() {
+  //   chartRef.value = null
+  //   if (responsive) {
+  //     window.removeEventListener('resize', resize)
+  //   }
+  // }
+
+  function delegate(method: string, ...args: any[]) {
+    return chartRef.value?.[method](...args)
   }
 
-  function destroy() {
-    chart.value = null
-    if (responsive) {
-      window.removeEventListener('resize', resize)
-    }
-  }
+  // onUnmounted(destroy)
 
-  // todo Expose
-
-  onUnmounted(destroy)
-
-  return { chartRef, chart, resize, destroy }
+  return { chartRef, delegate }
 }
