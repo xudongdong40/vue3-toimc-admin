@@ -292,7 +292,7 @@
     position: relative;
     width: 100%;
     overflow: hidden;
-    background-color: v-bind(backgroundcolor);
+    background-color: v-bind(backgroundColor);
   }
 
   .waterfall-item {

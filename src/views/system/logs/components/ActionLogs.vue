@@ -15,9 +15,9 @@
               is-dot
               type="success"
               class="item"
-              style="display: inline-flex; vertical-align: middle;"
+              style="display: inline-flex; vertical-align: middle"
             ></el-badge>
-            <span style="margin-left: 4px; vertical-align: middle;"
+            <span style="margin-left: 4px; vertical-align: middle"
               >请求方法:{{ row.method }}</span
             ></div
           >
@@ -26,9 +26,9 @@
               type="primary"
               is-dot
               class="item"
-              style="display: inline-flex; vertical-align: middle;"
+              style="display: inline-flex; vertical-align: middle"
             ></el-badge>
-            <span style="margin-left: 4px; vertical-align: middle;"
+            <span style="margin-left: 4px; vertical-align: middle"
               >请求参数:{{ row.requestParam }}</span
             ></div
           >

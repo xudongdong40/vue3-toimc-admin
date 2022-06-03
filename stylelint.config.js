@@ -25,7 +25,8 @@ module.exports = {
         ignorePseudoElements: ['v-deep']
       }
     ],
-    'value-keyword-case': ['lower', { ignoreKeywords: [/^_.*$/] }],
+    'value-keyword-case': null,
+    // 'value-keyword-case': ['lower', { ignoreKeywords: [/^_.*$/, /v-bind/] }],
     'at-rule-no-unknown': [
       true,
       {

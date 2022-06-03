@@ -87,6 +87,15 @@
         "password": "StrengthMeter"
       }
     },
+    "directive": {
+      "directive": "Directive",
+      "copyDirective": "CopyDirective",
+      "debounceDirective": "DebounceDirective",
+      "throttleDirective": "ThrottleDirective",
+      "draggableDirective": "DraggableDirective",
+      "longPressDirective": "LongPressDirective",
+      "waterMarkDirective": "WaterMarkDirective"
+    },
     "pages": {
       "title": "Pages",
       "detail": {

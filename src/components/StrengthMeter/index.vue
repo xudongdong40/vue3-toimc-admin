@@ -127,7 +127,9 @@
         .strength-meter-bar--fill {
           &[data-score='0'] {
             width: 20%;
-            background-color: color.adjust(#e74242, $lightness: -10%);
+
+            // background-color: darken(#e74242, 10%);
+            background-color: #e74242;
           }
 
           &[data-score='1'] {
@@ -170,7 +172,9 @@
           &[data-score='0'],
           &[data-score='1'] {
             width: 33.33%;
-            background-color: color.adjust(#e74242, $lightness: -10%);
+
+            // background-color: darken(#e74242, 10%);
+            background-color: #e74242;
           }
 
           &[data-score='2'] {

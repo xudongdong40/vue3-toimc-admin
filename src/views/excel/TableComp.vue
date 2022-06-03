@@ -396,9 +396,11 @@
   :deep(.el-table) {
     font-size: 14px;
     color: #000;
+
     tr {
       display: table-row;
     }
+
     .header {
       height: 34px;
       padding: 5px 0 !important;
@@ -408,11 +410,13 @@
       color: #707a8a;
       background-color: #f5f5f5 !important;
       border-bottom: none !important;
+
       .cell {
         height: 34px;
         line-height: 34px;
       }
     }
+
     .table-cell {
       height: 64px;
       line-height: 64px;
@@ -429,6 +433,7 @@
     .el-select {
       .el-input.el-input--suffix {
         height: 32px;
+
         .el-input__inner {
           height: 32px;
           line-height: 32px;
@@ -439,7 +444,6 @@
 
   .pagination {
     display: flex;
-    flex-direction: column;
     align-items: center;
     margin-top: 20px;
     margin-bottom: 20px;
@@ -456,14 +460,6 @@
   }
 
   .margin {
-    margin-bottom: 0;
-  }
-
-  .yellow {
-    color: #f5cc23;
-    cursor: pointer;
-  }
-  .grey {
     color: #b6bcc4;
     cursor: pointer;
   }

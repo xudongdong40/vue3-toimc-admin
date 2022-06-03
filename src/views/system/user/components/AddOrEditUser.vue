@@ -77,7 +77,7 @@
           <el-form-item label="所属部门">
             <el-select
               v-model="formData.departIdsArr"
-              style="width: 340px; margin-right: 4px;"
+              style="width: 340px; margin-right: 4px"
               disabled
               multiple
               placeholder="请选择部门"
