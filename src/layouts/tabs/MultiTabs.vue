@@ -21,7 +21,7 @@
     </el-tabs>
 
     <el-dropdown class="flex justify-center items-center w-40px" @command="handleCommand">
-      <span style="cursor: pointer">
+      <span style="cursor: pointer;">
         <Icon icon="mdi:view-grid" size="18px" />
       </span>
       <template #dropdown>

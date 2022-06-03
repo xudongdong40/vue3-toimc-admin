@@ -90,19 +90,22 @@
     margin: 0 5px;
     background-color: transparent;
     box-sizing: border-box;
+
     :deep(.el-card) {
       height: 100%;
     }
   }
+
   .no-border {
     :deep(.el-card) {
       border: none;
     }
   }
+
   .hover-shadow {
     &:hover {
-      transition: all 0.2s;
       box-shadow: 0 0 15px #b3b3b3;
+      transition: all 0.2s;
     }
   }
 </style>

@@ -6,7 +6,7 @@
       </div>
     </template>
     <div class="split-panel">
-      <splitpanel :splitSet="settingLR">
+      <splitpanel :split-set="settingLR">
         <!-- #paneL 表示指定该组件为左侧面板 -->
         <template #pageL>
           <!-- 自定义左侧面板的内容 -->
@@ -32,23 +32,26 @@
 </script>
 
 <style lang="scss" scoped>
-  $W: 100%;
-  $H: 70vh;
+  $panel-width: 100%;
+  $panel-height: 70vh;
+
   .split-panel {
     width: 70vw;
-    height: $H;
-    text-align: center;
+    height: $panel-height;
     font-size: 50px;
     color: #fff;
+    text-align: center;
     border: 1px solid #e5e6eb;
+
     .panel {
-      width: $W;
-      height: $W;
-      color: rgba($color: dodgerblue, $alpha: 0.8);
-      line-height: $H;
+      width: $panel-width;
+      height: $panel-width;
+      line-height: $panel-height;
+      color: rgba($color: dodgerblue, $alpha: 80%);
     }
+
     .dv-b {
-      color: rgba($color: #000, $alpha: 0.8);
+      color: rgba($color: #000, $alpha: 80%);
     }
   }
 </style>

@@ -54,7 +54,7 @@
       const isShowThemeSetting = ref(false)
 
       const layoutMode = computed(() => (layout.value === 'top' ? 'column' : 'row'))
-      const headerHeight = computed(() => (tabPage.value ? '110px' : '60px'))
+      const _headerHeight = computed(() => (tabPage.value ? '110px' : '60px'))
 
       function handleShowThemeSetting() {
         isShowThemeSetting.value = true
@@ -68,7 +68,7 @@
         isCollapse,
         isShowThemeSetting,
         tabPage,
-        headerHeight,
+        _headerHeight,
         handleShowThemeSetting
       }
     }
@@ -79,26 +79,31 @@
   .layout-wrap {
     background-color: var(--el-bg-page);
   }
+
   .layout-main-wrap > .layout-main {
-    margin-top: v-bind(headerHeight);
+    margin-top: v-bind(_headerHeight);
+
     &.fixed-header-main {
-      height: calc(100% - (v-bind(headerHeight)));
+      height: calc(100% - (v-bind(_headerHeight)));
     }
   }
+
   .layout-header {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
     z-index: 1;
-    box-shadow: var(--el-box-shadow-light);
+    width: 100%;
     background-color: var(--el-bg-color);
+    box-shadow: var(--el-box-shadow-light);
   }
+
   .tabs {
     background-color: var(--el-bg-color);
     border-top: 1px solid var(--el-border-color);
     user-select: none;
   }
+
   :deep(.el-menu) {
     border: none;
   }
@@ -112,8 +117,8 @@
   .layout-mode-column {
     .layout-main {
       width: 92%;
-      margin-left: auto;
       margin-right: auto;
+      margin-left: auto;
     }
   }
 

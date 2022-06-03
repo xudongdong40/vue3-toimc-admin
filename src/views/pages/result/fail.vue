@@ -13,7 +13,7 @@
     <el-descriptions
       :column="1"
       title="您提交的内容有如下错误："
-      style="background: rgb(250, 250, 250)"
+      style="background: rgb(250 250 250)"
       class="p-6 ml-10 mr-10"
     >
       <el-descriptions-item>

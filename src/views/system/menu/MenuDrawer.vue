@@ -527,6 +527,7 @@
   .el-drawer__header {
     margin-bottom: 0;
   }
+
   .icon-container {
     height: 300px;
   }

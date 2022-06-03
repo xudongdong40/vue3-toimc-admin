@@ -3,13 +3,14 @@ module.exports = {
   plugins: ['stylelint-order', 'stylelint-scss'],
   customSyntax: 'postcss-html',
   extends: [
-    'stylelint-config-standard',
-    'stylelint-config-prettier',
+    // 'stylelint-config-standard',
     'stylelint-config-standard-scss',
-    'stylelint-config-recommended-vue/scss',
-    'stylelint-config-recess-order'
+    // 'stylelint-config-recommended-vue/scss',
+    'stylelint-config-recess-order',
+    'stylelint-config-prettier'
   ],
   rules: {
+    'string-quotes': 'single',
     'selector-class-pattern': null,
     'scss/at-import-partial-extension': null,
     'selector-pseudo-class-no-unknown': [
@@ -24,6 +25,7 @@ module.exports = {
         ignorePseudoElements: ['v-deep']
       }
     ],
+    'value-keyword-case': ['lower', { ignoreKeywords: [/^_.*$/] }],
     'at-rule-no-unknown': [
       true,
       {
@@ -38,7 +40,8 @@ module.exports = {
           'each',
           'include',
           'mixin',
-          'extend'
+          'extend',
+          'use'
         ]
       }
     ],
@@ -49,7 +52,7 @@ module.exports = {
     'font-family-no-missing-generic-family-keyword': null,
     'declaration-colon-space-after': 'always-single-line',
     'declaration-colon-space-before': 'never',
-    // 'declaration-block-trailing-semicolon': 'always',
+    'declaration-block-trailing-semicolon': ['always', { ignore: ['single-declaration'] }],
     'rule-empty-line-before': [
       'always',
       {
@@ -75,6 +78,7 @@ module.exports = {
       ],
       { severity: 'warning' }
     ],
+    'scss/dollar-variable-pattern': [/^--el-/, { ignore: 'global' }],
     'order/properties-order': [
       'position',
       'top',

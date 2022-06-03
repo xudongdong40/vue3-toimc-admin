@@ -123,7 +123,6 @@ export default defineComponent({
     }
   },
   setup(_props, { slots }) {
-    console.log('🚀 ~ file: TCard.vue ~ line 126 ~ setup ~ _props', _props)
     const showSlots = (name: string): boolean => {
       const slot = slots[name]
       return !!(slot && slot())
@@ -161,7 +160,6 @@ export default defineComponent({
 }
 
 .card-small {
-
   // @apply text-sm;
   :deep(.el-card__header) {
     @apply p-2;
@@ -173,7 +171,6 @@ export default defineComponent({
 }
 
 .card-large {
-
   // @apply text-sm;
   :deep(.el-card__header) {
     @apply p-6;

@@ -44,7 +44,7 @@
       :items="userSchema"
       :border="false"
       :collapse="false"
-      style="padding: 0 20px"
+      style="padding: 0 20px;"
     />
     <div class="bold-title">
       <span>信息组</span>
@@ -53,7 +53,7 @@
       :items="msgSchema"
       :border="false"
       :collapse="false"
-      style="padding: 0 20px"
+      style="padding: 0 20px;"
     />
     <t-card
       header="多层级信息组"
@@ -348,12 +348,15 @@
     padding: 10px 20px 0;
     background-color: #fff;
   }
+
   .sub-title {
     margin-top: 20px;
+
     span {
       margin-left: 20px;
     }
   }
+
   .bold-title {
     span {
       margin-left: 20px;
@@ -361,11 +364,13 @@
       font-weight: bold;
     }
   }
+
   .el-card {
     &:last-child {
       margin-bottom: 40px;
     }
   }
+
   .el-divider--horizontal {
     margin: 12px 0;
   }

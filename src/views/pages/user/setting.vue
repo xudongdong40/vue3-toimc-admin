@@ -52,8 +52,10 @@
 <style scoped lang="scss">
   :deep(.el-tabs__nav-scroll) {
     width: 180px;
+
     .el-tabs__item {
       text-align: left;
+
       &.is-active {
         background-color: var(--el-color-primary-light-9);
       }

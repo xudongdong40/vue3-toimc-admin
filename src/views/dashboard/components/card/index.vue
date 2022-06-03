@@ -156,45 +156,53 @@
     margin: 0 5px;
     background-color: transparent;
     box-sizing: border-box;
+
     :deep(.el-card) {
       height: 100%;
     }
   }
+
   .no-border {
     :deep(.el-card) {
       border: none;
     }
   }
+
   .hover-shadow {
     &:hover {
-      transition: all 0.2s;
       box-shadow: 0 0 15px #b3b3b3;
+      transition: all 0.2s;
     }
   }
+
   .dashboard-title {
     font-size: 0.9rem;
   }
+
   .dashboard-content {
     display: flex;
+    margin: 0.6rem 0;
+    font-size: 1.8rem;
     justify-content: space-between;
     align-items: center;
-    font-size: 1.8rem;
-    margin: 0.6rem 0;
+
     .icon-back {
+      display: flex;
       width: 4rem;
       height: 4rem;
+      color: #1890ff;
       background-color: #e8f4ff;
       border-radius: 50%;
-      color: #1890ff;
-      display: flex;
       justify-content: center;
       align-items: center;
+
       // font-size: 2rem;
     }
   }
+
   .dashboard-footer {
-    font-size: 0.9rem;
     display: flex;
+    font-size: 0.9rem;
     align-items: center;
   }
 </style>

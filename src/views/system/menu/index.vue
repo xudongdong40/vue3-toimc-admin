@@ -297,6 +297,7 @@
 </script>
 <style lang="scss" scoped>
   $color-primary: #409eff;
+
   .menuBox {
     .info {
       padding: 5px;
@@ -312,7 +313,8 @@
       background-color: #5551;
       border-radius: 100%;
     }
-    :deep(.vxe-checkbox--icon:before) {
+
+    :deep(.vxe-checkbox--icon::before) {
       border-width: 1px !important;
     }
   }

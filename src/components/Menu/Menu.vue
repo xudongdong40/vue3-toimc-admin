@@ -29,7 +29,7 @@
   import type { PropType } from 'vue'
 
   export default defineComponent({
-    name: 'Menu',
+    name: 'Menus',
     props: {
       mode: {
         type: String as PropType<'vertical' | 'horizontal'>,

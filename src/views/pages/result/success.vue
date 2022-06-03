@@ -18,7 +18,7 @@
         </div>
       </template>
     </el-result>
-    <div style="background: rgb(250, 250, 250)" class="p-6 ml-10 mr-10">
+    <div style="background: rgb(250 250 250)" class="p-6 ml-10 mr-10">
       <el-descriptions title="项目名称" class="mb-5">
         <el-descriptions-item label="项目 ID：">15232</el-descriptions-item>
         <el-descriptions-item label="负责人：">Jerry</el-descriptions-item>
@@ -39,7 +39,7 @@
                 role="img"
                 aria-label="dingding"
                 class="anticon anticon-dingding cursor-pointer flex items-center cursor-pointer"
-                style="color: rgb(0, 160, 233); margin-left: 8px"
+                style="margin-left: 8px; color: rgb(0 160 233)"
               >
                 <icon icon="ant-design:pushpin-filled" size="13px" />
                 催一下

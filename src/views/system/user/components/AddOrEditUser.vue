@@ -46,7 +46,9 @@
               :before-upload="beforeAvatarUpload"
             >
               <img v-if="formData.avatar" :src="formData.avatar" class="avatar" />
-              <el-icon v-else class="avatar-uploader-icon"><Plus /></el-icon>
+              <el-icon v-else class="avatar-uploader-icon">
+                <Plus />
+              </el-icon>
             </el-upload>
           </el-form-item>
 
@@ -75,7 +77,7 @@
           <el-form-item label="所属部门">
             <el-select
               v-model="formData.departIdsArr"
-              style="width: 340px; margin-right: 4px"
+              style="width: 340px; margin-right: 4px;"
               disabled
               multiple
               placeholder="请选择部门"
@@ -92,22 +94,22 @@
 
           <el-form-item label="性别">
             <el-radio-group v-model="formData.sex">
-              <el-radio label="1">男</el-radio>
-              <el-radio label="2">女</el-radio>
+              <el-radio label="1"> 男 </el-radio>
+              <el-radio label="2"> 女 </el-radio>
             </el-radio-group>
           </el-form-item>
           <el-form-item label="状态">
             <el-radio-group v-model="formData.status">
-              <el-radio label="1">正常</el-radio>
-              <el-radio label="0">冻结</el-radio>
+              <el-radio label="1"> 正常 </el-radio>
+              <el-radio label="0"> 冻结 </el-radio>
             </el-radio-group>
           </el-form-item>
         </el-form>
         <div class="flex justify-end">
-          <el-button @click="onClose">取消</el-button>
-          <el-button type="primary" :loading="isEditLoading" @click="submitForm(ruleFormRef)"
-            >确认</el-button
-          >
+          <el-button @click="onClose"> 取消 </el-button>
+          <el-button type="primary" :loading="isEditLoading" @click="submitForm(ruleFormRef)">
+            确认
+          </el-button>
         </div>
       </div>
       <!-- 选择部门 -->
@@ -117,7 +119,7 @@
         @close="showPickDepart = false"
         @confirm="onConfirmDepart"
         @load-tree-data="onLoadTreeData"
-      ></pick-depart>
+      />
     </template>
   </el-drawer>
 </template>
@@ -387,30 +389,33 @@
   :deep(.el-drawer__header) {
     margin-bottom: 0;
   }
+
   .avatar-uploader {
     .avatar {
+      display: block;
       width: 110px;
       height: 110px;
-      display: block;
     }
+
     .el-upload {
-      border: 1px dashed var(--el-border-color);
-      border-radius: 6px;
-      cursor: pointer;
       position: relative;
       overflow: hidden;
+      cursor: pointer;
+      border: 1px dashed var(--el-border-color);
+      border-radius: 6px;
       transition: var(--el-transition-duration-fast);
     }
+
     .el-upload:hover {
       border-color: var(--el-color-primary);
     }
   }
 
   .el-icon.avatar-uploader-icon {
-    font-size: 28px;
-    color: #8c939d;
     width: 110px;
     height: 110px;
+    font-size: 28px;
+    color: #8c939d;
     text-align: center;
   }
 </style>

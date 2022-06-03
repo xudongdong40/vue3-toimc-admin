@@ -86,19 +86,20 @@
 <style scoped lang="scss">
   .el-slider.el-rainbow {
     :deep(.el-slider__bar) {
-      background: linear-gradient(
-        to right,
-        #ff0000 0%,
-        #ffb600 11%,
-        #fff600 22%,
-        #a5ff00 33%,
-        #00a9ff 44%,
-        #0400ff 55%,
-        #8a00fc 66%,
-        #ff00e9 77%,
-        #ff0059 88%,
-        #ff0000 100%
-      );
+      background:
+        linear-gradient(
+          to right,
+          #f00 0%,
+          #ffb600 11%,
+          #fff600 22%,
+          #a5ff00 33%,
+          #00a9ff 44%,
+          #0400ff 55%,
+          #8a00fc 66%,
+          #ff00e9 77%,
+          #ff0059 88%,
+          #f00 100%
+        );
     }
   }
 </style>

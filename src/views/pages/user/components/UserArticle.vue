@@ -10,6 +10,7 @@
           <h2 :id="'question-title-' + question.id" class="text-base font-medium text-gray-900">
             {{ question.title }}
           </h2>
+          <!-- eslint-disable-next-line vue/no-v-html -->
           <div class="mt-2 text-sm text-gray-700 space-y-2" v-html="question.body" />
           <div class="mt-6 flex justify-between space-x-8">
             <div class="flex space-x-6">
