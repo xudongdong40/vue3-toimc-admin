@@ -1,5 +1,5 @@
 <template>
-  <div style="position: relative;">
+  <div style="position: relative">
     <el-table
       ref="tableRef"
       :data="cloneData"
@@ -8,12 +8,19 @@
       :border="false"
       :row-class-name="rowCls"
       @selection-change="handleSelectionChange"
-      @row-click="handleRowClick">
+      @row-click="handleRowClick"
+    >
       <template #empty>
         <el-empty description="暂无数据"></el-empty>
       </template>
       <el-table-column v-if="isIndex" type="index" width="50"></el-table-column>
-      <el-table-column v-if="isChoose" :selectable="selectable" type="selection" width="55" align="center"></el-table-column>
+      <el-table-column
+        v-if="isChoose"
+        :selectable="selectable"
+        type="selection"
+        width="55"
+        align="center"
+      ></el-table-column>
       <el-table-column
         v-for="column in columns"
         :key="column.prop"
@@ -25,18 +32,34 @@
         :align="column.align || 'left'"
       >
         <template v-if="isHeader" #header="scope">
-          <slot :name="`${column.prop}Header`" style="padding:5px 0 4px 10px;" :column="scope.column">
-            {{column.label}}
+          <slot
+            :name="`${column.prop}Header`"
+            style="padding: 5px 0 4px 10px"
+            :column="scope.column"
+          >
+            {{ column.label }}
           </slot>
         </template>
         <template #default="scope">
-          <slot :name="column.prop" style="padding-left:10px;" :row="scope.row" :column="scope.column" :index="scope.$index">
-            {{scope.row[column.prop] ? scope.row[column.prop] : scope.row[column.prop] === 0 ? 0 : '-'}}
+          <slot
+            :name="column.prop"
+            style="padding-left: 10px"
+            :row="scope.row"
+            :column="scope.column"
+            :index="scope.$index"
+          >
+            {{
+              scope.row[column.prop]
+                ? scope.row[column.prop]
+                : scope.row[column.prop] === 0
+                ? 0
+                : '-'
+            }}
           </slot>
         </template>
       </el-table-column>
     </el-table>
-    <div class="pagination" :class="{ margin: !isPage }" :style="{width: offsetWidth + 'px'}">
+    <div class="pagination" :class="{ margin: !isPage }" :style="{ width: offsetWidth + 'px' }">
       <el-pagination
         v-if="isPage"
         :current-page="currentPage"
@@ -45,15 +68,17 @@
         :layout="pageLayout"
         :total="total"
         @size-change="handleSizeChange"
-        @current-change="handleCurrentChange">
+        @current-change="handleCurrentChange"
+      >
       </el-pagination>
     </div>
     <div :class="footer">
       <el-checkbox
         v-if="isChoose"
         v-model="checked"
-        style="margin: 0 10px 0 20px;"
-        @change="onChange">
+        style="margin: 0 10px 0 20px"
+        @change="onChange"
+      >
         全选本页
       </el-checkbox>
       <slot name="footer"></slot>
@@ -64,35 +89,35 @@
 <script lang="ts">
   import { arrayTool } from 'mwutil'
   import { defineComponent, ref, PropType, computed, watch, onMounted } from 'vue'
-  type selectableFunc = (row?:object, index?: number) => boolean
-  type handleRowClickFunc = (row?:object, column?:object, event?:object) => void
+  type selectableFunc = (row?: object, index?: number) => boolean
+  type handleRowClickFunc = (row?: object, column?: object, event?: object) => void
   type tableColumns = {
-    label: string;
-    prop: string;
-    minLength: number;
-    fixed?: string;
-    sort?: boolean;
-    align?: string;
+    label: string
+    prop: string
+    minLength: number
+    fixed?: string
+    sort?: boolean
+    align?: string
   }
   interface propsData {
-    tableData: object[];
-    tableColumns: tableColumns[];
-    pageSizes: number[];
-    pageLayout: string;
-    selectable: selectableFunc;
-    handleRowClick: handleRowClickFunc;
-    isChoose: boolean;
-    isComputed: boolean;
-    isHeader: boolean;
-    isPage: boolean;
-    total: number;
-    minus: number;
-    isFixedWidth: boolean;
-    fixedWidth: number;
-    isIndex: boolean;
+    tableData: object[]
+    tableColumns: tableColumns[]
+    pageSizes: number[]
+    pageLayout: string
+    selectable: selectableFunc
+    handleRowClick: handleRowClickFunc
+    isChoose: boolean
+    isComputed: boolean
+    isHeader: boolean
+    isPage: boolean
+    total: number
+    minus: number
+    isFixedWidth: boolean
+    fixedWidth: number
+    isIndex: boolean
   }
   export default defineComponent({
-    name: 'Table',
+    name: 'TableComp',
     props: {
       tableData: {
         type: Array as PropType<object[]>,
@@ -164,13 +189,13 @@
       }
     },
     emits: ['select', 'size', 'current'],
-    setup (props: propsData, ctx) {
+    setup(props: propsData, ctx) {
       let offsetWidth = ref((document.getElementById('app') as HTMLDivElement).clientWidth)
       let checked = ref(false)
       let isInitPage = ref(false)
       interface OptionType {
-        type: string;
-        value?: string;
+        type: string
+        value?: string
       }
       let optionType = reactive<OptionType>({
         type: 'init'
@@ -180,34 +205,38 @@
       let columns = ref<tableColumns[]>([])
       let cloneData = ref([])
       let selection = ref([])
-      const footer = computed(() => props.isPage ? 'pos' : 'pos-r')
+      const footer = computed(() => (props.isPage ? 'pos' : 'pos-r'))
 
       const tableRef = ref()
 
-      watch(selection, (newSelection) =>{
+      watch(selection, (newSelection) => {
         ctx.emit('select', newSelection)
       })
-      watch(() => props.tableData, (newData) => {
-        cloneData.value = arrayTool.deepClone(newData)
-        switch (optionType.type) {
-          case 'init':
-            currentPage.value = 1
-            pageSize.value = 10
-            break
-          case 'changeSize':
-            pageSize.value = optionType.value as unknown as number
-            break
-          case 'changeCurrent':
-            currentPage.value = optionType.value as unknown as number
-            break
-          default:
-            break
-        }
-        setTimeout(() => {
-          optionType.type = 'init'
-        }, 20)
-        isInitPage.value = false
-      }, { immediate: true })
+      watch(
+        () => props.tableData,
+        (newData) => {
+          cloneData.value = arrayTool.deepClone(newData)
+          switch (optionType.type) {
+            case 'init':
+              currentPage.value = 1
+              pageSize.value = 10
+              break
+            case 'changeSize':
+              pageSize.value = optionType.value as unknown as number
+              break
+            case 'changeCurrent':
+              currentPage.value = optionType.value as unknown as number
+              break
+            default:
+              break
+          }
+          setTimeout(() => {
+            optionType.type = 'init'
+          }, 20)
+          isInitPage.value = false
+        },
+        { immediate: true }
+      )
       onMounted(() => {
         columns.value = arrayTool.deepClone(props.tableColumns)
         _computed()
@@ -217,7 +246,7 @@
           resolveColumn()
         }
       })
-      const rowCls = ({rowIndex}) => {
+      const rowCls = ({ rowIndex }) => {
         if (rowIndex >= 0) {
           return 'table-cell'
         }
@@ -225,7 +254,8 @@
       }
       const _computed = () => {
         if (props.isComputed) {
-          offsetWidth.value = (document.getElementById('app') as HTMLDivElement).clientWidth - props.minus
+          offsetWidth.value =
+            (document.getElementById('app') as HTMLDivElement).clientWidth - props.minus
           return
         }
         if (props.isFixedWidth) {
@@ -255,7 +285,7 @@
         const diff = offsetWidth.value - totalWidth
         const size = columns.value.length
         const finalSize = Math.floor(diff / size)
-        columns.value = columns.value.map(item => {
+        columns.value = columns.value.map((item) => {
           return {
             ...item,
             width: item.minLength + finalSize
@@ -263,7 +293,7 @@
         })
       }
       const _minWidth = () => {
-        columns.value = columns.value.map(item => {
+        columns.value = columns.value.map((item) => {
           return {
             ...item,
             width: item.minLength
@@ -280,7 +310,7 @@
       }
       const chooseAll = () => {
         cloneData.value.forEach((item, index) => {
-          if(props.selectable(item, index)) {
+          if (props.selectable(item, index)) {
             tableRef.value.toggleRowSelection(item, true)
             return
           }
@@ -300,19 +330,25 @@
       const handleSizeChange = (size) => {
         isInitPage.value = true
         pageSize.value = size
-        optionType = Object.assign({}, {
-          type: 'changeSize',
-          value: size
-        })
+        optionType = Object.assign(
+          {},
+          {
+            type: 'changeSize',
+            value: size
+          }
+        )
         ctx.emit('size', size)
       }
       const handleCurrentChange = (current) => {
         isInitPage.value = true
         currentPage.value = current
-        optionType = Object.assign({}, {
-          type: 'changeCurrent',
-          value: current
-        })
+        optionType = Object.assign(
+          {},
+          {
+            type: 'changeCurrent',
+            value: current
+          }
+        )
         ctx.emit('current', current)
       }
       const getTableData = () => {
@@ -356,49 +392,49 @@
 </script>
 
 <style lang="scss">
-  .el-table .header{
+  .el-table .header {
     background-color: #f5f5f5 !important;
     padding: 5px 0 5px 0 !important;
     font-weight: normal;
     line-height: 34px;
     height: 34px;
     font-size: 14px;
-    color: #707A8A;
+    color: #707a8a;
     border-bottom: none !important;
   }
-  .el-table .header .cell{
+  .el-table .header .cell {
     line-height: 34px;
     height: 34px;
   }
-  .el-table .table-cell{
+  .el-table .table-cell {
     height: 64px;
     line-height: 64px;
   }
-  .el-table--enable-row-hover .el-table__body tr:hover>td{
-    background-color: #F5F5F5 !important;
+  .el-table--enable-row-hover .el-table__body tr:hover > td {
+    background-color: #f5f5f5 !important;
   }
-  .el-table{
+  .el-table {
     font-size: 14px;
     color: #000;
-    tr{
+    tr {
       display: table-row;
     }
   }
-  .el-pagination .el-select .el-input.el-input--suffix{
+  .el-pagination .el-select .el-input.el-input--suffix {
     height: 32px;
   }
-  .el-pagination .el-select .el-input.el-input--suffix .el-input__inner{
+  .el-pagination .el-select .el-input.el-input--suffix .el-input__inner {
     height: 32px;
     line-height: 32px;
   }
 </style>
 
 <style lang="scss" scoped>
-  .pagination{
+  .pagination {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top:20px;
+    margin-top: 20px;
     margin-bottom: 20px;
   }
   .pos {
@@ -406,18 +442,18 @@
     bottom: 0;
     left: 0;
   }
-  .pos-r{
+  .pos-r {
     position: relative;
   }
-  .margin{
+  .margin {
     margin-bottom: 0;
   }
-  .yellow{
-    color: #F5CC23;
+  .yellow {
+    color: #f5cc23;
     cursor: pointer;
   }
-  .grey{
-    color: #B6BCC4;
+  .grey {
+    color: #b6bcc4;
     cursor: pointer;
   }
 </style>

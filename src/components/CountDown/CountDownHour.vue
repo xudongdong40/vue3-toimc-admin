@@ -41,7 +41,8 @@
         required: true
       },
       endText: {
-        type: String
+        type: String,
+        default: ''
       },
       date: {
         type: [String, Date],

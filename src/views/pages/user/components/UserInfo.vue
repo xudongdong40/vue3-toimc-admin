@@ -12,6 +12,7 @@
       </div>
       <div class="sm:col-span-2">
         <dt class="text-sm font-medium text-gray-500">About</dt>
+        <!-- eslint-disable-next-line vue/no-v-html -->
         <dd class="mt-1 max-w-prose text-sm text-gray-900 space-y-5" v-html="profile.about" />
       </div>
     </dl>

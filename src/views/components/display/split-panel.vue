@@ -6,7 +6,7 @@
       </div>
     </template>
     <div class="split-panel">
-      <splitpanel :splitSet="settingLR">
+      <splitpanel :split-set="settingLR">
         <!-- #paneL 表示指定该组件为左侧面板 -->
         <template #pageL>
           <!-- 自定义左侧面板的内容 -->
