@@ -54,7 +54,7 @@
       const isShowThemeSetting = ref(false)
 
       const layoutMode = computed(() => (layout.value === 'top' ? 'column' : 'row'))
-      const _headerHeight = computed(() => (tabPage.value ? '110px' : '60px'))
+      const headerHeight = computed(() => (tabPage.value ? '110px' : '60px'))
 
       function handleShowThemeSetting() {
         isShowThemeSetting.value = true
@@ -68,7 +68,7 @@
         isCollapse,
         isShowThemeSetting,
         tabPage,
-        _headerHeight,
+        headerHeight,
         handleShowThemeSetting
       }
     }
@@ -81,10 +81,10 @@
   }
 
   .layout-main-wrap > .layout-main {
-    margin-top: v-bind(_headerHeight);
+    margin-top: v-bind(headerHeight);
 
     &.fixed-header-main {
-      height: calc(100% - (v-bind(_headerHeight)));
+      height: calc(100% - (v-bind(headerHeight)));
     }
   }
 
