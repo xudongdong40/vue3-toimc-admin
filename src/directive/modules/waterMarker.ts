@@ -27,13 +27,12 @@ const addWaterMarker: Directive = (str: string, parentNode: any, font: any, text
   cans.fillText(str, can.width / 10, can.height / 2)
   parentNode.style.backgroundImage = 'url(' + can.toDataURL('image/png') + ')'
 }
-
-export default {
-  install(app) {
-    app.directive('waterMarker', {
-      mounted(el: DirectiveBinding, binding: DirectiveBinding) {
-        addWaterMarker(binding.value.text, el, binding.value.font, binding.value.textColor)
-      }
-    })
-  }
+const mounted = (el: DirectiveBinding, binding: DirectiveBinding) => {
+  addWaterMarker(binding.value.text, el, binding.value.font, binding.value.textColor)
 }
+
+const waterMarker: Directive = {
+  mounted
+}
+
+export default waterMarker

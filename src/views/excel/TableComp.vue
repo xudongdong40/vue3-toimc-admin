@@ -99,6 +99,7 @@
     fixed?: string
     sort?: boolean
     align?: string
+    [key: string]: any
   }
   interface propsData {
     tableData: object[]
