@@ -60,7 +60,7 @@ const systemRoutes: Array<AppRouteRecordRaw> = [
         meta: {
           title: t('menu.system.logs')
         },
-        component: () => import('@/views/system/logs/index.vue')
+        component: () => import('@/views/system/system-logs/index.vue')
       }
     ]
   }
