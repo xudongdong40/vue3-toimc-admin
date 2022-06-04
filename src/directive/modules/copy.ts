@@ -5,14 +5,31 @@
  */
 
 import { ElMessage } from 'element-plus'
-import type { DirectiveBinding } from 'vue'
+import type { Directive, DirectiveBinding } from 'vue'
 
 interface ElType extends HTMLElement {
   copyData: string | number
   __handleClick__: any
 }
 
-function handleClick(this) {
+const mounted = (el: ElType, binding: DirectiveBinding<any>) => {
+  el.copyData = binding.value
+  el.addEventListener('click', handleClick)
+}
+const updated = (el: ElType, binding: DirectiveBinding) => {
+  el.copyData = binding.value
+}
+const beforeUnmount = (el: ElType) => {
+  el.removeEventListener('click', el.__handleClick__)
+}
+
+const copy: Directive = {
+  mounted,
+  updated,
+  beforeUnmount
+}
+
+function handleClick(this: any) {
   const input = document.createElement('input')
   input.value = this.copyData.toLocaleString()
   document.body.appendChild(input)
@@ -25,19 +42,4 @@ function handleClick(this) {
   })
 }
 
-export default {
-  install(app) {
-    app.directive('copy', {
-      mounted(el: ElType, binding: DirectiveBinding) {
-        el.copyData = binding.value
-        el.addEventListener('click', handleClick)
-      },
-      updated(el: ElType, binding: DirectiveBinding) {
-        el.copyData = binding.value
-      },
-      beforeUnmount(el: ElType) {
-        el.removeEventListener('click', el.__handleClick__)
-      }
-    })
-  }
-}
+export default copy
