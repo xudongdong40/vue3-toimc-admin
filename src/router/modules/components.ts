@@ -323,8 +323,7 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
             name: 'AudioPlayerDemo',
             path: 'audio-player',
             meta: {
-              // title: t('menu.component.function.copy-image')
-              title:'播放器'
+              title: t('menu.component.player.audio')
             },
             component: () => import('@/views/components/player/audio.vue')
           }

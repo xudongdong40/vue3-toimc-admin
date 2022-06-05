@@ -85,6 +85,10 @@
       "password-comp": {
         "title": "Password strength",
         "password": "StrengthMeter"
+      },
+      "player": {
+        "audio": "Audio Player",
+        "video": "Video Player"
       }
     },
     "directive": {
@@ -190,6 +194,18 @@
       "redoTip": "Click image to refresh",
       "successText": "Verified",
       "time": "The verification is successful, it takes {time} seconds!"
+    },
+    "player": {
+      "audio": {
+        "next": "next item",
+        "prev": "prev item",
+        "play": "play",
+        "pause": "pause",
+        "volume": "volume",
+        "muted": "muted",
+        "unmuted": "unmute",
+        "rate": "rate"
+      }
     }
   },
   "test": "test"

@@ -85,6 +85,10 @@
       "password-comp": {
         "title": "密码强度",
         "password": "密码强度"
+      },
+      "player": {
+        "audio": "音频播放器",
+        "video": "视频播放器"
       }
     },
     "directive": {
@@ -190,6 +194,18 @@
       "redoTip": "点击图片可刷新",
       "dragText": "请按住滑块拖动",
       "successText": "验证通过"
+    },
+    "player": {
+      "audio": {
+        "next": "下一首",
+        "prev": "上一首",
+        "play": "播放",
+        "volume": "音量",
+        "pause": "暂停",
+        "muted": "静音",
+        "unmuted": "取消静音",
+        "rate": "倍速"
+      }
     }
   },
   "test": "测试文字"
