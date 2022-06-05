@@ -1,4 +1,10 @@
 module.exports = {
+  root: true,
+  env: {
+    browser: true,
+    node: true,
+    es6: true
+  },
   parser: 'vue-eslint-parser',
   parserOptions: {
     parser: '@typescript-eslint/parser',
@@ -25,20 +31,21 @@ module.exports = {
     '@typescript-eslint/no-unused-vars': [
       'error',
       {
-        argsIgnorePattern: '^h$',
-        varsIgnorePattern: '^h$'
+        argsIgnorePattern: '^_$',
+        varsIgnorePattern: '^_$'
       }
     ],
     'no-unused-vars': [
       'error',
       {
-        argsIgnorePattern: '^h$',
-        varsIgnorePattern: '^h$'
+        argsIgnorePattern: '^_$',
+        varsIgnorePattern: '^_$'
       }
     ],
     'space-before-function-paren': 'off',
     quotes: ['error', 'single'],
     'comma-dangle': ['error', 'never'],
-    'vue/multi-word-component-names': 'off'
+    'vue/multi-word-component-names': 'off',
+    'vue/script-setup-uses-vars': 'error'
   }
 }

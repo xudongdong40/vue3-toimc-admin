@@ -25,7 +25,7 @@ const pagesRoutes: Array<AppRouteRecordRaw> = [
           {
             name: 'DefaultFormPages',
             path: 'default',
-            component: () => import('@/views/pages/form/default.vue'),
+            component: () => import('@/views/components/forms/basic.vue'),
             meta: {
               title: t('menu.pages.form.default')
             }

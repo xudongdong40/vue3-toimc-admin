@@ -1,7 +1,8 @@
 import type { AppRouteRecordRaw } from '@/router/types'
 import type { App } from 'vue'
+import type { TargetContext } from 'types/index'
 
-import { sortBy } from 'lodash-es'
+import { isNumber, sortBy } from 'lodash-es'
 
 // 菜单排序
 export function sortMenu(menus: Array<AppRouteRecordRaw> = []) {
@@ -67,4 +68,33 @@ export function openWindow(
   noreferrer && feature.push('noreferrer=yes')
 
   window.open(url, target, feature.join(','))
+}
+
+export function formatNumber(
+  num: number | string,
+  {
+    separator = ',',
+    decimals = 0
+  }: {
+    separator?: string
+    decimals?: number
+  } = {}
+) {
+  if (!num && num !== 0) {
+    return ''
+  }
+  num = Number(num).toFixed(decimals)
+  num += ''
+
+  const x = num.split('.')
+  let x1 = x[0]
+  const x2 = x.length > 1 ? '.' + x[1] : ''
+
+  const rgx = /(\d+)(\d{3})/
+  if (separator && !isNumber(separator)) {
+    while (rgx.test(x1)) {
+      x1 = x1.replace(rgx, '$1' + separator + '$2')
+    }
+  }
+  return x1 + x2
 }

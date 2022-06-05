@@ -93,7 +93,7 @@
             <el-form-item label="穿梭框" prop="transfer">
               <el-transfer
                 v-model="ruleForm.transfer"
-                style="display: inline-block; text-align: left;"
+                style="display: inline-block; text-align: left"
                 filterable
                 :render-content="renderContent"
                 :titles="['Source', 'Target']"

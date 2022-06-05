@@ -34,7 +34,7 @@
         </template>
         <descriptions :column="2" title="" :items="infoSchema" :collapse="false"></descriptions>
       </t-card>
-      <div class="grid grid-cols-2">
+      <div class="grid grid-cols-2 gap-2">
         <t-card
           header="下载量"
           reverse
@@ -48,17 +48,46 @@
             <el-tag type="success">日</el-tag>
           </template>
           <v-charts
-            ref="rends"
+            ref="rendsChart"
             type="LineChart"
             :options="lineOptions"
-            :style="{ height: '150px' }"
+            :style="{ height: '177px' }"
             class="pb-2"
           >
           </v-charts>
           <template #footer>
             <div class="flex justify-between">
-              <span>总量：{{ totalTrends }}</span>
-              <span>日均：{{ Math.floor(totalTrends / 5) }}</span>
+              <span>总量：{{ formatNumber(totalTrends) }}</span>
+              <span>日均：{{ formatNumber(Math.floor(totalTrends / 5)) }}</span>
+            </div>
+          </template>
+        </t-card>
+        <t-card
+          header="访问量"
+          reverse
+          :tips="true"
+          footer-class="!px-0 pt-1 text-sm text-gray-500"
+        >
+          <template #tips>
+            <icon icon="ant-design:bar-chart-outlined" class="mr-1" :size="'22px'"></icon>
+          </template>
+          <template #suffix>
+            <el-tag type="warning">周</el-tag>
+          </template>
+          <v-charts
+            ref="barChart"
+            type="LineChart"
+            :options="barOptions"
+            :style="{ height: '173px' }"
+            class="pb-2"
+          >
+          </v-charts>
+          <template #footer>
+            <div class="flex justify-between">
+              <span>总量：{{ formatNumber(totalDownloads) }}</span>
+              <span
+                ><el-tag type="info">倒计时:{{ counter }}s</el-tag></span
+              >
             </div>
           </template>
         </t-card>
@@ -72,9 +101,10 @@
   import header from '@/assets/images/brian.jpg'
   import dayjs from 'dayjs'
   import { useUserStore } from '@/store/modules/user'
-  import { random } from 'lodash-es'
+  import { random, sample, pull } from 'lodash-es'
   import { DescItem } from '@/components/Descriptions/types'
   import * as echarts from 'echarts'
+  import { formatNumber } from '@/utils'
 
   const modules = import.meta.globEager('@/assets/images/headers/**/*.jpeg')
 
@@ -90,8 +120,11 @@
       ]
 
       const store = useUserStore()
-      const rends = ref()
+      const rendsChart = ref()
+      const barChart = ref()
       const timer = ref()
+      const timer1 = ref()
+      const counter = ref(5)
 
       const { pkg, lastBuildTime } = __APP_INFO__
 
@@ -153,6 +186,54 @@
           }
         ]
       })
+      const barOptions = ref<any>({
+        tooltip: {
+          trigger: 'axis',
+          extraCssText: 'z-index:1'
+        },
+        grid: {
+          top: '5%',
+          left: '2%',
+          right: '4%',
+          bottom: '0%',
+          containLabel: true
+        },
+        xAxis: [
+          {
+            type: 'category',
+            data: ['0时', '4时', '8时', '12时', '16时', '20时', '24时'],
+            axisTick: {
+              alignWithLabel: true
+            }
+          }
+        ],
+        yAxis: [
+          {
+            type: 'value'
+          }
+        ],
+        series: [
+          {
+            name: '授权数',
+            type: 'bar',
+            barWidth: '60%',
+            data: [1002, 5322, 3220, 4233, 3319, 1133, 3222],
+            itemStyle: {
+              borderRadius: [2, 2, 0, 0],
+              color: new echarts.graphic.LinearGradient(
+                0,
+                0,
+                0,
+                1,
+                ['#379eff', '#7ca9fd'].map((color, offset) => ({
+                  color,
+                  offset
+                }))
+              )
+            }
+          }
+        ]
+      })
 
       onMounted(() => {
         const base = +new Date(2022, 1, 1)
@@ -182,16 +263,25 @@
           addData()
         }
 
-        rends.value.setOption(lineOptions.value)
-        console.log(
-          '🚀 ~ file: index.vue ~ line 173 ~ timer.value=setInterval ~ rends.value',
-          rends.value
-        )
+        rendsChart.value.setOption(lineOptions.value)
 
         timer.value = setInterval(() => {
           addData(true)
-          rends.value?.setOption(lineOptions.value)
+          rendsChart.value?.setOption(lineOptions.value)
         }, 5000)
+
+        barChart.value?.setOption(barOptions.value)
+        timer1.value = setInterval(() => {
+          if (counter.value > 0) {
+            counter.value--
+          } else {
+            barOptions.value.series[0].type = sample(
+              pull(['bar', 'line', 'scatter'], barOptions.value.series[0].type)
+            )
+            counter.value = 5
+          }
+          barChart.value?.setOption(barOptions.value)
+        }, 1000)
       })
 
       onUnmounted(() => {
@@ -241,7 +331,8 @@
       ]
 
       return {
-        rends,
+        rendsChart,
+        barChart,
         header,
         images,
         hiMorning,
@@ -251,9 +342,15 @@
         totalTrends: computed(() =>
           Math.floor(lineOptions.value.series[0].data.reduce((prev, cur) => prev + cur, 0))
         ),
+        totalDownloads: computed(() =>
+          Math.floor(barOptions.value.series[0].data.reduce((prev, cur) => prev + cur, 0))
+        ),
+        barOptions,
         // 构建时间
         lastBuildTime,
-        infoSchema
+        infoSchema,
+        formatNumber,
+        counter
       }
     }
   })
