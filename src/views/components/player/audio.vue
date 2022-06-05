@@ -1,7 +1,14 @@
 <template>
   <div class="p-4">
     <el-card :header="$t('menu.component.player.audio')">
-      <audio-player v-model:index="index" v-model:loop="loop" v-model:volume="volume" v-model:rate="rate" :list="list"  autoplay />
+      <audio-player
+        v-model:index="index"
+        v-model:loop="loop"
+        v-model:volume="volume"
+        v-model:rate="rate"
+        :list="list"
+        autoplay
+      />
     </el-card>
   </div>
 </template>

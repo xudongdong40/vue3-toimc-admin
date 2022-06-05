@@ -61,19 +61,19 @@
                     icon="material-symbols:volume-off-outline-rounded"
                   />
                   <icon
-                    :title="$t('components.player.audio.muted')"
                     v-show="!state.muted && state.volume < 0.5"
+                    :title="$t('components.player.audio.muted')"
                     icon="material-symbols:volume-down-outline-rounded"
                   />
                   <icon
-                    :title="$t('components.player.audio.muted')"
                     v-show="!state.muted && state.volume >= 0.5"
+                    :title="$t('components.player.audio.muted')"
                     icon="material-symbols:volume-up-outline-rounded"
                   />
                 </button>
               </template>
               <d-slider
-                class="volumn-slider"
+                class="volume-slider"
                 :model-value="state.volume"
                 :min="0"
                 :step="0.01"
@@ -128,11 +128,11 @@
     <slot name="list">
       <ul class="audio-list mt-5">
         <li
-          v-for="(item, index) in list"
+          v-for="(item, idx) in list"
           :key="item.src"
           class="audio-item"
-          :class="{ active: index === state.index }"
-          @click="changeItem(index)"
+          :class="{ active: idx === state.index }"
+          @click="changeItem(idx)"
           >{{ item.title }}</li
         >
       </ul>
@@ -141,7 +141,7 @@
 </template>
 
 <script lang="ts">
-  import { onMounted, onBeforeUnmount, reactive, PropType, ref, unref } from 'vue'
+  import { onMounted, onBeforeUnmount, reactive, PropType } from 'vue'
   import { Howl } from 'howler'
 
   function formatTime(secs: number) {
@@ -489,71 +489,76 @@
 <style lang="scss" scoped>
   .audio-player {
     padding: 10px;
+
     &-inner {
       padding: 10px;
-      background: #fff;
-      border-radius: 4px;
-      border: 1px solid #ddd;
       color: var(--el-text-color-primary);
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 4px;
     }
+
     &-operate {
       display: flex;
       align-items: center;
     }
+
     .operate-seq {
       font-size: 20px;
       line-height: 1;
+
       > button {
         line-height: 1;
       }
     }
+
     .operate-time {
       display: flex;
-      flex-grow: 1;
-      align-items: center;
       color: var(--el-text-color-secondary);
+      align-items: center;
+      flex-grow: 1;
     }
+
     .operate-volume {
       font-size: 20px;
       line-height: 1;
     }
+
     .operate-rate {
       line-height: 1.5;
     }
+
     .rate-text {
       display: inline-block;
-      line-height: 32px;
       height: 32px;
+      padding: 0 4px;
+      line-height: 32px;
+      color: var(--el-text-color-primary);
       cursor: pointer;
       background: var(--el-fill-color-darker);
       border-radius: 4px;
-      padding: 0 4px;
-      color: var(--el-text-color-primary);
     }
   }
-  // :deep(.el-slider__runway) {
-  //   background: #fff;
-  // }
 
   .audio {
-    &-list {
-    }
     &-item {
-      cursor: pointer;
       line-height: 1.5;
+      cursor: pointer;
 
-      &:before {
-        content: ' ';
+      &::before {
         display: inline-block;
         width: 10px;
         height: 10px;
         margin-right: 10px;
         background: #ddd;
         border-radius: 50%;
+        content: '';
       }
+
       &.active {
         color: var(--el-color-primary);
-        &:before {
+
+        &::before {
           background: var(--el-color-primary);
         }
       }
@@ -566,8 +571,10 @@
     width: 60px !important;
     min-width: 60px !important;
   }
+
   .operate-popover-item.is-active {
-    background: var(--el-dropdown-menuItem-hover-fill);
+    /* stylelint-disable-next-line */
+    /* background: var(--el-dropdown-menuItem-hover-fill); */
     color: var(--el-text-color-primary);
   }
 </style>

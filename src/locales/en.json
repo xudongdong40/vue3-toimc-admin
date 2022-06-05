@@ -205,6 +205,11 @@
         "muted": "muted",
         "unmuted": "unmute",
         "rate": "rate"
+      },
+      "video": {
+        "next": "next item",
+        "prev": "prev item",
+        "loop": "loop"
       }
     }
   },

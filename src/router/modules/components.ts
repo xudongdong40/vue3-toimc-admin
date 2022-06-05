@@ -326,6 +326,14 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
               title: t('menu.component.player.audio')
             },
             component: () => import('@/views/components/player/audio.vue')
+          },
+          {
+            name: 'VideoPlayerDemo',
+            path: 'video-player',
+            meta: {
+              title: t('menu.component.player.video')
+            },
+            component: () => import('@/views/components/player/video.vue')
           }
         ]
       },
