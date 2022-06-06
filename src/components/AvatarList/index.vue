@@ -2,7 +2,7 @@
   <ul :class="wrapperClass">
     <li
       v-for="(item, index) in newImages"
-      :key="item"
+      :key="index"
       class="rounded-full flex border-white"
       :style="{
         ...styles,
@@ -12,7 +12,11 @@
       }"
     >
       <slot name="item" :item="item">
-        <el-avatar :src="item" :size="size" @click="() => handleClick(item, index)"></el-avatar>
+        <el-avatar
+          :src="typeof item !== 'string' ? item.src : item"
+          :size="size"
+          @click="() => handleClick(item, index)"
+        ></el-avatar>
       </slot>
     </li>
     <li v-if="num && showMore" class="more" :style="moreStyle">...</li>
@@ -22,11 +26,16 @@
 <script lang="ts">
   import { defineComponent } from 'vue'
 
+  interface ImageType {
+    src: string
+    [key: string]: any
+  }
+
   export default defineComponent({
     props: {
       // 数据源
       images: {
-        type: Array as PropType<string[]>,
+        type: Array as PropType<string[] | ImageType[]>,
         default: () => []
       },
       // 最多显示5个
@@ -75,7 +84,7 @@
     },
     emits: ['click'],
     setup(props, { emit }) {
-      const handleClick = (item: string, index: number) => {
+      const handleClick = (item: string | ImageType, index: number) => {
         emit('click', { item, index })
       }
 
