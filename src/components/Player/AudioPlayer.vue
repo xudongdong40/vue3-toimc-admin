@@ -9,47 +9,57 @@
             class="operate-prev mr-1"
             :title="$t('components.player.audio.prev')"
             :disabled="hasPrev"
-            ><icon icon="material-symbols:skip-previous-outline-rounded"
+            ><icon
+              icon="material-symbols:skip-previous-outline-rounded"
+              :color="!hasPrev ? '#d2d5da' : 'auto'"
+              @click="prev"
           /></button>
           <button
             v-show="!state.playing"
             class="operate-play mr-1"
             :title="$t('components.player.audio.play')"
-            @click="play"
           >
-            <icon icon="material-symbols:play-arrow-outline-rounded" />
+            <icon icon="material-symbols:play-arrow-outline-rounded" @click="play" />
           </button>
           <button
             v-show="state.playing"
             class="operate-pause mr-1"
             :title="$t('components.player.audio.pause')"
-            @click="pause"
           >
-            <icon icon="material-symbols:pause-outline-rounded"
+            <icon icon="material-symbols:pause-outline-rounded" @click="pause"
           /></button>
-
           <button
             class="operate-next mr-1"
             :title="$t('components.player.audio.next')"
             :disabled="hasNext"
           >
-            <icon icon="material-symbols:skip-next-outline-rounded"
+            <icon
+              icon="material-symbols:skip-next-outline-rounded"
+              :color="!hasNext ? '#d2d5da' : 'auto'"
+              @click="next"
           /></button>
         </div>
-        <!-- 时间进度 -->
-        <div class="operate-time ml-5 mr-5">
-          <span class="time-current">{{ formatTime(state.time) }}</span>
-          <d-slider
-            v-model="state.time"
-            class="time-slider ml-3 mr-3"
-            :min="0"
-            :max="state.total"
-            :format-tooltip="formatTime"
-            @change="handleTimeChange"
-          ></d-slider>
-          <span class="time-total">{{ formatTime(state.total) }}</span>
+        <div class="mx-5 flex items-center flex-1">
+          <!-- 快退 -->
+          <icon size="20px" icon="iconoir:backward-15-seconds" @click="backward"></icon>
+          <!-- 时间进度 -->
+          <div class="operate-time mx-2">
+            <span class="time-current">{{ formatTime(state.time) }}</span>
+            <d-slider
+              v-model="state.time"
+              class="time-slider ml-3 mr-3"
+              :min="0"
+              :max="state.total"
+              :step="1"
+              :format-tooltip="formatTime"
+              @change="handleTimeChange"
+            ></d-slider>
+            <span class="time-total">{{ formatTime(state.total) }}</span>
+          </div>
+          <!-- 快进 -->
+          <icon size="20px" icon="iconoir:forward-15-seconds" @click="forward"></icon>
         </div>
-        <div style="display: flex; align-items: center">
+        <div class="flex items-center">
           <!-- 音量控制 -->
           <div class="operate-volume mr-2">
             <el-popover popper-class="audio-volume-popper">
@@ -102,13 +112,14 @@
             </template>
           </el-dropdown>
           <el-dropdown class="operate-loop">
-            <svg-icon
+            <!-- <svg-icon
               class="loop-icon"
               url="https://at.alicdn.com/t/font_3449991_ircbuvbgrwo.css"
               icon-class="player"
               :class-name="'player-loop-' + (state.loop + 1)"
               size="20px"
-            ></svg-icon>
+            ></svg-icon> -->
+            <icon :icon="loopIcon" size="20px"></icon>
             <template #dropdown>
               <el-dropdown-menu>
                 <el-dropdown-item
@@ -125,7 +136,7 @@
         </div>
       </div>
     </div>
-    <slot name="list">
+    <slot name="list" :list="list">
       <ul class="audio-list mt-5">
         <li
           v-for="(item, idx) in list"
@@ -168,14 +179,21 @@
       },
       index: { type: Number, default: 0 },
       title: { type: String, default: '' },
+      // 是否自动播放
       autoplay: { type: Boolean, default: false },
+      // 音量控制
       volume: { type: Number, default: 1 },
+      // 是否静音
       muted: { type: Boolean, default: false },
+      // 播放循环
       loop: { type: Number, default: 0 },
-      rate: { type: Number, default: 1 }
+      // 播放速度
+      rate: { type: Number, default: 1 },
+      // 显示快进，快退
+      showSeek: { type: Boolean, default: false }
     },
     emits: ['update:index', 'update:volume', 'update:muted', 'update:loop', 'update:rate'],
-    setup(_props, { emit, expose }) {
+    setup(_props, { emit }) {
       const state = reactive({
         index: _props.index,
         list: _props.list,
@@ -208,6 +226,7 @@
       const getPrevIndex = () => {
         const list = state.list
         let prevIndex: number
+
         if (state.loop === 3) {
           prevIndex = Math.floor(Math.random() * list.length)
         } else if (state.loop === 2) {
@@ -275,10 +294,6 @@
           {
             label: '2x',
             value: 2
-          },
-          {
-            label: '2.5x',
-            value: 2.5
           }
         ]
       })
@@ -322,19 +337,34 @@
         return p
       }
 
+      // 播放列表换index
+      const changeItem = (index) => {
+        state.index = index
+        const item = state.list[index]
+        state.title = item.title
+        player?.stop()
+        player = getOrCreatePlayer(item.src)
+        player?.play()
+      }
+
+      // 初始化
+      const init = () => {
+        const src = state.list[state.index].src
+        player = getOrCreatePlayer(src)
+        if (player && _props.autoplay) {
+          player?.play()
+        }
+        // 设置标题
+        state.title = state.list[state.index].title
+      }
+
       onBeforeUnmount(() => {
         playerMap.forEach((p) => {
           p.unload()
         })
       })
 
-      onMounted(() => {
-        const src = state.list[state.index].src
-        player = getOrCreatePlayer(src)
-        if (player && _props.autoplay) {
-          player?.play()
-        }
-      })
+      onMounted(init)
 
       // 播放进度显示
       let step = () => {
@@ -346,8 +376,7 @@
           return
         }
 
-        let seek = player.seek()
-        state.time = seek
+        state.time = player.seek()
         requestAnimationFrame(step)
       }
 
@@ -356,6 +385,14 @@
         (val) => {
           state.rate = val
           player?.rate(val)
+        }
+      )
+      watch(
+        () => _props.list,
+        (val) => {
+          stop()
+          state.list = val
+          init()
         }
       )
       watch(
@@ -383,39 +420,42 @@
       // 方法
       const play = () => {
         if (player) {
-          state.playing = true
+          // state.playing = true
           player.play()
         }
       }
       const stop = () => {
         if (player) {
-          state.playing = false
+          // state.playing = false
           player.stop()
         }
       }
       const pause = () => {
         if (player) {
-          state.playing = false
+          // state.playing = false
           player.pause()
         }
       }
 
       const prev = () => {
+        stop()
         const prevIndex = getPrevIndex()
         const prevItem = state.list[prevIndex]
         if (prevIndex !== -1) {
           emit('update:index', prevIndex)
           state.title = prevItem.title
           state.time = 0
+          state.index = prevIndex
           state.total = prevItem.duration ? prevItem.duration : 0
           player = getOrCreatePlayer(prevItem.src)
-          player.play()
+          _props.autoplay && player.play()
         } else {
-          state.playing = false
+          // state.playing = false
         }
       }
 
       const next = () => {
+        stop()
         const nextIndex = getNextIndex()
         const nextItem = state.list[nextIndex]
         if (nextIndex !== -1) {
@@ -423,21 +463,23 @@
           // todo:
           state.title = nextItem.title
           state.time = 0
+          state.index = nextIndex
           state.total = nextItem.duration ? nextItem.duration : 0
           player = getOrCreatePlayer(nextItem.src)
-          player.play()
+          _props.autoplay && player.play()
         } else {
           state.playing = false
         }
       }
 
-      expose({
-        play,
-        stop,
-        pause,
-        prev,
-        next
-      })
+      // 快进15s
+      const forward = () => {
+        player?.seek(state.time + 15)
+      }
+      // 快退15s
+      const backward = () => {
+        player?.seek(state.time - 15)
+      }
 
       return {
         hasPrev,
@@ -445,9 +487,26 @@
         state,
         options,
         play,
+        stop,
         pause,
         prev,
         next,
+        forward,
+        backward,
+        loopIcon: computed(() => {
+          if (state.loop === 0) {
+            return 'bi:sort-down-alt'
+          }
+          if (state.loop === 1) {
+            return 'cil:loop'
+          }
+          if (state.loop === 2) {
+            return 'cil:loop-1'
+          }
+          if (state.loop === 3) {
+            return 'ps:random'
+          }
+        }),
         handleTimeChange: (val) => {
           player?.seek(val)
         },
@@ -471,14 +530,7 @@
           player?.volume(v)
           emit('update:volume', v)
         },
-        changeItem: (index) => {
-          state.index = index
-          const item = state.list[index]
-          state.title = item.title
-          player?.stop()
-          player = getOrCreatePlayer(item.src)
-          player?.play()
-        },
+        changeItem,
         formatTime,
         formateRate
       }
@@ -575,6 +627,6 @@
   .operate-popover-item.is-active {
     /* stylelint-disable-next-line */
     /* background: var(--el-dropdown-menuItem-hover-fill); */
-    color: var(--el-text-color-primary);
+    color: var(--el-color-primary);
   }
 </style>

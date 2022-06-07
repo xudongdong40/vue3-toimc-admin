@@ -4,11 +4,24 @@ import { FormActionType, FormSchema } from './types/types'
 export function useForm(schema: FormSchema[]) {
   const formRef = ref<Nullable<FormActionType>>(null)
 
-  const formModel = reactive(
-    schema.map((o) => ({
-      [o.prop]: o.value
-    }))
-  )
+  // 可以在组件里面的 用法示例：
+  // watch(
+  //   () => model,
+  //   (val) => {
+  //     console.log('🚀 ~ file: audio.vue ~ line 82 ~ val', unref(val))
+  //   },
+  //   { deep: true }
+  // )
+  const formModel = ref({})
+
+  onBeforeMount(() => {
+    if (schema.length > 0) {
+      formModel.value = schema.reduce((prev, cur: FormSchema) => {
+        prev[cur.prop] = cur.value
+        return prev
+      }, {})
+    }
+  })
 
   async function getForm() {
     const form = unref(formRef)
@@ -23,13 +36,18 @@ export function useForm(schema: FormSchema[]) {
   }
 
   function update(val: typeof formModel) {
+    const keys = Object.keys(val)
+    if (!keys.length) {
+      return
+    }
     Object.keys(val).forEach((key) => {
-      formModel[key] = val[key]
+      formModel.value[key] = val[key]
     })
   }
 
   return {
-    form: getForm(),
+    formRef,
+    getForm,
     model: formModel,
     update
   }
