@@ -135,10 +135,36 @@ const pagesRoutes: Array<AppRouteRecordRaw> = [
       {
         name: 'ListsPages',
         path: 'lists',
-        component: () => import('@/views/pages/form/index.vue'),
+        component: () => import('@/views/pages/index.vue'),
         meta: {
           title: t('menu.pages.lists.title')
-        }
+        },
+        children: [
+          {
+            name: 'basicList',
+            path: 'basic',
+            component: () => import('@/views/pages/list/index.vue'),
+            meta: {
+              title: t('menu.pages.list.basic')
+            }
+          },
+          {
+            name: 'listCard',
+            path: 'card',
+            component: () => import('@/views/pages/list/card.vue'),
+            meta: {
+              title: t('menu.pages.list.card')
+            }
+          },
+          {
+            name: 'galleryList',
+            path: 'gallery',
+            component: () => import('@/views/pages/list/gallery.vue'),
+            meta: {
+              title: t('menu.pages.list.gallery')
+            }
+          }
+        ]
       },
       {
         name: 'ExcelPages',

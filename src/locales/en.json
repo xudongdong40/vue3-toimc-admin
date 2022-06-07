@@ -124,6 +124,11 @@
         "settings": "Settings page",
         "title": "personal center",
         "user": "personal page"
+      },
+      "list": {
+        "card": "listCard",
+        "gallery": "galleryList",
+        "basic": "basicList"
       }
     },
     "charts": {

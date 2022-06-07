@@ -124,7 +124,12 @@
       "lists": {
         "title": "列表页"
       },
-      "excel": "Excel处理"
+      "excel": "Excel处理",
+      "list": {
+        "card": "卡片列表",
+        "gallery": "画廊列表",
+        "basic": "标准列表"
+      }
     },
     "charts": {
       "title": "图表",
