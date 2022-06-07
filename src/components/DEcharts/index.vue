@@ -1,10 +1,10 @@
 <template>
-  <div ref="chartRef" class="chart" @resize="resize"></div>
+  <div ref="chartRef" class="chart"></div>
 </template>
 
 <script lang="ts">
-  import * as echarts from 'echarts'
-  import { useCharts } from './useCharts'
+  import { ECharts, init } from 'echarts'
+  import { debounce } from 'lodash-es'
 
   export default defineComponent({
     props: {
@@ -18,14 +18,30 @@
       }
     },
     setup(props: any) {
-      const { chart, chartRef, resize } = useCharts(props.responsive)
+      const chartRef = ref<ECharts>()
+      let echartsInstance: ECharts | undefined
+
+      function resize() {
+        echartsInstance?.resize()
+      }
+
+      function destroy() {
+        if (props.responsive) {
+          window.removeEventListener('resize', resize)
+        }
+      }
+
+      onUnmounted(destroy)
 
       onMounted(() => {
-        chart.value = echarts.init(chartRef.value)
-        chart.value.setOption(props.option)
+        if (props.responsive) {
+          window.addEventListener('resize', debounce(resize, 200))
+        }
+        echartsInstance = init(chartRef.value as unknown as HTMLElement)
+        echartsInstance.setOption(props.option)
       })
 
-      return { chartRef, chart, resize }
+      return { chartRef }
     }
   })
 </script>

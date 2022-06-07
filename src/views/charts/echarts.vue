@@ -2,7 +2,7 @@
   <div class="p-4 grid grid-cols-4 gap-3">
     <el-col>
       <t-card header="折线图">
-        <d-echarts :option="lineOptions"></d-echarts>
+        <d-echarts :option="lineOptions" autoresize></d-echarts>
       </t-card>
     </el-col>
     <el-col>
