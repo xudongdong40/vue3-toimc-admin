@@ -63,14 +63,14 @@
                   v-show="getIsEdit(scope, ele, i)"
                   class="edit"
                   @click="edit(scope.index, true, scope.row, scope.column.property)"
-                  ><tickets
-                /></el-icon>
+                  ><tickets />
+                </el-icon>
                 <el-icon
                   v-show="excelPageData[scope.index].isEdit && ele === editColumn"
                   class="edit"
                   @click="edit(scope.index, false, scope.row, '')"
-                  ><circle-check-filled
-                /></el-icon>
+                  ><circle-check-filled />
+                </el-icon>
               </div>
             </template>
             <template #footer>

@@ -49,7 +49,7 @@
     setup() {
       const actions = localeList
       const status = ref(false)
-      const [show, toggle] = useToggle(false)
+      const [show, toggle] = useToggle<any>(false)
       actions.push(
         ...[
           {
@@ -71,7 +71,6 @@
       )
 
       function handleCommand(command) {
-        console.log('🚀 ~ file: dropdown.vue ~ line 60 ~ handleCommand ~ command', command)
         ElMessage.success(`点击了${command}`)
       }
 
