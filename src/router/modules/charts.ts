@@ -30,14 +30,15 @@ const chartsRoutes: Array<AppRouteRecordRaw> = [
         },
         component: () => import('@/views/charts/amap.vue')
       },
-      {
-        name: '腾讯地图',
-        path: 'tencent',
-        meta: {
-          title: t('menu.charts.tencent')
-        },
-        component: () => import('@/views/charts/tencent.vue')
-      },
+      // todo
+      // {
+      //   name: '腾讯地图',
+      //   path: 'tencent',
+      //   meta: {
+      //     title: t('menu.charts.tencent')
+      //   },
+      //   component: () => import('@/views/charts/tencent.vue')
+      // },
       // 国内无法访问
       // {
       //   name: '谷歌地图',
