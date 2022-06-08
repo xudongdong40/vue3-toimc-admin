@@ -50,8 +50,9 @@
               class="time-slider ml-3 mr-3"
               :min="0"
               :max="state.total"
-              :step="1"
+              :step="0.01"
               :format-tooltip="formatTime"
+              @input="handleTimeChange"
               @change="handleTimeChange"
             ></d-slider>
             <span class="time-total">{{ formatTime(state.total) }}</span>
@@ -529,6 +530,9 @@
           state.volume = v
           player?.volume(v)
           emit('update:volume', v)
+        },
+        handleClick: () => {
+          console.log(23)
         },
         changeItem,
         formatTime,
