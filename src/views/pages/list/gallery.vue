@@ -29,46 +29,31 @@
 </template>
 
 <script lang="ts">
+  import axios from 'axios'
+  import { Random } from 'mockjs'
+
   export default defineComponent({
     setup() {
-      const files = [
-        {
-          title: 'IMG_4985.HEIC',
-          size: '3.9 MB',
-          source:
-            'https://images.unsplash.com/photo-1582053433976-25c00369fc93?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=512&q=80'
-        },
-        {
-          title: 'IMG_4985.HEIC',
-          size: '3.9 MB',
-          source:
-            'https://images.unsplash.com/photo-1582053433976-25c00369fc93?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=512&q=80'
-        },
-        {
-          title: 'IMG_4985.HEIC',
-          size: '3.9 MB',
-          source:
-            'https://images.unsplash.com/photo-1582053433976-25c00369fc93?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=512&q=80'
-        },
-        {
-          title: 'IMG_4985.HEIC',
-          size: '3.9 MB',
-          source:
-            'https://images.unsplash.com/photo-1582053433976-25c00369fc93?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=512&q=80'
-        },
-        {
-          title: 'IMG_4985.HEIC',
-          size: '3.9 MB',
-          source:
-            'https://images.unsplash.com/photo-1582053433976-25c00369fc93?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=512&q=80'
-        },
-        {
-          title: 'IMG_4985.HEIC',
-          size: '3.9 MB',
-          source:
-            'https://images.unsplash.com/photo-1582053433976-25c00369fc93?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=512&q=80'
+      onMounted(async () => {
+        const res = await axios.get('/api/public/beauty')
+        console.log('🚀 ~ file: gallery.vue ~ line 37 ~ onMounted ~ res', res.data)
+        if (res && res.data) {
+          files.value = res.data.data.map((o) => ({
+            title: Random.cname(),
+            size: '',
+            source: o
+          }))
         }
-      ]
+      })
+
+      const files = ref([
+        {
+          title: 'IMG_4985.HEIC',
+          size: '3.9 MB',
+          source: ''
+        }
+      ])
+
       return {
         files
       }
