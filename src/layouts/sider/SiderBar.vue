@@ -1,5 +1,11 @@
 <template>
-  <div class="transition-all duration-300" :style="{ width: menuWidth }">
+  <div
+    :class="[
+      'transition-all duration-300 bg-center bg-no-repeat bg-cover',
+      { transparent: backgroundImg !== '' }
+    ]"
+    :style="{ width: menuWidth, backgroundImage: 'url(' + backgroundImg + ')' }"
+  >
     <div class="logo-wrap flex items-center justify-center py-3 px-3 h-60px">
       <img class="max-h-full" src="@/assets/images/logo.png" />
     </div>
@@ -125,7 +131,8 @@
         allMenu,
         topMenu,
         mainMenu,
-        menuClassName
+        menuClassName,
+        backgroundImg: computed(() => store.$state.backgroundImg)
       }
     }
   })
@@ -213,10 +220,39 @@
 
         &.is-active {
           min-width: unset;
-          padding: 0;
+
+          // padding: 0;
           color: var(--side-sub-menu-active-text-color);
           background-color: var(--side-sub-menu-active-bg-color);
           border-radius: 5px;
+        }
+      }
+    }
+  }
+
+  .transparent {
+    .logo-wrap {
+      background-color: transparent !important;
+    }
+
+    .side-main-menu-wrap {
+      background-color: transparent !important;
+
+      :deep(.el-menu) {
+        background-color: transparent;
+
+        .el-menu-item,
+        .el-sub-menu__title {
+          color: #fff;
+          text-shadow: 0 5px 8px rgb(0 0 0 / 20%);
+          background-color: transparent;
+
+          &.is-active {
+            font-weight: bold;
+
+            // padding: 0;
+            color: var(--side-sub-menu-active-bg-color);
+          }
         }
       }
     }
