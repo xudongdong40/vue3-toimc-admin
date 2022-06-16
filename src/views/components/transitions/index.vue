@@ -39,6 +39,7 @@
 </template>
 
 <script lang="ts">
+  import { TransitionList } from '@/components/Transition/types'
   import { defineComponent } from 'vue'
 
   export default defineComponent({
@@ -61,7 +62,7 @@
         'ScaleRotate',
         'ExpandX',
         'Expand'
-      ]
+      ] as TransitionList[]
 
       let ctrl
       const start = () => {
