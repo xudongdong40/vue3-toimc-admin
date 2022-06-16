@@ -32,7 +32,11 @@
       },
       functions: {
         type: Object as PropType<Recordable>,
-        default: () => {}
+        default: () => ({
+          leave: (_el, done) => {
+            done()
+          }
+        })
       },
       delay: {
         type: [String, Number],

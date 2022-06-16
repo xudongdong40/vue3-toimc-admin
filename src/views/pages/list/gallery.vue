@@ -36,7 +36,6 @@
     setup() {
       onMounted(async () => {
         const res = await axios.get('/api/public/beauty')
-        console.log('🚀 ~ file: gallery.vue ~ line 37 ~ onMounted ~ res', res.data)
         if (res && res.data) {
           files.value = res.data.data.map((o) => ({
             title: Random.cname(),

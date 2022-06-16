@@ -21,7 +21,7 @@
       })
 
       const changeDarkMode = () => {
-        settingsStore.setDarkMode(darkMode.value ? false : true)
+        settingsStore.$state.darkMode = darkMode.value ? false : true
       }
 
       return {

@@ -10,6 +10,8 @@ import {
   generateMaskColors,
   generateBoxShadowColors
 } from '@/utils/theme'
+import { TransitionNameEnum } from '@/enums/menuEnum'
+import { THEME_SETTINGS_KEY } from '@/enums/cacheEnum'
 
 const localThemeSettings = localStorage.getItem('toimc-admin-theme')
 const mergeThemeSettings = _.merge(
@@ -18,42 +20,38 @@ const mergeThemeSettings = _.merge(
   localThemeSettings !== null ? JSON.parse(localThemeSettings) : {}
 )
 
-const { 
-  layout, 
-  fixHeader, 
-  menuWidth, 
-  darkMode,
-  primaryColor,
-  tabPage 
-} = mergeThemeSettings
+const { layout, fixHeader, menuWidth, darkMode, primaryColor, tabPage } = mergeThemeSettings
 
-
-const saveThemeSetting = (theme) => {
-  localStorage.setItem('toimc-admin-theme', theme)
+export type ThemeSettingsType = {
+  layout: string
+  fixHeader: boolean
+  darkMode: boolean
+  menuWidth: string
+  primaryColor: string
+  tabPage: boolean
+  backgroundImg: string
+  transitionName: string
+  transitionDelay: string
 }
 
 export const useSettingsStore = defineStore('settings', {
-  state: () => ({
-    layout: layout || 'siderbar',
-    fixHeader: fixHeader || true,
-    darkMode: darkMode || false,
-    menuWidth: menuWidth || '266px',
-    primaryColor: primaryColor || '#409eff',
-    tabPage: tabPage || true
-  }),
+  state: (): UseKeyAble<ThemeSettingsType> =>
+    ({
+      layout: layout || 'siderbar',
+      fixHeader: fixHeader || true,
+      darkMode: darkMode || false,
+      menuWidth: menuWidth || '266px',
+      primaryColor: primaryColor || '#409eff',
+      tabPage: tabPage || true,
+      transitionName: TransitionNameEnum.Fade,
+      transitionDelay: '0.5s',
+      backgroundImg: ''
+    } as ThemeSettingsType),
   getters: {
     getLayout: (state) => state.layout
   },
   actions: {
-    setLayout(layout) {
-      this.layout = layout
-      saveThemeSetting(JSON.stringify(this.$state))
-    },
-    setFixHeader(fixHeader) {
-      this.fixHeader = fixHeader
-      saveThemeSetting(JSON.stringify(this.$state))
-    },
-    getThemeColors(){
+    getThemeColors() {
       const defineColor = {
         primary: { light: this.primaryColor, dark: this.primaryColor }
       }
@@ -68,24 +66,11 @@ export const useSettingsStore = defineStore('settings', {
         generateBoxShadowColors()
       )
     },
-    setDarkMode(mode){
-      this.darkMode = mode
-      saveThemeSetting(JSON.stringify(this.$state))      
-    },
-    setPrimaryColor(color){
-      this.primaryColor = color
-      saveThemeSetting(JSON.stringify(this.$state)) 
-    },
-    setMenuWidth(menuWidth){
-      this.menuWidth = menuWidth
-      saveThemeSetting(JSON.stringify(this.$state)) 
-    },
-    setTabPage(tabPage){
-      this.tabPage = tabPage
-      saveThemeSetting(JSON.stringify(this.$state)) 
-    },
-    resetSetting(){
+    resetSetting() {
       this.$reset()
     }
+  },
+  persist: {
+    key: THEME_SETTINGS_KEY
   }
 })

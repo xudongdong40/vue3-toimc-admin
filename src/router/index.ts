@@ -5,6 +5,7 @@ import type { RouteRecordRaw } from 'vue-router'
 import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router'
 
 import { sortMenu } from '@/utils'
+import { USER_INFO_KEY } from '@/enums/cacheEnum'
 
 const modules = import.meta.globEager('./modules/**/*.ts')
 
@@ -85,7 +86,7 @@ const router = createRouter({
 })
 
 router.beforeEach((to, _, next) => {
-  const isAuth = localStorage.getItem('userInfo')
+  const isAuth = localStorage.getItem(USER_INFO_KEY)
   if (isAuth) {
     if (to.path.startsWith('/login')) {
       next({ path: '/home' })

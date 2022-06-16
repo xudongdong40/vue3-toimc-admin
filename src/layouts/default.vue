@@ -24,7 +24,11 @@
         </div>
         <div :class="['layout-main', { 'fixed-header-main': fixHeader === true }]">
           <el-scrollbar class="custom-scroll">
-            <router-view></router-view>
+            <router-view v-slot="{ Component }">
+              <basic-transition :name="transitionName" delay="2s">
+                <component :is="Component" />
+              </basic-transition>
+            </router-view>
           </el-scrollbar>
         </div>
       </div>
@@ -40,6 +44,7 @@
   import SiderBar from './sider/SiderBar.vue'
   import CustomHeader from './header/CustomHeader.vue'
   import MultiTabs from './tabs/MultiTabs.vue'
+  import { toLine } from '@/utils'
 
   export default defineComponent({
     components: {
@@ -69,7 +74,8 @@
         isShowThemeSetting,
         tabPage,
         headerHeight,
-        handleShowThemeSetting
+        handleShowThemeSetting,
+        transitionName: computed(() => toLine(store.$state.transitionName + 'Transition'))
       }
     }
   })

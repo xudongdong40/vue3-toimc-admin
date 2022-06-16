@@ -4,7 +4,10 @@
       <el-form :model="form" label-position="left">
         <el-form-item label="主题色">
           <span :style="{ color: form.theme, 'margin-right': '10px' }">{{ form.theme }}</span>
-          <el-color-picker v-model="form.theme" @change="handleChangeThemeColor" />
+          <el-color-picker
+            v-model="form.theme"
+            @change="(val) => handleStoreChange(val, 'primaryColor')"
+          />
           <!-- <el-select v-model="form.theme">
             <el-option label="蓝黑" :value="1" />
             <el-option label="蓝白" :value="2" />
@@ -17,19 +20,32 @@
           </el-select> -->
         </el-form-item>
         <el-form-item label="暗黑模式">
-          <el-switch v-model="form.darkMode" @change="handleChangeDark" />
+          <el-switch
+            v-model="form.darkMode"
+            @change="(val) => handleStoreChange(val, 'darkMode')"
+          />
         </el-form-item>
         <el-form-item label="菜单背景" class="menu-bg-custom">
-          <navigation-bg></navigation-bg>
+          <navigation-bg
+            :more-func="moreFunc"
+            :lists="bglists"
+            @change="
+              (val) =>
+                handleStoreChange(val.type === 'img' ? val?.value || '' : '', 'backgroundImg')
+            "
+          ></navigation-bg>
         </el-form-item>
         <el-form-item label="导航模式" class="nav-type">
           <navigation-type
             v-model:navigationMode="form.navigationMode"
-            @change="handleChangeLayout"
+            @change="(val) => handleStoreChange(val, 'layout')"
           ></navigation-type>
         </el-form-item>
         <el-form-item label="菜单宽度">
-          <el-select v-model="form.menuWidth" @change="handleChangeMenuWidth">
+          <el-select
+            v-model="form.menuWidth"
+            @change="(val) => handleStoreChange(val, 'menuWidth')"
+          >
             <el-option label="266px" value="266px" />
             <el-option label="277px" value="277px" />
             <el-option label="288px" value="288px" />
@@ -39,10 +55,13 @@
           <el-switch v-model="form.sidebarResize" />
         </el-form-item> -->
         <el-form-item label="头部固定">
-          <el-switch v-model="form.fixedHead" @change="handleChangeFixedHead" />
+          <el-switch
+            v-model="form.fixedHead"
+            @change="(val) => handleStoreChange(val, 'fixHeader')"
+          />
         </el-form-item>
         <el-form-item label="标签页">
-          <el-switch v-model="form.tabPage" @change="handleChangeTabPage" />
+          <el-switch v-model="form.tabPage" @change="(val) => handleStoreChange(val, 'tabPage')" />
         </el-form-item>
         <!-- <el-form-item label="标签图标">
           <el-switch v-model="form.tabPageIcon" />
@@ -59,6 +78,21 @@
         </el-form-item> -->
         <el-form-item label="显示Logo">
           <el-switch v-model="form.showLogo" />
+        </el-form-item>
+        <el-form-item label="切换动画">
+          <el-select
+            v-model="form.transitionName"
+            @change="(val) => handleStoreChange(val, 'transitionName')"
+          >
+            <el-option v-for="item in TRANSITION_NAMES" :key="item" :label="item" :value="item" />
+          </el-select>
+        </el-form-item>
+        <el-form-item label="动画延迟">
+          <el-input
+            v-model="form.transitionDelay"
+            placeholder="默认0.5s切换延迟"
+            @change="(val) => handleStoreChange(val, 'transitionDelay')"
+          />
         </el-form-item>
         <!-- <el-form-item label="加载进度条">
           <el-switch v-model="form.progress" />
@@ -79,10 +113,12 @@
 </template>
 
 <script lang="ts">
-  import { useSettingsStore } from '@/store/modules/settings'
+  import { ThemeSettingsType, useSettingsStore } from '@/store/modules/settings'
   import { storeToRefs } from 'pinia'
   import { useClipboard } from '@vueuse/core'
   import { ElMessage } from 'element-plus'
+  import { TransitionNameEnum, TRANSITION_NAMES } from '@/enums/menuEnum'
+  import axios from 'axios'
 
   export default defineComponent({
     name: 'ThemeSetting',
@@ -97,6 +133,8 @@
       const { copy } = useClipboard()
       const store = useSettingsStore()
       const { layout, fixHeader, darkMode, menuWidth, primaryColor, tabPage } = storeToRefs(store)
+      // 背景图片
+      const bglists = ref([] as string[])
 
       let { show } = toRefs(props)
       const showSetting = ref(show)
@@ -115,29 +153,20 @@
         showLogo: false,
         progress: true,
         changeLoading: false,
-        changeAnimate: false
+        changeAnimate: false,
+        transitionName: TransitionNameEnum.Fade,
+        transitionDelay: '0.5s'
       })
 
       const handleClosed = () => {
         emit('update:show', false)
       }
-      const handleChangeLayout = (layout) => {
-        store.setLayout(layout)
-      }
-      const handleChangeFixedHead = (value) => {
-        store.setFixHeader(value)
-      }
-      const handleChangeDark = (value) => {
-        store.setDarkMode(value)
-      }
-      const handleChangeMenuWidth = (value) => {
-        store.setMenuWidth(value)
-      }
-      const handleChangeThemeColor = (color) => {
-        store.setPrimaryColor(color)
-      }
-      const handleChangeTabPage = (value) => {
-        store.setTabPage(value)
+
+      const handleStoreChange = (
+        value: string | number | boolean,
+        type: keyof ThemeSettingsType
+      ) => {
+        store.$state[type] = value
       }
 
       const handleRestoreDefault = () => {
@@ -152,18 +181,27 @@
         emit('update:show', false)
       }
 
+      const moreFunc = async () => {
+        const res = await axios.get('/api/public/beauty')
+        // console.log('🚀 ~ file: SiderBar.vue ~ line 51 ~ moreFunc ~ res', res)
+        if (res.status === 200) {
+          const data = res.data
+          if (data.code === 200) {
+            bglists.value = [...bglists.value, ...data.data]
+          }
+        }
+      }
+
       return {
         form,
+        TRANSITION_NAMES,
         showSetting,
         handleClosed,
-        handleChangeLayout,
-        handleChangeFixedHead,
-        handleChangeDark,
-        handleChangeMenuWidth,
-        handleChangeThemeColor,
-        handleChangeTabPage,
         handleRestoreDefault,
-        handleCopySetting
+        handleCopySetting,
+        handleStoreChange,
+        moreFunc,
+        bglists
       }
     }
   })
