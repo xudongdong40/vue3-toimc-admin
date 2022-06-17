@@ -1,47 +1,49 @@
 <template>
-  <t-card>
-    <descriptions title="退款申请" :items="infoSchema" :border="false" :collapse="false" />
-  </t-card>
-  <el-divider />
-  <t-card>
-    <descriptions title="用户信息" :items="userSchema" :border="false" :collapse="false" />
-  </t-card>
-  <el-divider />
-  <el-card header="退货商品">
-    <el-table :data="tableData" stripe style="width: 100%" table-layout="auto">
-      <el-table-column
-        v-for="(item, index) in columns"
-        :key="index"
-        :prop="item.prop ? item.prop : ''"
-        :align="item.align ? item.align : 'left'"
-        :label="item.lable ? item.lable : ''"
-        :width="item.width ? item.width : ''"
-      >
-        <template v-if="item.type === 'link'" #default="scope">
-          <el-link type="primary" :underline="false">{{ scope.row.code }}</el-link>
-        </template>
-      </el-table-column>
-    </el-table>
-  </el-card>
-  <el-divider />
-  <el-card header="退货进度">
-    <el-table :data="tableData2" stripe style="width: 100%" table-layout="auto">
-      <el-table-column
-        v-for="(item, index) in columns2"
-        :key="index"
-        :prop="item.prop ? item.prop : ''"
-        :align="item.align ? item.align : 'left'"
-        :label="item.lable ? item.lable : ''"
-      >
-        <template v-if="item.type === 'status'" #default="scope">
-          <span
-            ><icon style="vertical-align: middle" type="SuccessFilled" color="green" />
-            {{ scope.row.status }}</span
-          >
-        </template>
-      </el-table-column>
-    </el-table>
-  </el-card>
+  <div class="p-4">
+    <t-card>
+      <descriptions title="退款申请" :items="infoSchema" :border="false" :collapse="false" />
+    </t-card>
+    <el-divider />
+    <t-card>
+      <descriptions title="用户信息" :items="userSchema" :border="false" :collapse="false" />
+    </t-card>
+    <el-divider />
+    <t-card header="退货商品">
+      <el-table :data="tableData" stripe style="width: 100%" table-layout="auto">
+        <el-table-column
+          v-for="(item, index) in columns"
+          :key="index"
+          :prop="item.prop ? item.prop : ''"
+          :align="item.align ? item.align : 'left'"
+          :label="item.lable ? item.lable : ''"
+          :width="item.width ? item.width : ''"
+        >
+          <template v-if="item.type === 'link'" #default="scope">
+            <el-link type="primary" :underline="false">{{ scope.row.code }}</el-link>
+          </template>
+        </el-table-column>
+      </el-table>
+    </t-card>
+    <el-divider />
+    <t-card header="退货进度">
+      <el-table :data="tableData2" stripe style="width: 100%" table-layout="auto">
+        <el-table-column
+          v-for="(item, index) in columns2"
+          :key="index"
+          :prop="item.prop ? item.prop : ''"
+          :align="item.align ? item.align : 'left'"
+          :label="item.lable ? item.lable : ''"
+        >
+          <template v-if="item.type === 'status'" #default="scope">
+            <span
+              ><icon style="vertical-align: middle" type="SuccessFilled" color="green" />
+              {{ scope.row.status }}</span
+            >
+          </template>
+        </el-table-column>
+      </el-table>
+    </t-card>
+  </div>
 </template>
 
 <script lang="ts">

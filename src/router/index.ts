@@ -86,7 +86,12 @@ const router = createRouter({
 })
 
 router.beforeEach((to, _, next) => {
-  const isAuth = localStorage.getItem(USER_INFO_KEY)
+  const userInfoStr = localStorage.getItem(USER_INFO_KEY)
+  const data = userInfoStr ? JSON.parse(userInfoStr) : {}
+
+  // todo 后期需要加入鉴权逻辑
+  const isAuth = data?.userInfo?.token ? true : false
+
   if (isAuth) {
     if (to.path.startsWith('/login')) {
       next({ path: '/home' })

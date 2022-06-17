@@ -17,7 +17,7 @@ const pagesRoutes: Array<AppRouteRecordRaw> = [
       {
         name: 'FormPages',
         path: 'form',
-        component: () => import('@/views/pages/index.vue'),
+        component: () => import('@/layouts/blank.vue'),
         meta: {
           title: t('menu.pages.form.title')
         },
@@ -35,7 +35,7 @@ const pagesRoutes: Array<AppRouteRecordRaw> = [
       {
         name: 'DetailPages',
         path: 'detail',
-        component: () => import('@/views/pages/index.vue'),
+        component: () => import('@/layouts/blank.vue'),
         meta: {
           title: t('menu.pages.detail.title')
         },
@@ -61,7 +61,7 @@ const pagesRoutes: Array<AppRouteRecordRaw> = [
       {
         name: 'ResultPages',
         path: 'result',
-        component: () => import('@/views/pages/index.vue'),
+        component: () => import('@/layouts/blank.vue'),
         redirect: '/page/result/success',
         meta: {
           title: t('menu.pages.result.title')
@@ -88,7 +88,7 @@ const pagesRoutes: Array<AppRouteRecordRaw> = [
       {
         name: 'UserCenter',
         path: 'center',
-        component: () => import('@/views/pages/index.vue'),
+        component: () => import('@/layouts/blank.vue'),
         meta: {
           title: t('menu.pages.users.title')
         },
@@ -115,7 +115,7 @@ const pagesRoutes: Array<AppRouteRecordRaw> = [
       {
         name: 'ErrorsPages',
         path: 'errors',
-        component: () => import('@/views/pages/index.vue'),
+        component: () => import('@/layouts/blank.vue'),
         meta: {
           title: t('menu.pages.errors.title'),
           alone: false
@@ -135,7 +135,7 @@ const pagesRoutes: Array<AppRouteRecordRaw> = [
       {
         name: 'ListsPages',
         path: 'lists',
-        component: () => import('@/views/pages/index.vue'),
+        component: () => import('@/layouts/blank.vue'),
         meta: {
           title: t('menu.pages.lists.title')
         },

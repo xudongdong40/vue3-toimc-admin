@@ -2,8 +2,8 @@
   <t-card
     :class="{
       'dashboard-card': true,
-      'no-border': !haveBorder,
-      'hover-shadow': hoverShadow
+      'no-border': !haveBorder
+      // 'hover-shadow': hoverShadow
     }"
     :body-style="{ ...bodyStyle, height: '100%' }"
     shadow="never"
@@ -102,10 +102,10 @@
     }
   }
 
-  .hover-shadow {
-    &:hover {
-      box-shadow: 0 0 15px #b3b3b3;
-      transition: all 0.2s;
-    }
-  }
+  // .hover-shadow {
+  //   &:hover {
+  //     box-shadow: 0 0 15px #b3b3b3;
+  //     transition: all 0.2s;
+  //   }
+  // }
 </style>

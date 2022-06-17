@@ -1,13 +1,15 @@
 <template>
-  <basic-table
-    ref="table"
-    :data="tableData"
-    :columns="columns"
-    :pagination="pagination"
-    :default-sort="{ prop: 'date', order: 'descending' }"
-  >
-    <template #address="{ row }">{{ row }}</template>
-  </basic-table>
+  <div class="p-4">
+    <basic-table
+      ref="table"
+      :data="tableData"
+      :columns="columns"
+      :pagination="pagination"
+      :default-sort="{ prop: 'date', order: 'descending' }"
+    >
+      <template #address="{ row }">{{ row }}</template>
+    </basic-table>
+  </div>
 </template>
 
 <script lang="ts">

@@ -113,10 +113,10 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue'
   import DashboardCard from './components/card/index.vue'
   import EchartsBoard from './components/board/index.vue'
   import BoardTable from './components/table/index.vue'
+
   import Mock from 'mockjs'
 
   export default defineComponent({
@@ -144,6 +144,7 @@
 <style scoped lang="scss">
   .dashboard-body {
     width: 100%;
+    height: 100%;
     padding: 20px;
     background: #f6f8f9;
 

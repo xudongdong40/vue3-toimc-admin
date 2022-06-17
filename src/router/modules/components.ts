@@ -20,7 +20,7 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
         meta: {
           title: t('menu.component.icons.icon')
         },
-        component: () => import('@/views/components/icon/index.vue'),
+        component: () => import('@/layouts/blank.vue'),
         redirect: '/comp/icon/element',
         children: [
           {
@@ -63,7 +63,7 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
         meta: {
           title: t('menu.component.form.title')
         },
-        component: () => import('@/views/components/forms/index.vue'),
+        component: () => import('@/layouts/blank.vue'),
         redirect: '/comp/forms/basic',
         children: [
           {
@@ -106,7 +106,7 @@ const componentsRoutes: Array<AppRouteRecordRaw> = [
         meta: {
           title: t('menu.component.table.title')
         },
-        component: () => import('@/views/components/table/index.vue'),
+        component: () => import('@/layouts/blank.vue'),
         redirect: '/comp/table/basic',
         children: [
           {

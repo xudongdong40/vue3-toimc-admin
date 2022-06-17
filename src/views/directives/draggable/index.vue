@@ -1,5 +1,5 @@
 <template>
-  <div class="h-full">
+  <div class="p-4 h-full">
     <t-card header="拖拽指令示例" class="text-lg font-bold">
       <span class="flex items-center justify-center mt-10 mb-10">拖拽下面的元素</span>
     </t-card>

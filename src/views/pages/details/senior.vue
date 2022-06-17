@@ -1,76 +1,78 @@
 <template>
-  <div class="header">
-    <el-row class="pt-3 pb-1" align="middle">
-      <el-col :span="8" class="overflow-ellipsis">
-        <span class="text-lg font-bold">{{ pageTitle }}</span>
-      </el-col>
-      <el-col :span="16" class="flex justify-end items-center">
-        <el-button type="primary">主操作</el-button>
-        <el-button>操作一</el-button>
-        <el-button type="danger">操作二</el-button>
-      </el-col>
-    </el-row>
-    <el-tabs v-model="activeName" class="demo-tabs">
-      <el-tab-pane label="详情" name="details" />
-      <el-tab-pane label="规则" name="rules" />
-      <el-tab-pane label="评价" name="appraise" />
-    </el-tabs>
-  </div>
-  <el-divider />
-  <t-card>
-    <descriptions :items="infoSchema" :border="false" :collapse="false" :column="2" />
-    <div class="sub-title">
-      <span>流程进度</span>
-      <el-divider />
+  <div class="p-4">
+    <div class="header">
+      <el-row class="pt-3 pb-1" align="middle">
+        <el-col :span="8" class="overflow-ellipsis">
+          <span class="text-lg font-bold">{{ pageTitle }}</span>
+        </el-col>
+        <el-col :span="16" class="flex justify-end items-center">
+          <el-button type="primary">主操作</el-button>
+          <el-button>操作一</el-button>
+          <el-button type="danger">操作二</el-button>
+        </el-col>
+      </el-row>
+      <el-tabs v-model="activeName" class="demo-tabs">
+        <el-tab-pane label="详情" name="details" />
+        <el-tab-pane label="规则" name="rules" />
+        <el-tab-pane label="评价" name="appraise" />
+      </el-tabs>
     </div>
-    <el-steps :active="3" align-center finish-status="success">
-      <el-step
-        v-for="(item, index) in stepList"
-        :key="index"
-        :title="item.title"
-        :description="item.description"
-      />
-    </el-steps>
-    <div class="sub-title">
-      <span>用户信息</span>
-      <el-divider />
-    </div>
-    <descriptions :items="userSchema" :border="false" :collapse="false" style="padding: 0 20px" />
-    <div class="bold-title">
-      <span>信息组</span>
-    </div>
-    <descriptions :items="msgSchema" :border="false" :collapse="false" style="padding: 0 20px" />
-    <t-card header="多层级信息组" shadow="never">
-      <descriptions title="组1" :items="group1" :border="false" :collapse="false" />
-      <el-divider />
-      <descriptions title="组2" :items="group2" :border="false" :collapse="false" />
-      <el-divider />
-      <descriptions title="组3" :items="group3" :border="false" :collapse="false" :column="1" />
-    </t-card>
     <el-divider />
-    <t-card header="用户近3个月来电记录" shadow="never">
-      <el-empty description="暂无数据" />
-    </t-card>
-    <el-divider />
-    <el-card header="退货进度">
-      <el-table :data="tableData" stripe style="width: 100%" table-layout="auto">
-        <el-table-column
-          v-for="(item, index) in columns"
+    <t-card shadow="never">
+      <descriptions :items="infoSchema" :border="false" :collapse="false" :column="2" />
+      <div class="sub-title">
+        <span>流程进度</span>
+        <el-divider />
+      </div>
+      <el-steps :active="3" align-center finish-status="success">
+        <el-step
+          v-for="(item, index) in stepList"
           :key="index"
-          :prop="item.prop ? item.prop : ''"
-          :align="item.align ? item.align : 'left'"
-          :label="item.lable ? item.lable : ''"
-        >
-          <template v-if="item.type === 'status'" #default="scope">
-            <span
-              ><icon style="vertical-align: middle" type="SuccessFilled" color="green" />
-              {{ scope.row.status }}</span
-            >
-          </template>
-        </el-table-column>
-      </el-table>
-    </el-card>
-  </t-card>
+          :title="item.title"
+          :description="item.description"
+        />
+      </el-steps>
+      <div class="sub-title">
+        <span>用户信息</span>
+        <el-divider />
+      </div>
+      <descriptions :items="userSchema" :border="false" :collapse="false" style="padding: 0 20px" />
+      <div class="bold-title">
+        <span>信息组</span>
+      </div>
+      <descriptions :items="msgSchema" :border="false" :collapse="false" style="padding: 0 20px" />
+      <t-card header="多层级信息组" shadow="never">
+        <descriptions title="组1" :items="group1" :border="false" :collapse="false" />
+        <el-divider />
+        <descriptions title="组2" :items="group2" :border="false" :collapse="false" />
+        <el-divider />
+        <descriptions title="组3" :items="group3" :border="false" :collapse="false" :column="1" />
+      </t-card>
+      <el-divider />
+      <t-card header="用户近3个月来电记录" shadow="never">
+        <el-empty description="暂无数据" />
+      </t-card>
+      <el-divider />
+      <t-card header="退货进度" shadow="never">
+        <el-table :data="tableData" stripe style="width: 100%" table-layout="auto">
+          <el-table-column
+            v-for="(item, index) in columns"
+            :key="index"
+            :prop="item.prop ? item.prop : ''"
+            :align="item.align ? item.align : 'left'"
+            :label="item.lable ? item.lable : ''"
+          >
+            <template v-if="item.type === 'status'" #default="scope">
+              <span
+                ><icon style="vertical-align: middle" type="SuccessFilled" color="green" />
+                {{ scope.row.status }}</span
+              >
+            </template>
+          </el-table-column>
+        </el-table>
+      </t-card>
+    </t-card>
+  </div>
 </template>
 
 <script lang="ts">

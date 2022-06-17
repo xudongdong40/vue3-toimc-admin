@@ -1,10 +1,12 @@
 <template>
-  <t-card header="复制指令示例" class="text-lg font-bold">
-    <div class="flex items-center justify-center mt-10 mb-10">
-      <el-input v-model="data" placeholder="请输入内容" style="width: 500px" />
-      <el-button v-copy="data" type="primary">复制</el-button>
-    </div>
-  </t-card>
+  <div class="p-4">
+    <t-card header="复制指令示例" class="text-lg font-bold">
+      <div class="flex items-center justify-center mt-10 mb-10">
+        <el-input v-model="data" placeholder="请输入内容" style="width: 500px" />
+        <el-button v-copy="data" type="primary">复制</el-button>
+      </div>
+    </t-card>
+  </div>
 </template>
 
 <script setup lang="ts">

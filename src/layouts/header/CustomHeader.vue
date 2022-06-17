@@ -121,7 +121,7 @@
       function handleClickQuit() {
         userStore.clearUserInfo()
         store.visitedRoutes = []
-        router.push('/login/pwd')
+        router.replace('/login/pwd')
       }
 
       watch(
