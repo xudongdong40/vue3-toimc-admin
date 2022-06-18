@@ -87,13 +87,6 @@
             <el-option v-for="item in TRANSITION_NAMES" :key="item" :label="item" :value="item" />
           </el-select>
         </el-form-item>
-        <el-form-item label="动画延迟">
-          <el-input
-            v-model="form.transitionDelay"
-            placeholder="默认0.5s切换延迟"
-            @change="(val) => handleStoreChange(val, 'transitionDelay')"
-          />
-        </el-form-item>
         <!-- <el-form-item label="加载进度条">
           <el-switch v-model="form.progress" />
         </el-form-item>
@@ -154,8 +147,7 @@
         progress: true,
         changeLoading: false,
         changeAnimate: false,
-        transitionName: TransitionNameEnum.Fade,
-        transitionDelay: '0.5s'
+        transitionName: TransitionNameEnum.Fade
       })
 
       const handleClosed = () => {

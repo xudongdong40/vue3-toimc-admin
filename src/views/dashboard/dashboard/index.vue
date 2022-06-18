@@ -137,6 +137,16 @@
         end3,
         end4
       }
+    },
+    activated() {
+      // called on initial mount
+      // and every time it is re-inserted from the cache
+      console.log('keep-alive demo, set keepAlive in meta: activated')
+    },
+    deactivated() {
+      // called when removed from the DOM into the cache
+      // and also when unmounted
+      console.log('keep-alive demo: deactivated')
     }
   })
 </script>

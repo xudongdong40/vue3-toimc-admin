@@ -109,6 +109,7 @@
   const modules = import.meta.globEager('@/assets/images/headers/**/*.jpeg')
 
   export default defineComponent({
+    name: 'Welcome',
     setup() {
       const images = ref([] as string[])
       const arr = [

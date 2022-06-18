@@ -31,7 +31,6 @@ export type ThemeSettingsType = {
   tabPage: boolean
   backgroundImg: string
   transitionName: string
-  transitionDelay: string
 }
 
 export const useSettingsStore = defineStore('settings', {
@@ -44,7 +43,6 @@ export const useSettingsStore = defineStore('settings', {
       primaryColor: primaryColor || '#409eff',
       tabPage: tabPage || true,
       transitionName: TransitionNameEnum.Fade,
-      transitionDelay: '0.5s',
       backgroundImg: ''
     } as ThemeSettingsType),
   getters: {
