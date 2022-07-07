@@ -72,7 +72,7 @@
       }
 
       const getLocation = async () => {
-        const url = 'https://restapi.amap.com/v3/ip?key=3c8dcea768d07bba53ae063c25bdf91f'
+        const url = 'https://restapi.amap.com/v3/ip?key=4057b14b748b340111a0e2eb67f6391c'
         const res = await fetch(url)
         const result = await res.json()
         adcode.value = result.adcode
@@ -80,7 +80,7 @@
       }
 
       const getWeather = async () => {
-        const url = `https://restapi.amap.com/v3/weather/weatherInfo?key=3c8dcea768d07bba53ae063c25bdf91f&city=${adcode.value}&extensions=base`
+        const url = `https://restapi.amap.com/v3/weather/weatherInfo?key=4057b14b748b340111a0e2eb67f6391c&city=${adcode.value}&extensions=base`
         const res = await fetch(url)
         const { status, lives } = await res.json()
         if (status === '1') {

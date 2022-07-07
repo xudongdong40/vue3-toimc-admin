@@ -10,6 +10,8 @@ export const USER_INFO_KEY = 'USER__INFO__'
 // user info key
 export const THEME_SETTINGS_KEY = 'THEME__SETTINGS__INFO__'
 
+export const TABS_BAR_KEY = 'TABS_BAR__'
+
 // role info key
 export const ROLES_KEY = 'ROLES__KEY__'
 
