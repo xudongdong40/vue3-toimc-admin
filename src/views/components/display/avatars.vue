@@ -46,14 +46,17 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue'
-  const modules = import.meta.globEager('@/assets/images/headers/**/*.jpeg')
+  const modules = import.meta.glob('@/assets/images/headers/**/*.jpeg', {
+    eager: true,
+    import: 'default'
+  })
 
   export default defineComponent({
     setup() {
       const images = ref([] as string[])
       Object.keys(modules).forEach((key) => {
-        const mod = modules[key].default || ''
-        images.value.push(mod)
+        const mod = modules[key] || ''
+        images.value.push(mod as string)
       })
 
       return {

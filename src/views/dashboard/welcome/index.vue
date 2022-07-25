@@ -106,7 +106,10 @@
   import * as echarts from 'echarts'
   import { formatNumber } from '@/utils'
 
-  const modules = import.meta.globEager('@/assets/images/headers/**/*.jpeg')
+  const modules = import.meta.glob('@/assets/images/headers/**/*.jpeg', {
+    eager: true,
+    import: 'default'
+  })
 
   export default defineComponent({
     name: 'Welcome',
@@ -130,8 +133,8 @@
       const { pkg, lastBuildTime } = __APP_INFO__
 
       Object.keys(modules).forEach((key) => {
-        const mod = modules[key].default || ''
-        images.value.push(mod)
+        const mod = modules[key] || ''
+        images.value.push(mod as string)
       })
 
       const hiMorning = computed(() => (dayjs().format('A') === 'AM' ? '早上好' : '下午好'))

@@ -7,12 +7,15 @@ import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router
 import { sortMenu } from '@/utils'
 import { USER_INFO_KEY } from '@/enums/cacheEnum'
 
-const modules = import.meta.globEager('./modules/**/*.ts')
+const modules = import.meta.glob('./modules/**/*.ts', {
+  import: 'default',
+  eager: true
+})
 
 const routeModuleList: AppRouteRecordRaw[] = []
 
 Object.keys(modules).forEach((key) => {
-  const mod = modules[key].default || {}
+  const mod = modules[key] || {}
   const modList = Array.isArray(mod) ? [...mod] : [mod]
   routeModuleList.push(...modList)
 })

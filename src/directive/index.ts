@@ -1,12 +1,15 @@
-import { App } from 'vue'
+import { App, Directive } from 'vue'
 
-const modules = import.meta.globEager('./modules/**/*.ts')
+const modules = import.meta.glob('./modules/**/*.ts', {
+  import: 'default',
+  eager: true
+})
 
 const directives = {
   install: function (app: App<Element>) {
     Object.keys(modules).forEach((key) => {
       const mod = key.replace('./modules/', '').replace('.ts', '')
-      app.directive(mod, modules[key].default)
+      app.directive(mod, modules[key] as Directive)
     })
   }
 }
