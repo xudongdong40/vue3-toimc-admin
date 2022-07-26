@@ -112,11 +112,16 @@ We are also building a documentation site for our open source project, and hope 
 
 The whole open source team has been formed, including product, development, operations a total of 8 people of partners, every day the partners are happy to discuss technical.
 
-Plan progress: [Github issues label: Plan](https://github.com/toimc-team/vue3-toimc-admin/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+ label%3Aplan)
+Plan progress: [Github issues label: Plan](https://github.com/toimc-team/vue3-toimc-admin/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3Aplan)
 
 ### Future planning
 
 After the current phase is complete, we will continue to enrich our base components, adding highly available business components, unit testing solutions and front-end security solutions. We will also build a technical community, knowledge payment and a point system around our open source projects to provide a platform for technical exchange and sharing and content realisation for those who participate in our open source projects and use them.
+
+- [] [Nestjs backend](https://github.com/toimc-team/nestjs-toimc-admin)
+- [] Electron destop APP
+- [] Plugins Store & Components Store
+- [] Distribution Module
 
 ## How to join
 
